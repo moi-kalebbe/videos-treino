@@ -1,0 +1,28 @@
+# vídeos, áudio e frames baixados das referências (direitos dos autores — não vão pro GitHub)
+referencias/_brutos/
+*.mp4
+*.mov
+*.wav
+.DS_Store
+
+# chaves de API (ElevenLabs etc.)
+.env
+.env.*
+!.env.example
+
+# artefatos de produção
+saida/
+producao/*/.hyperframes/
+producao/*/node_modules/
+
+# rosto e voz do dono (repo é público: nada que permita clonar)
+producao/base-avatar/
+producao/*/avatar/
+producao/*/assets/avatar/
+producao/*/assets/audio/narracao*.mp3
+producao/*/amostras-voz/
+# cópias de versões antigas das composições
+producao/*/index-v*.html.txt
+
+# python
+__pycache__/

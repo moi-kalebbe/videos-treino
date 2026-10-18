@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>#07 Um atendente que não dorme</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <!-- tempos da narração (gerado por scripts/narracao.py; sem ele, usa a estimativa abaixo) -->
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 400; src: url("assets/fonts/inter-400.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-500.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; src: url("assets/fonts/instrument-serif-italic.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+
+      :root {
+        --bg: #0b1020;
+        --bg-2: #141b33;
+        --ink: #f4f5f8;
+        --muted: #8b93ad;
+        --lime: #d7ff3a;
+        --green: #25d366;
+        --chat-bg: #0e1621;
+        --bubble-in: #1f2c3a;
+        --bubble-out: #1f5e45;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
+      #root {
+        position: relative; width: 100%; height: 100%; overflow: hidden;
+        font-family: "Inter", sans-serif; color: var(--ink);
+      }
+      .clip { position: absolute; inset: 0; }
+
+      /* fundo */
+      #fundo { background: radial-gradient(120% 70% at 50% 35%, #1b2550 0%, var(--bg) 60%); }
+      #fundo .grade {
+        position: absolute; inset: 0; opacity: 0.18;
+        background-image: linear-gradient(#2a3566 1px, transparent 1px), linear-gradient(90deg, #2a3566 1px, transparent 1px);
+        background-size: 72px 72px;
+      }
+
+      /* título fixo por bloco */
+      .titulo {
+        position: absolute; left: 80px; right: 80px; top: 130px;
+        display: flex; flex-direction: column; gap: 18px; opacity: 0;
+      }
+      .kicker { font: 700 26px "Inter"; letter-spacing: 0.16em; color: var(--lime); }
+      .frase { font: 800 74px/1.04 "Inter"; letter-spacing: -0.035em; }
+      .frase em { font: italic 400 84px/1 "Instrument Serif"; letter-spacing: -0.01em; color: var(--lime); }
+
+      /* relógio grande */
+      #relogio {
+        position: absolute; left: 50%; top: 420px; width: 300px; margin-left: -150px; height: 78px;
+        display: flex; align-items: center; justify-content: center; gap: 14px;
+        border-radius: 40px; background: #0a0f1fcc; border: 2px solid #2a3566;
+        font: 500 44px "JetBrains Mono"; color: var(--ink);
+      }
+      #relogio .lua { width: 22px; height: 22px; display: block; border-radius: 50%; box-shadow: -7px 2px 0 0 #ffd76a; transform: translateX(6px); }
+
+      /* celular */
+      #celular {
+        position: absolute; left: 50%; top: 540px; width: 620px; margin-left: -310px; height: 900px;
+        border-radius: 64px; background: #05070d; padding: 18px;
+        box-shadow: 0 40px 120px #000a, 0 0 0 3px #2b3352;
+      }
+      #tela { position: relative; width: 100%; height: 100%; border-radius: 48px; overflow: hidden; background: var(--chat-bg); }
+      #ceu { position: absolute; inset: 0; background: linear-gradient(#f2c98a, #fff3dd); opacity: 0; }
+      .topo {
+        position: absolute; left: 0; right: 0; top: 0; height: 150px; padding: 54px 30px 0;
+        display: flex; align-items: center; gap: 18px; background: #17212b;
+      }
+      .avatar { width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #6b7cff, #b06bff); display: block; }
+      .nome { font: 700 30px "Inter"; }
+      .status { font: 400 22px "Inter"; color: var(--muted); }
+      .simulacao {
+        position: absolute; right: 26px; top: 66px; padding: 6px 12px; border-radius: 10px;
+        font: 700 16px "Inter"; letter-spacing: 0.12em; color: #0b1020; background: var(--lime);
+      }
+      .janela { position: absolute; left: 0; right: 0; top: 150px; bottom: 0; overflow: hidden; }
+      .chat { position: absolute; left: 24px; right: 24px; top: 26px; bottom: 30px; display: flex; flex-direction: column; gap: 16px; }
+      .msg {
+        max-width: 500px; padding: 20px 24px 34px; border-radius: 28px; position: relative;
+        font: 500 34px/1.28 "Inter"; opacity: 0;
+      }
+      .msg .hora { position: absolute; right: 16px; bottom: 8px; font: 400 17px "Inter"; color: #ffffffcc; }
+      .in { align-self: flex-start; background: var(--bubble-in); border-top-left-radius: 8px; }
+      .out { align-self: flex-end; background: var(--bubble-out); border-top-right-radius: 8px; }
+      .ia-tag { display: block; font: 700 20px "Inter"; letter-spacing: 0.08em; color: var(--lime); margin-bottom: 6px; }
+      .digitando { align-self: flex-end; padding: 22px 26px; border-radius: 26px; background: var(--bubble-out); display: flex; gap: 10px; opacity: 0; }
+      .digitando i { width: 14px; height: 14px; border-radius: 50%; background: #ffffffcc; display: block; }
+      .botoes { align-self: flex-end; display: flex; gap: 12px; opacity: 0; }
+      .botao {
+        position: relative; padding: 16px 22px; border-radius: 18px; border: 2px solid #3fbf8a;
+        font: 700 30px "Inter"; color: #b9ffe0; overflow: hidden;
+      }
+      .ripple { position: absolute; left: 50%; top: 50%; width: 40px; height: 40px; margin: -20px 0 0 -20px; border-radius: 50%; background: #ffffff66; display: block; opacity: 0; }
+      .dedo {
+        position: absolute; left: 120px; top: 560px; width: 74px; height: 74px; border-radius: 50%;
+        background: #ffffff33; border: 3px solid #ffffffcc; opacity: 0; display: block;
+      }
+
+      /* card de encaminhamento */
+      #card-humano {
+        position: absolute; left: 50%; top: 1150px; width: 760px; margin-left: -380px;
+        padding: 30px 34px; border-radius: 30px; background: #f4f5f8; color: #0b1020;
+        box-shadow: 0 30px 80px #000c; display: flex; gap: 26px; align-items: center; opacity: 0;
+      }
+      #card-humano .foto { width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, #ff9a6b, #ff5f8f); display: block; flex: none; }
+      #card-humano .rotulo { font: 700 20px "Inter"; letter-spacing: 0.12em; color: #5b647f; }
+      #card-humano .linha { font: 800 34px/1.15 "Inter"; margin-top: 4px; }
+      #card-humano .resumo { font: 400 25px/1.3 "Inter"; color: #3b4360; margin-top: 8px; }
+
+      /* carimbo */
+      #carimbo {
+        position: absolute; left: 50%; top: 860px; width: 620px; margin-left: -310px; height: 170px;
+        display: flex; align-items: center; justify-content: center;
+        border: 10px solid var(--green); border-radius: 24px; color: var(--green);
+        font: 800 96px "Inter"; letter-spacing: 0.04em; background: #0b1020d9; opacity: 0;
+      }
+
+      /* rebobinar */
+      #rebobina { position: absolute; inset: 0; opacity: 0; }
+      #rebobina .listras {
+        position: absolute; inset: 0;
+        background: repeating-linear-gradient(0deg, #ffffff10 0 4px, transparent 4px 14px);
+      }
+      #rebobina .icone { position: absolute; left: 80px; top: 1460px; font: 800 64px "Inter"; color: var(--ink); letter-spacing: -0.1em; }
+
+      /* legenda */
+      #legenda { position: absolute; left: 60px; right: 60px; top: 1500px; height: 200px; }
+      .grupo {
+        position: absolute; left: 0; right: 0; top: 0;
+        display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 12px; opacity: 0;
+      }
+      .palavra {
+        display: inline-block; padding: 6px 16px; border-radius: 14px; background: #05070de6;
+        font: 800 52px/1.1 "Inter"; letter-spacing: -0.02em; color: var(--ink);
+      }
+
+      /* CTA */
+      #cta { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 40px; background: var(--bg); }
+      #cta .linha1 { font: 800 80px "Inter"; letter-spacing: -0.03em; opacity: 0; }
+      #cta .palavra-chave {
+        display: block; padding: 18px 46px; border-radius: 22px; background: var(--lime); color: #0b1020;
+        font: 800 150px "Inter"; letter-spacing: -0.02em; opacity: 0;
+      }
+      #cta .linha2 { font: italic 400 58px "Instrument Serif"; color: var(--muted); opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="38.5" data-width="1080" data-height="1920">
+      <!-- cenas 1–6: a conversa -->
+      <section id="conversa" class="clip" data-start="0" data-duration="31.8" data-track-index="0">
+        <div id="fundo" class="clip-fill" style="position:absolute;inset:0"><div class="grade"></div></div>
+
+        <div class="titulo" id="t1"><span class="kicker">23H47 · SEXTA-FEIRA</span><p class="frase">Cliente perguntando o <em>preço.</em></p></div>
+        <div class="titulo" id="t2"><span class="kicker">NA MAIORIA DAS EMPRESAS</span><p class="frase">Ele espera até <em>amanhã.</em></p></div>
+        <div class="titulo" id="t3"><span class="kicker">AGORA, A MESMA MENSAGEM</span><p class="frase">Com um agente de IA <em>atendendo.</em></p></div>
+        <div class="titulo" id="t4"><span class="kicker">EM SEGUNDOS</span><p class="frase">Preço, dúvida e <em>horário marcado.</em></p></div>
+        <div class="titulo" id="t5"><span class="kicker">PERGUNTA DIFÍCIL?</span><p class="frase">Passa pra sua equipe, com o <em>resumo pronto.</em></p></div>
+        <div class="titulo" id="t6"><span class="kicker">E VOCÊ?</span><p class="frase">Fora do celular. A venda, <em>dentro.</em></p></div>
+
+        <div id="relogio"><span class="lua"></span><span id="hora">23:47</span></div>
+
+        <div id="celular" data-layout-allow-overlap data-layout-allow-occlusion>
+          <div id="tela">
+            <div id="ceu"></div>
+            <div class="topo">
+              <span class="avatar"></span>
+              <div><p class="nome">Cliente</p><p class="status" id="status">online</p></div>
+              <span class="simulacao">SIMULAÇÃO</span>
+            </div>
+            <div class="janela" data-layout-allow-occlusion><div class="chat">
+              <div class="msg in" id="m1">Oi! Quanto custa o serviço de vocês?<span class="hora">23:47</span></div>
+              <div class="msg in" id="m2">Já resolvi com outra empresa, obrigado.<span class="hora">08:12</span></div>
+              <div class="digitando" id="dig"><i></i><i></i><i></i></div>
+              <div class="msg out" id="m3"><span class="ia-tag">AGENTE DE IA</span>Oi! Sai a partir de R$ 290. Quer agendar uma visita?<span class="hora">23:47</span></div>
+              <div class="botoes" id="bts">
+                <span class="botao" id="b1">Quinta, 10h<span class="ripple" id="rip"></span></span>
+                <span class="botao">Sexta, 15h</span>
+              </div>
+              <div class="msg in" id="m4">Quinta, 10h 👍<span class="hora">23:48</span></div>
+              <div class="msg in" id="m5">Consigo desconto pra 3 unidades?<span class="hora">23:48</span></div>
+            </div></div>
+            <span class="dedo" id="dedo"></span>
+          </div>
+        </div>
+
+        <div id="card-humano" data-layout-allow-overlap data-layout-allow-occlusion>
+          <span class="foto"></span>
+          <div>
+            <p class="rotulo">ENCAMINHADO PARA ANA · VENDAS</p>
+            <p class="linha">Pedido de desconto</p>
+            <p class="resumo">Resumo: cliente agendou quinta 10h e quer preço para 3 unidades.</p>
+          </div>
+        </div>
+
+        <div id="carimbo" data-layout-allow-overlap data-layout-allow-occlusion>AGENDADO</div>
+
+        <div id="rebobina"><div class="listras"></div><span class="icone">◀◀</span></div>
+      </section>
+
+      <!-- cena 7: CTA -->
+      <section id="cta" class="clip" data-start="31.8" data-duration="6.7" data-track-index="0">
+        <p class="linha1">Comenta</p>
+        <span class="palavra-chave">ATENDE</span>
+        <p class="linha2">que eu te mostro como seria na sua empresa</p>
+      </section>
+
+      <!-- legenda por cima de tudo -->
+      <div id="legenda" class="clip" data-start="0" data-duration="38.5" data-track-index="1"></div>
+
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="38.5" data-volume="1"></audio>
+      <!-- efeitos sonoros (tempos = início da cena + atraso da animação) -->
+      <audio id="sfx-notif-1" src="assets/audio/notificacao.mp3" data-start="0.6" data-duration="0.6" data-volume="0.7"></audio>
+      <audio id="sfx-notif-2" src="assets/audio/notificacao.mp3" data-start="7.5" data-duration="0.6" data-volume="0.7"></audio>
+      <audio id="sfx-rebobinar" src="assets/audio/rebobinar.mp3" data-start="9.55" data-duration="1.6" data-volume="0.6"></audio>
+      <audio id="sfx-digitacao" src="assets/audio/digitacao.mp3" data-start="15.29" data-duration="1.36" data-volume="0.5"></audio>
+      <audio id="sfx-notif-3" src="assets/audio/notificacao.mp3" data-start="16.6" data-duration="0.6" data-volume="0.7"></audio>
+      <audio id="sfx-toque" src="assets/audio/toque.mp3" data-start="20.34" data-duration="0.48" data-volume="0.8"></audio>
+      <audio id="sfx-notif-4" src="assets/audio/notificacao.mp3" data-start="21.07" data-duration="0.6" data-volume="0.7"></audio>
+      <audio id="sfx-whoosh-1" src="assets/audio/whoosh.mp3" data-start="22.1" data-duration="0.68" data-volume="0.5"></audio>
+      <audio id="sfx-carimbo" src="assets/audio/carimbo.mp3" data-start="27.9" data-duration="0.8" data-volume="0.9"></audio>
+      <audio id="sfx-whoosh-2" src="assets/audio/whoosh.mp3" data-start="32.15" data-duration="0.68" data-volume="0.5"></audio>
+      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="38.5" data-volume="0.18" data-fade-out="2"></audio>
+    </div>
+
+    <script>
+      // ---- tempos das cenas (segundos). Ajustar aqui se a narração mudar. ----
+      // Início de cada cena = início da fala correspondente (window.CENAS vem de assets/legenda.js).
+      const C = window.CENAS || [0, 3, 8, 11, 19, 24, 30];
+      const T = { s1: C[0], s2: C[1], s3: C[2], s4: C[3], s5: C[4], s6: C[5], s7: C[6] };
+
+      // Frases da narração com tempo estimado; assets/legenda.js (ElevenLabs) substitui por tempo real por palavra.
+      const FRASES_ESTIMADAS = [
+        [0.2, 3.0, "Onze e quarenta e sete da noite. Um cliente quer saber o preço."],
+        [3.2, 8.0, "Na maioria das empresas, ele espera até amanhã. E amanhã já comprou de outro."],
+        [8.2, 11.0, "Agora a mesma mensagem, com um agente de IA atendendo."],
+        [11.2, 19.0, "Ele responde em segundos, com o preço certo, tira a dúvida e oferece um horário."],
+        [19.2, 24.0, "Se a pergunta for difícil, ele passa pra uma pessoa da sua equipe, com o resumo da conversa pronto."],
+        [24.2, 30.0, "Você não fica no celular de madrugada. E a venda não vai embora."],
+        [30.2, 35.0, "Quer ver como isso funcionaria na sua empresa? Comenta ATENDE."],
+      ];
+
+      function palavrasEstimadas() {
+        const lista = [];
+        for (const [ini, fim, texto] of FRASES_ESTIMADAS) {
+          const ws = texto.split(" ");
+          const passo = (fim - ini) / ws.length;
+          ws.forEach((w, i) => lista.push({ w, s: ini + i * passo, e: ini + (i + 1) * passo }));
+        }
+        return lista;
+      }
+
+      // Agrupa palavras em blocos curtos (máx. 3 palavras ou quebra em pontuação).
+      function agrupar(palavras) {
+        const grupos = [];
+        let atual = [];
+        for (const p of palavras) {
+          atual.push(p);
+          if (atual.length === 3 || /[.,?!]$/.test(p.w)) { grupos.push(atual); atual = []; }
+        }
+        if (atual.length) grupos.push(atual);
+        return grupos;
+      }
+
+      const tl = gsap.timeline({ paused: true });
+
+      // ---- legenda ----
+      const palavras = (window.LEGENDA && window.LEGENDA.length) ? window.LEGENDA : palavrasEstimadas();
+      const caixa = document.getElementById("legenda");
+      agrupar(palavras).forEach((grupo) => {
+        const g = document.createElement("div");
+        g.className = "grupo";
+        caixa.appendChild(g);
+        const fimGrupo = grupo[grupo.length - 1].e;
+        grupo.forEach((p) => {
+          const span = document.createElement("span");
+          span.className = "palavra";
+          span.textContent = p.w;
+          g.appendChild(span);
+          tl.set(span, { backgroundColor: "#d7ff3a", color: "#0b1020" }, p.s);
+          tl.set(span, { backgroundColor: "rgba(5,7,13,0.9)", color: "#f4f5f8" }, p.e);
+        });
+        tl.fromTo(g, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.12, ease: "power2.out" }, grupo[0].s);
+        tl.set(g, { opacity: 0 }, fimGrupo + 0.05);
+      });
+
+      // ---- títulos: entra no início do bloco, sai no fim ----
+      const titulos = [["#t1", T.s1, T.s2], ["#t2", T.s2, T.s3], ["#t3", T.s3, T.s4], ["#t4", T.s4, T.s5], ["#t5", T.s5, T.s6], ["#t6", T.s6, T.s7]];
+      for (const [sel, ini, fim] of titulos) {
+        tl.fromTo(sel, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, ini + 0.05);
+        tl.to(sel, { opacity: 0, y: -20, duration: 0.3, ease: "power2.in" }, fim - 0.3);
+      }
+
+      // ---- relógio ----
+      const hora = document.getElementById("hora");
+      const relogioEstado = { min: 23 * 60 + 47 };
+      const escreverHora = () => {
+        const m = Math.round(relogioEstado.min) % (24 * 60);
+        hora.textContent = String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0");
+      };
+      tl.set(relogioEstado, { min: 23 * 60 + 47, onUpdate: escreverHora }, 0);
+      // 23:47 → 08:12 (dia seguinte) acelerando
+      tl.to(relogioEstado, { min: 24 * 60 + 8 * 60 + 12, duration: 2.6, ease: "power2.in", onUpdate: escreverHora }, T.s2 + 0.6);
+      tl.to("#ceu", { opacity: 0.12, duration: 2.6, ease: "power2.in" }, T.s2 + 0.6);
+      tl.to("#relogio .lua", { opacity: 0, duration: 0.6 }, T.s2 + 2.4);
+      // rebobina 08:12 → 23:47
+      tl.to(relogioEstado, { min: 23 * 60 + 47, duration: 1.2, ease: "power3.inOut", onUpdate: escreverHora }, T.s3 + 0.3);
+      tl.to("#ceu", { opacity: 0, duration: 1.2 }, T.s3 + 0.3);
+      tl.to("#relogio .lua", { opacity: 1, duration: 0.4 }, T.s3 + 1.2);
+      // a conversa nova anda só 2 minutos
+      tl.to(relogioEstado, { min: 23 * 60 + 49, duration: 14, ease: "none", onUpdate: escreverHora }, T.s4);
+
+      // ---- entrada do celular ----
+      tl.fromTo("#celular", { y: 120, opacity: 0, scale: 0.94 }, { y: 0, opacity: 1, scale: 1, duration: 0.7, ease: "power3.out" }, 0);
+      tl.fromTo("#relogio", { y: -30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "power3.out" }, 0.15);
+
+      // S1: mensagem chega
+      tl.fromTo("#m1", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, 0.6);
+
+      // S2: ninguém responde; de manhã o cliente desiste
+      tl.set("#status", { textContent: "visto por último às 23:47" }, T.s2 + 0.4);
+      tl.fromTo("#m2", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, T.s2 + 3.4);
+      tl.to("#celular", { rotation: -1.5, duration: 0.15, yoyo: true, repeat: 3, ease: "sine.inOut" }, T.s2 + 3.6);
+
+      // S3: rebobinar
+      tl.to("#rebobina", { opacity: 1, duration: 0.15 }, T.s3 + 0.2);
+      tl.fromTo("#rebobina .listras", { y: 0 }, { y: -280, duration: 1.4, ease: "none" }, T.s3 + 0.2);
+      tl.to("#m2", { opacity: 0, y: 30, duration: 0.3, ease: "power2.in" }, T.s3 + 0.4);
+      tl.to("#rebobina", { opacity: 0, duration: 0.2 }, T.s3 + 1.6);
+      tl.set("#status", { textContent: "online" }, T.s3 + 1.6);
+      tl.fromTo("#m1", { scale: 1 }, { scale: 1.04, duration: 0.2, yoyo: true, repeat: 1 }, T.s3 + 1.8);
+
+      // S4: IA responde e agenda
+      tl.to("#dig", { opacity: 1, duration: 0.2 }, T.s4 + 0.3);
+      tl.fromTo("#dig i", { y: 0 }, { y: -10, duration: 0.25, stagger: 0.12, yoyo: true, repeat: 3, ease: "sine.inOut" }, T.s4 + 0.3);
+      tl.set("#dig", { display: "none" }, T.s4 + 1.6);
+      tl.fromTo("#m3", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "back.out(1.6)" }, T.s4 + 1.6);
+      tl.fromTo("#bts", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, T.s4 + 3.0);
+      // dedo toca em "Quinta, 10h"
+      tl.fromTo("#dedo", { opacity: 0, x: 300, y: 260 }, { opacity: 1, x: 0, y: 0, duration: 0.8, ease: "power2.out" }, T.s4 + 4.4);
+      tl.to("#dedo", { scale: 0.8, duration: 0.12, yoyo: true, repeat: 1 }, T.s4 + 5.3);
+      tl.fromTo("#rip", { opacity: 0.9, scale: 0 }, { opacity: 0, scale: 9, duration: 0.6, ease: "power2.out" }, T.s4 + 5.35);
+      tl.to("#dedo", { opacity: 0, duration: 0.3 }, T.s4 + 5.8);
+      tl.set("#rip", { display: "none" }, T.s4 + 6.0);
+      tl.to("#bts", { opacity: 0.35, duration: 0.3 }, T.s4 + 5.8);
+      tl.fromTo("#m4", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, T.s4 + 6.0);
+
+      // S5: pergunta difícil vai pra uma pessoa
+      tl.to(".chat", { y: -230, duration: 0.5, ease: "power2.inOut" }, T.s5 + 0.1);
+      tl.to("#m1", { opacity: 0, duration: 0.3 }, T.s5 + 0.1);
+      tl.fromTo("#m5", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, T.s5 + 0.5);
+      tl.fromTo("#card-humano", { opacity: 0, x: 500 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, T.s5 + 1.6);
+      tl.to("#celular", { scale: 0.96, opacity: 0.75, duration: 0.6 }, T.s5 + 1.6);
+
+      // S6: carimbo
+      tl.to("#card-humano", { opacity: 0, x: -500, duration: 0.45, ease: "power2.in" }, T.s6);
+      tl.to("#celular", { scale: 1, opacity: 1, duration: 0.5 }, T.s6 + 0.2);
+      tl.fromTo("#carimbo", { opacity: 0, scale: 2.4, rotation: -24 }, { opacity: 1, scale: 1, rotation: -8, duration: 0.35, ease: "power4.in" }, T.s6 + 1.0);
+      tl.to("#celular", { y: 10, duration: 0.08, yoyo: true, repeat: 1 }, T.s6 + 1.35);
+
+      // S7: CTA
+      tl.fromTo("#cta .linha1", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, T.s7 + 0.1);
+      tl.fromTo("#cta .palavra-chave", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(2)" }, T.s7 + 0.4);
+      tl.fromTo("#cta .linha2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, T.s7 + 0.9);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
