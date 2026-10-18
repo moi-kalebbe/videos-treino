@@ -8,7 +8,7 @@
 | Avatar | só na abertura (~5 s) |
 | Linguagem | [guia de linguagem natural](../guias/linguagem-natural.md) |
 | CTA | a definir (`DIAGNÓSTICO` ou `PLANTÃO`) |
-| Status | aprovado (v2), publicação agendada 18/10 18h |
+| Status | publicado 18/10/2026 18h00: https://www.instagram.com/reel/DepeteHAEtd/ |
 | Efeitos | headline wall + zoom-through + green screen (abertura), doodle boil (pedreiro) |
 
 ## Abertura (avatar)

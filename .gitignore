@@ -33,3 +33,7 @@ producao/*/capa/capa-9x16.png
 producao/*/capa/*.jpg
 producao/*/capa/*.png
 producao/*/assets/broll/
+
+# A Virada: trilha e efeitos da Pixabay, fotos de arquivo e imagens geradas (não redistribuir no repo)
+producao/a-virada-*/assets/audio/
+producao/a-virada-*/capa/assets/img/

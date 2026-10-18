@@ -23,6 +23,9 @@ O dono sobe vídeos de referência nas **Notas Rápidas** do Mac. Quando pedir p
 3. Analisar folhas de contato + transcrição e registrar num `referencias/lote-NN.md`: conteúdo, edição (frames) e **o que agrega** (formato novo, pauta nova, técnica).
 4. Levar o que agrega para `formatos/` e `repertorio/`.
 
+## Calendário
+`calendario.md` tem a grade semanal (domingo Plantão IA, segunda A Virada, quarta Caso Real) e tudo o que foi publicado ou agendado. **Atualizar ao publicar ou agendar** e consultar antes de propor o próximo vídeo. Agendamentos de mais de 24 h ficam em `agendamentos/` (LaunchAgent + script).
+
 ## Regras
 - **Voz e áudio:** seguir `guias/voz-e-audio.md` em todo vídeo ("IA" escrito normal, fala por fala sem `<break>`, +0,7 s no fim do avatar, conferência local por trechos).
 - **Mídia grátis primeiro:** antes de gerar imagem ou vídeo pago, ver `guias/bancos-de-midia.md` (Pexels, Pixabay, NASA, Wikimedia, Hugging Face, LTX local).

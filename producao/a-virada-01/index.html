@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>A Virada · 01 · A Chave</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; src: url("assets/fonts/instrument-serif-italic.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+
+      :root { --preto: #050505; --branco: #f2efe8; --vermelho: #e3141b; --ouro: #d9a94a; --ouro2: #fff1c4; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--preto); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--branco); font-family: "Anton", sans-serif; }
+      .clip { position: absolute; inset: 0; }
+      #preto { background: var(--preto); }
+      .vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+      /* planos: foto ou imagem em tela cheia, corte seco */
+      .plano { position: absolute; inset: 0; overflow: hidden; opacity: 0; background: var(--preto); }
+      .plano img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+      .antigo img { filter: grayscale(1) sepia(0.35) contrast(1.25) brightness(0.78); }
+      .frio img { filter: grayscale(0.9) sepia(0.35) hue-rotate(175deg) saturate(2.2) contrast(1.15) brightness(0.8); }
+      .plano .sombra { position: absolute; inset: 0; background: linear-gradient(180deg, #050505cc 0%, #05050500 22%, #05050500 52%, #050505ee 80%, #050505 100%); }
+      .tela-preta { position: absolute; inset: 0; background: var(--preto); opacity: 0; }
+
+      /* texto central palavra a palavra (Hard Copy) */
+      #texto { position: absolute; left: 70px; right: 70px; top: 0; height: 1920px; }
+      .frase { position: absolute; left: 0; right: 0; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 0 22px; text-align: center; opacity: 0; }
+      .frase.baixo { top: 1180px; height: 420px; }
+      .frase.centro { top: 700px; height: 520px; }
+      .frase span { display: inline-block; font: 400 104px/1.04 "Anton"; text-transform: uppercase; letter-spacing: 0.01em; color: var(--branco); text-shadow: 0 6px 30px #000, 0 0 2px #000; opacity: 0; }
+      .frase.centro span { font-size: 150px; }
+      .frase span.chave { color: var(--vermelho); }
+
+      /* rótulos de documentário */
+      .rotulo { position: absolute; left: 70px; top: 230px; font: 500 30px "JetBrains Mono"; letter-spacing: 0.08em; color: #f2efe8cc; opacity: 0; }
+      .rotulo b { display: block; font: 400 64px "Anton"; letter-spacing: 0.02em; color: var(--branco); margin-top: 8px; }
+
+      /* número dourado */
+      #ouro { position: absolute; left: 0; right: 0; top: 560px; text-align: center; opacity: 0; }
+      #ouro .n { font: 400 300px/0.9 "Anton"; letter-spacing: -0.01em; background: linear-gradient(180deg, var(--ouro2) 0%, var(--ouro) 45%, #7a5414 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 12px 40px #000); }
+      #ouro .s { font: 400 74px "Anton"; color: var(--branco); margin-top: 10px; text-shadow: 0 6px 30px #000; }
+
+      /* mapa da rota (NASA Black Marble) */
+      #mapa { position: absolute; inset: 0; opacity: 0; background: var(--preto); overflow: hidden; }
+      #mapa-mov { position: absolute; left: 0; top: 300px; width: 4249px; height: 1500px; }
+      #mapa-mov img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; filter: brightness(2.1) contrast(1.15) saturate(1.2); }
+      #mapa-mov svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+      #mapa .dia { position: absolute; left: 70px; top: 230px; font: 500 34px "JetBrains Mono"; letter-spacing: 0.1em; color: var(--branco); }
+      #mapa .dia b { color: var(--vermelho); font-weight: 500; }
+      .porto { font: 500 38px "JetBrains Mono"; fill: #f2efe8; letter-spacing: 2px; }
+      #xis { opacity: 0; }
+
+      /* citação do vigia */
+      #citacao { position: absolute; left: 80px; right: 80px; top: 1130px; font: italic 400 104px/1.02 "Instrument Serif"; color: var(--branco); text-shadow: 0 6px 30px #000; opacity: 0; }
+      #citacao small { display: block; margin-top: 26px; font: 500 30px "JetBrains Mono"; font-style: normal; letter-spacing: 0.1em; color: #f2efe8b3; }
+
+      /* carimbos: quem aprova / dado / dono */
+      .selo { position: absolute; left: 50%; width: 900px; margin-left: -450px; text-align: center; font: 400 116px/1 "Anton"; color: var(--branco); opacity: 0; }
+      .selo em { font-style: normal; color: var(--vermelho); }
+
+      /* CTA */
+      #cta { position: absolute; inset: 0; opacity: 0; background: var(--preto); }
+      #cta .pede { position: absolute; left: 0; right: 0; top: 640px; text-align: center; font: 400 120px "Anton"; color: var(--branco); }
+      #cta .campo { position: absolute; left: 80px; right: 80px; top: 820px; height: 190px; border: 6px solid var(--vermelho); display: flex; align-items: center; justify-content: center; }
+      #cta .campo span { font: 400 132px "Anton"; color: var(--vermelho); letter-spacing: 0.02em; }
+      #cta .assina { position: absolute; left: 0; right: 0; top: 1110px; text-align: center; font: italic 400 76px "Instrument Serif"; color: #f2efe8d9; }
+      #cta .serie { position: absolute; left: 0; right: 0; top: 1260px; text-align: center; font: 500 30px "JetBrains Mono"; letter-spacing: 0.22em; color: #f2efe899; }
+      #cta img { position: absolute; left: 50%; top: 1380px; width: 220px; margin-left: -110px; display: block; }
+
+      /* camadas de filme */
+      #grao { position: absolute; inset: -40px; background: url("assets/img/grao.png"); background-size: 540px 960px; opacity: 0.11; mix-blend-mode: overlay; }
+      #vinheta { position: absolute; inset: 0; background: radial-gradient(120% 85% at 50% 50%, #0000 55%, #000000c0 100%); }
+      #tremor { position: absolute; inset: 0; background: #fff; opacity: 0; mix-blend-mode: overlay; }
+      #marca { position: absolute; right: 54px; top: 64px; width: 120px; height: auto; opacity: 0.75; display: block; }
+      #zoomf { position: absolute; inset: 0; transform-origin: 50% 50%; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="74.5" data-width="1080" data-height="1920">
+      <div id="preto" class="clip" data-start="0" data-duration="74.5" data-track-index="0"></div>
+
+      <!-- trechos de vídeo (Pexels), já cortados e tratados em assets/video -->
+      <video class="vid" id="v-lua" src="assets/video/v-lua.mp4" muted playsinline data-sinc="palavra:mar:1:-0.25" data-start="15.88" data-duration="1.6"></video>
+      <video class="vid" id="v-cadeado" src="assets/video/v-cadeado.mp4" muted playsinline data-sinc="cena:9:0" data-start="28.14" data-duration="3.4"></video>
+      <video class="vid" id="v-ondas" src="assets/video/v-ondas.mp4" muted playsinline data-sinc="cena:13:0" data-start="43.19" data-duration="3.1"></video>
+      <video class="vid" id="v-cidade" src="assets/video/v-cidade.mp4" muted playsinline data-sinc="cena:15:0" data-start="51.52" data-duration="2.5"></video>
+      <video class="vid" id="v-torre" src="assets/video/v-torre.mp4" muted playsinline data-sinc="palavra:tecnologia:1:-0.3" data-start="53.41" data-duration="2.7"></video>
+      <video class="vid" id="v-dados" src="assets/video/v-dados.mp4" muted playsinline data-sinc="cena:16:0" data-start="56.58" data-duration="1.9"></video>
+
+      <section id="palco" class="clip" data-start="0" data-duration="74.5" data-track-index="1">
+        <div id="zoomf">
+          <div class="plano antigo" id="f-navio"><img src="assets/broll/fotos/p01.jpg" alt="" /><div class="sombra"></div></div>
+          <div class="plano antigo" id="f-casco"><img src="assets/broll/fotos/p03.jpg" alt="" /><div class="sombra"></div></div>
+          <div class="plano antigo" id="f-jornal"><img src="assets/broll/fotos/p04.jpg" alt="" style="object-fit:cover;object-position:60% 8%" /><div class="sombra"></div></div>
+          <div class="plano antigo" id="f-saida"><img src="assets/broll/fotos/p02.jpg" alt="" /><div class="sombra"></div></div>
+          <div class="plano" id="f-vigia"><img src="assets/broll/ia/vigia.webp" alt="" /><div class="sombra"></div></div>
+          <div class="plano" id="f-armario"><img src="assets/broll/ia/armario.webp" alt="" /><div class="sombra"></div></div>
+          <div class="plano" id="f-chave"><img src="assets/broll/ia/chave.webp" alt="" /><div class="sombra"></div></div>
+          <div class="plano antigo" id="f-blair"><img src="assets/broll/fotos/p07.jpg" alt="" style="object-position:50% 25%" /><div class="sombra"></div></div>
+          <div class="plano antigo" id="f-iceberg"><img src="assets/broll/fotos/p08.jpg" alt="" /><div class="sombra"></div></div>
+          <div class="plano antigo" id="f-inquerito"><img src="assets/broll/fotos/p09.jpg" alt="" /><div class="sombra"></div></div>
+          <div class="plano antigo" id="f-fleet"><img src="assets/broll/fotos/p06.jpg" alt="" style="object-position:50% 30%" /><div class="sombra"></div></div>
+          <div class="plano antigo" id="f-tribune"><img src="assets/broll/fotos/p10.jpg" alt="" style="object-position:50% 4%" /><div class="sombra"></div></div>
+          <div class="plano frio" id="f-hoje"><img src="assets/broll/ia/chave.webp" alt="" /><div class="sombra"></div></div>
+          <div class="plano" id="f-final"><img src="assets/broll/ia/chave.webp" alt="" /><div class="sombra"></div></div>
+
+          <div id="mapa">
+            <div id="mapa-mov">
+              <img src="assets/broll/fotos/atlantico.jpg" alt="" />
+              <svg viewBox="0 0 4249 1500">
+                <path id="rota-fantasma" d="M 1502 1013 Q 880 1080 300 1065" fill="none" stroke="#f2efe855" stroke-width="5" stroke-dasharray="14 16" />
+                <path id="rota" d="M 3929 555 L 3919 620 Q 3760 640 3584 507 Q 2600 640 1502 1013" fill="none" stroke="#e3141b" stroke-width="7" stroke-linecap="round" />
+                <circle cx="3929" cy="555" r="12" fill="#f2efe8" /><text class="porto" x="3720" y="520">SOUTHAMPTON</text>
+                <circle cx="300" cy="1065" r="12" fill="#f2efe8" /><text class="porto" x="320" y="1120">NOVA YORK</text>
+                <g id="xis" transform="translate(1502 1013)"><path d="M -34 -34 L 34 34 M 34 -34 L -34 34" stroke="#e3141b" stroke-width="12" stroke-linecap="round" /><circle r="60" fill="none" stroke="#e3141b" stroke-width="4" /></g>
+              </svg>
+            </div>
+            <p class="dia">NOITE <b id="ndia">1</b> · ATLÂNTICO NORTE</p>
+          </div>
+        </div>
+
+        <div class="tela-preta" id="preta"></div>
+
+        <div class="rotulo" id="r-blair">SOUTHAMPTON · 9 DE ABRIL<b>DAVID BLAIR · 2º OFICIAL</b></div>
+        <div class="rotulo" id="r-inquerito">NOVA YORK · ABRIL DE 1912<b>INQUÉRITO DO SENADO</b></div>
+        <div class="rotulo" id="r-iceberg">14 DE ABRIL · 23H40<b>O ICEBERG</b></div>
+        <div id="ouro"><div class="n" id="n-ouro">0</div><div class="s">PESSOAS A BORDO</div></div>
+        <div id="citacao"><span id="cit"></span><small>FREDERICK FLEET · VIGIA DO TITANIC</small></div>
+        <div class="selo" id="selo1" style="top:620px">QUEM <em>APROVA</em>?</div>
+        <div class="selo" id="selo2" style="top:820px">ONDE ESTÁ O <em>DADO</em>?</div>
+        <div class="selo" id="selo3" style="top:1020px">QUEM É O <em>DONO</em>?</div>
+
+        <div id="texto"></div>
+
+        <div id="cta">
+          <p class="pede">COMENTA</p>
+          <div class="campo"><span id="digitado"></span></div>
+          <p class="assina">Eu procuro a chave.</p>
+          <p class="serie">A VIRADA · TODA SEGUNDA</p>
+          <img src="assets/marca/logo-branca.png" alt="" />
+        </div>
+
+        <div id="grao"></div>
+        <div id="vinheta"></div>
+        <div id="tremor"></div>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+      </section>
+
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="71.29" data-volume="1"></audio>
+      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="74.5" data-volume="0.34" data-fade-out="1.5"></audio>
+      <audio id="amb-projetor" src="assets/audio/projetor.mp3" data-start="0" data-duration="51.5" data-volume="0.06"></audio>
+      <audio id="amb-rangido" src="assets/audio/rangido.mp3" data-start="1" data-duration="12" data-volume="0.18"></audio>
+      <audio id="amb-mar" src="assets/audio/mar.mp3" data-sinc="cena:4:0" data-start="13.75" data-duration="22" data-volume="0.22"></audio>
+      <audio id="sfx-boom-0" src="assets/audio/boom1.mp3" data-sinc="cena:0:0" data-start="0.0" data-duration="2.78" data-volume="0.7"></audio>
+      <audio id="sfx-boom-sem" src="assets/audio/boom2.mp3" data-sinc="cena:5:-0.05" data-start="17.36" data-duration="2.09" data-volume="0.75"></audio>
+      <audio id="sfx-chave" src="assets/audio/chave.mp3" data-sinc="palavra:chave:1:0" data-start="22.73" data-duration="2.52" data-volume="0.6"></audio>
+      <audio id="sfx-braam" src="assets/audio/braam.mp3" data-sinc="cena:8:-0.45" data-start="23.38" data-duration="4" data-volume="0.6"></audio>
+      <audio id="sfx-whoosh-mapa" src="assets/audio/whoosh.mp3" data-sinc="cena:10:-0.2" data-start="31.27" data-duration="2" data-volume="0.4"></audio>
+      <audio id="sfx-boom-tarde" src="assets/audio/boom1.mp3" data-sinc="palavra:tarde:1:-0.05" data-start="34.36" data-duration="2.78" data-volume="0.75"></audio>
+      <audio id="sfx-coracao" src="assets/audio/coracao.mp3" data-sinc="cena:11:0" data-start="35.73" data-duration="7.4" data-volume="0.35"></audio>
+      <audio id="sfx-riser" src="assets/audio/riser.mp3" data-sinc="cena:15:-4.0" data-start="47.52" data-duration="4.03" data-volume="0.45"></audio>
+      <audio id="sfx-boom-hoje" src="assets/audio/boom2.mp3" data-sinc="cena:15:-0.05" data-start="51.48" data-duration="2.09" data-volume="0.85"></audio>
+      <audio id="sfx-selo-1" src="assets/audio/boom2.mp3" data-sinc="palavra:aprova:1:-0.05" data-start="63.77" data-duration="2.09" data-volume="0.45"></audio>
+      <audio id="sfx-selo-2" src="assets/audio/boom2.mp3" data-sinc="palavra:dado:1:-0.05" data-start="64.91" data-duration="2.09" data-volume="0.45"></audio>
+      <audio id="sfx-selo-3" src="assets/audio/boom2.mp3" data-sinc="palavra:dono:1:-0.05" data-start="65.79" data-duration="2.09" data-volume="0.45"></audio>
+      <audio id="sfx-braam-fim" src="assets/audio/braam.mp3" data-sinc="palavra:chave:5:0.45" data-start="69.52" data-duration="4" data-volume="0.4"></audio>
+    </div>
+
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const C = window.CENAS;
+      const DURACAO = 74.5;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;…]/g, "");
+      function em(palavra, n = 1, fallback = 0) {
+        let visto = 0;
+        for (const p of PALAVRAS) if (limpar(p.w) === palavra && ++visto === n) return p.s;
+        return fallback;
+      }
+      const tl = gsap.timeline({ paused: true });
+
+      // ---- texto central palavra a palavra: frases curtas, palavra-chave em vermelho ----
+      const VERMELHAS = new Set(["1912", "inafundável", "sem", "trancados", "chave", "ninguém", "tarde", "caminho", "caro", "hoje", "inteligência", "artificial", "processos", "navio"]);
+      // cenas em tela preta usam o texto grande no centro
+      const CENTRO = new Set([0, 5, 7, 9, 14, 19, 20]);
+      // cenas com texto próprio (número, citação, carimbos, CTA) não mostram a frase
+      const SEM_TEXTO = new Set([3, 12, 18, 21]);
+      const caixa = document.getElementById("texto");
+      const cenaDe = (t) => { let i = 0; while (i + 1 < C.length && C[i + 1] <= t + 0.01) i++; return i; };
+      const grupos = [];
+      let atual = [];
+      const fecha = () => {
+        const n = atual.length, partes = Math.ceil(n / 4), tam = Math.ceil(n / partes);
+        for (let i = 0; i < n; i += tam) grupos.push(atual.slice(i, i + tam));
+        atual = [];
+      };
+      PALAVRAS.forEach((p, k) => {
+        const prox = PALAVRAS[k + 1];
+        atual.push(p);
+        if (/[.,?!:…]$/.test(p.w) || !prox || cenaDe(prox.s) !== cenaDe(p.s)) fecha();
+      });
+      for (const g of grupos) {
+        const cena = cenaDe(g[0].s);
+        if (SEM_TEXTO.has(cena)) continue;
+        const div = document.createElement("div");
+        div.className = "frase " + (CENTRO.has(cena) ? "centro" : "baixo");
+        caixa.appendChild(div);
+        for (const p of g) {
+          const s = document.createElement("span");
+          s.textContent = p.w.replace(/[.,:;…]/g, "");
+          if (VERMELHAS.has(limpar(p.w))) s.classList.add("chave");
+          div.appendChild(s);
+          tl.fromTo(s, { opacity: 0, scale: 1.35, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.14, ease: "power3.out" }, p.s - 0.03);
+        }
+        const ultimo = g[g.length - 1];
+        const proximo = PALAVRAS[PALAVRAS.indexOf(ultimo) + 1];
+        const some = proximo ? Math.min(ultimo.e + 0.6, proximo.s - 0.02) : ultimo.e + 0.8;
+        tl.set(div, { opacity: 1 }, g[0].s - 0.05);
+        tl.set(div, { opacity: 0 }, some);
+      }
+
+      // ---- planos com corte seco e câmera lenta (push-in) ----
+      function plano(sel, ini, fim, de = 1.12, ate = 1.0, x0 = 0, x1 = 0) {
+        tl.set(sel, { opacity: 1 }, ini);
+        tl.fromTo(`${sel} img`, { scale: de, xPercent: x0 }, { scale: ate, xPercent: x1, duration: fim - ini, ease: "none" }, ini);
+        tl.set(sel, { opacity: 0 }, fim);
+      }
+      function preta(ini, fim) { tl.set("#preta", { opacity: 1 }, ini); tl.set("#preta", { opacity: 0 }, fim); }
+      function tremor(t) { tl.fromTo("#tremor", { opacity: 0.35 }, { opacity: 0, duration: 0.25 }, t); }
+
+      // 0 · Abril de 1912 (tela preta)
+      // 1 · o navio mais moderno: foto de 1912 atravessando o quadro
+      plano("#f-navio", C[1] - 0.05, C[2], 1.0, 1.0, 22, -22);
+      tl.set("#f-navio img", { width: "320%", left: "-110%" }, 0);
+      // 2 · casco duplo / portas estanques → jornal "THE VESSEL UNSINKABLE"
+      plano("#f-casco", C[2], em("inafundável", 1, 8.6) - 0.05, 1.25, 1.05);
+      plano("#f-jornal", em("inafundável", 1, 8.6) - 0.05, C[3], 1.0, 1.35);
+      tremor(em("inafundável", 1, 8.6) - 0.05);
+      // 3 · 2.224 pessoas: número dourado sobre o navio saindo do porto
+      plano("#f-saida", C[3], C[4], 1.2, 1.0);
+      tl.fromTo("#ouro", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.25 }, C[3] + 0.05);
+      tl.set("#ouro", { opacity: 0 }, C[4]);
+      { const el = document.getElementById("n-ouro"); const o = { v: 0 };
+        const escreve = () => (el.textContent = Math.round(o.v).toLocaleString("pt-BR"));
+        tl.set(o, { v: 0, onUpdate: escreve }, 0);
+        tl.to(o, { v: 2224, duration: 2.0, ease: "power2.out", onUpdate: escreve }, C[3] + 0.1); }
+      // 4 · vigias no mastro → mar escuro (vídeo)
+      plano("#f-vigia", C[4], em("mar", 1, 16.2) - 0.25, 1.18, 1.04);
+      // 5 · Sem binóculo (tela preta)
+      preta(C[5] - 0.05, C[6]);
+      tremor(C[5] - 0.05);
+      // 6 · armário trancado
+      plano("#f-armario", C[6], C[7], 1.05, 1.22);
+      // 7 · E a chave... (close da chave, empurrando)
+      plano("#f-chave", C[7], C[8] - 0.5, 1.0, 1.18);
+      // tela preta seca "A CHAVE" na pausa
+      preta(C[8] - 0.5, C[8] + 0.05);
+      // 8 · o oficial tirado da viagem
+      plano("#f-blair", C[8] + 0.05, C[9], 1.15, 1.0);
+      tl.fromTo("#r-blair", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3 }, C[8] + 0.3);
+      tl.set("#r-blair", { opacity: 0 }, C[9]);
+      // 9 · Ninguém perguntou (vídeo do cadeado, sem plano por cima)
+      // 10 · mapa da NASA: rota de Southampton até o ponto do iceberg
+      tl.set("#mapa", { opacity: 1 }, C[10]);
+      tl.set("#mapa", { opacity: 0 }, em("tarde", 1, 34.4) - 0.05);
+      tl.fromTo("#mapa-mov", { x: -(3929 - 760) }, { x: -(1502 - 540), duration: em("iceberg", 1, 33.8) - C[10], ease: "power1.inOut" }, C[10]);
+      { const rota = document.getElementById("rota"); const L = rota.getTotalLength();
+        tl.set("#rota", { strokeDasharray: L, strokeDashoffset: L }, 0);
+        tl.to("#rota", { strokeDashoffset: 0, duration: em("iceberg", 1, 33.8) - C[10], ease: "power1.inOut" }, C[10]); }
+      tl.fromTo("#xis", { opacity: 0, scale: 2 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power4.in", svgOrigin: "1502 1013" }, em("iceberg", 1, 33.8));
+      [1, 2, 3, 4].forEach((d, k) => tl.set("#ndia", { textContent: String(d) }, C[10] + k * 0.55));
+      // iceberg real fotografado perto do local
+      plano("#f-iceberg", em("tarde", 1, 34.4) - 0.05, C[11], 1.0, 1.15);
+      tl.fromTo("#r-iceberg", { opacity: 0 }, { opacity: 1, duration: 0.2 }, em("tarde", 1, 34.4));
+      tl.set("#r-iceberg", { opacity: 0 }, C[11]);
+      tremor(em("tarde", 1, 34.4) - 0.05);
+      // 11 · inquérito → Fleet
+      plano("#f-inquerito", C[11], em("ele", 1, 38.5) - 0.05, 1.0, 1.15);
+      tl.fromTo("#r-inquerito", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.3 }, C[11] + 0.2);
+      tl.set("#r-inquerito", { opacity: 0 }, em("ele", 1, 38.5) - 0.05);
+      plano("#f-fleet", em("ele", 1, 38.5) - 0.05, C[13], 1.1, 1.25);
+      // 12 · a resposta dele, escrita à mão em serifa
+      { const frase = "“A tempo de sair do caminho.”"; const cit = document.getElementById("cit");
+        tl.set("#citacao", { opacity: 1 }, C[12] + 0.3);
+        for (let i = 0; i <= frase.length; i++) tl.set(cit, { textContent: frase.slice(0, i) }, em("tempo", 1, 41.0) - 0.4 + i * 0.045);
+        tl.set("#citacao", { opacity: 0 }, C[13]); }
+      // 13 · Talvez nem isso salvasse (vídeo das ondas)
+      // 14 · o navio mais caro do mundo → jornal do naufrágio → tela preta
+      plano("#f-tribune", C[14], em("quem", 1, 49.6) - 0.05, 1.0, 1.25);
+      preta(em("quem", 1, 49.6) - 0.05, C[15]);
+      // 15–16 · HOJE: corte seco para o presente (vídeos)
+      tremor(C[15] - 0.05);
+      // 17 · a chave dos próprios processos, agora em tom frio
+      plano("#f-hoje", C[17], C[18], 1.25, 1.05);
+      // 18 · carimbos
+      preta(C[18], C[19]);
+      [["#selo1", "aprova"], ["#selo2", "dado"], ["#selo3", "dono"]].forEach(([s, w]) => {
+        tl.fromTo(s, { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.18, ease: "power4.in" }, em(w, 1, 64) - 0.25);
+        tl.set(s, { opacity: 0 }, C[19]);
+      });
+      // 19 · Eu não vendo navio (tela preta)  20 · Eu procuro a chave (a chave de volta, quente)
+      preta(C[19], C[20]);
+      plano("#f-final", C[20], C[21], 1.3, 1.0);
+      // 21 · CTA
+      tl.set("#cta", { opacity: 1 }, C[21]);
+      { const chave = "DIAGNÓSTICO"; const dig = document.getElementById("digitado");
+        for (let i = 0; i <= chave.length; i++) tl.set(dig, { textContent: chave.slice(0, i) }, em("diagnóstico", 1, 70.6) - 0.1 + i * 0.05); }
+      tl.fromTo(["#cta .assina", "#cta .serie", "#cta img"], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.15 }, C[21] + 1.2);
+      tl.set("#marca", { opacity: 0 }, C[21]);
+
+      // ---- grão de filme vivo ----
+      for (let t = 0, k = 0; t < DURACAO; t += 1 / 24, k++) {
+        tl.set("#grao", { backgroundPosition: `${(k * 137) % 540}px ${(k * 311) % 960}px` }, t);
+      }
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

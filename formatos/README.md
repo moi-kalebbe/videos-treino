@@ -101,6 +101,11 @@ Personagem 2D fixo (mascote da marca) de meio corpo atrás de um balcão. Cada i
 Voz em off grave e lenta (sua voz clonada), **sem rosto**. Uma imagem de cinema por frase, escura e quente, com corte seco a cada 1–3 s; **tela preta com 1 palavra vermelha** como respiro; texto central palavra a palavra em sans condensada pesada, branca, com a palavra-chave em vermelho. **Personagem-símbolo de rosto escondido**, sempre o mesmo (o do Hard Copy é um executivo com câmera de segurança no lugar da cabeça). Número de prova em dourado gigante. **Trilha de cinema alta e contínua** (−5 a −8 dB da voz, sem silêncio) e golpes graves nos cortes.
 **Estrutura (50–65 s):** frase de filme em 2ª pessoa ("Você só precisa de um dia ruim") → repetição → analogia absurda **antes** do fato → inimigo comum → contraste de percepção → prova curta → anti-promessa ("não te promete nada, entrega o que você precisa") → CTA.
 **Para o nosso nicho:** "Imagina contratar o melhor vendedor do país e dar a ele uma planilha de 2009" (IA em cima de bagunça); "Toda empresa vai ter IA. Poucas vão ter resultado"; manifesto da consultoria Processos & IA.
+**Série A Virada (segunda 12h):** história que vai para um lado e vira no fim. Aprendido com as notas do dono (01 aprovada; 02 levou 4/10 na v1 e foi aprovada na v2):
+- **Apego antes da virada:** gesto de bondade, nome, família, algo grande em jogo, a perda. Sem compaixão pelo personagem a virada não pesa.
+- **Um personagem só:** mesma pessoa em todos os planos (série do mesmo autor na Pexels) ou rosto escondido/silhueta.
+- **Falou, mostrou:** todo objeto, pessoa ou gesto citado aparece na tela (avental, Dona Cida, a porta baixando). O momento da perda ganha um plano próprio de alto impacto.
+- **Marcar a virada:** silêncio real (~1,5 s), tela preta, troca de tipografia (serifa dourada → Anton vermelho), de cor (quente → frio) e de trilha.
 **Efeitos:** vertigo e pull-back reveal nas cenas, glass type no número, digital zoom; extras: tela preta seca, texto palavra a palavra, grão de filme (`grain-overlay`), vinheta (`vignette`), `camera-shake` leve.
 **Custo:** só a voz + 6–8 cenas geradas (~3 mil créditos), ou ~400 créditos com banco grátis + motion. Personagem-símbolo: criar uma vez.
 **Proibido:** trechos de filme, desenho ou vídeo de terceiros (os virais do Hard Copy usam; nós não).

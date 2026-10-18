@@ -28,6 +28,20 @@ curl -s "https://images-api.nasa.gov/search?q=earth%20night&media_type=video"
 ```
 Baixar o arquivo para `producao/<slug>/assets/broll/` (fora do git, como todo vídeo) e guardar a URL da página de origem no roteiro.
 
+```bash
+# Wikimedia Commons: foto histórica (filtrar "Public domain") e baixar redimensionada
+curl -s -G "https://commons.wikimedia.org/w/api.php" --data-urlencode "action=query" --data-urlencode "format=json" \
+  --data-urlencode "generator=search" --data-urlencode "gsrnamespace=6" --data-urlencode "gsrsearch=Titanic 1912" \
+  --data-urlencode "prop=imageinfo" --data-urlencode "iiprop=url|size|extmetadata" --data-urlencode "iiextmetadatafilter=LicenseShortName"
+curl -sL -o foto.jpg "https://commons.wikimedia.org/wiki/Special:FilePath/<Arquivo.jpg>?width=2000"
+# NASA Black Marble (Terra à noite, equiretangular: x=(lon+180)/360*W, y=(90-lat)/180*H)
+curl -sL -o terra.jpg "https://eoimages.gsfc.nasa.gov/images/imagerecords/144000/144898/BlackMarble_2016_3km.jpg"
+```
+
+**Música e efeitos da Pixabay** não têm API. Abrir `pixabay.com/music/search/<termo>/` (ou `/sound-effects/search/`) no navegador embutido e, no JS da página, buscar cada faixa com `fetch` e pegar o link `cdn.pixabay.com/download/audio/...mp3`; depois baixar com `curl -e https://pixabay.com/`.
+
+**Imagem gerada grátis (Hugging Face):** o conector do Claude não deixa invocar Spaces. Usar `gradio_client` no venv `~/.cache/ltx-teste` (`flux.py <saida> "<prompt>"`, Space `mcp-tools/FLUX.1-Krea-dev`, 768x1344). Sem token HF a cota é de ~3 imagens por dia; com token, bem mais. Ficou com cara de cinema (vigia no mastro, chave antiga, armário) na A Virada 01.
+
 ## LTX-Video local (teste em 18/10/2026)
 Ambiente em `~/.cache/ltx-teste/` (fora do repo): `.venv` com PyTorch (MPS) + diffusers, script `gerar.py`.
 Modelo `ltxv-2b-0.9.8-distilled` (8 passos) + T5 em bf16 carregado à parte, para caber nos 16 GB.
