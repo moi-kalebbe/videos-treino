@@ -2,6 +2,12 @@
 
 Este repo treina agentes para criar e editar vídeos curtos verticais sobre **implementação de IA em empresas**.
 
+## Quando o dono pedir um vídeo novo
+1. **Perguntar primeiro: "Que estilo de vídeo você quer?"** e listar os estilos de `estilos/README.md` (ou "um formato novo").
+2. Se ele escolher um estilo salvo: ler `estilos/<estilo>/README.md`, mandar a ele o **briefing** daquele estilo (o que preciso dele + custo típico) e rodar `scripts/novo-video.sh <estilo> <slug>`.
+3. Seguir o passo a passo e o checklist do guia; nota ≥ 9 pela rubrica antes de entregar.
+4. Quando um formato novo for aprovado pelo dono, salvar como estilo novo em `estilos/` (guia + modelo).
+
 ## Por onde começar
 1. `repertorio/README.md` — pautas, pilares e a primeira leva.
 2. `formatos/README.md` — formatos sem rosto (F1–F8) e o motor de cada um.
