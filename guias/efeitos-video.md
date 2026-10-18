@@ -67,6 +67,15 @@ pesam no render; testar com `snapshot` antes de render longo.
 | **Antes/depois lado a lado** | ref 19 | dois cards verticais (Before pequeno, After grande) rodando juntos; `before-after-wipe`, `comparison-split` |
 | **Título em duas camadas** | ref 14 | palavra pequena em serifa itálica + palavra gigante condensada embaixo |
 
+## Efeitos extras vistos nas referências (lote 06)
+| Efeito | Como fazer no HyperFrames | Onde rende |
+|---|---|---|
+| **Holofote** | camada preta `opacity 0→0.85` sobre o vídeo + `radial-gradient` claro no rosto/objeto, entrando na palavra forte | a frase da virada na A Virada |
+| **Antes/depois com cortina** | dois vídeos sobrepostos, o de cima com `clip-path: inset(0 X% 0 0)` animado e uma alça vertical | processo sem IA × com IA |
+| **Frase de pedra** | texto Anton com textura e sombra 3D (`text-shadow` em camadas) caindo com `power4.in` + tremor de tela | número de prova, palavra da virada |
+| **Ficha técnica (breakdown)** | três andares fixos: vídeo do resultado, imagem do fluxo, prompt rolando (`y` linear) em JetBrains Mono | F17, sexta |
+| **Tarjas de cinema** | duas faixas pretas de ~240 px em cima e embaixo, legenda pequena dentro da faixa de baixo | F14, F16 |
+
 ## Onde cada efeito rende mais
 
 **Caso Real** (case de empresa com dado):

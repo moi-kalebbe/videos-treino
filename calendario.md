@@ -8,7 +8,7 @@ Fonte única do que está publicado, agendado e planejado no Instagram. **Atuali
 | Domingo | Plantão IA | [estilos/plantao-ia](estilos/plantao-ia/README.md) | 18h00 | atrair: notícias de IA da semana |
 | Segunda | A Virada | F14 Manifesto cinematográfico ([formatos](formatos/README.md)) | 12h00 | emocionar: história com virada → diagnóstico |
 | Quarta | Caso Real | [estilos/caso-real](estilos/caso-real/README.md) | 12h00 (a confirmar) | provar: empresa que aplicou IA e saiu em notícia de portal, com fonte |
-| Sexta | Aplica na sua empresa | a criar | a definir | utilidade: um processo pronto para aplicar (proposta, começar depois que a quarta estiver redonda) |
+| Sexta | Aplica na sua empresa | F17 Breakdown: resultado + fluxo + prompt ([formatos](formatos/README.md)) | a definir | utilidade: um processo pronto para aplicar; comentário vira lead (proposta, começar depois que a quarta estiver redonda) |
 
 ## Agenda
 | Data | Hora | Vídeo | Situação | Como foi/será publicado |

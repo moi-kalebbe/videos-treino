@@ -111,6 +111,15 @@ Status: `ideia` → `roteiro` → `produção` → `publicado`
 | 46 | 1 planilha + 1 pergunta = relatório pro sócio | F15 | Pedido simples ao agente → relatório pronto em tela, com dado de exemplo | `RELATÓRIO` |
 | 47 | Péssimo, bom e excelente: 3 jeitos de colocar IA no atendimento | cardápio (péssimo/bom/excelente) | Do "comprei o ChatGPT" ao agente ligado no CRM com humano no fim | `ATENDIMENTO` |
 
+## Novas (lote 06 + @abrahubstudio)
+
+| # | Gancho | Formato | Ideia central | CTA |
+|---|---|---|---|---|
+| 48 | "Eu sei a fórmula de cor. Só não lembro a última vez que fui pra casa antes das oito." | F16 | Monólogo da analista que refaz a mesma planilha há 8 anos; a virada é que dava para automatizar em uma semana | `DIAGNÓSTICO` |
+| 49 | Relatório pro sócio toda segunda, sem ninguém abrir planilha | F17 (sexta) | Resultado + fluxo n8n + prompt na tela; manda o fluxo para quem comentar | `PROCESSO` |
+| 50 | Quando o financeiro descobre que a fórmula estava errada desde 2022 | F18 | Meme de identificação, drama de filme sem fala | — (compartilhar) |
+| 51 | Orçamento respondido no WhatsApp em 2 minutos | F17 (sexta) | Breakdown: mensagem do cliente → agente → orçamento pronto | `ORÇAMENTO` |
+
 ---
 
 ## Primeira leva (10 vídeos) · roteiros em [`roteiros/`](../roteiros/)

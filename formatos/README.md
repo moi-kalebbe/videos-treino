@@ -115,6 +115,32 @@ O pedido em linguagem simples é digitado numa caixa de chat de IA ("faz um víd
 **Para o nosso nicho:** "1 planilha + 1 pergunta = relatório pro sócio"; "1 áudio do cliente + 1 pedido = proposta pronta"; "1 print do WhatsApp = pedido lançado no ERP". O resultado tem que ser real (feito por nós) e com dado fictício marcado como exemplo.
 **Efeitos:** UI world / phone mockup no pedido, zoom-through para o resultado, chart grow se o resultado for número.
 
+## F16 — Monólogo cinematográfico (ref: @abrahubstudio, viral de 4,3 mi)
+Uma pessoa comum fala, em primeira pessoa, com quem tem o poder (o chefe, o sistema, o banco), em tom baixo e cansado. Visual de documentário brasileiro real, tarjas pretas de cinema, legenda pequena e **palavra gigante vermelha só nas frases-chave**. Cortes de contraste mostram a injustiça sem precisar explicar.
+**Estrutura (60–100 s):** pedido tímido e educado → detalhes concretos do esforço ("peguei a senha, entrei na fila") → **frase espelho** ("para me cobrar vocês sabem meu nome; o meu pedido ninguém encontra") → escalada → frase final curta.
+**Para o nosso nicho:**
+- a analista que faz a mesma planilha há 8 anos, falando com o diretor ("eu sei a fórmula de cor, mas não sei a última vez que fui pra casa antes das oito");
+- o dono de PME falando com o próprio caixa;
+- a virada para a IA vem no fim ou na legenda, sem quebrar o monólogo.
+**Atenção:** pessoa e situação ilustrativas, marcadas como tal; nunca imitar pessoa real.
+
+## F17 — Breakdown: resultado + fluxo + prompt (ref 23, 2.648 comentários)
+Tela em três andares sobre fundo escuro: em cima, o **resultado** funcionando; no meio, o **fluxo** (grafo de nós: n8n, agente, planilha → IA → WhatsApp); embaixo, o **prompt** rolando em fonte mono. CTA: "comenta PALAVRA que eu te mando o fluxo". O comentário vira lead.
+**Para o nosso nicho:** é o formato da **sexta "Aplica na sua empresa"**. Exemplos:
+- relatório semanal automático para o sócio;
+- triagem de currículo;
+- conciliação de extrato;
+- resposta de orçamento no WhatsApp.
+
+O resultado tem que ser real (feito por nós) e com dado fictício marcado.
+
+## F18 — Meme de identificação cinematográfico (ref: @abrahubstudio ab-07)
+Uma dor pequena e conhecida do nicho tratada como cena de filme de suspense, **sem fala**, só trilha dramática e uma frase na tela. Curto (20–40 s), feito para compartilhar ("marca o seu financeiro").
+**Para o nosso nicho:**
+- "quando o financeiro descobre que a fórmula da planilha estava errada desde 2022";
+- "o ERP pedindo atualização às 17h59 de sexta";
+- "a IA respondendo o cliente antes do vendedor acordar".
+
 ## Cardápio de 39 tipos (ref 20)
 Lista de tipos de Reels para combinar com os nossos estilos quando faltar ideia: fofoca · estudo fictício · use isso para isso · quadro branco · A + B + C · tela verde · talking head · mind map · tier list · tela na tela · musical · explicando para criança · reunião · caixinha de perguntas · erro comum · lista · cinemático · selfie no espelho · podcast · stories nativo · depoimento · POV · vlog · passo a passo · mitos e verdades · exercícios · resposta a comentário · bastidores do dia · giro de notícia · péssimo, bom e excelente · antes e depois · tablet na mão · UGC · carro · clone · vídeo escrito · narrado · cronômetro.
 Já cobertos: giro de notícia (Plantão IA), cinemático (F14), lista (F1), antes e depois (Caso Real), clone (avatar), narrado/vídeo escrito (F13). Bons próximos para o nosso público: **tier list** de ferramentas de IA para empresa, **péssimo/bom/excelente** jeito de implantar IA, **erro comum**, **reunião** encenada, **caixinha de perguntas** (como o tipo D do Hard Copy).
