@@ -7,7 +7,7 @@
 | Duração alvo | 45 s |
 | Voz | ElevenLabs · Beto (`xNGAXaCH8MaasNuo7Hr7`) |
 | CTA | comenta `DIAGNÓSTICO` |
-| Status | v7 (`saida/case-chewy-v7.mp4`) · falas atuais em `producao/case-chewy/falas.txt` |
+| Status | **publicado** em 18/10/2026: https://www.instagram.com/reel/DepVU7VEvvp/ · v7 (`saida/case-chewy-v7.mp4`) · falas atuais em `producao/case-chewy/falas.txt` |
 
 **Estratégia:** consciente do problema e desconfiado (já ouviu muito hype de IA) · desejo: ter retorno de verdade e não jogar dinheiro fora · grande ideia: **IA em cima de bagunça só deixa a bagunça mais rápida. Quem ganha arrumou a base antes.**
 
