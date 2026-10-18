@@ -120,3 +120,11 @@ cd producao/<slug> && npx hyperframes check && npx hyperframes render -q high -o
 | v1 | 3 | Sem rosto, sem imagem real, sem logo, gancho fraco, tela ≠ fala |
 | v6 | 7 | Avatar cobrindo o assunto; selo "avatar IA"; marca em texto |
 | v7 | aprovada | Tela dividida no gancho, logo real, sem selo |
+
+## 11. Publicar no Instagram
+
+```bash
+python3 scripts/publicar-instagram.py saida/<slug>.mp4 roteiros/<slug>-legenda.txt --capa-ms 1500   # prepara, não publica
+python3 scripts/publicar-instagram.py --conteiner <ID>                                              # publica (só com o ok do dono)
+```
+O MP4 sai do Mac por um túnel temporário do Cloudflare (nome aleatório, fecha sozinho). Legenda na voz MK, com as fontes e "previsão" quando for o caso, CTA com a palavra-chave e 5 hashtags.
