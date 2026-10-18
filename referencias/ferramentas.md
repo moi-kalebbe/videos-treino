@@ -28,3 +28,8 @@ Máquina-alvo: **MacBook Apple M5, 16 GB RAM**, Node 22.23, Python 3.15 (usar `u
 **Não roda aqui:** **LongCat** (CUDA). Se quiser avatar, precisa de GPU alugada (RunPod/Modal) ou do Space do Hugging Face.
 
 **Lacuna:** nenhuma dessas faz exatamente o que o vídeo 06 promete (pegar vídeo bruto → cortar pausas/erros → melhor tomada → legenda → zoom → SFX → trilha). Esse "editor profissional" de talking head é o que este repo precisa construir — provavelmente whisper (cortes por palavra) + ffmpeg + HyperFrames para os overlays. As skills que você já tem (`video-use`, `reels-multicam`) podem ser o ponto de partida.
+
+## Para testar (lote 05)
+- **Drama Claw** (ref 14): história escrita → personagens, storyboard, locução, edição e vídeo. Versão comunitária grátis, roda em servidor próprio (Docker). Ver se gera cenas com personagem consistente para o F14.
+- **Higgsfield + Seedance 2.5** (ref 15): vídeo com o rosto da pessoa a partir de uma selfie. Pago. O ElevenLabs também tem Seedance 2.5 (~14 mil créditos por clipe, orçado em 18/10).
+

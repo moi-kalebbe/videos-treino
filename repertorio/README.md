@@ -102,6 +102,15 @@ Status: `ideia` → `roteiro` → `produção` → `publicado`
 | 42 | O agente de IA nº 1 da semana (e o que ele faz numa empresa) | F13 | Ferramenta em alta → 1 uso concreto em PME → número → objeção → CTA | `AGENTE` |
 | 43 | Como ler um livro de gestão com IA e aplicar na segunda-feira | F10 | Método de leitura com IA (pauta vinda dos vídeos longos de 9 e 12/10, ainda não processados) | `MÉTODO` |
 
+## Novas (lote 05 + Hard Copy)
+
+| # | Gancho | Formato | Ideia central | CTA |
+|---|---|---|---|---|
+| 44 | Imagina contratar o melhor vendedor do país e dar a ele uma planilha de 2009 | F14 | IA em cima de processo bagunçado: analogia primeiro, fato depois (dados da PwC), anti-promessa | `DIAGNÓSTICO` |
+| 45 | Toda empresa vai ter IA. Pouquíssimas vão ter resultado | F14 | Manifesto da Processos & IA: o que separa as poucas (base, processo, dono) | `DIAGNÓSTICO` |
+| 46 | 1 planilha + 1 pergunta = relatório pro sócio | F15 | Pedido simples ao agente → relatório pronto em tela, com dado de exemplo | `RELATÓRIO` |
+| 47 | Péssimo, bom e excelente: 3 jeitos de colocar IA no atendimento | cardápio (péssimo/bom/excelente) | Do "comprei o ChatGPT" ao agente ligado no CRM com humano no fim | `ATENDIMENTO` |
+
 ---
 
 ## Primeira leva (10 vídeos) · roteiros em [`roteiros/`](../roteiros/)

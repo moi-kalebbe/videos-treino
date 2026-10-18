@@ -25,6 +25,7 @@ O dono sobe vídeos de referência nas **Notas Rápidas** do Mac. Quando pedir p
 
 ## Regras
 - **Voz e áudio:** seguir `guias/voz-e-audio.md` em todo vídeo ("IA" escrito normal, fala por fala sem `<break>`, +0,7 s no fim do avatar, conferência local por trechos).
+- **Mídia grátis primeiro:** antes de gerar imagem ou vídeo pago, ver `guias/bancos-de-midia.md` (Pexels, Pixabay, NASA, Wikimedia, Hugging Face, LTX local).
 - **Efeitos:** catálogo dos 17 efeitos e como fazer cada um no HyperFrames em `guias/efeitos-video.md` (vale para todos os estilos).
 - **Roteiro:** seguir `guias/linguagem-natural.md` (fala de conversa, sem impacto genérico, humor quando couber).
 - Por enquanto **nenhum vídeo mostra rosto**: só motion, telas simuladas, texto e narração.

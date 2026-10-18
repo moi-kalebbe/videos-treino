@@ -53,6 +53,20 @@ pesam no render; testar com `snapshot` antes de render longo.
 | **Metáfora física por item** | ref 12 | um objeto ilustrado por item da lista (piscina, cancela, impressora); `paper-collage-reveal` / `hw-frame` para o tom de desenho |
 | **Gráfico de tokens/vetor** | ref 11 | frase quebrada em caixinhas com números + tabela acendendo célula a célula; `stagger-lattice`, `tl.set` por célula |
 
+## Efeitos extras vistos nas referências (lote 05 e Hard Copy)
+
+| Efeito | Visto em | Como fazer |
+|---|---|---|
+| **Tela preta seca com 1 palavra** | Hard Copy | cena só com fundo `#000` e texto condensado; corte sem transição + golpe grave |
+| **Texto palavra a palavra com palavra vermelha** | Hard Copy | cada palavra entra no seu tempo (`window.LEGENDA`), sans condensada pesada, palavra-chave `#e5162e` |
+| **Número dourado de metal** | Hard Copy | gradiente dourado + `text-shadow` + `count-up`; comp `gloss-sweep` |
+| **Personagem-símbolo de rosto escondido** | Hard Copy | 1 personagem gerado com a mesma descrição em todas as cenas (cabeça = objeto) |
+| **Mão desenhando no papel** | Hard Copy (tipo B) | metade de cima com desenho em traço (`hw-*`, `whiteboard-ink`), metade de baixo com a cena |
+| **Contagem regressiva no canto** | ref 15 | selo "Tutorial em 00:15" com `tl.set` por segundo; segura a retenção |
+| **Objeto de cena que traduz o gancho** | ref 16, ref 17 | prop real ou gerado ilustrando literalmente a frase (remédio para "não durmo", alicate como ponteiro) |
+| **Antes/depois lado a lado** | ref 19 | dois cards verticais (Before pequeno, After grande) rodando juntos; `before-after-wipe`, `comparison-split` |
+| **Título em duas camadas** | ref 14 | palavra pequena em serifa itálica + palavra gigante condensada embaixo |
+
 ## Onde cada efeito rende mais
 
 **Caso Real** (case de empresa com dado):

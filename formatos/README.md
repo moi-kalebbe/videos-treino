@@ -1,6 +1,6 @@
 # Formatos sem rosto (motion)
 
-Formatos tirados das referências ([lote 01](../referencias/lote-01.md), [lote 02](../referencias/lote-02.md), [lote 03](../referencias/lote-03.md), [lote 04](../referencias/lote-04.md)), adaptados para **não aparecer**: só motion graphics, telas simuladas, texto na tela e narração (TTS pt-BR) ou só música.
+Formatos tirados das referências ([lote 01](../referencias/lote-01.md), [lote 02](../referencias/lote-02.md), [lote 03](../referencias/lote-03.md), [lote 04](../referencias/lote-04.md), [lote 05](../referencias/lote-05.md), [Hard Copy](../referencias/hard-copy.md)), adaptados para **não aparecer**: só motion graphics, telas simuladas, texto na tela e narração (TTS pt-BR) ou só música.
 
 **Avatar (regra de custo):** o apresentador aparece só em 3 momentos: **gancho** (~4 s), **um respiro no meio** (~3 s) e **CTA** (~5 s), uns 12 s no total (~7 mil créditos com HeyGen Avatar IV). O resto é motion, imagens e dados.
 
@@ -21,6 +21,8 @@ Padrão de todos: 9:16 · 1080×1920 · legenda sempre ligada (palavra ativa em 
 | **F11** | Viagem por dentro | ref 11 (Moisés, "2 segundos") | 45–75 s | HyperFrames + avatar |
 | **F12** | Mascote com metáforas | ref 12 (Jeferson, 4 plugins) | 45–60 s | HyperFrames + personagem 2D |
 | **F13** | Terminal neon | ref 13 (Maurício, repo nº 1) | 30–40 s | HyperFrames (só voz) |
+| **F14** | Manifesto cinematográfico | perfil Hard Copy (virais de 5,1 e 1,2 mi) | 50–65 s | HyperFrames + cenas geradas/banco grátis |
+| **F15** | Pedido → resultado | ref 15 (Cauhi, selfie + receita) | 30–45 s | HyperFrames + resultado real |
 
 ---
 
@@ -94,4 +96,21 @@ Personagem 2D fixo (mascote da marca) de meio corpo atrás de um balcão. Cada i
 **Para o nosso nicho:** ferramenta ou agente da semana, número de um relatório, "o que a lei nova muda". Bom formato de meio de semana entre um Caso Real e um Plantão.
 **Custo:** só a narração (~400 créditos).
 **Efeitos:** glass type, chart grow, digital zoom. Extras: `telemetry-hud`/`camcorder-hud`, `blur-in`, `focus-blur-resolve`, `count-up`, `rgb-glitch-text`.
+
+## F14 — Manifesto cinematográfico
+Voz em off grave e lenta (sua voz clonada), **sem rosto**. Uma imagem de cinema por frase, escura e quente, com corte seco a cada 1–3 s; **tela preta com 1 palavra vermelha** como respiro; texto central palavra a palavra em sans condensada pesada, branca, com a palavra-chave em vermelho. **Personagem-símbolo de rosto escondido**, sempre o mesmo (o do Hard Copy é um executivo com câmera de segurança no lugar da cabeça). Número de prova em dourado gigante. **Trilha de cinema alta e contínua** (−5 a −8 dB da voz, sem silêncio) e golpes graves nos cortes.
+**Estrutura (50–65 s):** frase de filme em 2ª pessoa ("Você só precisa de um dia ruim") → repetição → analogia absurda **antes** do fato → inimigo comum → contraste de percepção → prova curta → anti-promessa ("não te promete nada, entrega o que você precisa") → CTA.
+**Para o nosso nicho:** "Imagina contratar o melhor vendedor do país e dar a ele uma planilha de 2009" (IA em cima de bagunça); "Toda empresa vai ter IA. Poucas vão ter resultado"; manifesto da consultoria Processos & IA.
+**Efeitos:** vertigo e pull-back reveal nas cenas, glass type no número, digital zoom; extras: tela preta seca, texto palavra a palavra, grão de filme (`grain-overlay`), vinheta (`vignette`), `camera-shake` leve.
+**Custo:** só a voz + 6–8 cenas geradas (~3 mil créditos), ou ~400 créditos com banco grátis + motion. Personagem-símbolo: criar uma vez.
+**Proibido:** trechos de filme, desenho ou vídeo de terceiros (os virais do Hard Copy usam; nós não).
+
+## F15 — Pedido → resultado
+O pedido em linguagem simples é digitado numa caixa de chat de IA ("faz um vídeo meu cozinhando essa picanha") com a fórmula fixa no topo ("1 selfie + 1 receita = *cinema*"), e então o **resultado real** aparece em tela cheia com contagem regressiva no canto e selo "gerado por IA".
+**Para o nosso nicho:** "1 planilha + 1 pergunta = relatório pro sócio"; "1 áudio do cliente + 1 pedido = proposta pronta"; "1 print do WhatsApp = pedido lançado no ERP". O resultado tem que ser real (feito por nós) e com dado fictício marcado como exemplo.
+**Efeitos:** UI world / phone mockup no pedido, zoom-through para o resultado, chart grow se o resultado for número.
+
+## Cardápio de 39 tipos (ref 20)
+Lista de tipos de Reels para combinar com os nossos estilos quando faltar ideia: fofoca · estudo fictício · use isso para isso · quadro branco · A + B + C · tela verde · talking head · mind map · tier list · tela na tela · musical · explicando para criança · reunião · caixinha de perguntas · erro comum · lista · cinemático · selfie no espelho · podcast · stories nativo · depoimento · POV · vlog · passo a passo · mitos e verdades · exercícios · resposta a comentário · bastidores do dia · giro de notícia · péssimo, bom e excelente · antes e depois · tablet na mão · UGC · carro · clone · vídeo escrito · narrado · cronômetro.
+Já cobertos: giro de notícia (Plantão IA), cinemático (F14), lista (F1), antes e depois (Caso Real), clone (avatar), narrado/vídeo escrito (F13). Bons próximos para o nosso público: **tier list** de ferramentas de IA para empresa, **péssimo/bom/excelente** jeito de implantar IA, **erro comum**, **reunião** encenada, **caixinha de perguntas** (como o tipo D do Hard Copy).
 
