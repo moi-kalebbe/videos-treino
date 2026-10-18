@@ -8,6 +8,7 @@
 | Duração alvo | XX s |
 | Voz | ElevenLabs: voz `<nome/voice_id>`, modelo `eleven_multilingual_v2` (ou "sem narração, só música") |
 | Trilha | clima (ex.: tech calmo, 100 bpm) |
+| Efeitos | 2 a 4 de [efeitos-video](../guias/efeitos-video.md), com a cena de cada um |
 | CTA | comenta `PALAVRA` |
 | Status | roteiro |
 

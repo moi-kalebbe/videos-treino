@@ -1,0 +1,16 @@
+Plantão IA · Edição 01. As 6 notícias de IA da semana, em 80 segundos.
+
+1. Google lança o Gemini 4 Argon, que trabalha horas sozinho
+2. Engenheiro da OpenAI é acusado de escuta na sala da diretoria (e quem achou foi a IA da própria OpenAI)
+3. Pedreiro do Maranhão viaja 2 mil km pra conhecer a namorada. Ela era IA.
+4. OpenAI solta mais de 700 artigos de matemática de uma vez e o Terence Tao reclama
+5. Bill Gates: "a tecnologia mais perigosa já inventada"
+6. Na Índia, agentes de IA entram no sistema de empresas e nenhuma percebe
+
+A última é a que importa pra quem tem empresa. Quer saber o que a IA da sua empresa consegue acessar? Comenta DIAGNÓSTICO.
+
+Todo domingo, 18h, tem Plantão IA.
+
+Fontes: Computerworld e InfoWorld (Gemini 4 Argon). SF Standard, BleepingComputer e Boston Globe (caso OpenAI; acusação, ainda sem julgamento). Itatiaia e O Liberal (pedreiro). Quanta Magazine e OfficeChai (artigos de matemática). CNN via TMZ (Bill Gates, 11/10). The Hacker News e Deccan Chronicle (alerta CERT-In, 15/10).
+
+#inteligenciaartificial #ia #noticias #tecnologia #empresas

@@ -1,0 +1,449 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Plantão IA · Edição 01</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-500.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; src: url("assets/fonts/instrument-serif-italic.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+
+      :root {
+        --bg: #070b18; --ink: #f4f5f8; --muted: #9aa2bd; --red: #e5162e; --red2: #ff4757;
+        --lime: #d7ff3a; --amber: #ffb020; --card: #121a31; --line: #26304f;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--bg); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; color: var(--ink); }
+      .clip { position: absolute; inset: 0; }
+      .cena { position: absolute; inset: 0; opacity: 0; }
+
+      #fundo { position: absolute; inset: 0; background: radial-gradient(120% 70% at 50% 35%, #1a1f3d 0%, var(--bg) 65%); }
+      #fundo .linhas { position: absolute; inset: 0; opacity: 0.08; background: repeating-linear-gradient(0deg, #fff 0 1px, transparent 1px 6px); }
+
+      /* barra superior fixa */
+      #topo { position: absolute; left: 0; right: 0; top: 0; height: 150px; display: flex; align-items: center; gap: 20px; padding: 40px 44px 0; }
+      .selo-plantao { display: flex; align-items: center; gap: 12px; padding: 12px 20px; background: var(--red); border-radius: 10px; font: 800 30px "Inter"; letter-spacing: 0.06em; }
+      .selo-plantao i { width: 16px; height: 16px; border-radius: 50%; background: #fff; display: block; }
+      .edicao { font: 700 24px "Inter"; letter-spacing: 0.12em; color: #ffffffcc; }
+      #contador { margin-left: auto; margin-right: 180px; font: 500 34px "JetBrains Mono"; color: #fff; opacity: 0; }
+      #marca { position: absolute; right: 44px; top: 50px; width: 140px; height: auto; display: block; }
+      #progresso { position: absolute; left: 0; top: 0; width: 1080px; height: 8px; background: var(--red); transform-origin: 0 50%; display: block; }
+
+      /* área de mídia: y 190 a 1220 */
+      .midia { position: absolute; left: 40px; right: 40px; top: 190px; height: 1030px; border-radius: 36px; overflow: hidden; background: #000; }
+      .midia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+      .midia .vinheta { position: absolute; inset: 0; background: linear-gradient(180deg, #0000 55%, #070b18e6 100%); }
+
+      /* aba de portal simulada */
+      .portal { position: absolute; left: 70px; right: 70px; border-radius: 22px; overflow: hidden; background: #f7f7f9; color: #111; box-shadow: 0 30px 90px #000c; opacity: 0; }
+      .portal .barra { display: flex; align-items: center; gap: 10px; padding: 14px 18px; background: #e6e7ec; }
+      .portal .bolinha { width: 14px; height: 14px; border-radius: 50%; display: block; }
+      .portal .url { flex: 1; margin-left: 12px; padding: 8px 16px; border-radius: 10px; background: #fff; font: 500 22px "JetBrains Mono"; color: #444; white-space: nowrap; overflow: hidden; }
+      .portal .corpo { padding: 26px 30px 32px; }
+      .portal .site { font: 800 22px "Inter"; letter-spacing: 0.1em; color: var(--red); }
+      .portal .manchete { margin-top: 10px; font: 800 44px/1.12 "Inter"; letter-spacing: -0.02em; }
+      .portal mark { position: relative; background: none; color: inherit; isolation: isolate; }
+      .portal mark i { position: absolute; left: -4px; right: -4px; top: 8%; bottom: 4%; background: var(--lime); z-index: 0; transform-origin: 0 50%; display: block; }
+      .portal .manchete span { position: relative; z-index: 1; }
+
+      /* números gigantes */
+      .grande { position: absolute; left: 0; right: 0; text-align: center; font: 800 200px/0.9 "Inter"; letter-spacing: -0.05em; color: var(--lime); text-shadow: 0 10px 40px #000; opacity: 0; }
+      .grande small { display: block; font: 800 54px "Inter"; letter-spacing: -0.01em; color: #fff; margin-top: 10px; }
+      .carimbo { position: absolute; left: 50%; width: 760px; margin-left: -380px; padding: 18px 0; text-align: center; border: 10px solid var(--red2); border-radius: 22px; color: var(--red2); font: 800 92px "Inter"; letter-spacing: 0.02em; background: #070b18d9; opacity: 0; }
+
+      /* tarja de telejornal */
+      .tarja { position: absolute; left: 30px; right: 30px; top: 1250px; opacity: 0; }
+      .tarja .tipo { display: inline-flex; align-items: center; gap: 12px; padding: 10px 20px; border-radius: 10px 10px 0 0; font: 800 28px "Inter"; letter-spacing: 0.08em; color: #fff; }
+      .tarja .faixa { background: #ffffff; color: #0b0f1d; border-radius: 0 14px 14px 14px; padding: 18px 26px; box-shadow: 0 20px 60px #000a; }
+      .tarja .local { font: 800 22px "Inter"; letter-spacing: 0.14em; color: var(--red); }
+      .tarja .titulo { margin-top: 4px; font: 800 40px/1.12 "Inter"; letter-spacing: -0.02em; }
+
+      /* ticker */
+      #ticker { position: absolute; left: 0; right: 0; top: 1850px; height: 70px; background: #000; display: flex; align-items: center; overflow: hidden; }
+      #ticker .rotulo { position: relative; z-index: 2; height: 100%; display: flex; align-items: center; padding: 0 22px; background: var(--red); font: 800 26px "Inter"; letter-spacing: 0.1em; flex: none; }
+      #ticker .trilho { white-space: nowrap; font: 700 28px "Inter"; color: #fff; padding-left: 30px; display: block; }
+
+      /* legenda */
+      #legenda { position: absolute; left: 50px; right: 50px; top: 1590px; height: 200px; }
+      .grupo { position: absolute; left: 0; right: 0; top: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 12px; opacity: 0; }
+      .palavra { display: inline-block; padding: 6px 16px; border-radius: 12px; background: #05070de6; font: 800 52px/1.1 "Inter"; letter-spacing: -0.02em; color: var(--ink); }
+
+      /* abertura */
+      #flash { position: absolute; inset: 0; background: var(--red); opacity: 0; }
+      #logo-plantao { position: absolute; left: 0; right: 0; top: 700px; text-align: center; font: 800 150px/0.95 "Inter"; letter-spacing: -0.04em; opacity: 0; }
+      #logo-plantao em { display: block; font: italic 400 120px "Instrument Serif"; color: var(--lime); letter-spacing: 0; }
+      /* efeito green screen: avatar recortado (webm com alfa) direto sobre a cena */
+      #recorte { position: absolute; left: 90px; top: 620px; width: 900px; height: 900px; opacity: 0;
+        -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%); mask-image: linear-gradient(180deg, #000 72%, transparent 100%); }
+      #recorte video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+      /* efeito headline wall + zoom-through */
+      #zoom { position: absolute; inset: 0; transform-origin: 48% 22%; }
+      #parede { position: absolute; left: -160px; top: 60px; width: 1400px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+      .pcard { padding: 22px 24px; border-radius: 20px; background: #f7f7f9; color: #0b0f1d; box-shadow: 0 20px 50px #000a; }
+      .pcard b { display: block; font: 800 18px "Inter"; letter-spacing: 0.12em; color: var(--red); margin-bottom: 8px; }
+      .pcard p { font: 800 34px/1.1 "Inter"; letter-spacing: -0.02em; }
+      .pcard.alvo { outline: 8px solid var(--lime); }
+      #escuro { position: absolute; inset: 0; background: linear-gradient(180deg, #070b18 0px, #070b18 150px, #070b1800 300px), radial-gradient(70% 45% at 50% 68%, #070b18f2 0%, #070b18b3 55%, #070b1840 100%); }
+      #luz { position: absolute; left: 140px; top: 760px; width: 800px; height: 800px; border-radius: 50%; background: radial-gradient(circle, #e5162e66 0%, #e5162e00 65%); }
+      #flash-z { position: absolute; inset: 0; background: #fff; opacity: 0; }
+
+      /* mapa (pedreiro) */
+      #mapa { position: absolute; left: 40px; right: 40px; top: 190px; height: 1030px; border-radius: 36px; overflow: hidden; background: radial-gradient(90% 60% at 50% 45%, #13224a, #070b18); }
+      .pino { position: absolute; display: flex; align-items: center; gap: 14px; font: 800 34px "Inter"; opacity: 0; }
+      .pino i { width: 34px; height: 34px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--red2); display: block; box-shadow: 0 0 30px var(--red2); }
+
+      /* páginas caindo (matemática) */
+      .pagina { position: absolute; width: 190px; height: 250px; border-radius: 10px; background: #f3f2ee; box-shadow: 0 10px 30px #0008; display: block; }
+      .pagina b { position: absolute; left: 18px; right: 18px; height: 8px; border-radius: 4px; background: #c9c7bf; display: block; }
+
+      /* citação Bill Gates */
+      #citacao { position: absolute; left: 80px; right: 80px; top: 560px; font: italic 400 96px/1.02 "Instrument Serif"; text-shadow: 0 6px 30px #000; }
+      .xcheck { position: absolute; left: 80px; right: 80px; display: flex; gap: 20px; }
+      .xcheck span { padding: 14px 24px; border-radius: 14px; font: 800 44px "Inter"; opacity: 0; }
+
+      /* medidor */
+      #medidor { position: absolute; left: 140px; width: 800px; top: 920px; opacity: 0; }
+      #medidor .rot { font: 800 28px "Inter"; letter-spacing: 0.12em; color: #fff; margin-bottom: 12px; }
+      #medidor .trilho { height: 40px; border-radius: 20px; background: linear-gradient(90deg, #2ecc71, #ffb020, #e5162e); position: relative; }
+      #medidor .ponteiro { position: absolute; top: -14px; left: 0; width: 14px; height: 68px; border-radius: 7px; background: #fff; box-shadow: 0 0 20px #fff; display: block; }
+      #medidor .valor { margin-top: 14px; text-align: right; font: 800 48px "Inter"; color: var(--red2); }
+
+      /* CTA */
+      #grade { position: absolute; left: 60px; right: 60px; top: 220px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .mini { padding: 16px 18px; border-radius: 16px; background: var(--card); border: 2px solid var(--line); font: 700 26px/1.2 "Inter"; opacity: 0; }
+      .mini b { display: block; font: 800 20px "Inter"; letter-spacing: 0.1em; margin-bottom: 6px; }
+      #cta-pede { position: absolute; left: 0; right: 0; top: 820px; text-align: center; font: italic 400 84px "Instrument Serif"; opacity: 0; }
+      #cta-campo { position: absolute; left: 60px; right: 60px; top: 960px; height: 170px; border-radius: 85px; background: var(--card); border: 3px solid var(--line); display: flex; align-items: center; gap: 20px; padding: 0 28px; opacity: 0; }
+      #digitado { font: 800 84px "Inter"; letter-spacing: -0.02em; }
+      #cta-campo .enviar { margin-left: auto; width: 112px; height: 112px; border-radius: 50%; background: var(--lime); color: #070b18; display: flex; align-items: center; justify-content: center; font: 800 60px "Inter"; }
+      #cta-data { position: absolute; left: 0; right: 0; top: 1200px; text-align: center; opacity: 0; }
+      #cta-data .selo-plantao { display: inline-flex; font-size: 44px; }
+      #cta-data p { margin-top: 18px; font: 800 64px "Inter"; letter-spacing: -0.01em; }
+      #cta-data em { font: italic 400 80px "Instrument Serif"; color: var(--lime); letter-spacing: 0; }
+      /* efeito doodle boil */
+      #rabisco { position: absolute; left: 0; top: 0; width: 1080px; height: 1920px; pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="85.2" data-width="1080" data-height="1920">
+      <section id="palco" class="clip" data-start="0" data-duration="85.2" data-track-index="0">
+        <div id="fundo"><div class="linhas"></div></div>
+
+        <!-- S0 abertura -->
+        <div class="cena" id="s0">
+          <div id="zoom"><div id="parede"><div class="pcard"><b>QUANTA</b><p>722 artigos de matemática feitos por IA</p></div><div class="pcard"><b>SF STANDARD</b><p>Engenheiro da OpenAI preso pelo FBI</p></div><div class="pcard"><b>THE HACKER NEWS</b><p>Agentes de IA acessam empresas sem permissão</p></div><div class="pcard"><b>ITATIAIA</b><p>Pedreiro viaja 2 mil km por namorada de IA</p></div><div class="pcard"><b>TMZ · CNN</b><p>Bill Gates: &quot;a mais perigosa&quot;</p></div><div class="pcard"><b>COMPUTERWORLD</b><p>Google lança Gemini 4 Argon</p></div><div class="pcard"><b>TMZ · CNN</b><p>Bill Gates: &quot;a mais perigosa&quot;</p></div><div class="pcard alvo"><b>COMPUTERWORLD</b><p>Google lança Gemini 4 Argon</p></div><div class="pcard"><b>SF STANDARD</b><p>Engenheiro da OpenAI preso pelo FBI</p></div><div class="pcard"><b>THE HACKER NEWS</b><p>Agentes de IA acessam empresas sem permissão</p></div><div class="pcard"><b>QUANTA</b><p>722 artigos de matemática feitos por IA</p></div><div class="pcard"><b>ITATIAIA</b><p>Pedreiro viaja 2 mil km por namorada de IA</p></div><div class="pcard"><b>SF STANDARD</b><p>Engenheiro da OpenAI preso pelo FBI</p></div><div class="pcard"><b>TMZ · CNN</b><p>Bill Gates: &quot;a mais perigosa&quot;</p></div><div class="pcard"><b>ITATIAIA</b><p>Pedreiro viaja 2 mil km por namorada de IA</p></div></div></div>
+          <div id="escuro"></div>
+          <div id="luz"></div>
+          <div id="flash"></div>
+        </div>
+
+        <!-- S1 Google -->
+        <div class="cena" id="s1">
+          <div class="portal" id="p1" style="top:300px">
+            <div class="barra"><span class="bolinha" style="background:#ff5f57"></span><span class="bolinha" style="background:#febc2e"></span><span class="bolinha" style="background:#28c840"></span><span class="url" id="url1"></span></div>
+            <div class="corpo"><span class="site">COMPUTERWORLD</span><p class="manchete"><span>Google positions Gemini 4 Argon for </span><mark><i id="mk1"></i><span>long-horizon agentic work</span></mark></p></div>
+          </div>
+          <div id="gemini" style="position:absolute;left:0;right:0;top:680px;text-align:center;opacity:0">
+            <p style="font:800 110px/0.95 'Inter';letter-spacing:-0.04em;background:linear-gradient(90deg,#4f8cff,#b27cff,#ff6fa8);-webkit-background-clip:text;background-clip:text;color:transparent">Gemini 4<br />Argon</p>
+            <p style="margin-top:18px;font:italic 400 64px 'Instrument Serif';color:#fff">trabalha horas sozinha ⏱</p>
+          </div>
+          <p class="grande" id="g1" style="top:820px"><span id="n1">0</span><small>linhas de código reorganizadas</small></p>
+        </div>
+
+        <!-- S2 OpenAI escuta -->
+        <div class="cena" id="s2">
+          <div class="midia" data-layout-allow-overflow><img id="img2" src="assets/img/escuta.png" alt="" /><div class="vinheta"></div></div>
+          <div class="portal" id="p2" style="top:330px">
+            <div class="barra"><span class="bolinha" style="background:#ff5f57"></span><span class="bolinha" style="background:#febc2e"></span><span class="bolinha" style="background:#28c840"></span><span class="url" id="url2"></span></div>
+            <div class="corpo"><span class="site">THE SAN FRANCISCO STANDARD</span><p class="manchete"><span>OpenAI engineer arrested for alleged </span><mark><i id="mk2"></i><span>bugging of executive conference room</span></mark></p></div>
+          </div>
+          <div class="carimbo" id="c2" style="top:860px">PRESO · FBI</div>
+        </div>
+
+        <!-- S3 pedreiro -->
+        <div class="cena" id="s3">
+          <div id="mapa">
+            <svg width="1000" height="1030" viewBox="0 0 1000 1030" style="position:absolute;inset:0">
+              <path id="rota" d="M 690 230 C 640 420, 520 560, 450 760" fill="none" stroke="#e5162e" stroke-width="10" stroke-linecap="round" stroke-dasharray="22 18" />
+            </svg>
+            <div class="pino" id="pinoA" style="left:670px;top:180px"><i></i>Imperatriz · MA</div>
+            <div class="pino" id="pinoB" style="left:420px;top:740px"><i></i>Belo Horizonte · MG</div>
+            <p class="grande" id="g3" style="top:360px;font-size:170px"><span id="n3">0</span> km<small>e 36 horas de ônibus</small></p>
+          </div>
+          <div class="midia" id="m3" data-layout-allow-overflow style="opacity:0"><img id="img3" src="assets/img/pedreiro.png" alt="" /><div class="vinheta"></div></div>
+          <div class="carimbo" id="c3" style="top:800px">NÃO EXISTIA</div>
+          <p class="grande" id="g3b" style="top:1020px;font-size:76px;color:#fff">e ele vai tentar de novo 🤷</p>
+        </div>
+
+        <!-- S4 matemática -->
+        <div class="cena" id="s4">
+          <div class="midia" id="chuva" data-layout-allow-overflow style="background:#0c1226"></div>
+          <p class="grande" id="g4" style="top:420px;z-index:5"><span id="n4">0</span><small>artigos de matemática de uma vez</small></p>
+          <div class="portal" id="p4" style="top:820px">
+            <div class="barra"><span class="bolinha" style="background:#ff5f57"></span><span class="bolinha" style="background:#febc2e"></span><span class="bolinha" style="background:#28c840"></span><span class="url" id="url4"></span></div>
+            <div class="corpo"><span class="site">OFFICECHAI</span><p class="manchete"><span>Terence Tao: releasing 300 proofs at once is </span><mark><i id="mk4"></i><span>making math less fertile</span></mark></p></div>
+          </div>
+        </div>
+
+        <!-- S5 Bill Gates -->
+        <div class="cena" id="s5">
+          <div class="midia" data-layout-allow-overflow><img id="img5" src="assets/img/estudio.png" alt="" /><div class="vinheta"></div></div>
+          <p id="citacao"></p>
+          <div class="xcheck" style="top:1010px"><span id="x5a" style="background:#26304f">🤖 robô ✗</span><span id="x5b" style="background:var(--red)">🕵️ crime digital ✓</span></div>
+        </div>
+
+        <!-- S6 Índia -->
+        <div class="cena" id="s6">
+          <div class="midia" data-layout-allow-overflow><img id="img6" src="assets/img/servidores.png" alt="" /><div class="vinheta"></div></div>
+          <div class="portal" id="p6" style="top:260px">
+            <div class="barra"><span class="bolinha" style="background:#ff5f57"></span><span class="bolinha" style="background:#febc2e"></span><span class="bolinha" style="background:#28c840"></span><span class="url" id="url6"></span></div>
+            <div class="corpo"><span class="site">THE HACKER NEWS · ALERTA CRÍTICO</span><p class="manchete"><span>CERT-In warns </span><mark><i id="mk6"></i><span>AI agents accessed</span></mark><span> Indian firms' systems without permission</span></p></div>
+          </div>
+          <div class="carimbo" id="c6" style="top:720px">NENHUMA PERCEBEU</div>
+          <div id="medidor"><p class="rot">IMPACTO NA SUA EMPRESA</p><div class="trilho"><span class="ponteiro" id="ponteiro"></span></div><p class="valor">ALTO</p></div>
+        </div>
+
+        <!-- S7 CTA -->
+        <div class="cena" id="s7">
+          <div id="grade">
+            <div class="mini"><b style="color:#7aa2ff">🚀 LANÇAMENTO</b>Gemini 4 Argon trabalha horas sozinho</div>
+            <div class="mini"><b style="color:#ff4757">💣 BOMBA</b>Escuta na sala da diretoria da OpenAI</div>
+            <div class="mini"><b style="color:#ffb020">🤦 INUSITADO</b>Pedreiro viaja 2 mil km por namorada de IA</div>
+            <div class="mini"><b style="color:#b38cff">🧠 CIÊNCIA</b>722 artigos de matemática feitos por IA</div>
+            <div class="mini"><b style="color:#ff4757">⚠️ ALERTA</b>Bill Gates: "a mais perigosa"</div>
+            <div class="mini" style="border-color:#e5162e"><b style="color:#d7ff3a">🏢 NA SUA EMPRESA</b>Agentes de IA sem permissão</div>
+          </div>
+          <p id="cta-pede">Quer descobrir? Comenta</p>
+          <div id="cta-campo"><span id="digitado"></span><span class="enviar">↑</span></div>
+          <div id="cta-data"><span class="selo-plantao"><i></i>PLANTÃO IA</span><p>Todo domingo, <em>18h</em></p></div>
+        </div>
+
+        <!-- tarjas (uma por notícia) -->
+        <div class="tarja" id="t1"><span class="tipo" style="background:#3d6bff">🚀 LANÇAMENTO</span><div class="faixa"><p class="local">EUA · GOOGLE</p><p class="titulo">Gemini 4 Argon trabalha horas sozinho</p></div></div>
+        <div class="tarja" id="t2"><span class="tipo" style="background:var(--red)">💣 BOMBA</span><div class="faixa"><p class="local">SÃO FRANCISCO · OPENAI</p><p class="titulo">Funcionário acusado de escuta na sala da diretoria</p></div></div>
+        <div class="tarja" id="t3"><span class="tipo" style="background:#e08a00">🤦 INUSITADO</span><div class="faixa"><p class="local">MARANHÃO → MINAS GERAIS</p><p class="titulo">Pedreiro viaja 2 mil km por namorada feita com IA</p></div></div>
+        <div class="tarja" id="t4"><span class="tipo" style="background:#7a4dff">🧠 CIÊNCIA</span><div class="faixa"><p class="local">OPENAI · MATEMÁTICA</p><p class="titulo">IA publica mais de 700 artigos de uma vez</p></div></div>
+        <div class="tarja" id="t5"><span class="tipo" style="background:var(--red)">⚠️ ALERTA</span><div class="faixa"><p class="local">ENTREVISTA À CNN · BILL GATES</p><p class="titulo">"IA é a tecnologia mais perigosa já inventada"</p></div></div>
+        <div class="tarja" id="t6"><span class="tipo" style="background:#111;border:3px solid var(--lime)">🏢 NA SUA EMPRESA</span><div class="faixa"><p class="local">ÍNDIA · ALERTA CRÍTICO DO GOVERNO</p><p class="titulo">Agentes de IA acessam dados de empresas sem permissão</p></div></div>
+
+        <div id="topo"><span class="selo-plantao"><i></i>PLANTÃO IA</span><span class="edicao">EDIÇÃO 01 · 18/10</span><span id="contador">1/6</span></div>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+        <div id="ticker"><span class="rotulo">ÚLTIMAS</span><span class="trilho" id="trilho">GOOGLE LANÇA GEMINI 4 ARGON • ESCUTA NA SALA DA DIRETORIA DA OPENAI • PEDREIRO VIAJA 2 MIL KM POR NAMORADA DE IA • OPENAI PUBLICA 722 ARTIGOS DE MATEMÁTICA • BILL GATES: "A TECNOLOGIA MAIS PERIGOSA" • ÍNDIA: AGENTES DE IA ACESSAM DADOS SEM PERMISSÃO • GOOGLE LANÇA GEMINI 4 ARGON • ESCUTA NA SALA DA DIRETORIA DA OPENAI • PEDREIRO VIAJA 2 MIL KM POR NAMORADA DE IA •</span></div>
+        <svg id="rabisco" viewBox="0 0 1080 1920"><path id="circ" d="M 0 0" fill="none" stroke="#d7ff3a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" /><path id="seta" d="M 0 0" fill="none" stroke="#d7ff3a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        <div id="flash-z"></div>
+        <span id="progresso"></span>
+      </section>
+
+      <div id="recorte"><video id="avatar" src="assets/avatar/abertura-recorte.webm" muted playsinline data-sinc="cena:0:0" data-start="0.0" data-duration="6.87"></video></div>
+      <div id="legenda" class="clip" data-start="0" data-duration="85.2" data-track-index="1"></div>
+
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="82.68" data-volume="1"></audio>
+      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="85.2" data-volume="0.14" data-fade-out="2"></audio>
+      <audio id="sfx-vinheta" src="assets/audio/vinheta.mp3" data-sinc="cena:0:0" data-start="0.0" data-duration="3.48" data-volume="0.35"></audio>
+      <audio id="sfx-ding-1" src="assets/audio/ding.mp3" data-sinc="cena:1:-0.2" data-start="6.34" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-tele-1" src="assets/audio/teletipo.mp3" data-sinc="cena:1:0.2" data-start="6.74" data-duration="1.48" data-volume="0.35"></audio>
+      <audio id="sfx-ding-2" src="assets/audio/ding.mp3" data-sinc="cena:2:-0.2" data-start="15.99" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-suspense" src="assets/audio/suspense.mp3" data-sinc="cena:2:0" data-start="16.19" data-duration="2" data-volume="0.55"></audio>
+      <audio id="sfx-carimbo-2" src="assets/audio/carimbo.mp3" data-sinc="palavra:preso:1:0.1" data-start="26.75" data-duration="0.68" data-volume="0.8"></audio>
+      <audio id="sfx-ding-3" src="assets/audio/ding.mp3" data-sinc="cena:3:-0.2" data-start="28.0" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-trombone" src="assets/audio/trombone.mp3" data-sinc="palavra:não:1:0.15" data-start="35.97" data-duration="2.2" data-volume="0.45"></audio>
+      <audio id="sfx-ding-4" src="assets/audio/ding.mp3" data-sinc="cena:4:-0.2" data-start="39.51" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-tele-4" src="assets/audio/teletipo.mp3" data-sinc="palavra:tao:1:-0.2" data-start="47.65" data-duration="1.48" data-volume="0.35"></audio>
+      <audio id="sfx-ding-5" src="assets/audio/ding.mp3" data-sinc="cena:5:-0.2" data-start="52.22" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-glitch-5" src="assets/audio/glitch.mp3" data-sinc="palavra:crime:1:-0.1" data-start="61.19" data-duration="0.8" data-volume="0.5"></audio>
+      <audio id="sfx-ding-6" src="assets/audio/ding.mp3" data-sinc="cena:6:-0.2" data-start="63.68" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-alerta" src="assets/audio/alerta.mp3" data-sinc="cena:6:0.4" data-start="64.28" data-duration="1.48" data-volume="0.45"></audio>
+      <audio id="sfx-carimbo-6" src="assets/audio/carimbo.mp3" data-sinc="palavra:nenhuma:1:0" data-start="73.79" data-duration="0.68" data-volume="0.8"></audio>
+      <audio id="sfx-glitch-7" src="assets/audio/glitch.mp3" data-sinc="cena:7:-0.2" data-start="78.58" data-duration="0.8" data-volume="0.5"></audio>
+    </div>
+
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const DURACAO = 85.2;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;]/g, "");
+      function em(palavra, n = 1, fallback = 0) {
+        let visto = 0;
+        for (const p of PALAVRAS) if (limpar(p.w) === palavra && ++visto === n) return p.s;
+        return fallback;
+      }
+      const C = window.CENAS || [0, 6.5, 16.2, 28.2, 39.7, 52.4, 63.9, 78.8];
+      const tl = gsap.timeline({ paused: true });
+
+      // ---- legenda (até 3 palavras) ----
+      const caixa = document.getElementById("legenda");
+      const grupos = [];
+      let atual = [];
+      for (const p of PALAVRAS) {
+        atual.push(p);
+        if (atual.length === 3 || /[.,?!:]$/.test(p.w)) { grupos.push(atual); atual = []; }
+      }
+      if (atual.length) grupos.push(atual);
+      for (const grupo of grupos) {
+        const g = document.createElement("div");
+        g.className = "grupo";
+        caixa.appendChild(g);
+        for (const p of grupo) {
+          const s = document.createElement("span");
+          s.className = "palavra";
+          s.textContent = p.w;
+          g.appendChild(s);
+          tl.set(s, { backgroundColor: "#ffffff", color: "#070b18" }, p.s);
+          tl.set(s, { backgroundColor: "rgba(5,7,13,0.9)", color: "#f4f5f8" }, p.e);
+        }
+        tl.fromTo(g, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.1 }, grupo[0].s);
+        tl.set(g, { opacity: 0 }, grupo[grupo.length - 1].e + 0.05);
+      }
+
+      tl.fromTo("#progresso", { scaleX: 0 }, { scaleX: 1, duration: DURACAO, ease: "none" }, 0);
+      tl.fromTo("#trilho", { x: 0 }, { x: -3400, duration: DURACAO, ease: "none" }, 0);
+
+      // ---- cenas e tarjas ----
+      for (let i = 0; i <= 7; i++) {
+        const ini = C[i], fim = i < 7 ? C[i + 1] : DURACAO + 1;
+        if (i === 0) tl.set("#s0", { opacity: 1 }, 0);
+        else tl.fromTo(`#s${i}`, { opacity: 0 }, { opacity: 1, duration: 0.2 }, ini - 0.1);
+        if (fim <= DURACAO) tl.to(`#s${i}`, { opacity: 0, duration: 0.2 }, fim - 0.2);
+        if (i >= 1 && i <= 6) {
+          tl.fromTo(`#t${i}`, { opacity: 0, x: -120 }, { opacity: 1, x: 0, duration: 0.35, ease: "power3.out" }, ini + 0.15);
+          tl.to(`#t${i}`, { opacity: 0, x: 60, duration: 0.2 }, fim - 0.25);
+          tl.set("#contador", { textContent: `${i}/6` }, ini);
+          tl.fromTo("#contador", { scale: 1.4 }, { scale: 1, duration: 0.3, ease: "back.out(2)" }, ini);
+        }
+      }
+      tl.fromTo("#contador", { opacity: 0 }, { opacity: 1, duration: 0.2 }, C[1]);
+      tl.to("#contador", { opacity: 0, duration: 0.2 }, C[7]);
+
+      // ---- abertura ----
+      tl.fromTo("#flash", { opacity: 0.9 }, { opacity: 0, duration: 0.5, ease: "power2.out" }, 0);
+      // green screen: avatar recortado sobe direto sobre a parede de manchetes
+      tl.fromTo("#recorte", { opacity: 0, y: 80 }, { opacity: 1, y: 0, duration: 0.45, ease: "power3.out" }, 0.1);
+      tl.to("#recorte", { opacity: 0, y: 40, duration: 0.25 }, 6.15);
+      // headline wall: parede inclinada em 3D, cards entram e a parede desliza
+      tl.set("#parede", { rotationX: 30, rotationZ: -9, transformPerspective: 1500 }, 0);
+      tl.fromTo(".pcard", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.05 }, 0.05);
+      tl.fromTo("#parede", { y: 80 }, { y: -120, duration: C[1], ease: "none" }, 0);
+      tl.to(["#escuro", "#luz"], { opacity: 0, duration: 0.3 }, 6.0);
+      // zoom-through: a câmera atravessa o card do Google e cai na notícia 1
+      tl.fromTo("#zoom", { scale: 1 }, { scale: 7, duration: 0.55, ease: "power3.in" }, C[1] - 0.5);
+      tl.fromTo("#flash-z", { opacity: 0 }, { opacity: 0.85, duration: 0.12 }, C[1] - 0.12);
+      tl.to("#flash-z", { opacity: 0, duration: 0.3, ease: "power2.out" }, C[1]);
+
+      // ---- digitar URL ----
+      function digitar(sel, texto, ini) {
+        const el = document.querySelector(sel);
+        for (let i = 0; i <= texto.length; i++) tl.set(el, { textContent: texto.slice(0, i) }, ini + i * 0.025);
+      }
+      function portal(n, url, ini, marcar) {
+        tl.fromTo(`#p${n}`, { opacity: 0, y: 60, scale: 0.94 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "power3.out" }, ini);
+        digitar(`#url${n}`, url, ini + 0.2);
+        tl.fromTo(`#mk${n}`, { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, marcar);
+      }
+      function contar(sel, ate, ini, dur, formato) {
+        const el = document.querySelector(sel);
+        const o = { v: 0 };
+        const escreve = () => (el.textContent = formato(Math.round(o.v)));
+        tl.set(o, { v: 0, onUpdate: escreve }, 0);
+        tl.to(o, { v: ate, duration: dur, ease: "power2.out", onUpdate: escreve }, ini);
+      }
+      const milhar = (v) => v.toLocaleString("pt-BR");
+
+      // ---- 1 Google ----
+      portal(1, "computerworld.com/article/gemini-4-argon", C[1] + 0.3, em("trabalha", 1, 9.8));
+      tl.fromTo("#gemini", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(1.6)" }, em("gemini", 1, 7.9) - 0.1);
+      tl.to("#gemini", { opacity: 0, y: -40, duration: 0.25 }, em("seis", 2, 13.4) - 0.4);
+      tl.fromTo("#g1", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, em("seis", 2, 13.4) - 0.2);
+      contar("#n1", 6000000, em("seis", 2, 13.4), 1.4, milhar);
+
+      // ---- 2 escuta ----
+      tl.fromTo("#img2", { scale: 1.25 }, { scale: 1.0, duration: C[3] - C[2], ease: "none" }, C[2]);
+      portal(2, "sfstandard.com/2026/10/13/openai-engineer-arrested", em("quem", 1, 23.3) - 0.3, em("culpado", 1, 23.8));
+      tl.fromTo("#c2", { opacity: 0, scale: 2.2, rotation: -16 }, { opacity: 1, scale: 1, rotation: -6, duration: 0.3, ease: "power4.in" }, em("preso", 1, 26.6) - 0.2);
+
+      // ---- 3 pedreiro ----
+      tl.fromTo("#pinoA", { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)" }, em("maranhão", 1, 30));
+      tl.fromTo("#rota", { strokeDashoffset: 900 }, { strokeDashoffset: 0, duration: 1.6, ease: "power1.inOut" }, em("viajou", 1, 31.6) - 0.2);
+      tl.fromTo("#pinoB", { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)" }, em("minas", 1, 35) - 0.3);
+      tl.fromTo("#g3", { opacity: 0 }, { opacity: 1, duration: 0.3 }, em("trinta", 1, 32.2) - 0.2);
+      contar("#n3", 2000, em("trinta", 1, 32.2), 1.2, milhar);
+      tl.to("#mapa", { opacity: 0, duration: 0.25 }, em("ela", 2, 35.6) - 0.3);
+      tl.to("#g3", { opacity: 0, duration: 0.2 }, em("ela", 2, 35.6) - 0.3);
+      tl.fromTo("#m3", { opacity: 0 }, { opacity: 1, duration: 0.3 }, em("ela", 2, 35.6) - 0.35);
+      tl.fromTo("#img3", { scale: 1.2 }, { scale: 1.0, duration: 4, ease: "none" }, em("ela", 2, 35.6) - 0.35);
+      tl.fromTo("#c3", { opacity: 0, scale: 2.2, rotation: 14 }, { opacity: 1, scale: 1, rotation: 6, duration: 0.3, ease: "power4.in" }, em("não", 1, 35.8));
+      tl.fromTo("#g3b", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(2)" }, em("tentar", 1, 38.3) - 0.3);
+
+      // ---- 4 matemática: páginas caindo ----
+      const chuva = document.getElementById("chuva");
+      for (let i = 0; i < 26; i++) {
+        const pg = document.createElement("span");
+        pg.className = "pagina";
+        for (let l = 0; l < 7; l++) { const b = document.createElement("b"); b.style.top = 26 + l * 30 + "px"; b.style.right = 18 + ((i * 7 + l * 13) % 60) + "px"; pg.appendChild(b); }
+        pg.style.left = ((i * 137) % 820) + "px";
+        chuva.appendChild(pg);
+        tl.fromTo(pg, { y: -320, rotation: ((i * 23) % 40) - 20 }, { y: 760 - Math.floor(i / 6) * 40, rotation: ((i * 31) % 30) - 15, duration: 0.9, ease: "power2.in" }, C[4] + 0.1 + i * 0.065);
+      }
+      tl.fromTo("#g4", { opacity: 0, scale: 0.8 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.8)" }, em("setecentos", 1, 42.5) - 0.2);
+      contar("#n4", 722, em("setecentos", 1, 42.5), 1.0, (v) => String(v));
+      portal(4, "officechai.com/ai/terence-tao-openai-300-math-proofs", em("terence", 1, 47.3) - 0.4, em("atrapalha", 1, 50.6));
+
+      // ---- 5 Bill Gates ----
+      tl.fromTo("#img5", { scale: 1.2 }, { scale: 1.0, duration: C[6] - C[5], ease: "none" }, C[5]);
+      const frase = "“A tecnologia mais perigosa já inventada”";
+      const cit = document.getElementById("citacao");
+      for (let i = 0; i <= frase.length; i++) tl.set(cit, { textContent: frase.slice(0, i) }, em("tecnologia", 1, 56) - 0.3 + i * 0.045);
+      tl.fromTo("#x5a", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, em("robô", 1, 60.7) - 0.1);
+      tl.fromTo("#x5b", { opacity: 0, scale: 0.7 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, em("crime", 1, 61.3) - 0.1);
+
+      // ---- 6 Índia ----
+      tl.fromTo("#img6", { scale: 1.25 }, { scale: 1.0, duration: C[7] - C[6], ease: "none" }, C[6]);
+      portal(6, "thehackernews.com/2026/10/cert-in-warns-ai-agents", C[6] + 0.4, em("entraram", 1, 68.2));
+      tl.to("#p6", { opacity: 0, y: -40, duration: 0.3 }, em("nenhuma", 1, 73.8) - 0.4);
+      tl.fromTo("#c6", { opacity: 0, scale: 2.2, rotation: -14 }, { opacity: 1, scale: 1, rotation: -5, duration: 0.3, ease: "power4.in" }, em("nenhuma", 1, 73.8) - 0.1);
+      tl.to("#c6", { opacity: 0, duration: 0.25 }, em("pergunta", 1, 74.9) - 0.1);
+      tl.fromTo("#medidor", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3 }, em("pergunta", 1, 74.9));
+      tl.fromTo("#ponteiro", { x: 0 }, { x: 760, duration: 1.4, ease: "power2.out" }, em("pergunta", 1, 74.9) + 0.2);
+
+      // ---- 7 CTA ----
+      tl.fromTo(".mini", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.25, stagger: 0.08 }, C[7] + 0.05);
+      tl.to(".mini:not(:last-child)", { opacity: 0.35, duration: 0.3 }, em("comenta", 1, 79.9) - 0.3);
+      tl.fromTo("#cta-pede", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3 }, em("se", 1, 79.0) - 0.1);
+      tl.fromTo("#cta-campo", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3 }, em("comenta", 1, 79.9) - 0.4);
+      const chave = "DIAGNÓSTICO";
+      const dig = document.getElementById("digitado");
+      for (let i = 0; i <= chave.length; i++) tl.set(dig, { textContent: chave.slice(0, i) }, em("comenta", 1, 79.9) + i * 0.06);
+      tl.fromTo("#cta-data", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.35 }, em("domingo", 1, 81.3) - 0.2);
+
+      // ---- doodle boil no "não existia": círculo e seta rabiscados que tremem ----
+      function rabisco(cx, cy, rx, ry, semente) {
+        let d = "";
+        for (let k = 0; k <= 40; k++) {
+          const a = (k / 36) * Math.PI * 2 - 0.5;
+          const w = 1 + 0.035 * Math.sin(k * 2.3 + semente * 1.7) + 0.02 * Math.cos(k * 5.1 + semente);
+          d += (k ? " L " : "M ") + (cx + Math.cos(a) * rx * w).toFixed(1) + " " + (cy + Math.sin(a) * ry * w).toFixed(1);
+        }
+        return d;
+      }
+      const setaD = (j) => `M ${300 + j} ${1160 - j} Q ${250 - j} 1060 330 ${975 + j} M 330 ${975 + j} L ${300 + j} 1010 M 330 ${975 + j} L 368 ${995 - j}`;
+      const iniR = em("era", 1, 36.6), fimR = C[4] - 0.3;
+      const circ = document.getElementById("circ");
+      circ.setAttribute("d", rabisco(540, 880, 450, 130, 0));
+      const comp = circ.getTotalLength();
+      tl.set("#circ", { attr: { d: rabisco(540, 880, 450, 130, 0) }, strokeDasharray: comp, strokeDashoffset: comp, opacity: 0 }, 0);
+      tl.set("#circ", { opacity: 1 }, iniR);
+      tl.to("#circ", { strokeDashoffset: 0, duration: 0.45, ease: "power1.inOut" }, iniR);
+      tl.set("#seta", { attr: { d: setaD(0) }, opacity: 0 }, 0);
+      for (let t = iniR + 0.5, k = 1; t < fimR; t += 0.125, k++) {
+        tl.set("#circ", { attr: { d: rabisco(540, 880, 450, 130, k % 3) } }, t);
+      }
+      tl.to(["#circ", "#seta"], { opacity: 0, duration: 0.2 }, fimR);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

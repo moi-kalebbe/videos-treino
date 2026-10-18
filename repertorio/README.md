@@ -93,6 +93,15 @@ Status: `ideia` → `roteiro` → `produção` → `publicado`
 | 38 | Por que o preço sai certo quando a IA escreve o vídeo em código | F5 | Modelo de vídeo erra texto e preço; vídeo em código sai exato, com a sua marca | `CÓDIGO` |
 | 39 | O cardápio que se atualiza sozinho nos stories | F8 | Planilha de preços → vídeo gerado toda semana → postado. Sem designer, sem erro de preço | `CARDÁPIO` |
 
+## Novas (lote 04)
+
+| # | Gancho | Formato | Ideia central | CTA |
+|---|---|---|---|---|
+| 40 | O caminho da planilha do seu financeiro quando ela vai pro ChatGPT | F11 | A viagem do dado, com a parada do risco (onde fica, quem vê, o que treina) e o jeito certo de fazer | `DIAGNÓSTICO` |
+| 41 | Não coloque IA na empresa antes de arrumar essas 4 coisas | F12 | Dados, processo escrito, permissão e dono do processo, cada um com uma metáfora | `DIAGNÓSTICO` |
+| 42 | O agente de IA nº 1 da semana (e o que ele faz numa empresa) | F13 | Ferramenta em alta → 1 uso concreto em PME → número → objeção → CTA | `AGENTE` |
+| 43 | Como ler um livro de gestão com IA e aplicar na segunda-feira | F10 | Método de leitura com IA (pauta vinda dos vídeos longos de 9 e 12/10, ainda não processados) | `MÉTODO` |
+
 ---
 
 ## Primeira leva (10 vídeos) · roteiros em [`roteiros/`](../roteiros/)

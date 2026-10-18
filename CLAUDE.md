@@ -6,6 +6,7 @@ Este repo treina agentes para criar e editar vídeos curtos verticais sobre **im
 1. **Perguntar primeiro: "Que estilo de vídeo você quer?"** e listar os estilos de `estilos/README.md` (ou "um formato novo").
 2. Se ele escolher um estilo salvo: ler `estilos/<estilo>/README.md`, mandar a ele o **briefing** daquele estilo (o que preciso dele + custo típico) e rodar `scripts/novo-video.sh <estilo> <slug>`.
 3. Seguir o passo a passo e o checklist do guia; nota ≥ 9 pela rubrica antes de entregar.
+   **Efeitos:** antes de produzir, escolher 2 a 4 efeitos de `guias/efeitos-video.md` que reforçam a história e anotar no roteiro (linha `Efeitos:`), dizendo ao dono quais entram.
    **Capa responsiva é obrigatória em todo vídeo** e vai junto na publicação (o Instagram não deixa trocar depois).
 4. Quando um formato novo for aprovado pelo dono, salvar como estilo novo em `estilos/` (guia + modelo).
 
@@ -23,6 +24,9 @@ O dono sobe vídeos de referência nas **Notas Rápidas** do Mac. Quando pedir p
 4. Levar o que agrega para `formatos/` e `repertorio/`.
 
 ## Regras
+- **Voz e áudio:** seguir `guias/voz-e-audio.md` em todo vídeo ("IA" escrito normal, fala por fala sem `<break>`, +0,7 s no fim do avatar, conferência local por trechos).
+- **Efeitos:** catálogo dos 17 efeitos e como fazer cada um no HyperFrames em `guias/efeitos-video.md` (vale para todos os estilos).
+- **Roteiro:** seguir `guias/linguagem-natural.md` (fala de conversa, sem impacto genérico, humor quando couber).
 - Por enquanto **nenhum vídeo mostra rosto**: só motion, telas simuladas, texto e narração.
 - Voz: **ElevenLabs** (`ELEVENLABS_API_KEY` no `.env`, que nunca vai pro git).
 - **Transcrição sempre com whisper local** (`whisper-cli`), nunca com o ElevenLabs. Créditos do ElevenLabs só para o que entra no vídeo final; usar `estimate_only` antes de gerações caras.

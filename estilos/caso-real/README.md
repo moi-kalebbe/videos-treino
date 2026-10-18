@@ -91,7 +91,7 @@ Sem avatar: ~2.400 créditos.
 - Foto do gancho com espaço vazio em cima para o título; o avatar **não cobre** o assunto da foto.
 
 ## 9. Checklist antes de entregar
-
+- [ ] 2 a 4 efeitos de [`guias/efeitos-video.md`](../../guias/efeitos-video.md) escolhidos e anotados no roteiro (sugestões para este estilo estão lá).
 - [ ] `npx hyperframes check` sem erros
 - [ ] Folha de contato do MP4 (1 quadro/s) + 1º quadro em tamanho cheio
 - [ ] Nada sobreposto sem querer; número não aparece antes de ser falado

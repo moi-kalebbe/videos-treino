@@ -1,6 +1,6 @@
 # Formatos sem rosto (motion)
 
-Formatos tirados das referências ([lote 01](../referencias/lote-01.md), [lote 02](../referencias/lote-02.md), [lote 03](../referencias/lote-03.md)), adaptados para **não aparecer**: só motion graphics, telas simuladas, texto na tela e narração (TTS pt-BR) ou só música.
+Formatos tirados das referências ([lote 01](../referencias/lote-01.md), [lote 02](../referencias/lote-02.md), [lote 03](../referencias/lote-03.md), [lote 04](../referencias/lote-04.md)), adaptados para **não aparecer**: só motion graphics, telas simuladas, texto na tela e narração (TTS pt-BR) ou só música.
 
 **Avatar (regra de custo):** o apresentador aparece só em 3 momentos: **gancho** (~4 s), **um respiro no meio** (~3 s) e **CTA** (~5 s), uns 12 s no total (~7 mil créditos com HeyGen Avatar IV). O resto é motion, imagens e dados.
 
@@ -18,6 +18,9 @@ Padrão de todos: 9:16 · 1080×1920 · legenda sempre ligada (palavra ativa em 
 | **F8** | Fluxo que se monta | ref 01 (card que vai ganhando itens) | 30–45 s | HyperFrames |
 | **F9** | Vitrine de exemplos | ref 09 (703 vídeos) | 30–50 s | HyperFrames |
 | **F10** | Explicação que se monta (com avatar) | ref 10 (André Nunes) | 45–90 s | HyperFrames + avatar |
+| **F11** | Viagem por dentro | ref 11 (Moisés, "2 segundos") | 45–75 s | HyperFrames + avatar |
+| **F12** | Mascote com metáforas | ref 12 (Jeferson, 4 plugins) | 45–60 s | HyperFrames + personagem 2D |
+| **F13** | Terminal neon | ref 13 (Maurício, repo nº 1) | 30–40 s | HyperFrames (só voz) |
 
 ---
 
@@ -71,3 +74,24 @@ Apresentador (avatar) num card na metade de baixo; a metade de cima é um infogr
 **Estrutura:** gancho com o rosto → "antes" (custo/tempo se somando) → "hoje" → 2–4 demonstrações por área → recapitulação em grade → frase-tese → CTA encenado.
 **Para o nosso nicho:** "se eu fosse o seu financeiro / comercial / atendimento / RH": cada área com o processo manual de antes e o fluxo com IA depois.
 **Custo:** ver [lote 03](../referencias/lote-03.md#custo-estimado-de-um-vídeo-nesse-formato-60-s).
+
+## F11 — Viagem por dentro
+Um processo invisível contado como **viagem física**, um plano por frase: o dado sai do computador, passa pelo roteador, pelo cabo no fundo do mar, chega no data center e volta. Avatar fixo na metade de baixo, viagem na metade de cima. No meio da viagem, **1 ou 2 gráficos que explicam de verdade** (tokens, vetor, fila de processamento). O B-roll só ambienta.
+**Estrutura:** gancho com o gesto cotidiano ("você aperta Enter") → a viagem em 6–8 paradas → o momento técnico explicado → volta → frase de fecho com contraste de escala ("duas voltas ao mundo em dois segundos").
+**Para o nosso nicho:** "o que acontece com a planilha do seu financeiro quando ela vai pro ChatGPT" (com a parada do risco no meio), "o caminho de um pedido do WhatsApp até o ERP com um agente".
+**Efeitos:** zoom-through entre paradas, UI world no computador inicial, chart grow no gráfico técnico, pull-back reveal no fecho.
+
+## F12 — Mascote com metáforas
+Personagem 2D fixo (mascote da marca) de meio corpo atrás de um balcão. Cada item da lista ganha **cenário de cor própria** e **uma metáfora física** que vira o visual do item (tomada que liga, piscina proibida, impressora que encurta o papel). O **indicador de progresso também é um objeto** (régua de tomadas 1/4) fixo no canto. Etiqueta de seção no canto superior esquerdo.
+**Estrutura:** gancho em negativa ("não comece X antes de…") → 3–5 itens (o que faz + 1 detalhe concreto com número) → CTA de palavra.
+**Para o nosso nicho:** "4 coisas pra arrumar antes de colocar IA na empresa", com a metáfora de cada uma (gaveta bagunçada = dados, cancela = permissão).
+**Custo:** criar o mascote uma vez (imagem de referência + poses), depois reaproveitar. Gestos com poucos quadros (estilo recorte) resolvem em motion.
+**Efeitos:** doodle boil, paper cut, checklist, chart grow (contadores mecânicos).
+
+## F13 — Terminal neon
+**Sem rosto, só texto, ícones e números.** Fundo preto com brilho neon (verde, ou o lima da marca) vindo de cima; **HUD em micro texto** nos 4 cantos (data, REC, posição, itens n/N); palavras entram com **blur → nítido**; números gigantes com glow; card real da fonte (GitHub, portal); ícones de linha em cards com borda neon; carimbo para responder a objeção.
+**Estrutura (30–40 s):** "o nº 1 / o mais X" → o que faz → exemplo concreto → prova social (número) → objeção respondida → CTA "COMENTA PALAVRA" com campo de comentário.
+**Para o nosso nicho:** ferramenta ou agente da semana, número de um relatório, "o que a lei nova muda". Bom formato de meio de semana entre um Caso Real e um Plantão.
+**Custo:** só a narração (~400 créditos).
+**Efeitos:** glass type, chart grow, digital zoom. Extras: `telemetry-hud`/`camcorder-hud`, `blur-in`, `focus-blur-resolve`, `count-up`, `rgb-glitch-text`.
+
