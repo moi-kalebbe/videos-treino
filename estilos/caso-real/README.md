@@ -98,6 +98,8 @@ Sem avatar: ~2.400 créditos.
 - [ ] Transcrição local por trechos: pronúncia certa, sem falas fantasmas
 - [ ] -14 LUFS
 - [ ] Nota pela [rubrica](../../guias/rubrica-qualidade.md) registrada no roteiro; ≥ 9
+- [ ] **Capa pronta** (seção 12) e conferida nos recortes 3:4 e 4:5: o Instagram **não deixa trocar a capa depois** de publicado
+- [ ] Para aprovação do dono: vídeo + capa (com prévia dos recortes) + legenda, juntos
 
 ## 10. Passo a passo
 
@@ -124,7 +126,7 @@ cd producao/<slug> && npx hyperframes check && npx hyperframes render -q high -o
 ## 11. Publicar no Instagram
 
 ```bash
-python3 scripts/publicar-instagram.py saida/<slug>.mp4 roteiros/<slug>-legenda.txt --capa-ms 1500   # prepara, não publica
+python3 scripts/publicar-instagram.py saida/<slug>.mp4 roteiros/<slug>-legenda.txt --capa producao/<slug>/capa/capa-9x16.jpg   # prepara, não publica
 python3 scripts/publicar-instagram.py --conteiner <ID>                                              # publica (só com o ok do dono)
 ```
 O MP4 sai do Mac por um túnel temporário do Cloudflare (nome aleatório, fecha sozinho). Legenda na voz MK, com as fontes e "previsão" quando for o caso, CTA com a palavra-chave e 5 hashtags.
@@ -143,4 +145,4 @@ ffmpeg -i capa-9x16.png -q:v 2 capa-9x16.jpg
 # conferir os recortes: crop=1080:1440:0:240 (grade) e crop=1080:1350:0:285 (feed)
 python3 scripts/publicar-instagram.py saida/<slug>.mp4 roteiros/<slug>-legenda.txt --capa producao/<slug>/capa/capa-9x16.jpg
 ```
-A capa só pode ser enviada pela API **na hora de publicar**; depois disso, só pelo app (Editar → Editar capa).
+A capa só pode ser enviada **na hora de publicar**: depois, nem a API nem o app deixam trocar (aprendido no case Chewy, publicado sem capa). Por isso o script recusa publicar sem `--capa`.

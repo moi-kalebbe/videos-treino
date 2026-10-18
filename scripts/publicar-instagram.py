@@ -4,8 +4,11 @@ O MP4 fica no Mac: um servidor local serve só esse arquivo (nome aleatório) po
 temporário do Cloudflare (https://….trycloudflare.com). O Instagram baixa o vídeo e tudo é desligado.
 
 Uso:
-    python3 scripts/publicar-instagram.py <video.mp4> <legenda.txt> [--capa capa.jpg | --capa-ms 1500] [--publicar]
+    python3 scripts/publicar-instagram.py <video.mp4> <legenda.txt> --capa capa.jpg [--publicar]
     python3 scripts/publicar-instagram.py --conteiner <ID>     # publica um Reel já preparado (até 24 h)
+
+A capa é obrigatória: o Instagram não deixa trocar a capa depois que o Reel está no ar.
+(--capa-ms só serve com --sem-capa-consciente, para testes.)
 
 Sem --publicar: prepara o Reel no Instagram (contêiner não publicado, expira em 24 h) e para.
 Com --publicar: prepara e publica. Só usar depois do "pode publicar" do dono.
@@ -126,7 +129,8 @@ def main() -> None:
     p.add_argument("legenda", nargs="?")
     p.add_argument("--conteiner", help="publica um contêiner já preparado, sem subir o vídeo de novo")
     p.add_argument("--capa", help="imagem JPG 1080x1920 da capa (zona segura 4:5 no centro)")
-    p.add_argument("--capa-ms", type=int, default=0, help="sem --capa: instante do vídeo usado como capa, em ms")
+    p.add_argument("--capa-ms", type=int, default=0, help="só com --sem-capa-consciente: instante do vídeo usado como capa, em ms")
+    p.add_argument("--sem-capa-consciente", action="store_true", help="aceita publicar sem capa própria (não recomendado)")
     p.add_argument("--publicar", action="store_true", help="publica de verdade (precisa do ok do dono)")
     args = p.parse_args()
 
@@ -137,6 +141,10 @@ def main() -> None:
         return
     if not (args.video and args.legenda):
         sys.exit("Informe <video.mp4> <legenda.txt> ou --conteiner <ID>")
+    if not args.capa and not args.sem_capa_consciente:
+        sys.exit("Falta a capa (--capa capa.jpg). O Instagram não deixa trocar a capa depois de publicado.")
+    if args.capa and not pathlib.Path(args.capa).is_file():
+        sys.exit(f"Capa não encontrada: {args.capa}")
     legenda = pathlib.Path(args.legenda).read_text().strip()
 
     with tempfile.TemporaryDirectory() as tmp:
