@@ -4,7 +4,7 @@ O MP4 fica no Mac: um servidor local serve só esse arquivo (nome aleatório) po
 temporário do Cloudflare (https://….trycloudflare.com). O Instagram baixa o vídeo e tudo é desligado.
 
 Uso:
-    python3 scripts/publicar-instagram.py <video.mp4> <legenda.txt> [--capa-ms 1500] [--publicar]
+    python3 scripts/publicar-instagram.py <video.mp4> <legenda.txt> [--capa capa.jpg | --capa-ms 1500] [--publicar]
     python3 scripts/publicar-instagram.py --conteiner <ID>     # publica um Reel já preparado (até 24 h)
 
 Sem --publicar: prepara o Reel no Instagram (contêiner não publicado, expira em 24 h) e para.
@@ -125,7 +125,8 @@ def main() -> None:
     p.add_argument("video", nargs="?")
     p.add_argument("legenda", nargs="?")
     p.add_argument("--conteiner", help="publica um contêiner já preparado, sem subir o vídeo de novo")
-    p.add_argument("--capa-ms", type=int, default=0, help="instante do vídeo usado como capa, em ms")
+    p.add_argument("--capa", help="imagem JPG 1080x1920 da capa (zona segura 4:5 no centro)")
+    p.add_argument("--capa-ms", type=int, default=0, help="sem --capa: instante do vídeo usado como capa, em ms")
     p.add_argument("--publicar", action="store_true", help="publica de verdade (precisa do ok do dono)")
     args = p.parse_args()
 
@@ -141,13 +142,18 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as tmp:
         nome = f"{secrets.token_urlsafe(16)}.mp4"
         shutil.copy(args.video, pathlib.Path(tmp) / nome)
+        nome_capa = None
+        if args.capa:
+            nome_capa = f"{secrets.token_urlsafe(16)}.jpg"
+            shutil.copy(args.capa, pathlib.Path(tmp) / nome_capa)
         servidor, porta = servir_arquivo(pathlib.Path(tmp))
         tunel, base = abrir_tunel(porta)
         try:
             url = f"{base}/{nome}"
             esperar_link(url)
+            extras = {"cover_url": f"{base}/{nome_capa}"} if nome_capa else {"thumb_offset": args.capa_ms}
             criado = chamar("POST", f"{usuario}/media", token, media_type="REELS", video_url=url,
-                            caption=legenda, share_to_feed="true", thumb_offset=args.capa_ms)
+                            caption=legenda, share_to_feed="true", **extras)
             conteiner = criado["id"]
             print("Reel preparado (não publicado):", conteiner)
             esperar_processamento(conteiner, token)

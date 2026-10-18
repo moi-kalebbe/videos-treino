@@ -128,3 +128,19 @@ python3 scripts/publicar-instagram.py saida/<slug>.mp4 roteiros/<slug>-legenda.t
 python3 scripts/publicar-instagram.py --conteiner <ID>                                              # publica (só com o ok do dono)
 ```
 O MP4 sai do Mac por um túnel temporário do Cloudflare (nome aleatório, fecha sozinho). Legenda na voz MK, com as fontes e "previsão" quando for o caso, CTA com a palavra-chave e 5 hashtags.
+
+## 12. Capa (responsiva: Reels, grade e feed)
+
+O Instagram mostra a mesma capa em 3 recortes. A capa é 1080×1920, mas **tudo que importa fica entre y=285 e y=1635** (recorte 4:5 do feed); a grade do perfil (3:4) corta y=240–1680; no Reels os botões cobrem o canto inferior direito.
+
+Modelo: `modelo/capa/index.html` (é copiado junto pelo `novo-video.sh`). Layout aprovado: kicker + número gigante lima + "por ano, com IA" em cima; foto do assunto no meio **com o rosto/assunto livre**; faixa com a frase do gancho (palavra negada riscada em vermelho) logo abaixo; card do rosto do dono (quadro do avatar com expressão forte) + chamada "O que essa empresa fez *diferente*"; logo branca no canto direito.
+
+```bash
+# colocar a foto em capa/assets/img/ e o quadro do rosto em capa/assets/avatar/rosto-capa.png
+ffmpeg -ss 5.3 -i avatar/sync-<slug>.mp4 -frames:v 1 capa/assets/avatar/rosto-capa.png
+cd producao/<slug>/capa && npx hyperframes snapshot --at 0.5 --no-end -o /tmp/capa && cp /tmp/capa/frame-*.png capa-9x16.png
+ffmpeg -i capa-9x16.png -q:v 2 capa-9x16.jpg
+# conferir os recortes: crop=1080:1440:0:240 (grade) e crop=1080:1350:0:285 (feed)
+python3 scripts/publicar-instagram.py saida/<slug>.mp4 roteiros/<slug>-legenda.txt --capa producao/<slug>/capa/capa-9x16.jpg
+```
+A capa só pode ser enviada pela API **na hora de publicar**; depois disso, só pelo app (Editar → Editar capa).

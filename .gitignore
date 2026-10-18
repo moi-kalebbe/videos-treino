@@ -26,3 +26,9 @@ producao/*/index-v*.html.txt
 
 # python
 __pycache__/
+**/assets/avatar/
+producao/*/capa/pv-*.png
+producao/*/capa/capa-9x16.png
+**/.hyperframes/
+producao/*/capa/*.jpg
+producao/*/capa/*.png
