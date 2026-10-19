@@ -14,7 +14,7 @@ Anotar a fonte e a licença de cada arquivo usado no roteiro (seção Fontes).
 | **NASA** (images.nasa.gov) | imagens e vídeos de espaço e Terra | não precisa | domínio público (sem usar o logo da NASA como endosso) | satélite, Terra à noite, "volta ao mundo", cabos/rotas |
 | **Wikimedia Commons** | logos de empresas, fotos de pessoas públicas e lugares | não precisa | **conferir arquivo por arquivo** (muitos logos são marca registrada: usar só para identificar a empresa do caso) | logo da empresa no Caso Real, foto de fachada |
 | **Hugging Face** | modelos abertos rodando nos servidores deles (Spaces) | conta `kalebbe` conectada | depende do modelo | gerar vídeo/imagem com modelo aberto quando o Mac não der conta (cota diária grátis) |
-| **LTX-Video local** | modelo aberto de vídeo (Lightricks), roda no Mac | não precisa | aberta (conferir licença da versão) | B-roll de fundo de 3 a 5 s sem crédito. **Em teste** (ver abaixo) |
+| **LTX-Video local** | modelo aberto de vídeo (Lightricks), roda no Mac | não precisa | aberta (conferir licença da versão) | B-roll e cenas de exagero de ~4 s sem crédito, ~1 min por clipe (ver abaixo) |
 
 ## Como buscar
 
@@ -45,7 +45,9 @@ curl -sL -o terra.jpg "https://eoimages.gsfc.nasa.gov/images/imagerecords/144000
 ## LTX-Video local (teste em 18/10/2026)
 Ambiente em `~/.cache/ltx-teste/` (fora do repo): `.venv` com PyTorch (MPS) + diffusers, script `gerar.py`.
 Modelo `ltxv-2b-0.9.8-distilled` (8 passos) + T5 em bf16 carregado à parte, para caber nos 16 GB.
-Resultado do teste: _a preencher_.
+Resultado do teste (19/10/2026): **funciona**. Prompt de exagero ("funcionário soterrado por avalanche de planilhas") saiu convincente: 97 quadros 512x768 (~4 s a 24 fps) em **~67 s de geração** + ~45 s para codificar o prompt, sem crédito nenhum. Limites: resolução baixa (ampliar para 1080 perde nitidez; usar com grão/vinheta), 4 s por clipe, rosto e texto podem deformar, física de "explosão" às vezes vira mancha branca. Bom para cenas de exagero estilo Abrahub em cortes de 1–2 s.
+Correção necessária no `gerar.py`: trocar o scheduler para `FlowMatchEulerDiscreteScheduler.from_config(..., use_dynamic_shifting=False)` (senão dá erro de `mu`).
+Uso: `cd ~/.cache/ltx-teste && source .venv/bin/activate && python gerar.py texto "<prompt em inglês>" && python gerar.py video saida.mp4`.
 
 ## Atenção: vídeo HDR do Pexels (aprendido em 19/10/2026)
 Alguns vídeos do Pexels são HDR de iPhone (`color_transfer=arib-std-b67`, `bt2020`). Basta **um** clipe assim para o HyperFrames renderizar o vídeo inteiro em HDR 16 bits: fica 10× mais lento (50 min sem terminar) e sai com perfil de cor errado para o Instagram. Antes de renderizar:
