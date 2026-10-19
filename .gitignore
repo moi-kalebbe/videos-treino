@@ -44,3 +44,8 @@ producao/*/assets/clipes/
 producao/**/narracao*.mp3
 # fotos de banco/terceiros usadas nas capas
 producao/*/capa/assets/img/
+
+# testes do Codex (dublagem/rosto de terceiro): só locais
+producao/gancho-qahtani/
+producao/ia-com-precisao/
+producao/ia-com-precisao-v2/
