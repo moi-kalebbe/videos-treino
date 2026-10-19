@@ -7,6 +7,7 @@ Cada estilo aprovado pelo dono vira uma pasta com o **guia** (`README.md`: estru
 | [**Caso Real**](caso-real/README.md) | Case de empresa que usou IA, com dado comprovado, avatar no gancho/tese/CTA | `producao/case-chewy/` (v7) |
 | [**Plantão IA**](plantao-ia/README.md) | Telejornal de domingo 18h com as 6 notícias de IA da semana, voz do dono, avatar só na abertura | `producao/plantao-ia-01/` (v2) |
 | [**IA por Setor**](ia-por-setor/README.md) | Sexta 12h: uma dica aplicável no mesmo dia por setor da empresa, "manual de bolso", pedido real na tela e na legenda | `producao/sexta-01-conciliacao/` |
+| [**Dossiê**](dossie/README.md) | Documentário de investigação curto (Mayday/Discovery): casos reais pelos relatórios oficiais → padrão → "a sua empresa está voando sem checklist"; narrador + voz do dono na virada | `producao/dossie-01/` |
 | [**Cena Impossível**](cena-impossivel/README.md) | Quadro impossível que para o dedo + dor da empresa ao pé da letra → virada com IA (método Abrahub adaptado); cenas geradas no Mac | teste a fazer |
 | **A Virada** (formato F14) | Segunda 12h: história com virada → diagnóstico, estilo Hard Copy | `producao/a-virada-01/`, `producao/a-virada-02/` |
 
