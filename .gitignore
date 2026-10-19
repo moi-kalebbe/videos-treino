@@ -37,3 +37,10 @@ producao/*/assets/broll/
 # A Virada: trilha e efeitos da Pixabay, fotos de arquivo e imagens geradas (não redistribuir no repo)
 producao/a-virada-*/assets/audio/
 producao/a-virada-*/capa/assets/img/
+
+# trechos de terceiros recortados para o vídeo (falas, quadros de podcast, anúncio)
+producao/*/assets/clipes/
+# narração (voz do dono) em qualquer subpasta da produção
+producao/**/narracao*.mp3
+# fotos de banco/terceiros usadas nas capas
+producao/*/capa/assets/img/

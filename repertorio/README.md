@@ -120,6 +120,14 @@ Status: `ideia` → `roteiro` → `produção` → `publicado`
 | 50 | Quando o financeiro descobre que a fórmula estava errada desde 2022 | F18 | Meme de identificação, drama de filme sem fala | — (compartilhar) |
 | 51 | Orçamento respondido no WhatsApp em 2 minutos | F17 (sexta) | Breakdown: mensagem do cliente → agente → orçamento pronto | `ORÇAMENTO` |
 
+## Casos reais guardados (para as quartas)
+
+| # | Empresa | O que tem | Fonte | Situação |
+|---|---|---|---|---|
+| C1 | **Movida** | agente de IA no WhatsApp: custo por aluguel 10% → 2% do contrato, conversão dobrou, 85% sem atendente; piloto com 1% e 48 h fora do ar; áudio dos diretores ("não faça desse um projeto de tecnologia") | [InvestNews 03/07/2026](https://investnews.com.br/negocios/robo-vai-as-compras-agentes-de-ia/), [InfoMoney](https://www.infomoney.com.br/business/movida-projeta-r-300-mi-em-alugueis-via-whatsapp-em-parceria-inedita-com-meta/), podcast Founder Mode (WhatsApp Business Summit, ago/2026) | quarta 21/10 |
+| C2 | **Omie** | IA resolve 8 em cada 10 atendimentos (700 mil), espera de 20–30 min → 7 min, CX Score e time calibrando todo dia | [Exame 23/09/2026](https://exame.com/negocios/omie-ia-resolver-atendimentos/) (**conteúdo patrocinado**: dado da empresa) | guardado |
+| C3 | **Klarna + IBM** | trocou ~700 atendentes por IA, qualidade caiu e recontratou; IBM: só 25% dos projetos de IA deram o retorno esperado | [Exame 05/10/2026](https://exame.com/inteligencia-artificial/demissoes-por-ia-nao-sairam-como-esperado-e-empresas-comecam-a-trazer-funcionarios-de-volta/) | guardado (episódio "como dar errado") |
+
 ---
 
 ## Primeira leva (10 vídeos) · roteiros em [`roteiros/`](../roteiros/)

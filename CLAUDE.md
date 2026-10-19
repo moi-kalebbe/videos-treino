@@ -5,7 +5,12 @@ Este repo treina agentes para criar e editar vídeos curtos verticais sobre **im
 ## Quando o dono pedir um vídeo novo
 1. **Perguntar primeiro: "Que estilo de vídeo você quer?"** e listar os estilos de `estilos/README.md` (ou "um formato novo").
 2. Se ele escolher um estilo salvo: ler `estilos/<estilo>/README.md`, mandar a ele o **briefing** daquele estilo (o que preciso dele + custo típico) e rodar `scripts/novo-video.sh <estilo> <slug>`.
-3. Seguir o passo a passo e o checklist do guia; nota ≥ 9 pela rubrica antes de entregar.
+3. **Antes de produzir, fazer a análise do vídeo** (o estilo é ponto de partida, não molde):
+   - o que o tema pede;
+   - o que do inventário encaixa (`formatos/`, `guias/efeitos-video.md`, `referencias/hard-copy.md`, `referencias/abrahub.md`);
+   - o que os últimos vídeos já usaram (`calendario.md`) e **o que vai deixar este diferente**.
+   Regras fixas: **hook de 2–3 s antes de tudo** e **fundo sempre com vídeo rodando** (nunca tela lisa esperando gráfico).
+   Seguir o passo a passo e o checklist do guia; nota ≥ 9 pela rubrica antes de entregar.
    **Efeitos:** antes de produzir, escolher 2 a 4 efeitos de `guias/efeitos-video.md` que reforçam a história e anotar no roteiro (linha `Efeitos:`), dizendo ao dono quais entram.
    **Capa responsiva é obrigatória em todo vídeo** e vai junto na publicação (o Instagram não deixa trocar depois).
 4. Quando um formato novo for aprovado pelo dono, salvar como estilo novo em `estilos/` (guia + modelo).

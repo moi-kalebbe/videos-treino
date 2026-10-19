@@ -14,8 +14,8 @@ Fonte única do que está publicado, agendado e planejado no Instagram. **Atuali
 | Data | Hora | Vídeo | Situação | Como foi/será publicado |
 |---|---|---|---|---|
 | dom 18/10/2026 | 18h00 | Plantão IA 01 ([roteiro](roteiros/plantao-ia-01.md)) | ✅ publicado: https://www.instagram.com/reel/DepeteHAEtd/ | contêiner preparado antes + job no horário |
-| seg 19/10/2026 | 12h00 | A Virada 01 · A Chave ([roteiro](roteiros/a-virada-01.md)) | ⏳ agendado | contêiner `18029145437915035` (preparado 18/10 ~19h, vale 24 h) + job em segundo plano na sessão do Claude Code. **Depende do app aberto e do Mac acordado.** |
-| qua 21/10/2026 | 12h00 | Caso Real (a produzir) | 📝 a fazer | — |
+| seg 19/10/2026 | 12h00 | A Virada 01 · A Chave ([roteiro](roteiros/a-virada-01.md)) | ⏳ agendado | contêiner `18029145437915035` (preparado 18/10 ~19h, vale até 19/10 ~19h) + launchd no Mac: `com.moiseskalebbe.publicar-a-virada-01` roda às 12h00 o `~/.local/share/videos-treino/publicar-a-virada-01.sh`. Mac ligado e com a tampa aberta. |
+| qua 21/10/2026 | 12h00 | Caso Real · Movida ([roteiro](roteiros/caso-movida.md)) | 👀 v2 pronta, aguardando aprovação | — |
 | dom 25/10/2026 | 18h00 | Plantão IA 02 (a produzir) | 📝 a fazer | — |
 | seg 26/10/2026 | ~12h00 | A Virada 02 · Seu Antônio ([roteiro](roteiros/a-virada-02.md)) | ⏳ agendado | launchd no Mac: `~/Library/LaunchAgents/com.moiseskalebbe.publicar-a-virada-02.plist` roda às 11h45 o `~/.local/share/videos-treino/publicar-a-virada-02.sh` (sobe com capa e legenda e publica). Log em `~/.local/share/videos-treino/a-virada-02.log`. Mac ligado e com a tampa aberta. |
 

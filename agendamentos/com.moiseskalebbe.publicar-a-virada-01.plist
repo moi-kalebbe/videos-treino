@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.moiseskalebbe.publicar-a-virada-01</string>
+  <key>ProgramArguments</key><array><string>/Users/moiseskalebbe/.local/share/videos-treino/publicar-a-virada-01.sh</string></array>
+  <key>StartCalendarInterval</key><dict><key>Month</key><integer>10</integer><key>Day</key><integer>19</integer><key>Hour</key><integer>12</integer><key>Minute</key><integer>0</integer></dict>
+  <key>StandardOutPath</key><string>/Users/moiseskalebbe/.local/share/videos-treino/a-virada-01.log</string>
+  <key>StandardErrorPath</key><string>/Users/moiseskalebbe/.local/share/videos-treino/a-virada-01.log</string>
+</dict>
+</plist>
