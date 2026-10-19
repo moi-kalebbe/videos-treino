@@ -38,3 +38,32 @@ Perfil de vídeos feitos com IA, 154 mil seguidores. Vende o curso "Protocolo Vi
 - ✅ **Meme de identificação do nicho** (tipo C): dor pequena do gestor tratada como drama de filme, sem fala, só trilha. Barato se der para montar com banco grátis e tipografia.
 - ❌ **Não fazer sátira com pessoas reais** (políticos, influenciadores): deepfake, risco jurídico e de marca, e polariza o público comprador.
 - Formatos novos: **F16 Monólogo cinematográfico** e **F18 Meme de identificação** ([formatos](../formatos/README.md)); pautas 48–50 no [repertório](../repertorio/README.md).
+
+## 6. O método dele, contado por ele (VSL do "Protocolo Viral", 25 min · analisado em 19/10/2026)
+Vídeo de vendas do curso (R$ 197), enviado pelo dono. Bruto em `referencias/_brutos/ab-aula/` (fora do git): `transcricao.txt` + folhas de 1 quadro a cada 10 s.
+
+**A tese: "fator de interrupção".** O cérebro é uma máquina de previsão: rola o feed no automático e pula o que parece normal. Quando aparece algo que não bate com a previsão, ele faz uma "parada técnica" (o mesmo reflexo de olhar quando cai um objeto). Essa janela é de **menos de 2 s** (cita estudo da Meta), então **o primeiro quadro decide tudo**. A vantagem da IA: vídeo gravado tem o teto da realidade; com IA, uma cena impossível custa o mesmo que uma cena comum.
+
+**As três engrenagens ("mecanismo viral"), que só funcionam juntas:**
+1. **Psicologia que atrai: estranheza com significado.** Bizarrice aleatória (gato tocando guitarra) é classificada como "só mais um vídeo zoado de IA" e pulada. Três regras:
+   - **Contraste:** dois sentimentos de mundos diferentes na mesma cena (fofo + perigoso, sagrado + comercial, luxo + decadência).
+   - **Contradição:** dois significados opostos se chocando (noiva de véu dirigindo trator na lama, freira lutando boxe). O cérebro não decide o que aquilo significa e fica para buscar contexto.
+   - **Simbolismo:** o elemento estranho aponta para uma emoção que a pessoa já conhece (poder, solidão, desejo, raiva). É o que faz a pessoa pensar "tem uma ideia aqui" e **compartilhar**.
+2. **Estética travada** (ele não nomeia no vídeo, mas é a fase 2 do curso): um "código estético" em **JSON** que deixa todas as imagens com a mesma cara e diferencia do "mar de imagens genéricas". Prompt em "linguagem de máquina" (estruturado) rende melhor que prompt em frase solta; ele vende um GPT que converte a ideia em prompt.
+3. **Conceito que vende: pegar carona.** Não criar interesse do zero: pegar um assunto que já está em alta (ex.: vídeo do Neymar depois da Copa), imprimir a própria estética e explorar o contraste. "A demanda já foi criada; você só chega com um ângulo diferente."
+
+**Processo em 3 fases:** (1) definir o conceito sem abrir ferramenta; (2) travar a estética; (3) gerar, montar e publicar. Diz que o aluno conseguiu imagens fiéis no **ChatGPT** (gerador de imagem) melhor que numa ferramenta paga. Tudo dá para começar com ferramenta grátis.
+
+**Distribuição:** conta nova começa "fria" e trava em <100 views; ele oferece um grupo de Telegram de engajamento entre alunos. ❌ Não vamos usar (engajamento combinado fere as regras da plataforma e não traz comprador).
+
+**Edição do próprio VSL** (útil para o nosso talking head, se um dia houver): fala para a câmera com luz roxa + **insert a cada 1–3 s** (print de perfil, manchete, gráfico, cena de IA); gráficos em **verde-limão neon sobre preto** com grade ("2,0 s" de janela de atenção, linha do tempo "você tá aqui", engrenagens 3D numeradas, cards "regra #1 — *contraste*" com serifa itálica verde); prova social com perfis de alunos e contadores de views.
+
+## 7. Como aplicar no nosso nicho (empresário/CEO)
+- **Primeiro quadro = contradição com significado de negócio**, não bizarrice solta. Ideias:
+  - CEO de terno se afogando num mar de planilhas dentro da sala de reunião (luxo × decadência; simbolismo: sufoco).
+  - Robô de IA servindo cafezinho enquanto a equipe carrega caixas de papel (tecnologia × atraso; ironia de "comprou IA e nada mudou").
+  - A empresa como um navio de luxo com o porão pegando fogo e a diretoria brindando no convés (luxo × perigo).
+  - Funcionário soterrado por avalanche de papel (já testado no LTX local, ver [bancos de mídia](../guias/bancos-de-midia.md)).
+- **Carona:** usar a notícia de IA da semana (Plantão IA) ou o assunto do momento do mundo dos negócios, com a nossa estética.
+- **Estética travada:** escrever um bloco JSON de estilo (luz, lente, paleta, grão, enquadramento) e usar o mesmo em todas as cenas do vídeo, tanto no FLUX quanto no LTX.
+- **Ferramentas grátis que já temos:** LTX-Video local (~1 min por cena de 4 s) e FLUX no Hugging Face (imagem; ~3 por dia sem token).
