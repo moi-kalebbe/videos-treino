@@ -14,7 +14,7 @@
 | Publicação | segunda 02/11/2026, 12h00 |
 | Status | v2 produzida (~92 s) · agendado no Mac (launchd) para 11h45 → no ar ~12h00, com capa e legenda |
 
-## v2 (aprovada e produzida em 19/10/2026) · o dono deu 3/10 na v1: confusa
+## v2 (aprovada pelo dono e agendada em 19/10/2026) · o dono deu 3/10 na v1: confusa
 Diagnóstico da v1: nomes demais (Pearson, Quintal, Gimli, Montreal), termo técnico (libras/quilos, 1,77, relatório, "frota metade/metade") e ponte abstrata pra IA. ~2 min.
 Regra da v2: um avião, um erro ("o avião era novo, a conta era velha"), a mesma frase volta na parte da IA. ~70 s.
 Símbolo visual que costura tudo: **o ponteiro do combustível** (cheio → zero na pane; meio tanque na virada; volta no fim "conferido").

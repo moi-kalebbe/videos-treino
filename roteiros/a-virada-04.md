@@ -14,7 +14,7 @@
 | Publicação | segunda 09/11/2026, 12h00 |
 | Status | v2 produzida (~81 s) · agendado no Mac (launchd) para 11h45 → no ar ~12h00, com capa e legenda |
 
-## v2 (aprovada e produzida em 19/10/2026) · o dono deu 3/10 na v1: confusa
+## v2 (aprovada pelo dono e agendada em 19/10/2026) · o dono deu 3/10 na v1: confusa
 Diagnóstico da v1: falsa virada + virada (1975 → 1981 → "dez anos"), estudo e prazo abstratos, metáfora "o estudo de 1981 chama IA". ~2 min.
 Regra da v2: um paradoxo no gancho, uma frase da diretoria, e **a mesma frase volta** na parte da IA ("que bonitinho, mas..."). ~65 s.
 Símbolo visual: **a gaveta** (a câmera vai pra gaveta em 1975; a IA vai pra gaveta hoje; no fim a gaveta abre).
