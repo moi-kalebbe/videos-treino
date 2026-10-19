@@ -53,3 +53,6 @@ producao/ia-com-precisao-v2/
 producao/dossie-01/assets/docs/
 producao/dossie-*/assets/audio/
 producao/dossie-*/capa/assets/img/
+
+# dados locais do MCP do Instagram (métricas, nunca no git)
+ferramentas/instagram-mcp/dados/
