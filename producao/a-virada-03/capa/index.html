@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Capa · A Virada 03</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; src: url("assets/fonts/instrument-serif-italic.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+
+      /* Zona segura: tudo que importa entre y=285 e y=1635 (recorte 4:5 do feed). */
+      :root { --preto: #050505; --branco: #f2efe8; --vermelho: #e3141b; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--preto); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--branco); }
+      .clip { position: absolute; inset: 0; }
+      .navio { position: absolute; left: 0; top: 250px; width: 1080px; height: 760px; object-fit: cover; object-position: 50% 62%; display: block; filter: saturate(0.7) contrast(1.15) brightness(0.85); }
+      .chave { position: absolute; left: 0; top: 1240px; width: 1080px; height: 700px; object-fit: cover; object-position: 50% 45%; filter: brightness(0.85); display: block; }
+      .sombra { position: absolute; inset: 0; background:
+        linear-gradient(180deg, #050505 0px, #050505 290px, #05050500 400px, #05050500 760px, #050505 960px, #050505 1250px, #05050500 1400px, #05050566 1560px, #050505 1800px); }
+      .serie { position: absolute; left: 70px; top: 330px; font: 500 34px "JetBrains Mono"; letter-spacing: 0.22em; color: #f2efe8; }
+      .serie b { color: var(--vermelho); font-weight: 500; }
+      #marca { position: absolute; right: 70px; top: 318px; width: 130px; height: auto; display: block; opacity: 0.9; }
+      .texto { position: absolute; left: 60px; right: 60px; top: 880px; text-align: center; font: 400 112px/1.0 "Anton"; text-transform: uppercase; text-shadow: 0 8px 40px #000; }
+      .texto em { font-style: normal; color: var(--vermelho); }
+      .texto .p { display: block; font-size: 80px; color: #f2efe8cc; margin-bottom: 14px; }
+      .rodape { position: absolute; left: 0; right: 0; top: 1540px; text-align: center; font: italic 400 64px "Instrument Serif"; color: #f2efe8e6; text-shadow: 0 6px 30px #000; }
+      #grao { position: absolute; inset: 0; opacity: 0.08; background: repeating-radial-gradient(circle at 30% 40%, #fff 0 1px, transparent 1px 3px); mix-blend-mode: overlay; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="1" data-width="1080" data-height="1920">
+      <section class="clip" data-start="0" data-duration="1">
+        <img class="navio" src="assets/img/topo.jpg" alt="" />
+        <img class="chave" src="assets/img/base.jpg" alt="" />
+        <div class="sombra"></div>
+        <div id="grao"></div>
+        <p class="serie">A VIRADA · <b>03</b></p>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+        <p class="texto"><span class="p">Sem combustível<br>a 12 mil metros.</span>A culpa foi<br>de <em>uma conta.</em></p>
+        <p class="rodape">E não foi do piloto</p>
+      </section>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.set({}, {}, 1);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

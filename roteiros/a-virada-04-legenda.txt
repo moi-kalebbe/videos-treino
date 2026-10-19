@@ -1,0 +1,21 @@
+A Kodak inventou a câmera digital. E teve dez anos de aviso. 📷
+
+Dezembro de 1975. Steve Sasson, engenheiro recém-formado da Kodak, monta uma caixa de 3,6 kg que grava a foto numa fita cassete: 100 × 100 pixels, preto e branco, 23 segundos pra gravar. A primeira câmera digital portátil.
+
+Anos depois, ele lembrou a reação da diretoria: "Que bonitinho. Mas não conta pra ninguém."
+
+Só que aquela câmera não estava pronta. O erro não foi em 1975.
+
+Foi em 1981: um estudo da própria Kodak concluiu que o digital ia substituir o filme, e que a empresa tinha uns dez anos pra se preparar. Ela tinha a invenção, a patente, o aviso e o prazo. Usou o prazo pra proteger o filme. Em 2012, pediu falência.
+
+Hoje o "estudo de 1981" já saiu pra todo mundo: chama inteligência artificial. E muita empresa faz o que a Kodak fez: sabe, concorda e usa o prazo pra proteger o jeito antigo. Um teste aqui, uma licença ali, e o processo igualzinho.
+
+Dessa vez ninguém vai te dar dez anos.
+
+Comenta DIAGNÓSTICO que eu te mando como funciona o diagnóstico de processos da Processos & IA.
+
+A Virada · toda segunda, 12h.
+
+Fontes: IEEE Spectrum e entrevista de Steve Sasson ao New York Times (2008); estudo de 1981 relatado por Vince Barabba, então chefe de inteligência de mercado da Kodak, no livro "The Decision Loom"; pedido de recuperação judicial (Chapter 11) de 19/01/2012. Imagens ilustrativas de banco (Pexels).
+
+#inteligenciaartificial #ia #gestao #processos #kodak #inovacao #transformacaodigital

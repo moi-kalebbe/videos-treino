@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>A Virada · 03 · O Planador</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; src: url("assets/fonts/instrument-serif-italic.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+
+      :root { --preto: #050505; --branco: #f2efe8; --vermelho: #e3141b; --ouro: #d9a94a; --ouro2: #fff1c4; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--preto); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--branco); font-family: "Anton", sans-serif; }
+      .clip { position: absolute; inset: 0; }
+      #preto { background: var(--preto); }
+      .vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+      .tela-preta { position: absolute; inset: 0; background: var(--preto); opacity: 0; }
+      #sombra { position: absolute; inset: 0; background: linear-gradient(180deg, #050505b3 0%, #05050500 20%, #05050500 52%, #050505e6 80%, #050505 100%); }
+
+      /* texto central palavra a palavra (Hard Copy) */
+      #texto { position: absolute; left: 70px; right: 70px; top: 0; height: 1920px; }
+      .frase { position: absolute; left: 0; right: 0; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 0 22px; text-align: center; opacity: 0; }
+      .frase.baixo { top: 1180px; height: 420px; }
+      .frase.centro { top: 700px; height: 520px; }
+      .frase span { display: inline-block; font: 400 104px/1.04 "Anton"; text-transform: uppercase; letter-spacing: 0.01em; color: var(--branco); text-shadow: 0 6px 30px #000, 0 0 2px #000; opacity: 0; }
+      .frase.centro span { font-size: 150px; }
+      .frase span.chave { color: var(--vermelho); }
+      .frase.suave { top: 1220px; height: 380px; gap: 0 18px; }
+      .frase.suave span { font: italic 400 96px/1.08 "Instrument Serif"; text-transform: none; letter-spacing: 0; color: #f6efe2; }
+      .frase.suave span.chave { color: #f0c372; }
+
+      #ilustrativa-x { position: absolute; left: 70px; top: 230px; padding: 6px 12px; background: #050505b3; font: 500 28px "JetBrains Mono"; letter-spacing: 0.16em; color: #f2efe8; opacity: 0; }
+
+      /* números dourados */
+      .ouro { position: absolute; left: 0; right: 0; top: 380px; text-align: center; opacity: 0; }
+      .ouro .n { font: 400 260px/0.9 "Anton"; background: linear-gradient(180deg, var(--ouro2) 0%, var(--ouro) 45%, #7a5414 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 12px 40px #000); }
+      .ouro .s { display: inline-block; padding: 4px 16px; background: #050505b3; font: 400 60px "Anton"; color: var(--branco); margin-top: 10px; text-shadow: 0 6px 30px #000; }
+      .ouro .s em { font-style: normal; color: var(--vermelho); }
+
+      /* carimbo FECHADO */
+      #fechado { position: absolute; left: 50%; top: 560px; width: 760px; margin-left: -380px; padding: 18px 0; text-align: center; border: 12px solid var(--vermelho); color: var(--vermelho); font: 400 170px/1 "Anton"; letter-spacing: 0.04em; background: #050505b3; opacity: 0; }
+
+      /* CTA */
+      #cta { position: absolute; inset: 0; opacity: 0; background: var(--preto); }
+      #cta .pede { position: absolute; left: 0; right: 0; top: 640px; text-align: center; font: 400 120px "Anton"; color: var(--branco); }
+      #cta .campo { position: absolute; left: 80px; right: 80px; top: 820px; height: 190px; border: 6px solid var(--vermelho); display: flex; align-items: center; justify-content: center; }
+      #cta .campo span { font: 400 132px "Anton"; color: var(--vermelho); letter-spacing: 0.02em; }
+      #cta .assina { position: absolute; left: 0; right: 0; top: 1110px; text-align: center; font: italic 400 76px "Instrument Serif"; color: #f2efe8d9; }
+      #cta .serie { position: absolute; left: 0; right: 0; top: 1260px; text-align: center; font: 500 30px "JetBrains Mono"; letter-spacing: 0.22em; color: #f2efe899; }
+      #cta img { position: absolute; left: 50%; top: 1380px; width: 220px; margin-left: -110px; display: block; }
+
+      /* camadas de filme */
+      #grao { position: absolute; inset: -40px; background: url("assets/img/grao.png"); background-size: 540px 960px; opacity: 0.11; mix-blend-mode: overlay; }
+      #vinheta { position: absolute; inset: 0; background: radial-gradient(120% 85% at 50% 50%, #0000 55%, #000000c0 100%); }
+      #tremor { position: absolute; inset: 0; background: #fff; opacity: 0; mix-blend-mode: overlay; }
+      #marca { position: absolute; right: 54px; top: 64px; width: 120px; height: auto; opacity: 0.75; display: block; }
+    
+      /* conta 1,77 → 0,80 */
+      #conta { position: absolute; left: 0; right: 0; top: 330px; text-align: center; opacity: 0; }
+      #conta .linha { display: flex; justify-content: center; align-items: baseline; gap: 40px; }
+      #conta .velho { position: relative; font: 400 230px/0.9 "Anton"; color: var(--branco); text-shadow: 0 10px 40px #000; }
+      #conta .risco { position: absolute; left: -10px; right: -10px; top: 48%; height: 18px; background: var(--vermelho); transform-origin: left center; }
+      #conta .novo { font: 400 230px/0.9 "Anton"; background: linear-gradient(180deg, var(--ouro2) 0%, var(--ouro) 45%, #7a5414 100%); -webkit-background-clip: text; background-clip: text; color: transparent; opacity: 0; }
+      #conta .u { display: flex; justify-content: center; gap: 120px; margin-top: 14px; font: 500 34px "JetBrains Mono"; letter-spacing: 0.12em; color: #f2efe8; }
+      #conta .u span { background: #050505b3; padding: 4px 12px; }
+      /* tanque */
+      #tanque { position: absolute; left: 50%; top: 360px; width: 300px; height: 620px; margin-left: -150px; border: 8px solid var(--branco); border-radius: 28px; background: #05050599; overflow: hidden; opacity: 0; }
+      #tanque .nivel { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; background: linear-gradient(180deg, var(--ouro2), var(--ouro) 50%, #7a5414); transform-origin: bottom; transform: scaleY(0); }
+      #tanque .meta { position: absolute; left: -8px; right: -8px; top: 0; border-top: 8px dashed var(--vermelho); }
+      #tanque-txt { position: absolute; left: 0; right: 0; top: 1000px; text-align: center; font: 400 64px "Anton"; color: var(--branco); text-shadow: 0 6px 30px #000; opacity: 0; }
+      #tanque-txt em { font-style: normal; color: var(--vermelho); }
+      /* apagão do painel */
+      #apagao { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, #ffffff22 0 2px, #0000 2px 6px); opacity: 0; mix-blend-mode: screen; }
+      #selo { position: absolute; left: 70px; top: 230px; padding: 6px 12px; background: #050505b3; font: 500 28px "JetBrains Mono"; letter-spacing: 0.16em; color: #f2efe8; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="128.3" data-width="1080" data-height="1920">
+      <div id="preto" class="clip" data-start="0" data-duration="128.3" data-track-index="0"></div>
+      <video id="v-g00" class="vid" src="assets/video/g00.mp4" muted playsinline data-start="0.0" data-duration="4.28"></video>
+      <video id="v-g01" class="vid" src="assets/video/g01.mp4" muted playsinline data-start="4.28" data-duration="4.88"></video>
+      <video id="v-g02" class="vid" src="assets/video/g02.mp4" muted playsinline data-start="9.16" data-duration="4.369"></video>
+      <video id="v-g03" class="vid" src="assets/video/g03.mp4" muted playsinline data-start="13.529" data-duration="3.946"></video>
+      <video id="v-g03b" class="vid" src="assets/video/g03b.mp4" muted playsinline data-start="17.475" data-duration="1.174"></video>
+      <video id="v-g04" class="vid" src="assets/video/g04.mp4" muted playsinline data-start="18.649" data-duration="1.619"></video>
+      <video id="v-g04b" class="vid" src="assets/video/g04b.mp4" muted playsinline data-start="20.268" data-duration="1.202"></video>
+      <video id="v-g05" class="vid" src="assets/video/g05.mp4" muted playsinline data-start="21.47" data-duration="2.908"></video>
+      <video id="v-g06" class="vid" src="assets/video/g06.mp4" muted playsinline data-start="24.378" data-duration="3.351"></video>
+      <video id="v-g07" class="vid" src="assets/video/g07.mp4" muted playsinline data-start="27.729" data-duration="2.295"></video>
+      <video id="v-g08" class="vid" src="assets/video/g08.mp4" muted playsinline data-start="31.751" data-duration="3.749"></video>
+      <video id="v-g09" class="vid" src="assets/video/g09.mp4" muted playsinline data-start="35.5" data-duration="3.671"></video>
+      <video id="v-g09b" class="vid" src="assets/video/g09b.mp4" muted playsinline data-start="39.171" data-duration="1.847"></video>
+      <video id="v-g10" class="vid" src="assets/video/g10.mp4" muted playsinline data-start="41.018" data-duration="5.607"></video>
+      <video id="v-g11" class="vid" src="assets/video/g11.mp4" muted playsinline data-start="46.625" data-duration="3.781"></video>
+      <video id="v-g11b" class="vid" src="assets/video/g11b.mp4" muted playsinline data-start="50.406" data-duration="2.533"></video>
+      <video id="v-g12" class="vid" src="assets/video/g12.mp4" muted playsinline data-start="52.939" data-duration="3.838"></video>
+      <video id="v-g13" class="vid" src="assets/video/g13.mp4" muted playsinline data-start="56.777" data-duration="4.28"></video>
+      <video id="v-g14" class="vid" src="assets/video/g14.mp4" muted playsinline data-start="61.057" data-duration="3.882"></video>
+      <video id="v-g15" class="vid" src="assets/video/g15.mp4" muted playsinline data-start="64.939" data-duration="1.316"></video>
+      <video id="v-g16" class="vid" src="assets/video/g16.mp4" muted playsinline data-start="66.255" data-duration="2.833"></video>
+      <video id="v-g18" class="vid" src="assets/video/g18.mp4" muted playsinline data-start="73.81" data-duration="2.024"></video>
+      <video id="v-g19" class="vid" src="assets/video/g19.mp4" muted playsinline data-start="75.834" data-duration="7.509"></video>
+      <video id="v-g20" class="vid" src="assets/video/g20.mp4" muted playsinline data-start="83.343" data-duration="7.331"></video>
+      <video id="v-g21" class="vid" src="assets/video/g21.mp4" muted playsinline data-start="90.674" data-duration="4.899"></video>
+      <video id="v-g22" class="vid" src="assets/video/g22.mp4" muted playsinline data-start="95.573" data-duration="3.573"></video>
+      <video id="v-g23" class="vid" src="assets/video/g23.mp4" muted playsinline data-start="99.146" data-duration="4.368"></video>
+      <video id="v-g24" class="vid" src="assets/video/g24.mp4" muted playsinline data-start="103.514" data-duration="8.33"></video>
+      <video id="v-g25" class="vid" src="assets/video/g25.mp4" muted playsinline data-start="111.844" data-duration="2.553"></video>
+      <video id="v-g25b" class="vid" src="assets/video/g25b.mp4" muted playsinline data-start="114.397" data-duration="2.125"></video>
+      <video id="v-g26" class="vid" src="assets/video/g26.mp4" muted playsinline data-start="116.522" data-duration="2.476"></video>
+      <video id="v-g26b" class="vid" src="assets/video/g26b.mp4" muted playsinline data-start="118.998" data-duration="1.406"></video>
+      <video id="v-g28" class="vid" src="assets/video/g28.mp4" muted playsinline data-start="121.897" data-duration="2.643"></video>
+      <section id="palco" class="clip" data-start="0" data-duration="128.3" data-track-index="1">
+        <div id="sombra"></div>
+        <div id="apagao"></div>
+        <div class="tela-preta" id="preta"></div>
+        <div class="ouro" id="o-data"><div class="n">1983</div><div class="s">23 DE JULHO · VOO 143</div></div>
+        <div class="ouro" id="o-alt"><div class="n" id="n-alt">12.500 m</div><div class="s" id="s-alt">ALTITUDE</div></div>
+        <div class="ouro" id="o-gimli"><div class="n">GIMLI</div><div class="s">ANTIGA BASE AÉREA · CANADÁ</div></div>
+        <div class="ouro" id="o-69"><div class="n">69</div><div class="s">A BORDO · <em>0</em> MORTOS</div></div>
+        <div class="ouro" id="o-kg"><div class="n">LB → KG</div><div class="s">A TROCA DE SISTEMA</div></div>
+        <div id="conta"><div class="linha"><div class="velho">1,77<div class="risco"></div></div><div class="novo">0,80</div></div><div class="u"><span>CONTA VELHA</span><span>CONTA CERTA</span></div></div>
+        <div id="tanque"><div class="nivel"></div><div class="meta"></div></div>
+        <p id="tanque-txt">MENOS DA <em>METADE</em> DO NECESSÁRIO</p>
+        <div id="fechado">CULPA: EMPRESA</div>
+        <div id="texto"></div>
+        <div id="cta">
+          <p class="pede">COMENTA</p>
+          <div class="campo"><span id="digitado"></span></div>
+          <p class="assina">Eu confiro a conta antes de decolar.</p>
+          <p class="serie">A VIRADA · TODA SEGUNDA</p>
+          <img src="assets/marca/logo-branca.png" alt="" />
+        </div>
+        <div id="grao"></div>
+        <div id="vinheta"></div>
+        <div id="tremor"></div>
+        <p id="selo">HISTÓRIA REAL · AIR CANADA 143</p>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+      </section>
+
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="125.78" data-volume="1"></audio>
+      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="128.3" data-volume="0.3" data-fade-out="1.5"></audio>
+      <audio id="amb-cabine" src="assets/audio/g_cabine.mp3" data-start="0" data-duration="21.4" data-volume="0.22"></audio>
+      <audio id="sfx-alarme" src="assets/audio/g_alarme.mp3" data-sinc="palavra:alarme:1:-0.05" data-start="20.27" data-duration="1.58" data-volume="0.5"></audio>
+      <audio id="sfx-alarme2" src="assets/audio/g_alarme.mp3" data-sinc="palavra:alarme:1:1.6" data-start="21.92" data-duration="1.58" data-volume="0.4"></audio>
+      <audio id="sfx-desliga" src="assets/audio/g_desliga.mp3" data-sinc="palavra:motor:1:-0.2" data-start="22.07" data-duration="7" data-volume="0.6"></audio>
+      <audio id="sfx-boom-apaga" src="assets/audio/boom1.mp3" data-sinc="palavra:apagam:1:0.35" data-start="29.35" data-duration="2.78" data-volume="0.7"></audio>
+      <audio id="amb-vento" src="assets/audio/g_vento.mp3" data-sinc="palavra:apagam:1:0.4" data-start="29.4" data-duration="25" data-volume="0.35"></audio>
+      <audio id="sfx-coracao" src="assets/audio/coracao.mp3" data-sinc="cena:8:-1.4" data-start="30.35" data-duration="5" data-volume="0.45"></audio>
+      <audio id="sfx-carro" src="assets/audio/g_carro.mp3" data-sinc="cena:11:-1.5" data-start="45.12" data-duration="7" data-volume="0.3"></audio>
+      <audio id="sfx-coracao2" src="assets/audio/coracao.mp3" data-sinc="cena:12:0" data-start="52.94" data-duration="8" data-volume="0.4"></audio>
+      <audio id="sfx-whoosh" src="assets/audio/whoosh.mp3" data-sinc="cena:13:0.2" data-start="56.98" data-duration="3" data-volume="0.45"></audio>
+      <audio id="sfx-pneu" src="assets/audio/g_pneu.mp3" data-sinc="palavra:pneu:1:-1.6" data-start="59.58" data-duration="4" data-volume="0.5"></audio>
+      <audio id="sfx-raspa" src="assets/audio/g_raspa.mp3" data-sinc="palavra:nariz:1:0" data-start="62.02" data-duration="4.2" data-volume="0.55"></audio>
+      <audio id="sfx-boom-para" src="assets/audio/boom2.mp3" data-sinc="palavra:para:2:0" data-start="65.43" data-duration="2.09" data-volume="0.7"></audio>
+      <audio id="sfx-multidao" src="assets/audio/g_multidao.mp3" data-sinc="palavra:morreu:1:0.3" data-start="68.57" data-duration="4.4" data-volume="0.18"></audio>
+      <audio id="sfx-boom-virada" src="assets/audio/boom1.mp3" data-sinc="cena:17:-0.08" data-start="70.62" data-duration="2.78" data-volume="0.85"></audio>
+      <audio id="sfx-calc" src="assets/audio/g_calc.mp3" data-sinc="cena:18:0.1" data-start="73.91" data-duration="3" data-volume="0.5"></audio>
+      <audio id="sfx-calc2" src="assets/audio/g_calc.mp3" data-sinc="palavra:velho:1:-0.9" data-start="88.91" data-duration="2" data-volume="0.45"></audio>
+      <audio id="sfx-boom-risco" src="assets/audio/boom2.mp3" data-sinc="palavra:velho:1:0.3" data-start="90.11" data-duration="2.09" data-volume="0.55"></audio>
+      <audio id="sfx-maquina" src="assets/audio/g_maquina.mp3" data-sinc="cena:22:0" data-start="95.57" data-duration="11" data-volume="0.28"></audio>
+      <audio id="sfx-carimbo" src="assets/audio/g_carimbo.mp3" data-sinc="palavra:empresa:1:0.05" data-start="98.1" data-duration="0.65" data-volume="0.9"></audio>
+      <audio id="sfx-riser" src="assets/audio/riser.mp3" data-sinc="cena:25:-4.0" data-start="107.84" data-duration="4.03" data-volume="0.4"></audio>
+      <audio id="sfx-boom-hoje" src="assets/audio/boom2.mp3" data-sinc="cena:25:-0.05" data-start="111.79" data-duration="2.09" data-volume="0.85"></audio>
+      <audio id="sfx-desliga2" src="assets/audio/g_desliga.mp3" data-sinc="palavra:motor:3:0" data-start="119.1" data-duration="3.5" data-volume="0.45"></audio>
+      <audio id="sfx-braam-fim" src="assets/audio/braam.mp3" data-sinc="palavra:decolar:1:0.4" data-start="123.93" data-duration="4" data-volume="0.4"></audio>
+    </div>
+
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const C = window.CENAS;
+      const DURACAO = 128.3;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;…]/g, "");
+      function em(palavra, n = 1, fallback = 0) {
+        let visto = 0;
+        for (const p of PALAVRAS) if (limpar(p.w) === palavra && ++visto === n) return p.s;
+        return fallback;
+      }
+      const tl = gsap.timeline({ paused: true });
+
+      // ---- texto palavra a palavra ----
+      // 1º ato (história, até "Ele não respondeu"): serifa itálica, palavras douradas. Da virada em diante: Anton, vermelho.
+      const DOURADAS = new Set(["1983#1", "sessenta#1", "casa#1", "planador#1", "alarme#1", "outro#1", "combustível#1", "apagam#1", "planador#2", "certo#1", "gimli#1", "autódromo#1", "famílias#1", "silêncio#1", "escuta#1", "arrasta#1", "para#2", "morreu#1"]);
+      const VERMELHAS = new Set(["combustível#2", "conta#1", "quilos#2", "velho#1", "metade#1", "fechava#1", "empresa#1", "dono#1", "treinado#1", "perigosa#1", "planilha#1", "inteligência#1", "artificial#1", "parar#1", "avião#6"]);
+      const VIRADA = 17;
+      const CENTRO = new Set([17, 27]);
+      const SEM_TEXTO = new Set([29]);
+      const caixa = document.getElementById("texto");
+      const cenaDe = (t) => { let i = 0; while (i + 1 < C.length && C[i + 1] <= t + 0.01) i++; return i; };
+      const contagem = {};
+      const grupos = [];
+      let atual = [];
+      const fecha = () => {
+        const n = atual.length, partes = Math.ceil(n / 4), tam = Math.ceil(n / partes);
+        for (let i = 0; i < n; i += tam) grupos.push(atual.slice(i, i + tam));
+        atual = [];
+      };
+      PALAVRAS.forEach((p, k) => {
+        const prox = PALAVRAS[k + 1];
+        atual.push(p);
+        if (/[.,?!:…]$/.test(p.w) || !prox || cenaDe(prox.s) !== cenaDe(p.s)) fecha();
+      });
+      for (const g of grupos) {
+        const cena = cenaDe(g[0].s);
+        const suave = cena < VIRADA;
+        const div = document.createElement("div");
+        div.className = "frase " + (suave ? "suave" : CENTRO.has(cena) ? "centro" : "baixo");
+        if (!SEM_TEXTO.has(cena)) caixa.appendChild(div);
+        for (const p of g) {
+          const w = limpar(p.w);
+          contagem[w] = (contagem[w] || 0) + 1;
+          if (SEM_TEXTO.has(cena)) continue;
+          const s = document.createElement("span");
+          s.textContent = p.w.replace(/[.,:;…]/g, "");
+          const marca = `${w}#${contagem[w]}`;
+          if ((suave && DOURADAS.has(marca)) || (!suave && VERMELHAS.has(marca))) s.classList.add("chave");
+          div.appendChild(s);
+          if (suave) tl.fromTo(s, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, p.s - 0.05);
+          else tl.fromTo(s, { opacity: 0, scale: 1.35, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.14, ease: "power3.out" }, p.s - 0.03);
+        }
+        if (SEM_TEXTO.has(cena)) continue;
+        const ultimo = g[g.length - 1];
+        const proximo = PALAVRAS[PALAVRAS.indexOf(ultimo) + 1];
+        const some = proximo ? Math.min(ultimo.e + (suave ? 0.9 : 0.6), proximo.s - 0.02) : ultimo.e + 0.8;
+        tl.set(div, { opacity: 1 }, g[0].s - 0.05);
+        if (suave) tl.to(div, { opacity: 0, duration: 0.25 }, some - 0.2); else tl.set(div, { opacity: 0 }, some);
+      }
+
+      function preta(ini, fim) { tl.set("#preta", { opacity: 1 }, ini); tl.set("#preta", { opacity: 0 }, fim); }
+      function tremor(t) { tl.fromTo("#tremor", { opacity: 0.35 }, { opacity: 0, duration: 0.25 }, t); }
+
+      // câmera lenta nos planos da história (push-in suave)
+      document.querySelectorAll("video.vid").forEach((v) => {
+        const ini = parseFloat(v.dataset.start), dur = parseFloat(v.dataset.duration);
+        if (ini < C[VIRADA]) tl.fromTo(v, { scale: 1.0 }, { scale: 1.08, duration: dur, ease: "none" }, ini);
+      });
+
+      const ouro = (sel, a, b) => { tl.fromTo(sel, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, a); tl.to(sel, { opacity: 0, duration: 0.3 }, b - 0.3); };
+      function shake(sel, t, n = 8, a = 14) { for (let i = 0; i < n; i++) tl.to(sel, { x: (i % 2 ? -1 : 1) * a * (1 - i / n), y: (i % 3 - 1) * a * 0.6, duration: 0.05 }, t + i * 0.05); tl.to(sel, { x: 0, y: 0, duration: 0.05 }, t + n * 0.05); }
+      // selo de história real durante a história
+      tl.fromTo("#selo", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.3);
+      tl.set("#selo", { opacity: 0 }, C[VIRADA]);
+      // 0 · data
+      ouro("#o-data", 0.2, C[1]);
+      // 4–5 · altitude: 12.500 m e, quando os motores param, começa a cair
+      { const el = document.getElementById("n-alt"); const o = { v: 12500 };
+        const escreve = () => (el.textContent = Math.round(o.v).toLocaleString("pt-BR") + " m");
+        tl.set(o, { v: 12500, onUpdate: escreve }, 0);
+        tl.fromTo("#o-alt", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35 }, C[4] + 0.1);
+        tl.to(o, { v: 9800, duration: C[7] - em("motor", 1, 25), ease: "power1.in", onUpdate: escreve }, em("motor", 1, 25));
+        tl.set("#s-alt", { textContent: "SEM MOTOR" }, em("motor", 1, 25));
+        tl.to("#o-alt", { opacity: 0, duration: 0.3 }, C[7] - 0.3); }
+      // alarme: luz vermelha pulsando
+      for (let i = 0; i < 4; i++) tremor(em("alarme", 1, 20) + i * 0.4);
+      // 7 · as telas apagam: interferência, piscadas e preto seco (silêncio real até a cena 8)
+      { const t = em("apagam", 1, 29); tl.set("#apagao", { opacity: 1 }, t - 0.2);
+        [0, 0.08, 0.16, 0.26].forEach((d, i) => tl.set("#preta", { opacity: i % 2 ? 0 : 1 }, t + d));
+        tl.set("#apagao", { opacity: 0 }, t + 0.35);
+        preta(t + 0.35, C[8]); }
+      // 10 · Gimli
+      ouro("#o-gimli", em("gimli", 1, 45) - 0.1, C[11]);
+      // 13 · manobra de planador: o quadro inclina
+      tl.fromTo("#v-g13", { rotation: 0, scale: 1.15 }, { rotation: -9, scale: 1.25, duration: C[14] - C[13], ease: "sine.inOut" }, C[13]);
+      // 14 · pneu estoura e nariz arrasta: tremor de câmera
+      shake("#v-g14", em("pneu", 1, 61), 10, 18); shake("#v-g14", em("nariz", 1, 63), 14, 12); tremor(em("pneu", 1, 61));
+      tremor(em("para", 2, 65));
+      // 16 · 69 a bordo, ninguém morreu
+      ouro("#o-69", C[16] + 0.1, em("morreu", 1, 68) + 0.6);
+      // 17 · virada: preto seco + Anton
+      preta(em("morreu", 1, 68) + 0.6, C[18]);
+      tremor(C[VIRADA] - 0.08);
+      // 19 · libras → quilos
+      ouro("#o-kg", em("libras", 1, 76) - 0.1, C[20]);
+      // 20 · a conta com o número velho: 1,77 riscado → 0,80
+      { const t = em("velho", 1, 88);
+        tl.fromTo("#conta", { opacity: 0 }, { opacity: 1, duration: 0.3 }, t - 1.4);
+        tl.fromTo("#conta .risco", { scaleX: 0, rotation: -6 }, { scaleX: 1, rotation: -6, duration: 0.25, ease: "power3.out" }, t + 0.3);
+        tl.to("#conta .novo", { opacity: 1, duration: 0.3 }, t + 0.6);
+        tl.to("#conta", { opacity: 0, duration: 0.3 }, C[21] - 0.3); }
+      // 21 · tanque enche até 45% do necessário
+      tl.fromTo(["#tanque", "#tanque-txt"], { opacity: 0 }, { opacity: 1, duration: 0.3 }, C[21] + 0.1);
+      tl.to("#tanque .nivel", { scaleY: 0.45, duration: 1.6, ease: "power2.out" }, C[21] + 0.3);
+      tl.to(["#tanque", "#tanque-txt"], { opacity: 0, duration: 0.3 }, C[22] - 0.3);
+      // 22 · carimbo CULPA: EMPRESA
+      { const t = em("empresa", 1, 96); tl.fromTo("#fechado", { opacity: 0, scale: 1.6, rotation: -8 }, { opacity: 1, scale: 1, rotation: -8, duration: 0.18, ease: "power4.in" }, t);
+        tremor(t + 0.15); tl.to("#fechado", { opacity: 0, duration: 0.3 }, C[23] - 0.3); }
+      // 25 · HOJE: corte seco
+      tremor(C[25] - 0.05);
+      tremor(em("motor", 3, 119));
+      // 27 · Eu não vendo avião (tela preta)
+      preta(C[27], C[28]);
+      // 29 · CTA
+      tl.set("#cta", { opacity: 1 }, C[29]);
+      { const chave = "DIAGNÓSTICO"; const dig = document.getElementById("digitado");
+        for (let i = 0; i <= chave.length; i++) tl.set(dig, { textContent: chave.slice(0, i) }, em("diagnóstico", 1, 125) - 0.1 + i * 0.05); }
+      tl.fromTo(["#cta .assina", "#cta .serie", "#cta img"], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.15 }, C[29] + 1.2);
+      tl.set("#marca", { opacity: 0 }, C[29]);
+
+      // ---- grão de filme vivo ----
+      for (let t = 0, k = 0; t < DURACAO; t += 1 / 24, k++) {
+        tl.set("#grao", { backgroundPosition: `${(k * 137) % 540}px ${(k * 311) % 960}px` }, t);
+      }
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

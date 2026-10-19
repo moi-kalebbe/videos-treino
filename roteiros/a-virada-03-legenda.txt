@@ -1,0 +1,19 @@
+Um avião novo ficou sem combustível a 12 mil metros de altura. A culpa foi de uma conta. ✈️
+
+23 de julho de 1983. Voo 143 da Air Canada, um Boeing 767 com menos de quatro meses de uso. Os dois motores param. O comandante Bob Pearson, que voava de planador nas horas vagas, leva o jato planando até uma antiga base aérea em Gimli, que tinha virado autódromo. Ninguém morreu.
+
+A virada: naquele ano o Canadá estava trocando de libras para quilos, e aquele 767 era o primeiro da frota já em quilos. O medidor de combustível estava com defeito, a conta foi feita na mão com o número do sistema velho (1,77 no lugar de ~0,80), e o avião saiu com menos da metade do combustível necessário.
+
+O relatório não culpou os pilotos. Culpou a empresa: ninguém era o dono do cálculo do combustível, ninguém tinha sido treinado no sistema novo, e uma frota metade num sistema, metade no outro, era mais perigosa que qualquer um dos dois.
+
+Hoje muita empresa está no meio da troca: metade do processo na planilha, metade na IA. E a conta fecha. Até o motor parar.
+
+Antes de colocar IA, eu confiro a conta.
+
+Comenta DIAGNÓSTICO que eu te mando como funciona o diagnóstico de processos da Processos & IA.
+
+A Virada · toda segunda, 12h.
+
+Fonte: relatório do Board of Inquiry do Canadá (1985) sobre o voo Air Canada 143, resumido em "Gimli Glider" (Wikipedia). Imagens ilustrativas de banco (Pexels), não são do voo real.
+
+#inteligenciaartificial #ia #gestao #processos #aviacao #empreendedorismo #transformacaodigital

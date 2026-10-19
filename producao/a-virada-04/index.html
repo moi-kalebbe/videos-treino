@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>A Virada · 04 · Dez Anos</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; src: url("assets/fonts/instrument-serif-italic.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+
+      :root { --preto: #050505; --branco: #f2efe8; --vermelho: #e3141b; --ouro: #d9a94a; --ouro2: #fff1c4; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--preto); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--branco); font-family: "Anton", sans-serif; }
+      .clip { position: absolute; inset: 0; }
+      #preto { background: var(--preto); }
+      .vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+
+      .tela-preta { position: absolute; inset: 0; background: var(--preto); opacity: 0; }
+      #sombra { position: absolute; inset: 0; background: linear-gradient(180deg, #050505b3 0%, #05050500 20%, #05050500 52%, #050505e6 80%, #050505 100%); }
+
+      /* texto central palavra a palavra (Hard Copy) */
+      #texto { position: absolute; left: 70px; right: 70px; top: 0; height: 1920px; }
+      .frase { position: absolute; left: 0; right: 0; display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 0 22px; text-align: center; opacity: 0; }
+      .frase.baixo { top: 1180px; height: 420px; }
+      .frase.centro { top: 700px; height: 520px; }
+      .frase span { display: inline-block; font: 400 104px/1.04 "Anton"; text-transform: uppercase; letter-spacing: 0.01em; color: var(--branco); text-shadow: 0 6px 30px #000, 0 0 2px #000; opacity: 0; }
+      .frase.centro span { font-size: 150px; }
+      .frase span.chave { color: var(--vermelho); }
+      .frase.suave { top: 1220px; height: 380px; gap: 0 18px; }
+      .frase.suave span { font: italic 400 96px/1.08 "Instrument Serif"; text-transform: none; letter-spacing: 0; color: #f6efe2; }
+      .frase.suave span.chave { color: #f0c372; }
+
+      #ilustrativa-x { position: absolute; left: 70px; top: 230px; padding: 6px 12px; background: #050505b3; font: 500 28px "JetBrains Mono"; letter-spacing: 0.16em; color: #f2efe8; opacity: 0; }
+
+      /* números dourados */
+      .ouro { position: absolute; left: 0; right: 0; top: 380px; text-align: center; opacity: 0; }
+      .ouro .n { font: 400 260px/0.9 "Anton"; background: linear-gradient(180deg, var(--ouro2) 0%, var(--ouro) 45%, #7a5414 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 12px 40px #000); }
+      .ouro .s { display: inline-block; padding: 4px 16px; background: #050505b3; font: 400 60px "Anton"; color: var(--branco); margin-top: 10px; text-shadow: 0 6px 30px #000; }
+      .ouro .s em { font-style: normal; color: var(--vermelho); }
+
+      /* carimbo FECHADO */
+      #fechado { position: absolute; left: 50%; top: 560px; width: 760px; margin-left: -380px; padding: 18px 0; text-align: center; border: 12px solid var(--vermelho); color: var(--vermelho); font: 400 170px/1 "Anton"; letter-spacing: 0.04em; background: #050505b3; opacity: 0; }
+
+      /* CTA */
+      #cta { position: absolute; inset: 0; opacity: 0; background: var(--preto); }
+      #cta .pede { position: absolute; left: 0; right: 0; top: 640px; text-align: center; font: 400 120px "Anton"; color: var(--branco); }
+      #cta .campo { position: absolute; left: 80px; right: 80px; top: 820px; height: 190px; border: 6px solid var(--vermelho); display: flex; align-items: center; justify-content: center; }
+      #cta .campo span { font: 400 132px "Anton"; color: var(--vermelho); letter-spacing: 0.02em; }
+      #cta .assina { position: absolute; left: 0; right: 0; top: 1110px; text-align: center; font: italic 400 76px "Instrument Serif"; color: #f2efe8d9; }
+      #cta .serie { position: absolute; left: 0; right: 0; top: 1260px; text-align: center; font: 500 30px "JetBrains Mono"; letter-spacing: 0.22em; color: #f2efe899; }
+      #cta img { position: absolute; left: 50%; top: 1380px; width: 220px; margin-left: -110px; display: block; }
+
+      /* camadas de filme */
+      #grao { position: absolute; inset: -40px; background: url("assets/img/grao.png"); background-size: 540px 960px; opacity: 0.11; mix-blend-mode: overlay; }
+      #vinheta { position: absolute; inset: 0; background: radial-gradient(120% 85% at 50% 50%, #0000 55%, #000000c0 100%); }
+      #tremor { position: absolute; inset: 0; background: #fff; opacity: 0; mix-blend-mode: overlay; }
+      #marca { position: absolute; right: 54px; top: 64px; width: 120px; height: auto; opacity: 0.75; display: block; }
+    
+      /* conta 1,77 → 0,80 */
+      #conta { position: absolute; left: 0; right: 0; top: 330px; text-align: center; opacity: 0; }
+      #conta .linha { display: flex; justify-content: center; align-items: baseline; gap: 40px; }
+      #conta .velho { position: relative; font: 400 230px/0.9 "Anton"; color: var(--branco); text-shadow: 0 10px 40px #000; }
+      #conta .risco { position: absolute; left: -10px; right: -10px; top: 48%; height: 18px; background: var(--vermelho); transform-origin: left center; }
+      #conta .novo { font: 400 230px/0.9 "Anton"; background: linear-gradient(180deg, var(--ouro2) 0%, var(--ouro) 45%, #7a5414 100%); -webkit-background-clip: text; background-clip: text; color: transparent; opacity: 0; }
+      #conta .u { display: flex; justify-content: center; gap: 120px; margin-top: 14px; font: 500 34px "JetBrains Mono"; letter-spacing: 0.12em; color: #f2efe8; }
+      #conta .u span { background: #050505b3; padding: 4px 12px; }
+      #foto { position: absolute; left: 50%; top: 360px; width: 620px; margin-left: -310px; opacity: 0; }
+      #foto .quadro { position: relative; width: 620px; height: 620px; border: 10px solid #1a1a1a; border-radius: 40px; overflow: hidden; background: #111; box-shadow: 0 30px 80px #000; }
+      #foto img { width: 100%; height: 100%; display: block; }
+      #foto .scan { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; background: #111; transform-origin: bottom; }
+      #foto .lin { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, #0006 0 3px, #0000 3px 6px); }
+      #foto p { margin-top: 18px; text-align: center; white-space: nowrap; font: 500 26px "JetBrains Mono"; letter-spacing: 0.14em; color: #f2efe8; }
+      #foto p span { background: #050505b3; padding: 4px 12px; }
+      /* tanque */
+      #tanque { position: absolute; left: 50%; top: 360px; width: 300px; height: 620px; margin-left: -150px; border: 8px solid var(--branco); border-radius: 28px; background: #05050599; overflow: hidden; opacity: 0; }
+      #tanque .nivel { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; background: linear-gradient(180deg, var(--ouro2), var(--ouro) 50%, #7a5414); transform-origin: bottom; transform: scaleY(0); }
+      #tanque .meta { position: absolute; left: -8px; right: -8px; top: 0; border-top: 8px dashed var(--vermelho); }
+      #tanque-txt { position: absolute; left: 0; right: 0; top: 1000px; text-align: center; font: 400 64px "Anton"; color: var(--branco); text-shadow: 0 6px 30px #000; opacity: 0; }
+      #tanque-txt em { font-style: normal; color: var(--vermelho); }
+      /* apagão do painel */
+      #apagao { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, #ffffff22 0 2px, #0000 2px 6px); opacity: 0; mix-blend-mode: screen; }
+      #selo { position: absolute; left: 70px; top: 230px; padding: 6px 12px; background: #050505b3; font: 500 28px "JetBrains Mono"; letter-spacing: 0.16em; color: #f2efe8; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="117.0" data-width="1080" data-height="1920">
+      <div id="preto" class="clip" data-start="0" data-duration="117" data-track-index="0"></div>
+      <video id="v-k00" class="vid" src="assets/video/k00.mp4" muted playsinline data-start="0.0" data-duration="4.855"></video>
+      <video id="v-k01" class="vid" src="assets/video/k01.mp4" muted playsinline data-start="4.855" data-duration="0.884"></video>
+      <video id="v-k01b" class="vid" src="assets/video/k01b.mp4" muted playsinline data-start="5.739" data-duration="3.263"></video>
+      <video id="v-k02" class="vid" src="assets/video/k02.mp4" muted playsinline data-start="9.002" data-duration="2.555"></video>
+      <video id="v-k03" class="vid" src="assets/video/k03.mp4" muted playsinline data-start="11.557" data-duration="9.145"></video>
+      <video id="v-k04" class="vid" src="assets/video/k04.mp4" muted playsinline data-start="20.702" data-duration="5.297"></video>
+      <video id="v-k05" class="vid" src="assets/video/k05.mp4" muted playsinline data-start="25.999" data-duration="3.882"></video>
+      <video id="v-k06" class="vid" src="assets/video/k06.mp4" muted playsinline data-start="29.881" data-duration="6.358"></video>
+      <video id="v-k07" class="vid" src="assets/video/k07.mp4" muted playsinline data-start="36.239" data-duration="3.484"></video>
+      <video id="v-k08" class="vid" src="assets/video/k08.mp4" muted playsinline data-start="39.723" data-duration="4.77"></video>
+      <video id="v-k09" class="vid" src="assets/video/k09.mp4" muted playsinline data-start="44.493" data-duration="4.232"></video>
+      <video id="v-k10" class="vid" src="assets/video/k10.mp4" muted playsinline data-start="50.659" data-duration="3.761"></video>
+      <video id="v-k12" class="vid" src="assets/video/k12.mp4" muted playsinline data-start="58.745" data-duration="2.775"></video>
+      <video id="v-k13" class="vid" src="assets/video/k13.mp4" muted playsinline data-start="61.52" data-duration="7.023"></video>
+      <video id="v-k14" class="vid" src="assets/video/k14.mp4" muted playsinline data-start="68.543" data-duration="3.439"></video>
+      <video id="v-k16" class="vid" src="assets/video/k16.mp4" muted playsinline data-start="73.21" data-duration="5.032"></video>
+      <video id="v-k17" class="vid" src="assets/video/k17.mp4" muted playsinline data-start="78.242" data-duration="2.865"></video>
+      <video id="v-k18" class="vid" src="assets/video/k18.mp4" muted playsinline data-start="81.107" data-duration="3.073"></video>
+      <video id="v-k18b" class="vid" src="assets/video/k18b.mp4" muted playsinline data-start="84.18" data-duration="3.619"></video>
+      <video id="v-k19" class="vid" src="assets/video/k19.mp4" muted playsinline data-start="87.799" data-duration="4.5"></video>
+      <video id="v-k19b" class="vid" src="assets/video/k19b.mp4" muted playsinline data-start="92.299" data-duration="2.523"></video>
+      <video id="v-k20" class="vid" src="assets/video/k20.mp4" muted playsinline data-start="94.822" data-duration="7.375"></video>
+      <video id="v-k21" class="vid" src="assets/video/k21.mp4" muted playsinline data-start="102.197" data-duration="3.75"></video>
+      <video id="v-k22" class="vid" src="assets/video/k22.mp4" muted playsinline data-start="105.947" data-duration="3.218"></video>
+      <video id="v-k24" class="vid" src="assets/video/k24.mp4" muted playsinline data-start="110.835" data-duration="2.422"></video>
+
+      <section id="palco" class="clip" data-start="0" data-duration="117.0" data-track-index="1">
+        <div id="sombra"></div>
+        <div class="tela-preta" id="preta"></div>
+        <div class="ouro" id="o-1975"><div class="n">1975</div><div class="s">DEZEMBRO · LABORATÓRIO DA KODAK</div></div>
+        <div class="ouro" id="o-kg"><div class="n">3,6 KG</div><div class="s">GRAVA NUMA FITA CASSETE</div></div>
+        <div class="ouro" id="o-seg"><div class="n" id="n-seg">0 s</div><div class="s">PRA GRAVAR UMA FOTO</div></div>
+        <div id="foto"><div class="quadro"><img src="assets/img/foto-1975.png" alt="" /><div class="lin"></div><div class="scan"></div></div><p><span>100 × 100 PIXELS · SEM FILME</span></p></div>
+        <div id="conta"><div class="linha"><div class="velho">1975<div class="risco"></div></div><div class="novo">1981</div></div><div class="u"><span>A INVENÇÃO</span><span>O AVISO</span></div></div>
+        <div class="ouro" id="o-anos"><div class="n" id="n-anos">1981</div><div class="s" id="s-anos">O PRAZO COMEÇA</div></div>
+        <div id="fechado">FALÊNCIA</div>
+        <div id="texto"></div>
+        <div id="cta">
+          <p class="pede">COMENTA</p>
+          <div class="campo"><span id="digitado"></span></div>
+          <p class="assina">Eu te ajudo a usar o prazo.</p>
+          <p class="serie">A VIRADA · TODA SEGUNDA</p>
+          <img src="assets/marca/logo-branca.png" alt="" />
+        </div>
+        <div id="grao"></div>
+        <div id="vinheta"></div>
+        <div id="tremor"></div>
+        <p id="selo">HISTÓRIA REAL · KODAK, 1975</p>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+      </section>
+
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="114.5" data-volume="1"></audio>
+      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="117.0" data-volume="0.3" data-fade-out="1.5"></audio>
+      <audio id="amb-projetor" src="assets/audio/projetor.mp3" data-start="0" data-duration="11.5" data-volume="0.16"></audio>
+      <audio id="sfx-clique1" src="assets/audio/k_clique.mp3" data-sinc="palavra:casamento:1:-0.05" data-start="4.98" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-clique2" src="assets/audio/k_clique.mp3" data-sinc="palavra:escola:1:-0.05" data-start="6.39" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-clique3" src="assets/audio/k_clique.mp3" data-sinc="palavra:natal:1:-0.05" data-start="7.28" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-flash" src="assets/audio/k_flash1.mp3" data-sinc="palavra:kodak:1:-0.1" data-start="10.41" data-duration="1.6" data-volume="0.7"></audio>
+      <audio id="sfx-fita" src="assets/audio/k_fita.mp3" data-sinc="cena:4:0.3" data-start="21.0" data-duration="5" data-volume="0.45"></audio>
+      <audio id="sfx-clique4" src="assets/audio/k_clique.mp3" data-sinc="palavra:foto:2:0" data-start="26.61" data-duration="1" data-volume="0.6"></audio>
+      <audio id="sfx-relogio1" src="assets/audio/relogio.mp3" data-sinc="cena:6:0" data-start="29.88" data-duration="2.6" data-volume="0.35"></audio>
+      <audio id="sfx-tvon" src="assets/audio/k_tvon.mp3" data-sinc="palavra:televisão:1:-0.25" data-start="32.47" data-duration="2" data-volume="0.6"></audio>
+      <audio id="sfx-tv" src="assets/audio/k_tv.mp3" data-sinc="palavra:televisão:1:0.6" data-start="33.32" data-duration="4" data-volume="0.16"></audio>
+      <audio id="sfx-coracao" src="assets/audio/coracao.mp3" data-sinc="cena:9:-0.8" data-start="43.69" data-duration="5.5" data-volume="0.45"></audio>
+      <audio id="sfx-boom-virada" src="assets/audio/boom1.mp3" data-sinc="cena:10:-0.08" data-start="48.65" data-duration="2.78" data-volume="0.85"></audio>
+      <audio id="sfx-boom-1981" src="assets/audio/boom2.mp3" data-sinc="palavra:1981:1:-0.05" data-start="59.22" data-duration="2.09" data-volume="0.75"></audio>
+      <audio id="sfx-maquina" src="assets/audio/g_maquina.mp3" data-sinc="cena:13:0" data-start="61.52" data-duration="6.5" data-volume="0.28"></audio>
+      <audio id="sfx-relogio" src="assets/audio/relogio.mp3" data-sinc="cena:14:0" data-start="68.54" data-duration="8" data-volume="0.45"></audio>
+      <audio id="sfx-boom-dez" src="assets/audio/boom2.mp3" data-sinc="cena:15:-0.05" data-start="71.93" data-duration="2.09" data-volume="0.8"></audio>
+      <audio id="sfx-carimbo" src="assets/audio/g_carimbo.mp3" data-sinc="palavra:falência:1:0.05" data-start="83.57" data-duration="0.65" data-volume="0.9"></audio>
+      <audio id="amb-fabrica" src="assets/audio/k_fabrica.mp3" data-sinc="cena:18:0" data-start="81.11" data-duration="6.7" data-volume="0.3"></audio>
+      <audio id="sfx-luz" src="assets/audio/k_luz.mp3" data-sinc="palavra:empresa:2:-0.4" data-start="83.88" data-duration="0.86" data-volume="0.9"></audio>
+      <audio id="sfx-riser" src="assets/audio/riser.mp3" data-sinc="cena:19:-4.0" data-start="83.8" data-duration="4.03" data-volume="0.4"></audio>
+      <audio id="sfx-boom-hoje" src="assets/audio/boom2.mp3" data-sinc="cena:19:-0.05" data-start="87.75" data-duration="2.09" data-volume="0.85"></audio>
+      <audio id="sfx-relogio2" src="assets/audio/relogio.mp3" data-sinc="cena:22:0" data-start="105.95" data-duration="3.2" data-volume="0.55"></audio>
+      <audio id="sfx-braam-fim" src="assets/audio/braam.mp3" data-sinc="palavra:prazo:4:0.4" data-start="112.71" data-duration="4" data-volume="0.4"></audio>
+    </div>
+
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const C = window.CENAS;
+      const DURACAO = 117.0;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;…]/g, "");
+      function em(palavra, n = 1, fallback = 0) {
+        let visto = 0;
+        for (const p of PALAVRAS) if (limpar(p.w) === palavra && ++visto === n) return p.s;
+        return fallback;
+      }
+      const tl = gsap.timeline({ paused: true });
+
+      // ---- texto palavra a palavra ----
+      // 1º ato (história, até "Ele não respondeu"): serifa itálica, palavras douradas. Da virada em diante: Anton, vermelho.
+      const DOURADAS = new Set(["família#1", "casamento#1", "escola#1", "avó#1", "kodak#1", "1975#1", "sasson#1", "importância#1", "quilos#1", "cassete#1", "joy#1", "televisão#1", "nenhum#1", "digital#1", "diretoria#1", "bonitinho#1", "ninguém#1"]);
+      const VERMELHAS = new Set(["diretoria#2", "pronta#1", "1975#2", "1981#1", "substituir#1", "dez#1", "dez#2", "anos#3", "prazo#1", "prazo#2", "filme#3", "falência#1", "inteligência#1", "artificial#1", "antigo#1", "igualzinho#1", "dez#3", "câmera#4"]);
+      const VIRADA = 10;
+      const CENTRO = new Set([11, 15, 23]);
+      const SEM_TEXTO = new Set([25]);
+      const caixa = document.getElementById("texto");
+      const cenaDe = (t) => { let i = 0; while (i + 1 < C.length && C[i + 1] <= t + 0.01) i++; return i; };
+      const contagem = {};
+      const grupos = [];
+      let atual = [];
+      const fecha = () => {
+        const n = atual.length, partes = Math.ceil(n / 4), tam = Math.ceil(n / partes);
+        for (let i = 0; i < n; i += tam) grupos.push(atual.slice(i, i + tam));
+        atual = [];
+      };
+      PALAVRAS.forEach((p, k) => {
+        const prox = PALAVRAS[k + 1];
+        atual.push(p);
+        if (/[.,?!:…]$/.test(p.w) || !prox || cenaDe(prox.s) !== cenaDe(p.s)) fecha();
+      });
+      for (const g of grupos) {
+        const cena = cenaDe(g[0].s);
+        const suave = cena < VIRADA;
+        const div = document.createElement("div");
+        div.className = "frase " + (suave ? "suave" : CENTRO.has(cena) ? "centro" : "baixo");
+        if (!SEM_TEXTO.has(cena)) caixa.appendChild(div);
+        for (const p of g) {
+          const w = limpar(p.w);
+          contagem[w] = (contagem[w] || 0) + 1;
+          if (SEM_TEXTO.has(cena)) continue;
+          const s = document.createElement("span");
+          s.textContent = p.w.replace(/[.,:;…]/g, "");
+          const marca = `${w}#${contagem[w]}`;
+          if ((suave && DOURADAS.has(marca)) || (!suave && VERMELHAS.has(marca))) s.classList.add("chave");
+          div.appendChild(s);
+          if (suave) tl.fromTo(s, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }, p.s - 0.05);
+          else tl.fromTo(s, { opacity: 0, scale: 1.35, filter: "blur(8px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.14, ease: "power3.out" }, p.s - 0.03);
+        }
+        if (SEM_TEXTO.has(cena)) continue;
+        const ultimo = g[g.length - 1];
+        const proximo = PALAVRAS[PALAVRAS.indexOf(ultimo) + 1];
+        const some = proximo ? Math.min(ultimo.e + (suave ? 0.9 : 0.6), proximo.s - 0.02) : ultimo.e + 0.8;
+        tl.set(div, { opacity: 1 }, g[0].s - 0.05);
+        if (suave) tl.to(div, { opacity: 0, duration: 0.25 }, some - 0.2); else tl.set(div, { opacity: 0 }, some);
+      }
+
+      function preta(ini, fim) { tl.set("#preta", { opacity: 1 }, ini); tl.set("#preta", { opacity: 0 }, fim); }
+      function tremor(t) { tl.fromTo("#tremor", { opacity: 0.35 }, { opacity: 0, duration: 0.25 }, t); }
+
+      // câmera lenta nos planos da história (push-in suave)
+      document.querySelectorAll("video.vid").forEach((v) => {
+        const ini = parseFloat(v.dataset.start), dur = parseFloat(v.dataset.duration);
+        if (ini < C[VIRADA]) tl.fromTo(v, { scale: 1.0 }, { scale: 1.08, duration: dur, ease: "none" }, ini);
+      });
+
+      const ouro = (sel, a, b) => { tl.fromTo(sel, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, a); tl.to(sel, { opacity: 0, duration: 0.3 }, b - 0.3); };
+      function shake(sel, t, n = 8, a = 14) { for (let i = 0; i < n; i++) tl.to(sel, { x: (i % 2 ? -1 : 1) * a * (1 - i / n), y: (i % 3 - 1) * a * 0.6, duration: 0.05 }, t + i * 0.05); tl.to(sel, { x: 0, y: 0, duration: 0.05 }, t + n * 0.05); }
+      // selo de história real durante a história
+      tl.fromTo("#selo", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.3);
+      tl.set("#selo", { opacity: 0 }, C[VIRADA]);
+      // flash de câmera nos cliques do álbum
+      ["casamento", "escola", "natal"].forEach((p) => tl.fromTo("#tremor", { opacity: 0.55 }, { opacity: 0, duration: 0.3 }, em(p, 1, 5)));
+      tl.fromTo("#tremor", { opacity: 0.8 }, { opacity: 0, duration: 0.45 }, em("kodak", 1, 10));
+      // 3 · 1975
+      ouro("#o-1975", C[3] + 0.1, em("sasson", 1, 16) - 0.3);
+      // 4 · 3,6 kg, fita cassete
+      ouro("#o-kg", C[4] + 0.3, C[5]);
+      tl.fromTo("#tremor", { opacity: 0.6 }, { opacity: 0, duration: 0.3 }, em("foto", 2, 27));
+      // 6 · 23 segundos contando → a foto aparece na TV, linha a linha
+      { const el = document.getElementById("n-seg"); const o = { v: 0 }; const tv = em("televisão", 1, 33);
+        const escreve = () => (el.textContent = Math.round(o.v) + " s");
+        tl.set(o, { v: 0, onUpdate: escreve }, 0);
+        tl.fromTo("#o-seg", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3 }, C[6]);
+        tl.to(o, { v: 23, duration: tv - C[6] - 0.3, ease: "none", onUpdate: escreve }, C[6] + 0.1);
+        tl.to("#o-seg", { opacity: 0, duration: 0.2 }, tv - 0.2);
+        tl.fromTo("#foto", { opacity: 0 }, { opacity: 1, duration: 0.2 }, tv - 0.1);
+        tl.fromTo("#foto .scan", { scaleY: 1 }, { scaleY: 0, duration: 1.6, ease: "steps(24)" }, tv);
+        tl.to("#foto", { opacity: 0, duration: 0.3 }, C[8] - 0.3); }
+      // 9 · a resposta da diretoria: silêncio, quadro vazio
+      // 10 · falsa virada: preto seco + Anton
+      preta(C[VIRADA] - 0.4, em("mas", 2, 51) - 0.1);
+      tremor(C[VIRADA] - 0.08);
+      // 11–12 · 1975 riscado → 1981
+      preta(C[11], C[12]);
+      { tl.fromTo("#conta", { opacity: 0 }, { opacity: 1, duration: 0.3 }, C[11] + 0.1);
+        tl.fromTo("#conta .risco", { scaleX: 0, rotation: -6 }, { scaleX: 1, rotation: -6, duration: 0.25, ease: "power3.out" }, em("1975", 2, 57) + 0.2);
+        tl.to("#conta .novo", { opacity: 1, duration: 0.2 }, em("1981", 1, 59) - 0.05);
+        tremor(em("1981", 1, 59) - 0.05);
+        tl.to("#conta", { opacity: 0, duration: 0.3 }, C[13] - 0.3); }
+      // 14 · o prazo: 1981 → 1991 girando
+      { const el = document.getElementById("n-anos"); const o = { v: 1981 };
+        const escreve = () => (el.textContent = Math.round(o.v));
+        tl.set(o, { v: 1981, onUpdate: escreve }, 0);
+        tl.fromTo("#o-anos", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3 }, C[14] + 0.2);
+        tl.to(o, { v: 1991, duration: C[15] - C[14] - 0.6, ease: "power1.inOut", onUpdate: escreve }, C[14] + 0.4);
+        tl.set("#s-anos", { textContent: "DEZ ANOS DE AVISO" }, C[15] - 0.4);
+        tl.to("#o-anos", { opacity: 0, duration: 0.2 }, C[15] - 0.05); }
+      // 15 · "Dez anos." no preto
+      preta(C[15], C[16]); tremor(C[15] - 0.05);
+      // 18 · carimbo FALÊNCIA e as luzes da fábrica apagando
+      { const t = em("falência", 1, 83); tl.fromTo("#fechado", { opacity: 0, scale: 1.6, rotation: -8 }, { opacity: 1, scale: 1, rotation: -8, duration: 0.18, ease: "power4.in" }, t);
+        tremor(t + 0.15); tl.to("#fechado", { opacity: 0, duration: 0.3 }, em("empresa", 2, 85) - 0.4);
+        const l = em("empresa", 2, 85) - 0.4; [0, 0.1, 0.25].forEach((d, i) => tl.set("#preta", { opacity: i % 2 ? 0 : 0.7 }, l + d)); tl.set("#preta", { opacity: 0 }, l + 0.35); }
+      // 19 · HOJE: corte seco
+      tremor(C[19] - 0.05);
+      // 23 · Eu não vendo câmera (tela preta)
+      preta(C[23], C[24]);
+      // 25 · CTA
+      tl.set("#cta", { opacity: 1 }, C[25]);
+      { const chave = "DIAGNÓSTICO"; const dig = document.getElementById("digitado");
+        for (let i = 0; i <= chave.length; i++) tl.set(dig, { textContent: chave.slice(0, i) }, em("diagnóstico", 1, 114) - 0.1 + i * 0.05); }
+      tl.fromTo(["#cta .assina", "#cta .serie", "#cta img"], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.15 }, C[25] + 1.2);
+      tl.set("#marca", { opacity: 0 }, C[25]);
+
+      // ---- grão de filme vivo ----
+      for (let t = 0, k = 0; t < DURACAO; t += 1 / 24, k++) {
+        tl.set("#grao", { backgroundPosition: `${(k * 137) % 540}px ${(k * 311) % 960}px` }, t);
+      }
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
