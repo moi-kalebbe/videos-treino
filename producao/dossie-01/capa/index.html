@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Capa · Dossiê 01</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; src: url("assets/fonts/instrument-serif-italic.woff2") format("woff2"); }
+      /* Zona segura: y=285–1635. Evoca as luzes douradas de palco da série, sem foto, coroa ou logo. */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #070b10; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: #e9eef3; font-family: "Inter", sans-serif; }
+      .clip { position: absolute; inset: 0; }
+      .luzes { position: absolute; left: -40px; right: -40px; top: 180px; height: 820px; filter: blur(7px);
+        background-image: radial-gradient(circle, #ffd98a 0 9px, #f2b84b55 14px, #0000 26px); background-size: 92px 92px; opacity: 0.85;
+        -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, #000 30%, #0000 85%); mask-image: radial-gradient(70% 60% at 50% 40%, #000 30%, #0000 85%); }
+      .brilho { position: absolute; left: 0; right: 0; top: 160px; height: 900px; background: radial-gradient(60% 50% at 50% 42%, #c9892a55, #0000 70%); }
+      .aviao { position: absolute; left: 0; top: 1060px; width: 1080px; height: 860px; object-fit: cover; object-position: 50% 40%; filter: saturate(0.5) contrast(1.1) brightness(0.8) hue-rotate(-10deg); }
+      .sombra { position: absolute; inset: 0; background: linear-gradient(180deg, #070b10 0px, #070b10 250px, #070b1000 420px, #070b1000 880px, #070b10 1080px, #070b10cc 1180px, #070b1033 1400px, #070b10 1800px); }
+      .tag { position: absolute; left: 70px; top: 320px; font: 500 30px "JetBrains Mono"; letter-spacing: 0.3em; color: #e9eef3cc; }
+      .tag b { color: #e0312b; font-weight: 500; }
+      #marca { position: absolute; right: 70px; top: 306px; width: 120px; }
+      .nome { position: absolute; left: 0; right: 0; top: 560px; text-align: center; font: 800 78px/1 "Inter"; letter-spacing: 0.05em; color: #f2c56b; text-shadow: 0 0 40px #c9892a99, 0 6px 30px #000; }
+      .titulo { position: absolute; left: 70px; right: 70px; top: 760px; text-align: center; font: 800 96px/1.02 "Inter"; letter-spacing: -0.03em; text-shadow: 0 8px 40px #000; }
+      .titulo em { font: italic 400 112px "Instrument Serif"; letter-spacing: 0; color: #5fd3e6; }
+      .carimbo { position: absolute; left: 50%; top: 1250px; width: 760px; margin-left: -380px; padding: 12px 0; text-align: center; border: 7px solid #e0312b; color: #e0312b; font: 800 46px "Inter"; letter-spacing: 0.06em; background: #070b10b3; transform: rotate(-5deg); }
+      .mais { position: absolute; left: 0; right: 0; top: 1470px; text-align: center; font: 500 32px "JetBrains Mono"; letter-spacing: 0.14em; color: #e9eef3; text-shadow: 0 4px 20px #000; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="1" data-width="1080" data-height="1920">
+      <section class="clip" data-start="0" data-duration="1">
+        <div class="brilho"></div>
+        <div class="luzes"></div>
+        <img class="aviao" src="assets/img/aviao.jpg" alt="" />
+        <div class="sombra"></div>
+        <p class="tag"><b>●</b> DOSSIÊ · O DETALHE</p>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+        <p class="nome">MARÍLIA MENDONÇA</p>
+        <p class="titulo">O detalhe que a <em>investigação</em> encontrou</p>
+        <div class="carimbo">FATOR CONTRIBUINTE</div>
+        <p class="mais">+ CHAPECOENSE E MAMONAS ASSASSINAS</p>
+      </section>
+    </div>
+    <script>const tl = gsap.timeline({ paused: true }); tl.set({}, {}, 1); window.__timelines["main"] = tl;</script>
+  </body>
+</html>

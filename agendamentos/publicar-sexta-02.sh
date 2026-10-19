@@ -1,8 +1,8 @@
 #!/bin/bash
-# Publica o IA por Setor 02 (Comercial) uma única vez, em 30/10/2026 (pedido pelo dono em 19/10/2026), com capa e legenda.
+# Publica o IA por Setor 02 (Comercial) uma única vez, em 06/11/2026 (remarcado de 30/10 em 19/10/2026) (pedido pelo dono em 19/10/2026), com capa e legenda.
 export PATH="/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 FEITO="$HOME/.local/share/videos-treino/sexta-02.publicado"
-[ "$(date +%Y-%m-%d)" = "2026-10-30" ] || exit 0
+[ "$(date +%Y-%m-%d)" = "2026-11-06" ] || exit 0
 [ -f "$FEITO" ] && exit 0
 cd "/Users/moiseskalebbe/Meus Projetos do GitHub/00 - Todos os projetos/videos-treino" || exit 1
 caffeinate -i -s -t 1800 &

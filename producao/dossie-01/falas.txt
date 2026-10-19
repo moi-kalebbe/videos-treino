@@ -1,0 +1,29 @@
+#voz=chFi7TdzwurwZVzGKeLH
+Cinco de novembro de {2021|dois mil e vinte e um}. Faltavam quatro quilômetros para a pista.
+O avião que levava Marília Mendonça estava em ordem. A investigação descartou falha mecânica.
+Na aproximação, a curva foi mais longa do que o previsto, e o relatório apontou essa avaliação como fator que contribuiu.
+No caminho, havia um cabo de energia sem sinalização. Pela regra, ele nem precisava estar sinalizado.
+Um detalhe. Cinco vidas.
+
+#pausa=1.2
+E ela não foi a única.
+Novembro de {2016|dois mil e dezesseis}. O voo da Chapecoense foi planejado com combustível para exatamente o tempo da viagem. Quatro horas e vinte e dois minutos. Nenhum minuto de reserva.
+Quem recebeu o plano de voo avisou que a conta não fechava. O voo saiu assim mesmo.
+Setenta e uma vidas.
+
+#pausa=0.8
+Março de {1996|mil novecentos e noventa e seis}. Os pilotos que levavam os Mamonas Assassinas estavam trabalhando havia dezesseis horas e meia. Cinco e meia além do limite da lei.
+O relatório fala em fadiga, em coordenação falha e em falta de supervisão da empresa.
+Nove vidas.
+
+#pausa=0.8
+Segundo a {FAA|éfe á á}, de setenta a oitenta por cento dos acidentes aéreos envolvem erro humano.
+Quase nunca é o avião. É um detalhe que ninguém conferiu. Um alerta que ninguém ouviu. Um cansaço que ninguém viu.
+A aviação aprendeu com cada um deles. Todo acidente vira relatório, todo relatório vira regra, e toda regra vira checklist. Por isso hoje ela é o jeito mais seguro de viajar.
+
+#voz=aORS9tvW5qcMM0bnzsRU
+#pausa=1.0
+Agora pensa na sua empresa. Quem confere o preço antes do pedido sair? Quem percebe que o cliente está sem resposta há três dias? Quem vê que a equipe está no limite?
+Se a resposta é "alguém lembra", a sua empresa está voando sem checklist.
+A IA pode ser essa camada de conferência: cruza os dados, aponta o valor que não bate e avisa do pedido parado, antes de virar prejuízo. Com processo definido e gente revisando.
+Comenta diagnóstico que eu te mostro por onde começar.
