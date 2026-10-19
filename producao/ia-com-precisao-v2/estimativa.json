@@ -1,0 +1,9 @@
+{
+  "estimate_only": true,
+  "characters": {
+    "dublagem.txt": 935,
+    "falas.txt": 612
+  },
+  "total": 1547,
+  "note": "estimativa local por caracteres; consumo real do provedor pode variar"
+}

@@ -1,0 +1,37 @@
+{
+ "linhas_extrato": 142,
+ "linhas_razao": 142,
+ "conciliados": 140,
+ "so_banco": [
+  {
+   "data": "2026-10-15",
+   "historico": "TARIFA PACOTE SERVICOS",
+   "documento": "TAR1015",
+   "valor": -89.9
+  },
+  {
+   "data": "2026-10-22",
+   "historico": "PIX RECEBIDO CLIENTE",
+   "documento": "200987",
+   "valor": 5730.0
+  }
+ ],
+ "so_razao": [
+  {
+   "data": "2026-10-08",
+   "historico": "Pix Recebido Cliente",
+   "documento": "100037",
+   "valor": 1250.0
+  },
+  {
+   "data": "2026-10-30",
+   "historico": "Cheque 000412 Fornecedor",
+   "documento": "CH000412",
+   "valor": -3400.0
+  }
+ ],
+ "saldo_ini": 184320.55,
+ "saldo_fim_banco": 114996.69,
+ "saldo_fim_razao": 107206.59,
+ "diferenca": 7790.1
+}

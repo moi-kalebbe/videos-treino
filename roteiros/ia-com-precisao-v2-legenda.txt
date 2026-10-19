@@ -1,0 +1,15 @@
+Uma resposta convincente também pode estar errada.
+
+Na abertura de “The Power of Words”, Mohammed Qahtani usa argumentos inventados sobre cigarro para demonstrar o poder da persuasão. As afirmações sobre saúde fazem parte dessa encenação: não são informações verdadeiras nem orientação de saúde.
+
+Na empresa, a IA também pode entregar uma resposta com aparência de certeza. Se os dados estiverem errados, uma justificativa bonita não salva a decisão.
+
+O desconto mostrado é um exemplo ilustrativo. Dados conferidos, ferramentas de cálculo e uma pessoa responsável pela aprovação ajudam a tornar o caminho verificável. Isso não elimina todo erro.
+
+Comenta DIAGNÓSTICO e vamos olhar o seu processo.
+
+Trecho: Mohammed Qahtani, The Power of Words, Toastmasters 2015. Tradução dublada com voz distinta da narração de Moisés; sem clonagem do palestrante ou alteração labial.
+
+Fontes:
+https://toastmasters.org/magazine/magazine-issues/2017/june2017/hook
+https://openai.com/index/why-language-models-hallucinate/

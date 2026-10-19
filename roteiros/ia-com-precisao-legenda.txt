@@ -1,0 +1,18 @@
+Uma resposta convincente pode virar uma decisão cara.
+
+No discurso “The Power of Words”, Mohammed Qahtani usa argumentos inventados para demonstrar o poder das palavras. O trecho está traduzido por dublagem e editado com comentários meus.
+
+Na empresa, uma resposta de IA também pode parecer segura e estar errada. Por isso, implementação envolve dados atualizados e conferidos, ferramentas de cálculo, regras e aprovação nas decisões que precisam dela.
+
+A IA faz parte do processo. E o processo precisa permitir conferir a resposta antes de agir.
+
+O desconto de 10% mostrado no vídeo é um EXEMPLO ILUSTRATIVO, não um caso real. Essas verificações reduzem riscos, mas não eliminam todo erro.
+
+Comenta DIAGNÓSTICO pra descobrir por onde começar na sua empresa.
+
+Fontes: Mohammed Qahtani / Toastmasters, “The Power of Words” (2015); Toastmasters, “How to Hook Your Audience in 30 Seconds”; OpenAI, “Why language models hallucinate”.
+https://www.youtube.com/watch?v=Iqq1roF4C8s
+https://toastmasters.org/magazine/magazine-issues/2017/june2017/hook
+https://openai.com/index/why-language-models-hallucinate/
+
+#inteligenciaartificial #gestao #empresas #processos #automacao

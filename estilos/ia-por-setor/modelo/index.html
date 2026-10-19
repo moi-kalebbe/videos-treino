@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>IA por Setor · 01 · Financeiro</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-500.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; src: url("assets/fonts/instrument-serif-italic.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+
+      /* Sexta = "manual de bolso": papel claro, tinta azul-marinho, destaque lima */
+      :root { --papel: #f6f4ef; --tinta: #0e1424; --cinza: #5b6378; --lima: #d7ff3a; --verde: #0f7a37; --verm: #e5484d; --linha: #dcd8cf; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; color: var(--tinta); }
+      .clip { position: absolute; inset: 0; }
+      #preto { background: #111; }
+      .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+      #veu { position: absolute; inset: 0; background: linear-gradient(180deg, #0e142466 0%, #0e142400 22%, #0e142400 60%, #0e1424a6 100%); }
+      #progresso { position: absolute; left: 0; top: 0; width: 1080px; height: 10px; background: var(--lima); transform-origin: 0 50%; display: block; }
+      #marca { position: absolute; right: 44px; top: 50px; width: 130px; height: auto; display: block; filter: drop-shadow(0 4px 14px #000a); }
+      #serie { position: absolute; left: 44px; top: 54px; padding: 10px 18px; border-radius: 12px; background: var(--tinta); color: #fff; font: 700 24px "Inter"; letter-spacing: 0.12em; }
+      #serie b { color: var(--lima); font-weight: 800; }
+      .cena { position: absolute; inset: 0; opacity: 0; }
+      .papel { position: absolute; background: var(--papel); border-radius: 34px; box-shadow: 0 30px 90px #0008; }
+      .passo { position: absolute; left: 60px; top: 170px; display: flex; align-items: center; gap: 18px; opacity: 0; }
+      .passo .n { padding: 12px 22px; border-radius: 16px; background: var(--lima); font: 800 44px "Inter"; letter-spacing: 0.02em; }
+      .passo .t { padding: 12px 22px; border-radius: 16px; background: var(--tinta); color: #fff; font: 800 40px "Inter"; }
+      .mono { font-family: "JetBrains Mono", monospace; }
+
+      /* legenda: pílula clara, palavra falada em lima */
+      #legenda { position: absolute; left: 50px; right: 50px; top: 1600px; height: 200px; }
+      .grupo { position: absolute; left: 0; right: 0; top: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; opacity: 0; }
+      .palavra { display: inline-block; padding: 6px 16px; border-radius: 14px; background: var(--papel); color: var(--tinta); font: 800 56px/1.1 "Inter"; letter-spacing: -0.02em; box-shadow: 0 8px 24px #0006; }
+
+      /* S0 hook */
+      #s0 .card { left: 70px; right: 70px; top: 300px; padding: 40px 44px 44px; }
+      #s0 .k { font: 700 26px "Inter"; letter-spacing: 0.14em; color: var(--cinza); }
+      #s0 .big { margin-top: 10px; font: 800 150px/0.95 "Inter"; letter-spacing: -0.05em; }
+      #s0 .big small { font: 800 56px "Inter"; letter-spacing: -0.02em; color: var(--cinza); }
+      #s0 .linha { margin-top: 26px; display: flex; gap: 18px; }
+      #s0 .chip { padding: 14px 22px; border-radius: 18px; font: 800 44px "Inter"; opacity: 0; }
+      #s0 .chip.ok { background: #dff5e6; color: var(--verde); }
+      #s0 .chip.no { background: #fde3e4; color: var(--verm); }
+      #s0 .dif { margin-top: 26px; font: 800 40px "Inter"; color: var(--cinza); opacity: 0; }
+      #s0 .dif b { color: var(--verm); }
+
+      /* S1 extrato × razão */
+      #s1 .card { left: 50px; right: 50px; top: 260px; padding: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+      #s1 .col h4 { font: 800 30px "Inter"; letter-spacing: 0.06em; margin-bottom: 14px; }
+      #s1 .lin { display: flex; justify-content: space-between; padding: 12px 14px; border-radius: 12px; background: #fff; border: 2px solid var(--linha); margin-bottom: 10px; font: 500 26px "JetBrains Mono"; opacity: 0; }
+      #s1 .lin.ok { border-color: #9be2b2; } #s1 .lin.no { border-color: var(--verm); background: #fde3e4; }
+      #travado { position: absolute; left: 50%; top: 1130px; width: 820px; margin-left: -410px; padding: 18px 0; text-align: center; border: 10px solid var(--verm); border-radius: 22px; color: var(--verm); font: 800 76px "Inter"; background: #f6f4efe6; opacity: 0; }
+
+      /* S2 pasta */
+      #s2 .card { left: 90px; right: 90px; top: 330px; padding: 0; overflow: hidden; }
+      #s2 .barra { display: flex; align-items: center; gap: 12px; padding: 18px 24px; background: #e7e3da; font: 700 28px "Inter"; }
+      #s2 .barra i { width: 18px; height: 18px; border-radius: 50%; display: block; }
+      .arq { display: flex; align-items: center; gap: 22px; padding: 26px 30px; border-top: 2px solid var(--linha); opacity: 0; }
+      .arq .ic { width: 70px; height: 84px; border-radius: 12px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 10px; font: 800 18px "Inter"; color: #fff; }
+      .arq b { display: block; font: 700 32px "JetBrains Mono"; } .arq span { font: 500 24px "Inter"; color: var(--cinza); }
+
+      /* S3 pedido */
+      #s3 .card { left: 50px; right: 50px; top: 270px; padding: 30px 34px; }
+      #s3 .topo { display: flex; align-items: center; gap: 16px; padding-bottom: 18px; border-bottom: 2px solid var(--linha); }
+      #s3 .topo .ic { width: 56px; height: 56px; border-radius: 16px; background: #d97757; color: #fff; display: flex; align-items: center; justify-content: center; font: 800 32px "Inter"; }
+      #s3 .topo b { font: 800 32px "Inter"; } #s3 .topo span { display: block; font: 500 22px "JetBrains Mono"; color: var(--cinza); }
+      #pedido { margin-top: 22px; font: 500 34px/1.38 "Inter"; min-height: 700px; }
+      #pedido .cur { display: inline-block; width: 4px; height: 38px; background: var(--tinta); vertical-align: -6px; }
+      #s3 .dica { position: absolute; left: 50px; right: 50px; top: 1120px; padding: 16px 22px; border-radius: 18px; background: var(--lima); font: 800 32px "Inter"; text-align: center; opacity: 0; }
+
+      /* S4 cruzamento */
+      #s4 .card { left: 60px; right: 60px; top: 280px; height: 760px; padding: 26px; overflow: hidden; }
+      #tabela { position: absolute; left: 26px; right: 26px; top: 26px; }
+      .row { display: grid; grid-template-columns: 150px 1fr 180px 60px; gap: 10px; padding: 10px 12px; font: 500 24px "JetBrains Mono"; border-bottom: 1px solid var(--linha); }
+      .row .st { text-align: center; font-weight: 800; }
+      #scan { position: absolute; left: 0; right: 0; top: 0; height: 60px; background: linear-gradient(180deg, #d7ff3a00, #d7ff3a99, #d7ff3a00); }
+      #placar { position: absolute; left: 60px; right: 60px; top: 1080px; display: flex; gap: 22px; }
+      #placar div { flex: 1; padding: 22px; border-radius: 26px; text-align: center; font: 800 30px "Inter"; opacity: 0; }
+      #placar b { display: block; font: 800 104px/1 "Inter"; letter-spacing: -0.04em; }
+      #pok { background: #dff5e6; color: var(--verde); } #pno { background: #fde3e4; color: var(--verm); }
+
+      /* S5 as 4 divergências */
+      #s5 .titulo { position: absolute; left: 60px; right: 60px; top: 180px; padding: 14px 22px; border-radius: 18px; background: var(--tinta); color: #fff; font: 800 44px "Inter"; }
+      .div { position: absolute; left: 60px; right: 60px; padding: 24px 28px; border-radius: 26px; background: var(--papel); border-left: 14px solid var(--verm); box-shadow: 0 20px 60px #0007; display: flex; justify-content: space-between; align-items: center; opacity: 0; }
+      .div b { display: block; font: 800 40px "Inter"; } .div span { font: 500 26px "Inter"; color: var(--cinza); }
+      .div .v { font: 800 46px "JetBrains Mono"; color: var(--verm); white-space: nowrap; }
+      .div .v.pos { color: var(--verde); }
+
+      /* S6 capa da conciliação */
+      #capa { left: 120px; right: 120px; top: 230px; padding: 44px 46px; border-radius: 10px; background: #fff; }
+      #capa h3 { font: 800 40px "Inter"; } #capa .per { font: 500 24px "Inter"; color: var(--cinza); margin-bottom: 22px; }
+      #capa .l { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--linha); font: 500 28px "Inter"; }
+      #capa .l b { font: 700 28px "JetBrains Mono"; }
+      #capa .l.dif b { color: var(--verm); }
+      #capa .ex { margin-top: 14px; font: 500 22px/1.5 "Inter"; color: var(--cinza); }
+      #capa .ass { margin-top: 44px; display: flex; gap: 40px; } #capa .ass div { flex: 1; border-top: 3px solid var(--tinta); padding-top: 8px; font: 500 22px "Inter"; color: var(--cinza); }
+      #selo { position: absolute; right: 150px; top: 830px; padding: 14px 22px; border: 8px solid var(--verde); border-radius: 18px; color: var(--verde); font: 800 40px/1.05 "Inter"; text-align: center; transform: rotate(-8deg); background: #ffffffd9; opacity: 0; }
+
+      /* S7 plugin */
+      #s7 .a, #s7 .b { position: absolute; left: 70px; right: 70px; padding: 30px 34px; border-radius: 30px; opacity: 0; }
+      #s7 .a { top: 300px; background: #f6f4efd9; } #s7 .b { top: 700px; background: var(--papel); box-shadow: 0 30px 90px #0008; border: 6px solid var(--lima); }
+      #s7 .a p, #s7 .b p { font: 800 46px/1.15 "Inter"; } #s7 .a small, #s7 .b small { display: block; font: 700 26px "Inter"; letter-spacing: 0.12em; color: var(--cinza); margin-bottom: 8px; }
+      #s7 .a i { position: absolute; left: 24px; right: 24px; top: 60%; height: 10px; border-radius: 5px; background: var(--verm); transform-origin: 0 50%; transform: scaleX(0); display: block; }
+      #s7 .cmd { margin-top: 14px; display: inline-block; padding: 10px 18px; border-radius: 14px; background: var(--tinta); color: var(--lima); font: 500 40px "JetBrains Mono"; }
+      #s7 .tags { position: absolute; left: 70px; right: 70px; top: 1130px; display: flex; gap: 18px; }
+      #s7 .tags span { flex: 1; padding: 18px; border-radius: 20px; background: var(--lima); text-align: center; font: 800 30px "Inter"; opacity: 0; }
+
+      /* S8 quem assina */
+      #s8 .escuro { position: absolute; inset: 0; background: #0e1424d9; }
+      #s8 .l1 { position: absolute; left: 70px; right: 70px; top: 560px; font: 800 96px/1.05 "Inter"; color: #fff; letter-spacing: -0.03em; opacity: 0; }
+      #s8 .l2 { position: absolute; left: 70px; right: 70px; top: 800px; font: italic 400 150px/1 "Instrument Serif"; color: var(--lima); opacity: 0; }
+
+      /* S9 CTA */
+      #s9 .card { left: 90px; right: 90px; top: 430px; padding: 44px; text-align: center; }
+      #s9 .k { font: 700 28px "Inter"; letter-spacing: 0.14em; color: var(--cinza); }
+      #s9 .t { margin-top: 12px; font: 800 72px/1.05 "Inter"; letter-spacing: -0.03em; }
+      #s9 .t em { font: italic 400 84px "Instrument Serif"; color: var(--tinta); background: var(--lima); padding: 0 12px; border-radius: 12px; }
+      #s9 .perfil { margin: 34px auto 0; display: flex; align-items: center; gap: 20px; justify-content: center; }
+      #s9 .perfil img { width: 110px; height: 110px; border-radius: 50%; background: var(--tinta); padding: 18px; }
+      #s9 .perfil b { font: 800 40px "Inter"; }
+      #seguir { margin: 30px auto 0; width: 420px; padding: 24px; border-radius: 22px; background: #0095f6; color: #fff; font: 800 44px "Inter"; }
+      #seguir.ok { background: #e4e6eb; color: var(--tinta); }
+      #s9 .prox { margin-top: 30px; font: 500 28px "Inter"; color: var(--cinza); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="61.8" data-width="1080" data-height="1920">
+      <div id="preto" class="clip" data-start="0" data-duration="61.8" data-track-index="0"></div>
+      <video id="bg0" class="bg" src="assets/clipes/bg-calc.mp4" muted playsinline data-sinc="cena:0:0" data-start="0.0" data-duration="6.5"></video>
+      <video id="bg1" class="bg" src="assets/clipes/bg-doc.mp4" muted playsinline data-sinc="cena:1:0" data-start="6.44" data-duration="6.9"></video>
+      <video id="bg2" class="bg" src="assets/clipes/bg-pasta.mp4" muted playsinline data-sinc="cena:2:0" data-start="13.31" data-duration="4.25"></video>
+      <video id="bg3" class="bg" src="assets/clipes/bg-digita.mp4" muted playsinline data-sinc="cena:3:0" data-start="17.52" data-duration="4.65"></video>
+      <video id="bg4" class="bg" src="assets/clipes/bg-rapido.mp4" muted playsinline data-sinc="cena:4:0" data-start="22.16" data-duration="4.4"></video>
+      <video id="bg5" class="bg" src="assets/clipes/bg-lista.mp4" muted playsinline data-sinc="cena:5:0" data-start="26.51" data-duration="9"></video>
+      <video id="bg6" class="bg" src="assets/clipes/bg-assina.mp4" muted playsinline data-sinc="cena:6:0" data-start="35.46" data-duration="6.25"></video>
+      <video id="bg7" class="bg" src="assets/clipes/bg-digita.mp4" muted playsinline data-sinc="cena:7:0" data-start="41.67" data-duration="8.9"></video>
+      <video id="bg8" class="bg" src="assets/clipes/bg-assina.mp4" muted playsinline data-sinc="cena:8:0" data-start="50.53" data-duration="4.7"></video>
+      <video id="bg9" class="bg" src="assets/clipes/bg-reuniao.mp4" muted playsinline data-sinc="cena:9:0" data-start="55.17" data-duration="6.6"></video>
+
+      <section id="palco" class="clip" data-start="0" data-duration="61.8" data-track-index="1">
+        <div id="veu"></div>
+
+        <div class="cena" id="s0">
+          <div class="papel card">
+            <p class="k">CONCILIAÇÃO BANCÁRIA · OUTUBRO</p>
+            <p class="big">142 <small>lançamentos</small></p>
+            <div class="linha"><span class="chip ok">140 bateram</span><span class="chip no">4 não</span></div>
+            <p class="dif">diferença: <b>R$ 7.790,10</b></p>
+          </div>
+        </div>
+
+        <div class="cena" id="s1">
+          <div class="papel card">
+            <div class="col"><h4>EXTRATO DO BANCO</h4>
+              <p class="lin ok">03/10 <span>-4.210,00</span></p><p class="lin ok">08/10 <span>+1.250,00</span></p><p class="lin no">15/10 <span>-89,90</span></p><p class="lin ok">20/10 <span>+9.884,31</span></p><p class="lin no">22/10 <span>+5.730,00</span></p></div>
+            <div class="col"><h4>RAZÃO CONTÁBIL</h4>
+              <p class="lin ok">03/10 <span>-4.210,00</span></p><p class="lin ok">08/10 <span>+1.250,00</span></p><p class="lin no">08/10 <span>+1.250,00</span></p><p class="lin ok">21/10 <span>+9.884,31</span></p><p class="lin no">30/10 <span>-3.400,00</span></p></div>
+          </div>
+          <div id="travado">FECHAMENTO TRAVADO</div>
+        </div>
+
+        <div class="cena" id="s2">
+          <div class="passo"><span class="n">PASSO 1</span><span class="t">exporta numa pasta</span></div>
+          <div class="papel card">
+            <div class="barra"><i style="background:#ff5f57"></i><i style="background:#febc2e"></i><i style="background:#28c840"></i>&nbsp; 📁 fechamento-outubro</div>
+            <div class="arq" id="a1"><span class="ic" style="background:#1d6f42">CSV</span><div><b>extrato_banco_2026-10.csv</b><span>142 linhas · exportado do internet banking</span></div></div>
+            <div class="arq" id="a2"><span class="ic" style="background:#2b579a">CSV</span><div><b>razao_contabil_2026-10.csv</b><span>142 linhas · exportado do ERP</span></div></div>
+          </div>
+        </div>
+
+        <div class="cena" id="s3">
+          <div class="passo"><span class="n">PASSO 2</span><span class="t">Claude Cowork + este pedido</span></div>
+          <div class="papel card">
+            <div class="topo"><span class="ic">✳</span><div><b>Claude Cowork</b><span>pasta: fechamento-outubro</span></div></div>
+            <p id="pedido"><span id="ped-txt"></span><span class="cur"></span></p>
+          </div>
+          <p class="dica">📸 Tira print: esse é o pedido inteiro</p>
+        </div>
+
+        <div class="cena" id="s4">
+          <div class="passo"><span class="n">PASSO 3</span><span class="t">ele cruza linha por linha</span></div>
+          <div class="papel card"><div id="tabela"></div><span id="scan"></span></div>
+          <div id="placar"><div id="pok"><b><span id="nok">0</span></b>bateram</div><div id="pno"><b><span id="nno">0</span></b>não bateram</div></div>
+        </div>
+
+        <div class="cena" id="s5">
+          <p class="titulo">O que não bateu (e por quê)</p>
+          <div class="div" id="d1" style="top:330px"><div><b>Tarifa do banco</b><span>só no extrato · ninguém lançou</span></div><span class="v">-89,90</span></div>
+          <div class="div" id="d2" style="top:530px"><div><b>PIX lançado 2×</b><span>só no razão · lançamento duplicado</span></div><span class="v">+1.250,00</span></div>
+          <div class="div" id="d3" style="top:730px"><div><b>Cheque 000412</b><span>só no razão · compensa em 02/11</span></div><span class="v">-3.400,00</span></div>
+          <div class="div" id="d4" style="top:930px"><div><b>PIX de cliente</b><span>só no extrato · ninguém deu baixa</span></div><span class="v pos">+5.730,00</span></div>
+        </div>
+
+        <div class="cena" id="s6">
+          <div class="papel" id="capa">
+            <h3>Capa de conciliação bancária</h3>
+            <p class="per">Conta corrente · 01 a 31/10/2026 · exemplo com dados fictícios</p>
+            <p class="l">Saldo inicial <b>184.320,55</b></p>
+            <p class="l">Saldo final no banco <b>114.996,69</b></p>
+            <p class="l">Saldo final no razão <b>107.206,59</b></p>
+            <p class="l dif">Diferença <b>7.790,10</b></p>
+            <p class="ex">= PIX sem baixa 5.730,00 + cheque a compensar 3.400,00 − PIX duplicado 1.250,00 − tarifa não lançada 89,90</p>
+            <div class="ass"><div>Responsável</div><div>Aprovação</div></div>
+          </div>
+          <div id="selo">CONCILIADO<br />COM 4 RESSALVAS</div>
+        </div>
+
+        <div class="cena" id="s7">
+          <div class="a"><small>PEDIDO SOLTO</small><p>Cada mês sai de um jeito.</p><i></i></div>
+          <div class="b"><small>PLUGIN</small><p>Sai igual todo mês.</p><span class="cmd">/conciliar</span></div>
+          <div class="tags"><span id="g1">mesmo padrão</span><span id="g2">cálculo por script</span><span id="g3">relatório pronto</span></div>
+        </div>
+
+        <div class="cena" id="s8">
+          <div class="escuro"></div>
+          <p class="l1">A IA concilia.</p>
+          <p class="l2">Quem assina é você.</p>
+        </div>
+
+        <div class="cena" id="s9">
+          <div class="papel card">
+            <p class="k">IA POR SETOR · TODA SEXTA</p>
+            <p class="t">Uma dica nova pra <em>aplicar</em> na sua empresa.</p>
+            <div class="perfil"><img src="assets/marca/logo-branca.png" alt="" /><b>@moiseskalebbe</b></div>
+            <div id="seguir">Seguir</div>
+            <p class="prox">Próxima sexta: Comercial</p>
+          </div>
+        </div>
+
+        <p id="serie">IA POR SETOR · <b>01 FINANCEIRO</b></p>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+        <span id="progresso"></span>
+      </section>
+
+      <div id="legenda" class="clip" data-start="0" data-duration="61.8" data-track-index="2"></div>
+
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="59.3" data-volume="1"></audio>
+      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="61.8" data-volume="0.13" data-fade-out="2"></audio>
+      <audio id="sfx-pontos" src="assets/audio/pontos.mp3" data-start="0" data-duration="1.48" data-volume="0.45"></audio>
+      <audio id="sfx-risco-0" data-sinc="palavra:quatro:1:0" src="assets/audio/risco.mp3" data-start="2.25" data-duration="0.6" data-volume="0.6"></audio>
+      <audio id="sfx-carimbo-1" data-sinc="palavra:trava:1:0" src="assets/audio/carimbo2.mp3" data-start="10.98" data-duration="1" data-volume="0.7"></audio>
+      <audio id="sfx-clique-1" data-sinc="cena:2:0" src="assets/audio/clique.mp3" data-start="13.31" data-duration="0.5" data-volume="0.7"></audio>
+      <audio id="sfx-clique-2" data-sinc="cena:3:0" src="assets/audio/clique.mp3" data-start="17.52" data-duration="0.5" data-volume="0.7"></audio>
+      <audio id="sfx-digitar" data-sinc="cena:3:0.4" src="assets/audio/digitar.mp3" data-start="17.92" data-duration="4.2" data-volume="0.35"></audio>
+      <audio id="sfx-clique-3" data-sinc="cena:4:0" src="assets/audio/clique.mp3" data-start="22.16" data-duration="0.5" data-volume="0.7"></audio>
+      <audio id="sfx-contador" data-sinc="cena:4:0.6" src="assets/audio/contador.mp3" data-start="22.76" data-duration="1" data-volume="0.45"></audio>
+      <audio id="sfx-bloco-1" data-sinc="palavra:tarifa:1:0" src="assets/audio/bloco.mp3" data-start="26.67" data-duration="0.6" data-volume="0.55"></audio>
+      <audio id="sfx-bloco-2" data-sinc="palavra:pix:1:0" src="assets/audio/bloco.mp3" data-start="28.12" data-duration="0.6" data-volume="0.55"></audio>
+      <audio id="sfx-bloco-3" data-sinc="palavra:cheque:1:0" src="assets/audio/bloco.mp3" data-start="30.12" data-duration="0.6" data-volume="0.55"></audio>
+      <audio id="sfx-bloco-4" data-sinc="palavra:cliente:1:0" src="assets/audio/bloco.mp3" data-start="33.1" data-duration="0.6" data-volume="0.55"></audio>
+      <audio id="sfx-carimbo-2" data-sinc="palavra:assinar:1:0.1" src="assets/audio/carimbo2.mp3" data-start="40.76" data-duration="1" data-volume="0.75"></audio>
+      <audio id="sfx-risco-7" data-sinc="palavra:plugin:1:0.1" src="assets/audio/risco.mp3" data-start="44.7" data-duration="0.6" data-volume="0.6"></audio>
+      <audio id="sfx-impacto" data-sinc="palavra:você:1:-0.05" src="assets/audio/impacto.mp3" data-start="54.08" data-duration="1.2" data-volume="0.6"></audio>
+      <audio id="sfx-toque" data-sinc="palavra:segue:1:0.2" src="assets/audio/toque.mp3" data-start="55.37" data-duration="0.48" data-volume="0.8"></audio>
+    </div>
+
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const C = window.CENAS;
+      const DURACAO = 61.8;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:]/g, "");
+      function em(palavra, n = 1, fallback = 0) {
+        let visto = 0;
+        for (const p of PALAVRAS) if (limpar(p.w) === palavra && ++visto === n) return p.s;
+        return fallback;
+      }
+      const tl = gsap.timeline({ paused: true });
+
+      // ---- legenda karaokê ----
+      const caixa = document.getElementById("legenda"); const grupos = []; let atual = [];
+      for (const p of PALAVRAS) { atual.push(p); if (atual.length === 3 || /[.,?!:]$/.test(p.w)) { grupos.push(atual); atual = []; } }
+      if (atual.length) grupos.push(atual);
+      for (const g of grupos) {
+        const d = document.createElement("div"); d.className = "grupo"; caixa.appendChild(d);
+        for (const p of g) { const s = document.createElement("span"); s.className = "palavra"; s.textContent = p.w; d.appendChild(s);
+          tl.set(s, { backgroundColor: "#d7ff3a" }, p.s); tl.set(s, { backgroundColor: "#f6f4ef" }, p.e); }
+        tl.fromTo(d, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.1 }, g[0].s);
+        tl.set(d, { opacity: 0 }, g[g.length - 1].e + 0.05);
+      }
+      tl.fromTo("#progresso", { scaleX: 0 }, { scaleX: 1, duration: DURACAO, ease: "none" }, 0);
+
+      // ---- cenas (corte seco) + câmera lenta nos fundos ----
+      for (let i = 0; i <= 9; i++) {
+        const fim = i < 9 ? C[i + 1] : DURACAO + 1;
+        tl.set(`#s${i}`, { opacity: 1 }, i === 0 ? 0 : C[i] - 0.02);
+        if (fim <= DURACAO) tl.set(`#s${i}`, { opacity: 0 }, fim - 0.02);
+      }
+      document.querySelectorAll("video.bg").forEach((v) => tl.fromTo(v, { scale: 1.04 }, { scale: 1.12, duration: parseFloat(v.dataset.duration), ease: "none" }, parseFloat(v.dataset.start)));
+      const entra = (sel, t, extra = {}) => tl.fromTo(sel, { opacity: 0, y: 40, ...extra.de }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.6)", ...extra.para }, t);
+
+      // S0 hook: o resultado já na tela no primeiro quadro
+      tl.fromTo("#s0 .card", { scale: 0.96 }, { scale: 1, duration: 0.5, ease: "power3.out" }, 0);
+      entra("#s0 .chip.ok", em("quatro", 1, 2.6) - 0.6);
+      entra("#s0 .chip.no", em("quatro", 1, 2.6) - 0.1);
+      entra("#s0 .dif", em("achou", 1, 4.6) - 0.2);
+
+      // S1 extrato × razão, linhas casando
+      document.querySelectorAll("#s1 .lin").forEach((el, i) => tl.fromTo(el, { opacity: 0, x: i % 2 ? 30 : -30 }, { opacity: 1, x: 0, duration: 0.2 }, C[1] + 0.2 + (i % 5) * 0.28));
+      tl.fromTo("#travado", { opacity: 0, scale: 2, rotation: -12 }, { opacity: 1, scale: 1, rotation: -5, duration: 0.25, ease: "power4.in" }, em("trava", 1, 12) - 0.2);
+
+      // S2 pasta
+      entra("#s2 .passo", C[2]); entra("#s2 .card", C[2] + 0.15);
+      entra("#a1", em("extrato", 2, 15) - 0.2); entra("#a2", em("razão", 2, 15.8) - 0.2);
+
+      // S3 o pedido digitado (é o pedido real que a pessoa vai colar)
+      entra("#s3 .passo", C[3]); entra("#s3 .card", C[3] + 0.1);
+      { const txt = "Na pasta fechamento-outubro tem o extrato do banco e o razão contábil de outubro. Concilie os dois: cruze por valor e data, com tolerância de 2 dias. Me entregue uma planilha com o que bateu, o que está só no banco e o que está só no razão, com o motivo provável de cada diferença. No fim, gere a capa da conciliação em PDF: saldo inicial, saldos finais, diferença explicada e campo de assinatura.";
+        const el = document.getElementById("ped-txt"); const ini = C[3] + 0.4, fim = C[4] - 0.5, passo = (fim - ini) / txt.length;
+        for (let i = 0; i <= txt.length; i += 3) tl.set(el, { textContent: txt.slice(0, i) }, ini + i * passo);
+        tl.set(el, { textContent: txt }, fim); }
+      entra("#s3 .dica", C[4] - 1.2);
+
+      // S4 cruzamento linha a linha
+      { const tab = document.getElementById("tabela");
+        const linhas = [["01/10","PIX RECEBIDO","+2.418,90","✓"],["02/10","TED FORNECEDOR","-8.240,00","✓"],["03/10","BOLETO PAGO","-4.210,00","✓"],["05/10","PAG FOLHA","-17.950,22","✓"],["08/10","PIX RECEBIDO","+1.250,00","✓"],["08/10","PIX RECEBIDO","+1.250,00","✗"],["11/10","DARF","-6.731,45","✓"],["15/10","TARIFA","-89,90","✗"],["18/10","RECEB CARTÃO","+12.604,10","✓"],["20/10","TED FORNECEDOR","-3.118,00","✓"],["22/10","PIX RECEBIDO","+5.730,00","✗"],["27/10","BOLETO PAGO","-1.902,64","✓"],["30/10","CHEQUE 000412","-3.400,00","✗"]];
+        linhas.forEach((l, i) => { const r = document.createElement("div"); r.className = "row";
+          r.innerHTML = `<span>${l[0]}</span><span>${l[1]}</span><span style="text-align:right">${l[2]}</span><span class="st" style="color:${l[3] === "✓" ? "#15a34a" : "#e5484d"}">${l[3]}</span>`;
+          tab.appendChild(r); tl.fromTo(r, { opacity: 0 }, { opacity: 1, duration: 0.12 }, C[4] + 0.3 + i * 0.2);
+          if (l[3] === "✗") tl.set(r, { backgroundColor: "#fde3e4" }, C[4] + 0.4 + i * 0.2); }); }
+      tl.fromTo("#scan", { y: 0 }, { y: 700, duration: 2.8, ease: "none" }, C[4] + 0.3);
+      entra("#pok", C[4] + 1.2); entra("#pno", C[4] + 1.4);
+      { const a = document.getElementById("nok"), b = document.getElementById("nno"), o = { v: 0, w: 0 };
+        const w = () => { a.textContent = Math.round(o.v); b.textContent = Math.round(o.w); };
+        tl.set(o, { v: 0, w: 0, onUpdate: w }, 0);
+        tl.to(o, { v: 140, w: 4, duration: 2.2, ease: "power2.out", onUpdate: w }, C[4] + 1.3); }
+
+      // S5 divergências, uma por fala
+      [["#d1", "tarifa"], ["#d2", "pix"], ["#d3", "cheque"], ["#d4", "cliente"]].forEach(([s, w]) => entra(s, em(w, 1, 30) - 0.15, { de: { x: 80, y: 0 }, para: { x: 0 } }));
+
+      // S6 capa
+      entra("#capa", C[6], { de: { y: 120, rotation: -3 }, para: { rotation: 0 } });
+      tl.fromTo("#selo", { opacity: 0, scale: 2 }, { opacity: 1, scale: 1, duration: 0.22, ease: "power4.in" }, em("assinar", 1, 40.5) - 0.1);
+
+      // S7 plugin
+      entra("#s7 .a", C[7] + 0.1);
+      tl.to("#s7 .a i", { scaleX: 1, duration: 0.3 }, em("plugin", 1, 44) - 0.1);
+      entra("#s7 .b", em("plugin", 1, 44));
+      [["#g1", "igual"], ["#g2", "script"], ["#g3", "cabeça"]].forEach(([s, w]) => entra(s, em(w, 1, 47) - 0.2));
+
+      // S8 quem assina
+      tl.fromTo("#s8 .l1", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3 }, em("concilia", 1, 52) - 0.15);
+      tl.fromTo("#s8 .l2", { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.out" }, em("você", 1, 54) - 0.6);
+
+      // S9 CTA: botão seguir apertado
+      entra("#s9 .card", C[9]);
+      const tSeg = em("segue", 1, 55.4);
+      tl.to("#seguir", { scale: 0.9, duration: 0.1, yoyo: true, repeat: 1 }, tSeg + 0.25);
+      tl.call(() => {}, [], tSeg + 0.45);
+      tl.set("#seguir", { className: "ok", textContent: "Seguindo ✓" }, tSeg + 0.45);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+Cento e quarenta e dois lançamentos no mês. Quatro não bateram. E o Claude achou os quatro em minutos.
+Conciliar é bater o extrato do banco com o razão contábil. O que não bate trava o fechamento do mês.
+Passo um. Exporta o extrato e o razão numa pasta.
+Passo dois. Abre o Claude Cowork, aponta essa pasta e cola esse pedido.
+Passo três. Ele cruza linha por linha e mostra o que não bateu.
+A tarifa que ninguém lançou. O PIX lançado duas vezes. O cheque que só compensou em novembro. E o cliente que pagou e ninguém deu baixa.
+No fim, ele ainda monta a capa da conciliação, com a diferença explicada e o campo pra assinar.
+O pulo do gato: transforma esse pedido num plugin. Aí sai igual todo mês, com o cálculo feito por script, e não de cabeça.
+Só revisa antes de assinar. A IA concilia. Quem assina é você.
+Segue o perfil. Toda sexta, uma dica nova pra aplicar na sua empresa.

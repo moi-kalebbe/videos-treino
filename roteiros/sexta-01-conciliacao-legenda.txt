@@ -1,0 +1,21 @@
+Conciliação bancária em minutos com o Claude. 🧾
+
+142 lançamentos no mês. 4 não bateram: uma tarifa que ninguém lançou, um PIX lançado duas vezes, um cheque que só compensa no mês seguinte e um cliente que pagou e ninguém deu baixa.
+
+Como fazer:
+1. Exporta o extrato do banco e o razão contábil do mês numa pasta.
+2. Abre o Claude Cowork, aponta essa pasta e cola este pedido:
+
+"Na pasta fechamento-outubro tem o extrato do banco e o razão contábil de outubro. Concilie os dois: cruze por valor e data, com tolerância de 2 dias. Me entregue uma planilha com o que bateu, o que está só no banco e o que está só no razão, com o motivo provável de cada diferença. No fim, gere a capa da conciliação em PDF: saldo inicial, saldos finais, diferença explicada e campo de assinatura."
+
+3. Revisa as divergências antes de assinar.
+
+O pulo do gato: transforma esse pedido num plugin. Aí a conciliação sai igual todo mês, com o cálculo feito por script, e não de cabeça.
+
+A IA concilia. Quem assina é você.
+
+Salva este post e segue: toda sexta, uma dica nova pra aplicar na sua empresa. Próxima sexta: Comercial.
+
+Dados do vídeo são fictícios (exemplo). Antes de subir extrato real, confira a política de dados da sua conta do Claude.
+
+#inteligenciaartificial #financeiro #controladoria #conciliacaobancaria #claude
