@@ -19,6 +19,7 @@ Fonte única do que está publicado, agendado e planejado no Instagram. **Atuali
 | sex 23/10/2026 | ~12h00 | IA por Setor 01 · Financeiro (conciliação) ([roteiro](roteiros/sexta-01-conciliacao.md)) | ⏳ agendado | launchd no Mac: `com.moiseskalebbe.publicar-sexta-01` roda às 11h45 o `~/.local/share/videos-treino/publicar-sexta-01.sh` (vídeo + capa + legenda). Log em `~/.local/share/videos-treino/sexta-01.log`. Mac ligado e com a tampa aberta. |
 | dom 25/10/2026 | 18h00 | Plantão IA 02 (a produzir) | 📝 a fazer | — |
 | seg 26/10/2026 | ~12h00 | A Virada 02 · Seu Antônio ([roteiro](roteiros/a-virada-02.md)) | ⏳ agendado | launchd no Mac: `~/Library/LaunchAgents/com.moiseskalebbe.publicar-a-virada-02.plist` roda às 11h45 o `~/.local/share/videos-treino/publicar-a-virada-02.sh` (sobe com capa e legenda e publica). Log em `~/.local/share/videos-treino/a-virada-02.log`. Mac ligado e com a tampa aberta. |
+| sex 30/10/2026 | ~12h00 | IA por Setor 02 · Comercial (propostas paradas no CRM) ([roteiro](roteiros/sexta-02-comercial.md)) | ⏳ agendado | launchd no Mac: `com.moiseskalebbe.publicar-sexta-02` roda às 11h45 o `~/.local/share/videos-treino/publicar-sexta-02.sh` (vídeo + capa + legenda). Log em `~/.local/share/videos-treino/sexta-02.log`. Mac ligado e com a tampa aberta. |
 
 ## Como agendar
 - **Até 24 h antes:** preparar o contêiner (`scripts/publicar-instagram.py <mp4> <legenda> --capa <jpg>`) e, no horário, publicar com `--conteiner <ID>` por um job com `caffeinate`.

@@ -1,0 +1,23 @@
+R$ 707 mil parados no CRM. E ninguém leu. 📇
+
+São 10 propostas sem resposta há mais de 7 dias. Quanto mais tempo parada, menor a chance de fechar.
+
+Como fazer:
+1. Instala o Claude no Chrome (extensão oficial) e abre o seu CRM, do jeito que você já usa.
+2. Na lista de oportunidades, abre o Claude e manda este pedido:
+
+"Liste as propostas paradas há mais de 7 dias. Ordene pela chance de fechar (etapa, último sinal do cliente e dias parada) e escreva um follow-up curto e pessoal para as 5 primeiras."
+
+3. Ele lê a tela, ordena e escreve. Quem pediu desconto recebe uma condição até sexta; quem trocou de decisor recebe uma apresentação nova.
+
+Sem integração, sem chamado pra TI, sem exportar planilha. Se você consegue ver, ele consegue ler.
+
+O pulo do gato: no Claude Code, isso vira uma rotina agendada. Toda segunda, 8h, o resumo das propostas pra atacar chega pro diretor comercial.
+
+Deixa ele ler e sugerir. Quem envia é você.
+
+Salva este post e segue: toda sexta, uma dica nova pra aplicar na sua empresa. Próxima sexta: RH.
+
+Dados do vídeo são fictícios (exemplo). Antes de usar com dados de clientes, confira a política de dados da sua conta do Claude e a LGPD.
+
+#inteligenciaartificial #comercial #vendas #crm #claude

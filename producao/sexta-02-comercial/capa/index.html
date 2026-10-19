@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Capa · IA por Setor 02</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; src: url("assets/fonts/instrument-serif-italic.woff2") format("woff2"); }
+      @font-face { font-family: "JB"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+      /* Zona segura: y=285–1635 (recorte 4:5 do feed) */
+      :root { --papel: #f6f4ef; --tinta: #0e1424; --cinza: #5b6378; --lima: #d7ff3a; --ouro: #e9b949; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; color: var(--tinta); }
+      .clip { position: absolute; inset: 0; }
+      .fundo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .veu { position: absolute; inset: 0; background: linear-gradient(180deg, #0e1424cc 0%, #0e142466 45%, #0e1424e6 100%); }
+      .serie { position: absolute; left: 70px; top: 320px; padding: 12px 20px; border-radius: 14px; background: var(--tinta); color: #fff; font: 700 30px "Inter"; letter-spacing: 0.12em; }
+      .serie b { color: var(--lima); }
+      #marca { position: absolute; right: 70px; top: 315px; width: 130px; }
+      .numero { position: absolute; left: 70px; right: 70px; top: 420px; color: #fff; }
+      .numero small { display: block; font: 700 30px "Inter"; letter-spacing: 0.3em; color: #ffffffcc; }
+      .numero strong { display: block; font: 800 190px/1 "Inter"; letter-spacing: -0.05em; color: var(--ouro); text-shadow: 0 10px 50px #000a; }
+      .numero strong span { font-size: 90px; }
+      .card { position: absolute; left: 60px; right: 60px; top: 760px; padding: 40px 44px; border-radius: 40px; background: var(--papel); box-shadow: 0 40px 100px #000a; }
+      .card h1 { font: 800 80px/1.02 "Inter"; letter-spacing: -0.04em; }
+      .card h1 em { font: italic 400 94px "Instrument Serif"; background: var(--lima); padding: 0 12px; border-radius: 14px; }
+      .lista { margin-top: 28px; display: grid; gap: 12px; }
+      .lista div { display: flex; align-items: center; gap: 18px; padding: 14px 20px; border-radius: 18px; background: #fff; border: 3px solid var(--lima); font: 700 34px "Inter"; }
+      .lista b { font: 800 34px "Inter"; width: 30px; }
+      .lista i { margin-left: auto; font: 500 30px "JB"; font-style: normal; color: var(--cinza); }
+      .passos { position: absolute; left: 60px; right: 60px; top: 1440px; display: flex; gap: 18px; }
+      .passos div { flex: 1; padding: 20px; border-radius: 24px; background: var(--lima); font: 800 34px/1.15 "Inter"; }
+      .passos small { display: block; font: 800 24px "Inter"; letter-spacing: 0.1em; color: #0e1424aa; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="1" data-width="1080" data-height="1920">
+      <section class="clip" data-start="0" data-duration="1">
+        <img class="fundo" src="assets/img/fundo.jpg" alt="" />
+        <div class="veu"></div>
+        <p class="serie">IA POR SETOR · <b>02 COMERCIAL</b></p>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+        <div class="numero"><small>PARADOS NO SEU CRM</small><strong><span>R$</span> 707 mil</strong></div>
+        <div class="card">
+          <h1>O Claude lê seu CRM e diz <em>quem atacar</em> primeiro</h1>
+          <div class="lista">
+            <div><b>1</b>Colégio Horizonte<i>R$ 140 mil</i></div>
+            <div><b>2</b>Laticínios Serra<i>R$ 18 mil</i></div>
+            <div><b>3</b>AgroVale Sementes<i>R$ 18 mil</i></div>
+          </div>
+        </div>
+        <div class="passos"><div><small>PASSO 1</small>Claude no Chrome</div><div><small>PASSO 2</small>Cola o pedido</div><div><small>PASSO 3</small>Você envia</div></div>
+      </section>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true }); tl.set({}, {}, 1); window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

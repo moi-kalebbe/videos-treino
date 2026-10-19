@@ -1,0 +1,356 @@
+{
+ "ops": [
+  {
+   "empresa": "Grupo Atlas",
+   "etapa": "Qualificação",
+   "valor": 98000,
+   "vendedor": "Bruno",
+   "ultimo_contato": "2026-10-10",
+   "dias_parada": 16,
+   "sinal": "pediu prazo",
+   "prob": 0.15
+  },
+  {
+   "empresa": "Vetra Logística",
+   "etapa": "Negociação",
+   "valor": 120000,
+   "vendedor": "Bruno",
+   "ultimo_contato": "2026-09-25",
+   "dias_parada": 31,
+   "sinal": "pediu prazo",
+   "prob": 0.6,
+   "score": 45.2
+  },
+  {
+   "empresa": "Clínica Sorriso Pleno",
+   "etapa": "Proposta enviada",
+   "valor": 58000,
+   "vendedor": "Ana",
+   "ultimo_contato": "2026-10-12",
+   "dias_parada": 14,
+   "sinal": "pediu desconto",
+   "prob": 0.35,
+   "score": 38.8
+  },
+  {
+   "empresa": "Metalúrgica Boa Vista",
+   "etapa": "Proposta enviada",
+   "valor": 86000,
+   "vendedor": "Bruno",
+   "ultimo_contato": "2026-10-07",
+   "dias_parada": 19,
+   "sinal": "pediu prazo",
+   "prob": 0.35,
+   "score": 29.8
+  },
+  {
+   "empresa": "Rede Farma+",
+   "etapa": "Proposta enviada",
+   "valor": 24000,
+   "vendedor": "Ana",
+   "ultimo_contato": "2026-10-10",
+   "dias_parada": 16,
+   "sinal": "abriu a proposta 3x",
+   "prob": 0.35,
+   "score": 42.2
+  },
+  {
+   "empresa": "Construtora Alicerce",
+   "etapa": "Negociação",
+   "valor": 140000,
+   "vendedor": "Diego",
+   "ultimo_contato": "2026-10-22",
+   "dias_parada": 4,
+   "sinal": "abriu a proposta 3x",
+   "prob": 0.6
+  },
+  {
+   "empresa": "Colégio Horizonte",
+   "etapa": "Aguardando aprovação",
+   "valor": 140000,
+   "vendedor": "Bruno",
+   "ultimo_contato": "2026-10-12",
+   "dias_parada": 14,
+   "sinal": "pediu desconto",
+   "prob": 0.7,
+   "score": 73.8
+  },
+  {
+   "empresa": "AgroVale Sementes",
+   "etapa": "Aguardando aprovação",
+   "valor": 18000,
+   "vendedor": "Ana",
+   "ultimo_contato": "2026-10-12",
+   "dias_parada": 14,
+   "sinal": "respondeu 'vamos ver'",
+   "prob": 0.7,
+   "score": 63.8
+  },
+  {
+   "empresa": "Hotel Marés",
+   "etapa": "Qualificação",
+   "valor": 58000,
+   "vendedor": "Ana",
+   "ultimo_contato": "2026-10-03",
+   "dias_parada": 23,
+   "sinal": "pediu prazo",
+   "prob": 0.15
+  },
+  {
+   "empresa": "Transportes Rota Sul",
+   "etapa": "Aguardando aprovação",
+   "valor": 45000,
+   "vendedor": "Carla",
+   "ultimo_contato": "2026-10-17",
+   "dias_parada": 9,
+   "sinal": "decisor mudou",
+   "prob": 0.7,
+   "score": 57.8
+  },
+  {
+   "empresa": "Escritório Lima & Prado",
+   "etapa": "Proposta enviada",
+   "valor": 140000,
+   "vendedor": "Diego",
+   "ultimo_contato": "2026-10-24",
+   "dias_parada": 2,
+   "sinal": "abriu a proposta 3x",
+   "prob": 0.35
+  },
+  {
+   "empresa": "Padaria Pão Nobre",
+   "etapa": "Proposta enviada",
+   "valor": 86000,
+   "vendedor": "Ana",
+   "ultimo_contato": "2026-10-21",
+   "dias_parada": 5,
+   "sinal": "abriu a proposta 3x",
+   "prob": 0.35
+  },
+  {
+   "empresa": "Óticas Visão",
+   "etapa": "Proposta enviada",
+   "valor": 45000,
+   "vendedor": "Diego",
+   "ultimo_contato": "2026-10-22",
+   "dias_parada": 4,
+   "sinal": "abriu a proposta 3x",
+   "prob": 0.35
+  },
+  {
+   "empresa": "TecnoPeças",
+   "etapa": "Qualificação",
+   "valor": 86000,
+   "vendedor": "Ana",
+   "ultimo_contato": "2026-09-29",
+   "dias_parada": 27,
+   "sinal": "pediu prazo",
+   "prob": 0.15
+  },
+  {
+   "empresa": "Imobiliária Casa Certa",
+   "etapa": "Negociação",
+   "valor": 58000,
+   "vendedor": "Ana",
+   "ultimo_contato": "2026-09-25",
+   "dias_parada": 31,
+   "sinal": "sem resposta",
+   "prob": 0.6,
+   "score": 25.2
+  },
+  {
+   "empresa": "Laticínios Serra",
+   "etapa": "Aguardando aprovação",
+   "valor": 18000,
+   "vendedor": "Ana",
+   "ultimo_contato": "2026-10-17",
+   "dias_parada": 9,
+   "sinal": "pediu prazo",
+   "prob": 0.7,
+   "score": 72.8
+  },
+  {
+   "empresa": "Academia Força Total",
+   "etapa": "Negociação",
+   "valor": 24000,
+   "vendedor": "Ana",
+   "ultimo_contato": "2026-10-22",
+   "dias_parada": 4,
+   "sinal": "abriu a proposta 3x",
+   "prob": 0.6
+  },
+  {
+   "empresa": "Auto Center Pneu Já",
+   "etapa": "Qualificação",
+   "valor": 98000,
+   "vendedor": "Bruno",
+   "ultimo_contato": "2026-09-25",
+   "dias_parada": 31,
+   "sinal": "pediu desconto",
+   "prob": 0.15
+  },
+  {
+   "empresa": "Distribuidora Sabor",
+   "etapa": "Qualificação",
+   "valor": 45000,
+   "vendedor": "Bruno",
+   "ultimo_contato": "2026-10-10",
+   "dias_parada": 16,
+   "sinal": "respondeu 'vamos ver'",
+   "prob": 0.15
+  },
+  {
+   "empresa": "Consultório Dr. Neves",
+   "etapa": "Qualificação",
+   "valor": 86000,
+   "vendedor": "Diego",
+   "ultimo_contato": "2026-10-03",
+   "dias_parada": 23,
+   "sinal": "abriu a proposta 3x",
+   "prob": 0.15
+  },
+  {
+   "empresa": "Gráfica Ponto",
+   "etapa": "Qualificação",
+   "valor": 18000,
+   "vendedor": "Carla",
+   "ultimo_contato": "2026-10-22",
+   "dias_parada": 4,
+   "sinal": "sem resposta",
+   "prob": 0.15
+  },
+  {
+   "empresa": "Pet Shop Amigo Fiel",
+   "etapa": "Proposta enviada",
+   "valor": 32000,
+   "vendedor": "Ana",
+   "ultimo_contato": "2026-10-22",
+   "dias_parada": 4,
+   "sinal": "pediu prazo",
+   "prob": 0.35
+  },
+  {
+   "empresa": "Moveis Lar Feliz",
+   "etapa": "Proposta enviada",
+   "valor": 45000,
+   "vendedor": "Carla",
+   "ultimo_contato": "2026-10-23",
+   "dias_parada": 3,
+   "sinal": "pediu prazo",
+   "prob": 0.35
+  },
+  {
+   "empresa": "Instituto Saber",
+   "etapa": "Proposta enviada",
+   "valor": 140000,
+   "vendedor": "Carla",
+   "ultimo_contato": "2026-09-25",
+   "dias_parada": 31,
+   "sinal": "sem resposta",
+   "prob": 0.35,
+   "score": 0.2
+  },
+  {
+   "empresa": "Frigorífico Campo Bom",
+   "etapa": "Qualificação",
+   "valor": 24000,
+   "vendedor": "Bruno",
+   "ultimo_contato": "2026-10-24",
+   "dias_parada": 2,
+   "sinal": "abriu a proposta 3x",
+   "prob": 0.15
+  },
+  {
+   "empresa": "Loja Moda Viva",
+   "etapa": "Negociação",
+   "valor": 140000,
+   "vendedor": "Carla",
+   "ultimo_contato": "2026-10-25",
+   "dias_parada": 1,
+   "sinal": "sem resposta",
+   "prob": 0.6
+  },
+  {
+   "empresa": "Agência Pulso",
+   "etapa": "Qualificação",
+   "valor": 140000,
+   "vendedor": "Bruno",
+   "ultimo_contato": "2026-10-23",
+   "dias_parada": 3,
+   "sinal": "pediu prazo",
+   "prob": 0.15
+  },
+  {
+   "empresa": "Buffet Festa Boa",
+   "etapa": "Qualificação",
+   "valor": 32000,
+   "vendedor": "Bruno",
+   "ultimo_contato": "2026-10-23",
+   "dias_parada": 3,
+   "sinal": "sem resposta",
+   "prob": 0.15
+  }
+ ],
+ "res": {
+  "total_ops": 28,
+  "paradas": 10,
+  "valor_parado": 707000,
+  "top5": [
+   {
+    "empresa": "Colégio Horizonte",
+    "etapa": "Aguardando aprovação",
+    "valor": 140000,
+    "vendedor": "Bruno",
+    "ultimo_contato": "2026-10-12",
+    "dias_parada": 14,
+    "sinal": "pediu desconto",
+    "prob": 0.7,
+    "score": 73.8
+   },
+   {
+    "empresa": "Laticínios Serra",
+    "etapa": "Aguardando aprovação",
+    "valor": 18000,
+    "vendedor": "Ana",
+    "ultimo_contato": "2026-10-17",
+    "dias_parada": 9,
+    "sinal": "pediu prazo",
+    "prob": 0.7,
+    "score": 72.8
+   },
+   {
+    "empresa": "AgroVale Sementes",
+    "etapa": "Aguardando aprovação",
+    "valor": 18000,
+    "vendedor": "Ana",
+    "ultimo_contato": "2026-10-12",
+    "dias_parada": 14,
+    "sinal": "respondeu 'vamos ver'",
+    "prob": 0.7,
+    "score": 63.8
+   },
+   {
+    "empresa": "Transportes Rota Sul",
+    "etapa": "Aguardando aprovação",
+    "valor": 45000,
+    "vendedor": "Carla",
+    "ultimo_contato": "2026-10-17",
+    "dias_parada": 9,
+    "sinal": "decisor mudou",
+    "prob": 0.7,
+    "score": 57.8
+   },
+   {
+    "empresa": "Vetra Logística",
+    "etapa": "Negociação",
+    "valor": 120000,
+    "vendedor": "Bruno",
+    "ultimo_contato": "2026-09-25",
+    "dias_parada": 31,
+    "sinal": "pediu prazo",
+    "prob": 0.6,
+    "score": 45.2
+   }
+  ]
+ }
+}

@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>IA por Setor · 02 · Comercial</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-500.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; src: url("assets/fonts/instrument-serif-italic.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+
+      :root { --papel: #f6f4ef; --tinta: #0e1424; --cinza: #5b6378; --lima: #d7ff3a; --verde: #0f7a37; --verm: #e5484d; --ambar: #e8a317; --linha: #dcd8cf; --ouro: #e7b54f; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; color: var(--tinta); }
+      .clip { position: absolute; inset: 0; }
+      #preto { background: #111; }
+      .bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+      #veu { position: absolute; inset: 0; background: linear-gradient(180deg, #0e142466 0%, #0e142400 20%, #0e142400 62%, #0e1424a6 100%); }
+      #progresso { position: absolute; left: 0; top: 0; width: 1080px; height: 10px; background: var(--lima); transform-origin: 0 50%; display: block; }
+      #marca { position: absolute; right: 44px; top: 50px; width: 130px; height: auto; display: block; filter: drop-shadow(0 4px 14px #000a); }
+      #serie { position: absolute; left: 44px; top: 54px; padding: 10px 18px; border-radius: 12px; background: var(--tinta); color: #fff; font: 700 24px "Inter"; letter-spacing: 0.12em; }
+      #serie b { color: var(--lima); font-weight: 800; }
+      .cena { position: absolute; inset: 0; opacity: 0; }
+      .papel { position: absolute; background: var(--papel); border-radius: 30px; box-shadow: 0 30px 90px #0008; }
+
+      /* trilho de passos na lateral (novo nesta edição) */
+      #trilho { position: absolute; left: 22px; top: 470px; display: flex; flex-direction: column; gap: 16px; opacity: 0; }
+      #trilho span { width: 64px; height: 64px; border-radius: 50%; background: #0e1424cc; color: #ffffff80; display: flex; align-items: center; justify-content: center; font: 800 30px "Inter"; border: 3px solid #ffffff33; }
+      #trilho span.on { background: var(--lima); color: var(--tinta); border-color: var(--lima); }
+      #trilho span.feito { background: var(--tinta); color: var(--lima); border-color: var(--lima); }
+      .tit { position: absolute; left: 110px; right: 60px; top: 170px; padding: 14px 22px; border-radius: 18px; background: var(--tinta); color: #fff; font: 800 42px/1.15 "Inter"; opacity: 0; }
+      .tit b { color: var(--lima); }
+
+      /* legenda */
+      #legenda { position: absolute; left: 50px; right: 50px; top: 1600px; height: 200px; }
+      .grupo { position: absolute; left: 0; right: 0; top: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; opacity: 0; }
+      .palavra { display: inline-block; padding: 6px 16px; border-radius: 14px; background: var(--papel); color: var(--tinta); font: 800 56px/1.1 "Inter"; letter-spacing: -0.02em; box-shadow: 0 8px 24px #0006; }
+
+      /* S0 hook: valor parado (odômetro dourado) */
+      #s0 .k { position: absolute; left: 0; right: 0; top: 520px; text-align: center; font: 700 30px "Inter"; letter-spacing: 0.2em; color: #ffffffcc; }
+      #valor { position: absolute; left: 0; right: 0; top: 580px; text-align: center; font: 800 190px/1 "Inter"; letter-spacing: -0.05em; color: var(--ouro); text-shadow: 0 10px 50px #000; }
+      #valor small { font-size: 90px; }
+      #parado { position: absolute; left: 50%; top: 820px; width: 740px; margin-left: -370px; padding: 14px 0; text-align: center; border: 9px solid var(--verm); border-radius: 20px; color: var(--verm); font: 800 66px "Inter"; background: #0e1424cc; opacity: 0; }
+      #ninguem { position: absolute; left: 0; right: 0; top: 1000px; text-align: center; font: italic 400 110px "Instrument Serif"; color: #fff; text-shadow: 0 6px 30px #000; opacity: 0; }
+
+      /* S1 CRM com barras de dias parada (pull-back reveal) */
+      #crm { left: 50px; right: 50px; top: 230px; padding: 24px 24px 18px; transform-origin: 50% 22%; }
+      #crm h4 { display: flex; justify-content: space-between; font: 800 32px "Inter"; margin-bottom: 14px; }
+      #crm h4 span { font: 700 24px "Inter"; color: var(--cinza); }
+      .op { display: grid; grid-template-columns: 1fr 170px 260px; gap: 14px; align-items: center; padding: 12px 10px; border-top: 1px solid var(--linha); font: 600 26px "Inter"; }
+      .op .v { font: 500 26px "JetBrains Mono"; text-align: right; }
+      .op .bar { height: 26px; border-radius: 13px; background: #e7e3da; position: relative; overflow: hidden; }
+      .op .bar i { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 13px; display: block; transform-origin: 0 50%; }
+      .op .bar b { position: absolute; right: 8px; top: 0; font: 800 20px/26px "Inter"; color: var(--tinta); }
+      #resumo1 { position: absolute; left: 50px; right: 50px; top: 1180px; display: flex; gap: 20px; }
+      #resumo1 div { flex: 1; padding: 20px; border-radius: 24px; background: #fde3e4; color: var(--verm); text-align: center; font: 800 28px "Inter"; opacity: 0; }
+      #resumo1 b { display: block; font: 800 84px/1 "Inter"; }
+
+      /* S2–S3 janela do Chrome + painel do Claude */
+      #nav { left: 110px; right: 30px; top: 270px; height: 1180px; overflow: hidden; border-radius: 22px; opacity: 0; }
+      #nav .abas { height: 64px; background: #dee1e6; display: flex; align-items: flex-end; padding-left: 20px; gap: 10px; }
+      #nav .aba { padding: 12px 22px; border-radius: 14px 14px 0 0; background: #fff; font: 700 22px "Inter"; }
+      #nav .end { height: 70px; background: #fff; display: flex; align-items: center; gap: 16px; padding: 0 22px; border-bottom: 1px solid #ddd; }
+      #nav .url { flex: 1; padding: 10px 18px; border-radius: 20px; background: #f1f3f4; font: 500 24px "Inter"; color: #3c4043; }
+      #ext { width: 52px; height: 52px; border-radius: 12px; background: #f1f3f4; display: flex; align-items: center; justify-content: center; font: 800 28px "Inter"; }
+      #ext.on { background: #d97757; color: #fff; }
+      #nav .pagina { position: absolute; left: 0; right: 0; top: 134px; bottom: 0; background: #fbfaf7; padding: 22px; }
+      .mini { display: grid; grid-template-columns: 1fr 140px 120px; gap: 10px; padding: 12px 10px; border-bottom: 1px solid var(--linha); font: 600 24px "Inter"; }
+      .mini .d { text-align: right; font: 700 22px "JetBrains Mono"; }
+      #painel { position: absolute; right: 0; top: 134px; bottom: 0; width: 560px; background: #fff; border-left: 2px solid #e6e1d8; box-shadow: -20px 0 50px #0002; padding: 26px; transform: translateX(620px); }
+      #painel .cab { display: flex; align-items: center; gap: 14px; font: 800 30px "Inter"; padding-bottom: 16px; border-bottom: 2px solid var(--linha); }
+      #painel .cab i { width: 46px; height: 46px; border-radius: 12px; background: #d97757; color: #fff; display: flex; align-items: center; justify-content: center; font-style: normal; }
+      #pedido { margin-top: 20px; padding: 20px; border-radius: 18px; background: #f3f0ea; font: 500 30px/1.4 "Inter"; min-height: 420px; }
+      #cursor { position: absolute; width: 46px; height: 46px; opacity: 0; z-index: 5; }
+      #cursor svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 4px 8px #0006); }
+      #clique { position: absolute; width: 90px; height: 90px; border-radius: 50%; border: 6px solid var(--lima); opacity: 0; }
+
+      /* S4 ranking que se reordena */
+      #rank { left: 110px; right: 30px; top: 270px; height: 980px; padding: 26px; overflow: hidden; }
+      #rank h4 { font: 800 32px "Inter"; margin-bottom: 10px; }
+      .card { position: absolute; left: 26px; right: 26px; height: 78px; border-radius: 16px; background: #fff; border: 2px solid var(--linha); display: grid; grid-template-columns: 70px 1fr 160px 110px; align-items: center; gap: 10px; padding: 0 18px; font: 700 26px "Inter"; }
+      .card .pos { font: 800 34px "Inter"; color: #b4b0a6; }
+      .card .v { font: 500 24px "JetBrains Mono"; text-align: right; }
+      .card .sc { justify-self: end; padding: 6px 12px; border-radius: 10px; font: 800 22px "Inter"; background: #eee; }
+      .card.top { border-color: var(--lima); box-shadow: 0 10px 24px #0002; }
+      .card.top .pos { color: var(--tinta); }
+      #scan { position: absolute; left: 0; right: 0; height: 70px; background: linear-gradient(180deg, #d7ff3a00, #d7ff3aaa, #d7ff3a00); top: 0; }
+
+      /* S5 rascunhos de follow-up */
+      .msgcard { position: absolute; left: 60px; right: 60px; padding: 26px 28px; border-radius: 26px; background: var(--papel); box-shadow: 0 24px 70px #0008; opacity: 0; }
+      .msgcard .para { display: flex; justify-content: space-between; font: 800 28px "Inter"; }
+      .msgcard .para span { padding: 4px 12px; border-radius: 10px; background: #fff3cd; color: #8a5a00; font: 800 20px "Inter"; letter-spacing: 0.08em; }
+      .msgcard .por { margin-top: 4px; font: 600 22px "Inter"; color: var(--cinza); }
+      .msgcard .bolha { margin-top: 14px; padding: 18px 20px; border-radius: 20px 20px 20px 6px; background: #dcf8c6; font: 500 30px/1.38 "Inter"; min-height: 130px; }
+      #m1 { top: 300px; } #m2 { top: 760px; }
+
+      /* S6 sem integração */
+      #semx { position: absolute; left: 60px; right: 60px; top: 300px; display: flex; flex-direction: column; gap: 22px; }
+      #semx div { position: relative; padding: 24px 30px; border-radius: 24px; background: var(--papel); font: 800 52px "Inter"; box-shadow: 0 20px 60px #0007; opacity: 0; }
+      #semx div i { position: absolute; left: 22px; right: 22px; top: 50%; height: 10px; border-radius: 5px; background: var(--verm); transform-origin: 0 50%; transform: scaleX(0); display: block; }
+      #olho { position: absolute; left: 60px; right: 60px; top: 1020px; padding: 30px; border-radius: 30px; background: var(--lima); text-align: center; font: 800 62px/1.1 "Inter"; opacity: 0; }
+
+      /* S7 rotina no Claude Code (terminal neon) + notificação no celular */
+      #term { position: absolute; left: 50px; right: 50px; top: 230px; padding: 26px 30px; border-radius: 24px; background: #070b12f2; border: 2px solid #d7ff3a66; box-shadow: 0 0 60px #d7ff3a33; font: 500 30px/1.55 "JetBrains Mono"; color: #d7ff3a; opacity: 0; }
+      #term .c { color: #8fa1ac; } #term .b { color: #fff; }
+      #cel { position: absolute; left: 230px; top: 820px; width: 620px; height: 700px; border-radius: 60px 60px 0 0; background: #0e1424; border: 10px solid #20283d; border-bottom: none; padding: 60px 26px 0; opacity: 0; }
+      #cel .hora { text-align: center; font: 800 88px "Inter"; color: #fff; } #cel .dia { text-align: center; font: 600 26px "Inter"; color: #ffffffaa; margin-bottom: 26px; }
+      #push { padding: 22px 24px; border-radius: 24px; background: #f2f3f6f2; display: flex; gap: 16px; opacity: 0; }
+      #push .ic { width: 64px; height: 64px; border-radius: 16px; background: #d97757; color: #fff; display: flex; align-items: center; justify-content: center; font: 800 32px "Inter"; flex: none; }
+      #push b { display: block; font: 800 28px "Inter"; } #push span { font: 500 24px/1.3 "Inter"; color: #3b4360; }
+
+      /* S8 quem envia é você */
+      #s8 .card8 { left: 90px; right: 90px; top: 380px; padding: 40px; text-align: center; }
+      #s8 .l1 { font: 800 70px/1.05 "Inter"; letter-spacing: -0.03em; }
+      #s8 .l1 em { font: italic 400 80px "Instrument Serif"; background: var(--lima); padding: 0 10px; border-radius: 10px; }
+      #enviar { margin: 40px auto 0; width: 420px; padding: 26px; border-radius: 22px; background: #25d366; color: #fff; font: 800 48px "Inter"; position: relative; }
+      #enviar small { position: absolute; left: 0; right: 0; top: -44px; font: 700 24px "Inter"; color: var(--cinza); }
+      #s8 .l2 { margin-top: 40px; font: italic 400 96px/1 "Instrument Serif"; opacity: 0; }
+
+      /* S9 CTA */
+      #s9 .cta { left: 90px; right: 90px; top: 430px; padding: 44px; text-align: center; }
+      #s9 .k { font: 700 28px "Inter"; letter-spacing: 0.14em; color: var(--cinza); }
+      #s9 .t { margin-top: 12px; font: 800 72px/1.05 "Inter"; letter-spacing: -0.03em; }
+      #s9 .t em { font: italic 400 84px "Instrument Serif"; background: var(--lima); padding: 0 12px; border-radius: 12px; }
+      #s9 .perfil { margin: 34px auto 0; display: flex; align-items: center; gap: 20px; justify-content: center; }
+      #s9 .perfil img { width: 110px; height: 110px; border-radius: 50%; background: var(--tinta); padding: 18px; }
+      #s9 .perfil b { font: 800 40px "Inter"; }
+      #seguir { margin: 30px auto 0; width: 420px; padding: 24px; border-radius: 22px; background: #0095f6; color: #fff; font: 800 44px "Inter"; }
+      #s9 .prox { margin-top: 30px; font: 500 28px "Inter"; color: var(--cinza); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="62.3" data-width="1080" data-height="1920">
+      <div id="preto" class="clip" data-start="0" data-duration="62.3" data-track-index="0"></div>
+      <video id="bg0" class="bg" src="assets/clipes/bg-vazio.mp4" muted playsinline data-sinc="cena:0:0" data-start="0.0" data-duration="4.9"></video>
+      <video id="bg1" class="bg" src="assets/clipes/bg-fone.mp4" muted playsinline data-sinc="cena:1:0" data-start="4.87" data-duration="7.6"></video>
+      <video id="bg2" class="bg" src="assets/clipes/bg-navega.mp4" muted playsinline data-sinc="cena:2:0" data-start="12.42" data-duration="5.45"></video>
+      <video id="bg3" class="bg" src="assets/clipes/bg-navega2.mp4" muted playsinline data-sinc="cena:3:0" data-start="17.85" data-duration="4.65"></video>
+      <video id="bg4" class="bg" src="assets/clipes/bg-ocupado.mp4" muted playsinline data-sinc="cena:4:0" data-start="22.48" data-duration="6.9"></video>
+      <video id="bg5" class="bg" src="assets/clipes/bg-liga.mp4" muted playsinline data-sinc="cena:5:0" data-start="29.34" data-duration="7.2"></video>
+      <video id="bg6" class="bg" src="assets/clipes/bg-escritorio.mp4" muted playsinline data-sinc="cena:6:0" data-start="36.5" data-duration="5.8"></video>
+      <video id="bg7" class="bg" src="assets/clipes/bg-cafe.mp4" muted playsinline data-sinc="cena:7:0" data-start="42.29" data-duration="8.5"></video>
+      <video id="bg8" class="bg" src="assets/clipes/bg-acordo.mp4" muted playsinline data-sinc="cena:8:0" data-start="50.78" data-duration="4.75"></video>
+      <video id="bg9" class="bg" src="assets/clipes/bg-apresenta.mp4" muted playsinline data-sinc="cena:9:0" data-start="55.5" data-duration="6.8"></video>
+
+      <section id="palco" class="clip" data-start="0" data-duration="62.3" data-track-index="1">
+        <div id="veu"></div>
+
+        <div class="cena" id="s0">
+          <p class="k">PARADOS NO SEU CRM</p>
+          <p id="valor"><small>R$</small> <span id="nval">707.000</span></p>
+          <div id="parado">10 PROPOSTAS PARADAS</div>
+          <p id="ninguem">E ninguém leu.</p>
+        </div>
+
+        <div class="cena" id="s1">
+          <div class="papel" id="crm"><h4>Oportunidades abertas <span>dias sem resposta</span></h4><div id="ops"></div></div>
+          <div id="resumo1"><div id="r1"><b>10</b>paradas há +7 dias</div><div id="r2"><b>R$ 707 mil</b>em jogo</div></div>
+        </div>
+
+        <div class="cena" id="s2"><p class="tit"><b>Passo 1 ·</b> Claude no Chrome + o seu CRM</p></div>
+        <div class="cena" id="s3"><p class="tit"><b>Passo 2 ·</b> abre o Claude e manda o pedido</p></div>
+
+        <div class="papel" id="nav">
+          <div class="abas"><span class="aba">CRM · Oportunidades</span></div>
+          <div class="end"><span class="url">🔒 crm.suaempresa.com.br/oportunidades</span><span id="ext">✳</span></div>
+          <div class="pagina" id="pagina"></div>
+          <div id="painel"><div class="cab"><i>✳</i>Claude</div><p id="pedido"><span id="ped"></span></p></div>
+        </div>
+        <div id="cursor"><svg viewBox="0 0 24 24"><path d="M3 2l7 19 2.5-7.5L20 11z" fill="#0e1424" stroke="#fff" stroke-width="1.5"/></svg></div>
+        <span id="clique"></span>
+
+        <div class="cena" id="s4">
+          <p class="tit"><b>Passo 3 ·</b> ele lê e ordena</p>
+          <div class="papel" id="rank"><h4>Propostas paradas · ordem sugerida</h4><span id="scan"></span></div>
+        </div>
+
+        <div class="cena" id="s5">
+          <div class="msgcard" id="m1"><p class="para">Colégio Horizonte · R$ 140 mil <span>RASCUNHO</span></p><p class="por">pediu desconto · 14 dias parada</p><p class="bolha"><span id="t1"></span></p></div>
+          <div class="msgcard" id="m2"><p class="para">Transportes Rota Sul · R$ 45 mil <span>RASCUNHO</span></p><p class="por">trocou de decisor · 9 dias parada</p><p class="bolha"><span id="t2"></span></p></div>
+        </div>
+
+        <div class="cena" id="s6">
+          <div id="semx"><div id="x1">Integração<i></i></div><div id="x2">Chamado pra TI<i></i></div><div id="x3">Exportar planilha<i></i></div></div>
+          <p id="olho">👁 Se você consegue ver, ele consegue ler.</p>
+        </div>
+
+        <div class="cena" id="s7">
+          <div id="term"><span class="c"># Claude Code · rotina agendada</span><br /><span class="b">toda segunda · 08:00</span><br />→ abre o CRM no Chrome<br />→ lê as propostas paradas<br />→ manda o resumo pro diretor comercial</div>
+          <div id="cel"><p class="hora">08:00</p><p class="dia">segunda-feira, 26 de outubro</p>
+            <div id="push"><span class="ic">✳</span><div><b>Resumo comercial da semana</b><span>5 propostas pra atacar hoje · R$ 341 mil · follow-ups prontos</span></div></div></div>
+        </div>
+
+        <div class="cena" id="s8">
+          <div class="papel card8"><p class="l1">Deixa ele <em>ler</em> e sugerir.</p><div id="enviar"><small>o botão é seu</small>Enviar ➤</div><p class="l2">Quem envia é você.</p></div>
+        </div>
+
+        <div class="cena" id="s9">
+          <div class="papel cta">
+            <p class="k">IA POR SETOR · TODA SEXTA</p>
+            <p class="t">Uma dica nova pra <em>aplicar</em> na sua empresa.</p>
+            <div class="perfil"><img src="assets/marca/logo-branca.png" alt="" /><b>@moiseskalebbe</b></div>
+            <div id="seguir">Seguir</div>
+            <p class="prox">Próxima sexta: RH</p>
+          </div>
+        </div>
+
+        <div id="trilho"><span id="tp1">1</span><span id="tp2">2</span><span id="tp3">3</span></div>
+        <p id="serie">IA POR SETOR · <b>02 COMERCIAL</b></p>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+        <span id="progresso"></span>
+      </section>
+
+      <div id="legenda" class="clip" data-start="0" data-duration="62.3" data-track-index="2"></div>
+
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="59.78" data-volume="1"></audio>
+      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="62.3" data-volume="0.11" data-fade-out="2"></audio>
+      <audio id="sfx-contador" src="assets/audio/contador.mp3" data-start="0" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-impacto-0" data-sinc="palavra:ninguém:1:-0.05" src="assets/audio/impacto.mp3" data-start="3.72" data-duration="1.2" data-volume="0.6"></audio>
+      <audio id="sfx-whoosh-1" data-sinc="cena:1:-0.15" src="assets/audio/whoosh.mp3" data-start="4.71" data-duration="0.68" data-volume="0.4"></audio>
+      <audio id="sfx-clique-ext" data-sinc="palavra:chrome:1:0.2" src="assets/audio/clique.mp3" data-start="14.26" data-duration="0.5" data-volume="0.7"></audio>
+      <audio id="sfx-clique-claude" data-sinc="palavra:claude:2:0" src="assets/audio/clique.mp3" data-start="20.41" data-duration="0.5" data-volume="0.7"></audio>
+      <audio id="sfx-digitar" data-sinc="palavra:pedido:1:-0.3" src="assets/audio/digitar.mp3" data-start="21.19" data-duration="1.6" data-volume="0.35"></audio>
+      <audio id="sfx-pontos" data-sinc="cena:4:1.4" src="assets/audio/pontos.mp3" data-start="23.88" data-duration="1.48" data-volume="0.45"></audio>
+      <audio id="sfx-digitar-2" data-sinc="cena:5:0.2" src="assets/audio/digitar.mp3" data-start="29.54" data-duration="4.2" data-volume="0.3"></audio>
+      <audio id="sfx-risco-1" data-sinc="palavra:integração:1:0.1" src="assets/audio/risco.mp3" data-start="36.91" data-duration="0.6" data-volume="0.55"></audio>
+      <audio id="sfx-risco-2" data-sinc="palavra:ti:1:0.1" src="assets/audio/risco.mp3" data-start="37.99" data-duration="0.6" data-volume="0.55"></audio>
+      <audio id="sfx-risco-3" data-sinc="palavra:planilha:1:0.1" src="assets/audio/risco.mp3" data-start="39.44" data-duration="0.6" data-volume="0.55"></audio>
+      <audio id="sfx-notif" data-sinc="palavra:resumo:1:0" src="assets/audio/notificacao.mp3" data-start="48.02" data-duration="0.6" data-volume="0.75"></audio>
+      <audio id="sfx-impacto-8" data-sinc="palavra:você:3:-0.05" src="assets/audio/impacto.mp3" data-start="54.35" data-duration="1.2" data-volume="0.55"></audio>
+      <audio id="sfx-toque" data-sinc="palavra:segue:1:0.2" src="assets/audio/toque.mp3" data-start="55.7" data-duration="0.48" data-volume="0.8"></audio>
+    </div>
+
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const C = window.CENAS;
+      const DURACAO = 62.3;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:]/g, "");
+      function em(palavra, n = 1, fallback = 0) {
+        let visto = 0;
+        for (const p of PALAVRAS) if (limpar(p.w) === palavra && ++visto === n) return p.s;
+        return fallback;
+      }
+      const tl = gsap.timeline({ paused: true });
+
+      // ---- legenda karaokê (identidade da série) ----
+      const caixa = document.getElementById("legenda"); const grupos = []; let atual = [];
+      for (const p of PALAVRAS) { atual.push(p); if (atual.length === 3 || /[.,?!:]$/.test(p.w)) { grupos.push(atual); atual = []; } }
+      if (atual.length) grupos.push(atual);
+      for (const g of grupos) {
+        const d = document.createElement("div"); d.className = "grupo"; caixa.appendChild(d);
+        for (const p of g) { const s = document.createElement("span"); s.className = "palavra"; s.textContent = p.w; d.appendChild(s);
+          tl.set(s, { backgroundColor: "#d7ff3a" }, p.s); tl.set(s, { backgroundColor: "#f6f4ef" }, p.e); }
+        tl.fromTo(d, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.1 }, g[0].s);
+        tl.set(d, { opacity: 0 }, g[g.length - 1].e + 0.05);
+      }
+      tl.fromTo("#progresso", { scaleX: 0 }, { scaleX: 1, duration: DURACAO, ease: "none" }, 0);
+
+      for (let i = 0; i <= 9; i++) {
+        const fim = i < 9 ? C[i + 1] : DURACAO + 1;
+        tl.set(`#s${i}`, { opacity: 1 }, i === 0 ? 0 : C[i] - 0.02);
+        if (fim <= DURACAO) tl.set(`#s${i}`, { opacity: 0 }, fim - 0.02);
+      }
+      document.querySelectorAll("video.bg").forEach((v) => tl.fromTo(v, { scale: 1.04 }, { scale: 1.12, duration: parseFloat(v.dataset.duration), ease: "none" }, parseFloat(v.dataset.start)));
+      const entra = (sel, t, de = {}, para = {}) => tl.fromTo(sel, { opacity: 0, y: 40, ...de }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(1.6)", ...para }, t);
+
+      // ---- S0 hook: R$ 707.000 legível no quadro 0, odômetro rodando ----
+      { const el = document.getElementById("nval"); const o = { v: 707000 }; const w = () => (el.textContent = Math.round(o.v).toLocaleString("pt-BR"));
+        tl.set(o, { v: 707000, onUpdate: w }, 0); }
+      tl.fromTo("#valor", { scale: 1.12 }, { scale: 1, duration: 0.6, ease: "power3.out" }, 0);
+      tl.fromTo("#parado", { opacity: 0, scale: 2, rotation: -10 }, { opacity: 1, scale: 1, rotation: -4, duration: 0.25, ease: "power4.in" }, em("crm", 1, 2) - 0.1);
+      tl.fromTo("#ninguem", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3 }, em("ninguém", 1, 3.5) - 0.2);
+
+      // ---- S1 CRM: pull-back reveal a partir da proposta de 140 mil + barras de dias parada ----
+      { const ops = [["Colégio Horizonte", 140, 14], ["Grupo Atlas", 58, 3], ["Vetra Logística", 120, 31], ["Rede Farma+", 72, 2], ["Laticínios Serra", 18, 9], ["Construtora Alicerce", 98, 5], ["AgroVale Sementes", 18, 14], ["Transportes Rota Sul", 45, 9], ["Hotel Marés", 86, 19], ["Óticas Visão", 32, 23]];
+        const box = document.getElementById("ops");
+        ops.forEach(([n, v, d], i) => { const r = document.createElement("div"); r.className = "op";
+          const cor = d > 7 ? (d > 15 ? "#e5484d" : "#e8a317") : "#0f7a37";
+          r.innerHTML = `<span>${n}</span><span class="v">R$ ${v} mil</span><span class="bar"><i style="width:${Math.min(100, d * 3.1)}%;background:${cor}"></i><b>${d}d</b></span>`;
+          box.appendChild(r); tl.fromTo(r.querySelector("i"), { scaleX: 0 }, { scaleX: 1, duration: 0.5, ease: "power2.out" }, C[1] + 0.9 + i * 0.12); }); }
+      tl.fromTo("#crm", { scale: 2.1, y: 120 }, { scale: 1, y: 0, duration: 1.1, ease: "power3.inOut" }, C[1]);
+      entra("#r1", em("dez", 1, 6) - 0.1); entra("#r2", em("chance", 1, 10) - 0.4);
+
+      // ---- S2–S3 Chrome: cursor clica na extensão, painel do Claude desliza, pedido digitado ----
+      { const pag = document.getElementById("pagina");
+        [["Colégio Horizonte", "Aguard. aprovação", "14d"], ["Vetra Logística", "Negociação", "31d"], ["Hotel Marés", "Proposta enviada", "19d"], ["Óticas Visão", "Proposta enviada", "23d"], ["Laticínios Serra", "Aguard. aprovação", "9d"], ["AgroVale Sementes", "Aguard. aprovação", "14d"], ["Transportes Rota Sul", "Aguard. aprovação", "9d"], ["Grupo Atlas", "Negociação", "3d"], ["Rede Farma+", "Proposta enviada", "2d"], ["Construtora Alicerce", "Negociação", "5d"], ["Pet Shop Amigo Fiel", "Proposta enviada", "11d"], ["Moveis Lar Feliz", "Negociação", "16d"]]
+          .forEach(([n, e, d]) => { const r = document.createElement("div"); r.className = "mini"; r.innerHTML = `<span>${n}</span><span style="color:#5b6378;font-weight:500">${e}</span><span class="d">${d}</span>`; pag.appendChild(r); }); }
+      tl.set("#nav", { opacity: 1 }, C[2] - 0.02); tl.fromTo("#nav", { y: 60 }, { y: 0, duration: 0.4, ease: "power3.out" }, C[2]);
+      tl.set("#nav", { opacity: 0 }, C[4] - 0.02);
+      tl.set("#trilho", { opacity: 1 }, C[2]); tl.set("#trilho", { opacity: 0 }, C[5] - 0.02);
+      [["#tp1", 2], ["#tp2", 3], ["#tp3", 4]].forEach(([s, i]) => { tl.set(s, { className: "on" }, C[i]); if (i < 4) tl.set(s, { className: "feito" }, C[i + 1]); });
+      entra("#s2 .tit", C[2] + 0.05); entra("#s3 .tit", C[3] + 0.05); entra("#s4 .tit", C[4] + 0.05);
+      const tExt = em("chrome", 1, 15);
+      tl.set("#cursor", { opacity: 1 }, C[2] + 0.3);
+      tl.fromTo("#cursor", { x: 540, y: 1300 }, { x: 990, y: 395, duration: 1.1, ease: "power2.inOut" }, C[2] + 0.3);
+      tl.fromTo("#clique", { x: 966, y: 362, scale: 0.3, opacity: 1 }, { scale: 1.3, opacity: 0, duration: 0.4 }, tExt + 0.2);
+      tl.set("#ext", { className: "on" }, tExt + 0.2);
+      tl.set("#cursor", { opacity: 0 }, C[3] - 0.1);
+      tl.to("#painel", { x: 0, duration: 0.45, ease: "power3.out" }, em("claude", 2, 19.5) - 0.1);
+      { const txt = "Liste as propostas paradas há mais de 7 dias. Ordene pela chance de fechar (etapa, último sinal do cliente e dias parada) e escreva um follow-up curto e pessoal para as 5 primeiras.";
+        const el = document.getElementById("ped"); const ini = em("claude", 2, 19.5) + 0.4, fim = C[4] - 0.3, ps = (fim - ini) / txt.length;
+        for (let i = 0; i <= txt.length; i += 3) tl.set(el, { textContent: txt.slice(0, i) }, ini + i * ps); tl.set(el, { textContent: txt }, fim); }
+
+      // ---- S4 ranking que se reordena ----
+      { const rank = document.getElementById("rank");
+        const ord = [["Hotel Marés", "R$ 86 mil", 31], ["Vetra Logística", "R$ 120 mil", 45], ["Óticas Visão", "R$ 32 mil", 22], ["Colégio Horizonte", "R$ 140 mil", 74], ["Laticínios Serra", "R$ 18 mil", 73], ["AgroVale Sementes", "R$ 18 mil", 64], ["Transportes Rota Sul", "R$ 45 mil", 58], ["Pet Shop Amigo Fiel", "R$ 58 mil", 20], ["Moveis Lar Feliz", "R$ 72 mil", 18], ["Instituto Saber", "R$ 98 mil", 12]];
+        const final = [3, 4, 5, 6, 1, 0, 2, 7, 8, 9]; // nova posição por ordem de pontuação
+        const novaPos = []; final.forEach((idx, pos) => (novaPos[idx] = pos));
+        ord.forEach(([n, v, sc], i) => { const c = document.createElement("div"); c.className = "card"; c.style.top = 80 + i * 88 + "px";
+          c.innerHTML = `<span class="pos">${i + 1}</span><span>${n}</span><span class="v">${v}</span><span class="sc">${sc}</span>`; rank.appendChild(c);
+          tl.fromTo(c, { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.15 }, C[4] + 0.2 + i * 0.06);
+          const p = novaPos[i]; const t = C[4] + 2.4;
+          tl.to(c, { y: (p - i) * 88, duration: 0.7, ease: "power3.inOut" }, t);
+          tl.set(c.querySelector(".pos"), { textContent: String(p + 1) }, t + 0.4);
+          if (p < 5) { tl.set(c, { className: "card top" }, t + 0.6); tl.set(c.querySelector(".sc"), { backgroundColor: "#d7ff3a" }, t + 0.6); } }); }
+      tl.fromTo("#scan", { y: 60 }, { y: 940, duration: 2.0, ease: "none" }, C[4] + 0.3);
+      tl.set("#scan", { opacity: 0 }, C[4] + 2.35);
+
+      // ---- S5 rascunhos de follow-up digitados ----
+      const digita = (sel, txt, ini, dur) => { const el = document.querySelector(sel); for (let i = 0; i <= txt.length; i += 2) tl.set(el, { textContent: txt.slice(0, i) }, ini + (i / txt.length) * dur); tl.set(el, { textContent: txt }, ini + dur); };
+      entra("#m1", C[5]); digita("#t1", "Oi, Renata! Revisei a proposta com o time e consigo melhorar a condição se fecharmos até sexta. Te mando a versão nova hoje?", C[5] + 0.4, 2.6);
+      entra("#m2", em("decisor", 1, 33.5) - 0.6); digita("#t2", "Oi, Marcos! Soube da mudança na diretoria. Posso apresentar a proposta pro novo responsável em 15 minutos esta semana?", em("decisor", 1, 33.5) - 0.2, 2.6);
+
+      // ---- S6 sem integração ----
+      [["#x1", "integração"], ["#x2", "ti"], ["#x3", "planilha"]].forEach(([s, w]) => { entra(s, em(w, 1, 37) - 0.35, { x: -60, y: 0 }, { x: 0 }); tl.to(`${s} i`, { scaleX: 1, duration: 0.25 }, em(w, 1, 37) + 0.1); });
+      entra("#olho", em("ver", 1, 40) - 0.4, { scale: 0.85 }, { scale: 1 });
+
+      // ---- S7 rotina + push no celular ----
+      entra("#term", C[7] + 0.1);
+      entra("#cel", em("segunda", 1, 46) - 0.3, { y: 300 }, { y: 0 });
+      tl.fromTo("#push", { opacity: 0, y: -60, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.4, ease: "back.out(1.8)" }, em("resumo", 1, 47.5) - 0.1);
+
+      // ---- S8 quem envia ----
+      entra("#s8 .card8", C[8]);
+      tl.fromTo("#enviar", { scale: 1 }, { scale: 1.06, duration: 0.3, yoyo: true, repeat: 3 }, C[8] + 0.6);
+      tl.fromTo("#s8 .l2", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3 }, em("quem", 3, 53.5) - 0.2);
+
+      // ---- S9 CTA ----
+      entra("#s9 .cta", C[9]);
+      const tSeg = em("segue", 1, 55.6);
+      tl.to("#seguir", { scale: 0.9, duration: 0.1, yoyo: true, repeat: 1 }, tSeg + 0.25);
+      tl.set("#seguir", { textContent: "Seguindo ✓", backgroundColor: "#e4e6eb", color: "#0e1424" }, tSeg + 0.45);
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
