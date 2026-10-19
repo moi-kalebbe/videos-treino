@@ -46,3 +46,10 @@ curl -sL -o terra.jpg "https://eoimages.gsfc.nasa.gov/images/imagerecords/144000
 Ambiente em `~/.cache/ltx-teste/` (fora do repo): `.venv` com PyTorch (MPS) + diffusers, script `gerar.py`.
 Modelo `ltxv-2b-0.9.8-distilled` (8 passos) + T5 em bf16 carregado à parte, para caber nos 16 GB.
 Resultado do teste: _a preencher_.
+
+## Atenção: vídeo HDR do Pexels (aprendido em 19/10/2026)
+Alguns vídeos do Pexels são HDR de iPhone (`color_transfer=arib-std-b67`, `bt2020`). Basta **um** clipe assim para o HyperFrames renderizar o vídeo inteiro em HDR 16 bits: fica 10× mais lento (50 min sem terminar) e sai com perfil de cor errado para o Instagram. Antes de renderizar:
+```bash
+for f in producao/<slug>/assets/video/*.mp4; do ffprobe -v error -select_streams v:0 -show_entries stream=color_transfer -of csv=p=0 "$f" | grep -qE "b67|2084" && echo "HDR: $f"; done
+```
+Para cada HDR: `ffmpeg -i in.mp4 -vf "setparams=color_primaries=bt709:color_trc=bt709:colorspace=bt709,eq=contrast=1.12:saturation=1.1:gamma=0.95" -color_primaries bt709 -color_trc bt709 -colorspace bt709 -c:v libx264 -crf 20 -pix_fmt yuv420p out.mp4`. Render normal de ~2 min de vídeo: 5 min. Renderizar um vídeo por vez.
