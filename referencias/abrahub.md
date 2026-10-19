@@ -67,3 +67,12 @@ Vídeo de vendas do curso (R$ 197), enviado pelo dono. Bruto em `referencias/_br
 - **Carona:** usar a notícia de IA da semana (Plantão IA) ou o assunto do momento do mundo dos negócios, com a nossa estética.
 - **Estética travada:** escrever um bloco JSON de estilo (luz, lente, paleta, grão, enquadramento) e usar o mesmo em todas as cenas do vídeo, tanto no FLUX quanto no LTX.
 - **Ferramentas grátis que já temos:** LTX-Video local (~1 min por cena de 4 s) e FLUX no Hugging Face (imagem; ~3 por dia sem token).
+
+## 8. Os 12 Reels revistos com a lente do método (19/10/2026)
+- **Carona sempre em assunto do momento:** eleição 2026 ("a batalha final se aproxima", ab-01), gastos do governo (ab-02), o "Bolsonaro hipotético" da discussão da semana (ab-04), promessa de "trabalhar pelo povo" (ab-05), proibição que "tirou o ganha-pão" dos influenciadores (ab-08), limite semanal do Claude (ab-07), indústria da beleza (ab-10).
+- **A técnica que mais aparece: expressão popular levada ao pé da letra.** "Mamar nas tetas" vira uma vaca escrita IMPOSTO sendo ordenhada; "monstro" vira um sapo gigante de terno no meio da multidão de Copacabana; "trabalhar pelo povo" vira o político atrás do balcão do McDonald's e pedalando de entregador; "ganha-pão" vira o influenciador chorando com o cheque de R$ 2 milhões.
+- **Bits a cada ~2 s, estética única:** luz dourada, fotorrealista, lugares brasileiros reconhecíveis (Copacabana, posto, padaria, fast-food). O familiar segura a credibilidade; o exagero dá o choque.
+- **Escalada:** começa plausível e vai ficando mais absurdo (sapo na multidão → pterodáctilo sobre o Rio → fornalha → ordenhar a vaca).
+- **Som:** música conhecida (às vezes em inglês, melancólica, em contraste com a cena) e pouca ou nenhuma fala.
+- O 07 (Claude) e o 10 (beleza) mostram que dá para usar o método **sem política**: dor do nicho + contraste (o dev que volta à natureza quando acaba o limite; o rosa fofo da clínica com horror corporal).
+Aplicado no estilo [Cena Impossível](../estilos/cena-impossivel/README.md) (banco de expressões de empresa e tabela de carona).
