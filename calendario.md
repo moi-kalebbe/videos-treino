@@ -24,4 +24,5 @@ Fonte única do que está publicado, agendado e planejado no Instagram. **Atuali
 ## Como agendar
 - **Até 24 h antes:** preparar o contêiner (`scripts/publicar-instagram.py <mp4> <legenda> --capa <jpg>`) e, no horário, publicar com `--conteiner <ID>` por um job com `caffeinate`.
 - **Mais de 24 h antes:** o contêiner expira, então usar um LaunchAgent de uma vez só (como o da A Virada 02): ele roda `--publicar` no dia e se desliga.
+- **Google Agenda do dono** (kalebbe.moises@gmail.com): todo agendamento vira um evento "📲 Reel · <série> · <tema>" no horário em que o Mac roda (lembrete 30 min antes, para ligar o Mac); vídeo ainda não produzido entra como "⚠️ Reel · ... (A PRODUZIR)", com lembrete 2 dias antes. Ao reagendar ou cancelar, atualizar o evento também. Eventos de 19/10 a 30/10 criados em 19/10/2026.
 - Conferir depois: `launchctl print gui/$(id -u)/<label>` e o log; ao publicar, trocar a linha da agenda para ✅ com o link.
