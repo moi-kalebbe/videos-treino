@@ -29,10 +29,12 @@ O dono sobe vídeos de referência nas **Notas Rápidas** do Mac. Quando pedir p
 4. Levar o que agrega para `formatos/` e `repertorio/`.
 
 ## Calendário
-`calendario.md` tem a grade semanal (domingo Plantão IA, segunda A Virada, quarta Caso Real) e tudo o que foi publicado ou agendado. **Atualizar ao publicar ou agendar** e consultar antes de propor o próximo vídeo. Agendamentos de mais de 24 h ficam em `agendamentos/` (LaunchAgent + script).
+`calendario.md` tem a grade semanal (domingo Plantão IA, segunda A Virada, quarta Caso Real, sexta IA por Setor; Dossiê avulso quando há assunto em alta) e tudo o que foi publicado ou agendado. **Atualizar ao publicar, agendar ou remarcar**, junto com o evento no Google Agenda do dono, e consultar antes de propor o próximo vídeo. Agendamentos de mais de 24 h ficam em `agendamentos/` (LaunchAgent + script).
 
 ## Regras
-- **Voz e áudio:** seguir `guias/voz-e-audio.md` em todo vídeo ("IA" escrito normal, fala por fala sem `<break>`, +0,7 s no fim do avatar, conferência local por trechos).
+- **Voz e áudio:** seguir `guias/voz-e-audio.md` em todo vídeo ("IA" escrito normal, narração **em blocos** com `scripts/narracao_blocos.py`, sem `<break>`, +0,7 s no fim do avatar, conferência local por trechos).
+- **Variar o visual:** antes de compor, ver o que os últimos 3 vídeos da série usaram e trocar cor de destaque, entrada do texto e transição.
+- **HDR:** conferir `color_transfer` dos vídeos do Pexels antes do render (`guias/bancos-de-midia.md`).
 - **Mídia grátis primeiro:** antes de gerar imagem ou vídeo pago, ver `guias/bancos-de-midia.md` (Pexels, Pixabay, NASA, Wikimedia, Hugging Face, LTX local).
 - **Efeitos:** catálogo dos 17 efeitos e como fazer cada um no HyperFrames em `guias/efeitos-video.md` (vale para todos os estilos).
 - **Roteiro:** seguir `guias/linguagem-natural.md` (fala de conversa, sem impacto genérico, humor quando couber).
