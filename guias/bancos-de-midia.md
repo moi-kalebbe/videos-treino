@@ -40,7 +40,7 @@ curl -sL -o terra.jpg "https://eoimages.gsfc.nasa.gov/images/imagerecords/144000
 
 **Música e efeitos da Pixabay** não têm API. Abrir `pixabay.com/music/search/<termo>/` (ou `/sound-effects/search/`) no navegador embutido e, no JS da página, buscar cada faixa com `fetch` e pegar o link `cdn.pixabay.com/download/audio/...mp3`; depois baixar com `curl -e https://pixabay.com/`.
 
-**Imagem gerada grátis (Hugging Face):** o conector do Claude não deixa invocar Spaces. Usar `gradio_client` no venv `~/.cache/ltx-teste` (`flux.py <saida> "<prompt>"`, Space `mcp-tools/FLUX.1-Krea-dev`, 768x1344). Sem token HF a cota é de ~3 imagens por dia; com token, bem mais. Ficou com cara de cinema (vigia no mastro, chave antiga, armário) na A Virada 01.
+**Imagem gerada grátis (Hugging Face):** o conector do Claude não deixa invocar Spaces. Usar `gradio_client` no venv `~/.cache/ltx-teste` (`flux.py <saida> "<prompt>"`, Space `mcp-tools/FLUX.1-Krea-dev`, 768x1344). Sem token HF a cota é de ~3 imagens por dia; **com o `HF_TOKEN` no `.env` (salvo em 19/10/2026) a cota é bem maior**, e o `flux.py` já lê o token. Ficou com cara de cinema (vigia no mastro, chave antiga, armário) na A Virada 01.
 
 ## LTX-Video local (teste em 18/10/2026)
 Ambiente em `~/.cache/ltx-teste/` (fora do repo): `.venv` com PyTorch (MPS) + diffusers, script `gerar.py`.

@@ -57,7 +57,7 @@ Para cada vídeo, trocar **paleta, tipografia da tela e entrada do texto** em re
 Ordem testada em 19/10/2026:
 1. **Quadro real + impossível injetado (melhor resultado):** pegar um quadro de um vídeo real do Pexels (pessoa, escritório) e animar com o **LTX-Video no Mac em modo imagem → vídeo**, pedindo o elemento impossível ("o quadro branco pega fogo e ele continua desenhando"). Fica com cara de filmagem real. ~1,5 min por cena de 4 s, sem crédito. Exemplo: `saida/testes/ltx-teste-i2v.mp4`.
 2. **Texto → vídeo no LTX:** serve para cenas abertas (avalanche de papel, fogo ao fundo), mas o rosto e as mãos ficam "plásticos". Exemplo: `saida/testes/ltx-teste-incendio.mp4`.
-3. **Imagem de alta qualidade (FLUX no Hugging Face) → LTX imagem → vídeo:** o melhor para cenas que não existem em banco (T-rex de terno). Precisa de token HF grátis (sem token, ~3 imagens por dia).
+3. **Imagem de alta qualidade (FLUX no Hugging Face) → LTX imagem → vídeo (melhor para cena que não existe em banco):** testado em 19/10/2026 com `HF_TOKEN` no `.env`: a imagem sai em ~30 s com cara de cinema e o Mac anima em ~1,5 min (`saida/testes/flux-ceo-incendio.png` → `saida/testes/flux-ltx-ceo-incendio.mp4`). É o caminho padrão do quadro 0.
 4. Pago (ElevenLabs, ~800 créditos a imagem): só no quadro 0, se nenhum dos acima resolver.
 
 ```bash
