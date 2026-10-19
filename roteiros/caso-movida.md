@@ -10,7 +10,7 @@
 | Efeitos | hook com notificação + número dourado (5×) · parede de manchetes reais + zoom-through · corte de contraste robô de menu × agente (Abrahub) · tela preta seca "48 H" (Hard Copy) · tarjas de cinema + palavra gigante vermelha na fala do diretor (Abrahub) · legenda Anton palavra a palavra · fundo em vídeo em todas as cenas |
 | CTA | comenta `DIAGNÓSTICO` |
 | Publicação | quarta 21/10/2026, 12h00 |
-| Status | aguardando aprovação |
+| Status | aprovado (v2) · agendado no Mac para 21/10/2026 11h45 → no ar ~12h00, com capa e legenda |
 
 ## Narração (`gancho/` + `falas.txt` + `desenrolar/`)
 H. *Hook:* A Movida passou a vender pelo WhatsApp gastando cinco vezes menos. E o segredo cabe numa frase.
