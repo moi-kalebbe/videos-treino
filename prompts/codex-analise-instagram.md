@@ -1,6 +1,6 @@
 # Prompt para o Codex: análise do Instagram (o que está dando certo)
 
-> Cole este arquivo inteiro no Codex, junto com o `prompts/codex-reforco.md`. Se o dono subiu skills ou materiais sobre análise de Instagram, leia-os primeiro e adapte este plano a eles (o Claude não encontrou esse material no repo nem nas skills em 19/10/2026).
+> Cole este arquivo inteiro no Codex, junto com o `prompts/codex-reforco.md`. Leia antes `referencias/instagram-analise.md`: as duas referências que o dono subiu (conector **Windsor.ai** no Claude e o repositório **sergebulaev/instagram-skills**, que tem plugin para o Codex).
 
 ## Objetivo
 Responder toda semana, com dados do próprio perfil **@moiseskalebbe**: **qual série, estilo, gancho e tema está funcionando**, para decidir o próximo vídeo. O dono quer ver as métricas e o que repetir, não um painel bonito sem conclusão.
@@ -9,6 +9,11 @@ Responder toda semana, com dados do próprio perfil **@moiseskalebbe**: **qual s
 - Acesso à API do Instagram (Instagram Login, app "appmoi"): `INSTAGRAM_USER_ID` e `INSTAGRAM_ACCESS_TOKEN` no `.env` (nunca no git). Base `https://graph.instagram.com/v23.0`. Veja `scripts/publicar-instagram.py` para o jeito de carregar o `.env` e chamar a API.
 - `calendario.md`: cada post publicado tem data, série (Plantão IA, A Virada, Caso Real, IA por Setor, Dossiê) e link do Reel. É a "chave" para ligar métrica a série/estilo.
 - `roteiros/<slug>.md`: gancho, efeitos, duração e estilo de cada vídeo.
+
+## Ferramentas que o dono trouxe (avaliar primeiro)
+- **sergebulaev/instagram-skills** (MIT): instale no Codex (`codex plugin marketplace add sergebulaev/instagram-skills` + `codex plugin add instagram-skills@instagram-skills`) e use para **auditoria do perfil**, "o que está funcionando no nicho" (Apify, custo por uso: avise antes) e ganchos alternativos. Leia o código antes de dar qualquer token.
+- **Windsor.ai** (conector do claude.ai, pago com teste grátis): caminho sem código para o dashboard. Só se o dono quiser pagar; o script abaixo faz o essencial de graça.
+- O relatório final pode juntar as duas coisas: **nossos números** (script abaixo) + **leitura do nicho e do perfil** (skills).
 
 ## O que construir
 1. **`scripts/analise-instagram.py`**
