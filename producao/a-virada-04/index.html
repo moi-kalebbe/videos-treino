@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=1080, height=1920" />
-    <title>A Virada · 04 · Dez Anos</title>
+    <title>A Virada · 04 · A Gaveta</title>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
     <script src="assets/legenda.js"></script>
     <style>
@@ -50,7 +50,7 @@
       #cta .pede { position: absolute; left: 0; right: 0; top: 640px; text-align: center; font: 400 120px "Anton"; color: var(--branco); }
       #cta .campo { position: absolute; left: 80px; right: 80px; top: 820px; height: 190px; border: 6px solid var(--vermelho); display: flex; align-items: center; justify-content: center; }
       #cta .campo span { font: 400 132px "Anton"; color: var(--vermelho); letter-spacing: 0.02em; }
-      #cta .assina { position: absolute; left: 0; right: 0; top: 1110px; text-align: center; font: italic 400 76px "Instrument Serif"; color: #f2efe8d9; }
+      #cta .assina { position: absolute; left: 0; right: 0; top: 1110px; text-align: center; white-space: nowrap; font: italic 400 64px "Instrument Serif"; color: #f2efe8d9; }
       #cta .serie { position: absolute; left: 0; right: 0; top: 1260px; text-align: center; font: 500 30px "JetBrains Mono"; letter-spacing: 0.22em; color: #f2efe899; }
       #cta img { position: absolute; left: 50%; top: 1380px; width: 220px; margin-left: -110px; display: block; }
 
@@ -84,93 +84,95 @@
       /* apagão do painel */
       #apagao { position: absolute; inset: 0; background: repeating-linear-gradient(0deg, #ffffff22 0 2px, #0000 2px 6px); opacity: 0; mix-blend-mode: screen; }
       #selo { position: absolute; left: 70px; top: 230px; padding: 6px 12px; background: #050505b3; font: 500 28px "JetBrains Mono"; letter-spacing: 0.16em; color: #f2efe8; opacity: 0; }
+      /* citação (rima: a frase da diretoria de 1975 volta igual na empresa de hoje) */
+      .cit { position: absolute; left: 80px; right: 80px; top: 560px; text-align: center; opacity: 0; }
+      .cit .q { font: italic 400 112px/1.08 "Instrument Serif"; color: #f6efe2; text-shadow: 0 8px 40px #000; }
+      .cit .q span { opacity: 0; } .cit .q span.k { color: var(--vermelho); }
+      .cit .aspas { display: block; font: italic 400 220px/0.6 "Instrument Serif"; color: var(--ouro); margin-bottom: 30px; }
+      .cit .quem { margin-top: 40px; font: 500 30px "JetBrains Mono"; letter-spacing: 0.16em; color: #f2efe8b3; opacity: 0; }
+      .cit .quem span { background: #050505b3; padding: 4px 12px; }
+      #o-gancho .n { font-size: 180px; }
     </style>
   </head>
   <body>
-    <div id="root" data-composition-id="main" data-start="0" data-duration="117.0" data-width="1080" data-height="1920">
-      <div id="preto" class="clip" data-start="0" data-duration="117" data-track-index="0"></div>
-      <video id="v-k00" class="vid" src="assets/video/k00.mp4" muted playsinline data-start="0.0" data-duration="4.855"></video>
-      <video id="v-k01" class="vid" src="assets/video/k01.mp4" muted playsinline data-start="4.855" data-duration="0.884"></video>
-      <video id="v-k01b" class="vid" src="assets/video/k01b.mp4" muted playsinline data-start="5.739" data-duration="3.263"></video>
-      <video id="v-k02" class="vid" src="assets/video/k02.mp4" muted playsinline data-start="9.002" data-duration="2.555"></video>
-      <video id="v-k03" class="vid" src="assets/video/k03.mp4" muted playsinline data-start="11.557" data-duration="9.145"></video>
-      <video id="v-k04" class="vid" src="assets/video/k04.mp4" muted playsinline data-start="20.702" data-duration="5.297"></video>
-      <video id="v-k05" class="vid" src="assets/video/k05.mp4" muted playsinline data-start="25.999" data-duration="3.882"></video>
-      <video id="v-k06" class="vid" src="assets/video/k06.mp4" muted playsinline data-start="29.881" data-duration="6.358"></video>
-      <video id="v-k07" class="vid" src="assets/video/k07.mp4" muted playsinline data-start="36.239" data-duration="3.484"></video>
-      <video id="v-k08" class="vid" src="assets/video/k08.mp4" muted playsinline data-start="39.723" data-duration="4.77"></video>
-      <video id="v-k09" class="vid" src="assets/video/k09.mp4" muted playsinline data-start="44.493" data-duration="4.232"></video>
-      <video id="v-k10" class="vid" src="assets/video/k10.mp4" muted playsinline data-start="50.659" data-duration="3.761"></video>
-      <video id="v-k12" class="vid" src="assets/video/k12.mp4" muted playsinline data-start="58.745" data-duration="2.775"></video>
-      <video id="v-k13" class="vid" src="assets/video/k13.mp4" muted playsinline data-start="61.52" data-duration="7.023"></video>
-      <video id="v-k14" class="vid" src="assets/video/k14.mp4" muted playsinline data-start="68.543" data-duration="3.439"></video>
-      <video id="v-k16" class="vid" src="assets/video/k16.mp4" muted playsinline data-start="73.21" data-duration="5.032"></video>
-      <video id="v-k17" class="vid" src="assets/video/k17.mp4" muted playsinline data-start="78.242" data-duration="2.865"></video>
-      <video id="v-k18" class="vid" src="assets/video/k18.mp4" muted playsinline data-start="81.107" data-duration="3.073"></video>
-      <video id="v-k18b" class="vid" src="assets/video/k18b.mp4" muted playsinline data-start="84.18" data-duration="3.619"></video>
-      <video id="v-k19" class="vid" src="assets/video/k19.mp4" muted playsinline data-start="87.799" data-duration="4.5"></video>
-      <video id="v-k19b" class="vid" src="assets/video/k19b.mp4" muted playsinline data-start="92.299" data-duration="2.523"></video>
-      <video id="v-k20" class="vid" src="assets/video/k20.mp4" muted playsinline data-start="94.822" data-duration="7.375"></video>
-      <video id="v-k21" class="vid" src="assets/video/k21.mp4" muted playsinline data-start="102.197" data-duration="3.75"></video>
-      <video id="v-k22" class="vid" src="assets/video/k22.mp4" muted playsinline data-start="105.947" data-duration="3.218"></video>
-      <video id="v-k24" class="vid" src="assets/video/k24.mp4" muted playsinline data-start="110.835" data-duration="2.422"></video>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="81.3" data-width="1080" data-height="1920">
+      <div id="preto" class="clip" data-start="0" data-duration="81.3" data-track-index="0"></div>
+      <video id="v-k00" class="vid" src="assets/video/k00.mp4" muted playsinline data-start="0.0" data-duration="5.516"></video>
+      <video id="v-k01" class="vid" src="assets/video/k01.mp4" muted playsinline data-start="5.516" data-duration="4.215"></video>
+      <video id="v-k02" class="vid" src="assets/video/k02.mp4" muted playsinline data-start="9.731" data-duration="0.806"></video>
+      <video id="v-k02b" class="vid" src="assets/video/k02b.mp4" muted playsinline data-start="10.537" data-duration="3.641"></video>
+      <video id="v-k03" class="vid" src="assets/video/k03.mp4" muted playsinline data-start="14.178" data-duration="8.07"></video>
+      <video id="v-k04" class="vid" src="assets/video/k04.mp4" muted playsinline data-start="22.248" data-duration="2.729"></video>
+      <video id="v-k05" class="vid" src="assets/video/k05.mp4" muted playsinline data-start="24.977" data-duration="3.529"></video>
+      <video id="v-k06" class="vid" src="assets/video/k06.mp4" muted playsinline data-start="28.506" data-duration="3.904"></video>
+      <video id="v-k07" class="vid" src="assets/video/k07.mp4" muted playsinline data-start="32.41" data-duration="4.451"></video>
+      <video id="v-k07b" class="vid" src="assets/video/k07b.mp4" muted playsinline data-start="36.861" data-duration="2.644"></video>
+      <video id="v-k08" class="vid" src="assets/video/k08.mp4" muted playsinline data-start="39.505" data-duration="4.726"></video>
+      <video id="v-k09" class="vid" src="assets/video/k09.mp4" muted playsinline data-start="44.231" data-duration="5.283"></video>
+      <video id="v-k10" class="vid" src="assets/video/k10.mp4" muted playsinline data-start="49.514" data-duration="4.676"></video>
+      <video id="v-k11" class="vid" src="assets/video/k11.mp4" muted playsinline data-start="54.19" data-duration="4.056"></video>
+      <video id="v-k11b" class="vid" src="assets/video/k11b.mp4" muted playsinline data-start="58.246" data-duration="2.609"></video>
+      <video id="v-k12" class="vid" src="assets/video/k12.mp4" muted playsinline data-start="60.855" data-duration="3.565"></video>
+      <video id="v-k13" class="vid" src="assets/video/k13.mp4" muted playsinline data-start="64.42" data-duration="1.839"></video>
+      <video id="v-k13b" class="vid" src="assets/video/k13b.mp4" muted playsinline data-start="66.259" data-duration="3.073"></video>
+      <video id="v-k14" class="vid" src="assets/video/k14.mp4" muted playsinline data-start="69.332" data-duration="3.522"></video>
+      <video id="v-k14b" class="vid" src="assets/video/k14b.mp4" muted playsinline data-start="72.854" data-duration="1.111"></video>
+      <video id="v-k15" class="vid" src="assets/video/k15.mp4" muted playsinline data-start="75.13" data-duration="2.4"></video>
 
-      <section id="palco" class="clip" data-start="0" data-duration="117.0" data-track-index="1">
+      <section id="palco" class="clip" data-start="0" data-duration="81.3" data-track-index="1">
         <div id="sombra"></div>
         <div class="tela-preta" id="preta"></div>
-        <div class="ouro" id="o-1975"><div class="n">1975</div><div class="s">DEZEMBRO · LABORATÓRIO DA KODAK</div></div>
-        <div class="ouro" id="o-kg"><div class="n">3,6 KG</div><div class="s">GRAVA NUMA FITA CASSETE</div></div>
-        <div class="ouro" id="o-seg"><div class="n" id="n-seg">0 s</div><div class="s">PRA GRAVAR UMA FOTO</div></div>
-        <div id="foto"><div class="quadro"><img src="assets/img/foto-1975.png" alt="" /><div class="lin"></div><div class="scan"></div></div><p><span>100 × 100 PIXELS · SEM FILME</span></p></div>
-        <div id="conta"><div class="linha"><div class="velho">1975<div class="risco"></div></div><div class="novo">1981</div></div><div class="u"><span>A INVENÇÃO</span><span>O AVISO</span></div></div>
-        <div class="ouro" id="o-anos"><div class="n" id="n-anos">1981</div><div class="s" id="s-anos">O PRAZO COMEÇA</div></div>
+        <div class="ouro" id="o-gancho"><div class="n">1975 → 2012</div><div class="s">INVENTOU · <em>FALIU</em></div></div>
+        <div class="ouro" id="o-1975"><div class="n">1975</div><div class="s">A PRIMEIRA CÂMERA DIGITAL</div></div>
+        <div id="foto"><div class="quadro"><img src="assets/img/foto-1975.png" alt="" /><div class="lin"></div><div class="scan"></div></div><p><span>SEM FILME · NUMA TELEVISÃO</span></p></div>
+        <div class="cit" id="cit1"><span class="aspas">“</span><div class="q"></div><p class="quem"><span>A DIRETORIA DA KODAK · 1975</span></p></div>
+        <div class="cit" id="cit2"><span class="aspas">“</span><div class="q"></div><p class="quem"><span>MUITA EMPRESA · HOJE</span></p></div>
         <div id="fechado">FALÊNCIA</div>
         <div id="texto"></div>
         <div id="cta">
           <p class="pede">COMENTA</p>
           <div class="campo"><span id="digitado"></span></div>
-          <p class="assina">Eu te ajudo a usar o prazo.</p>
+          <p class="assina">Eu ajudo a tirar a IA da gaveta.</p>
           <p class="serie">A VIRADA · TODA SEGUNDA</p>
           <img src="assets/marca/logo-branca.png" alt="" />
         </div>
         <div id="grao"></div>
         <div id="vinheta"></div>
         <div id="tremor"></div>
-        <p id="selo">HISTÓRIA REAL · KODAK, 1975</p>
+        <p id="selo">HISTÓRIA REAL · KODAK</p>
         <img id="marca" src="assets/marca/logo-branca.png" alt="" />
       </section>
 
-      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="114.5" data-volume="1"></audio>
-      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="117.0" data-volume="0.3" data-fade-out="1.5"></audio>
-      <audio id="amb-projetor" src="assets/audio/projetor.mp3" data-start="0" data-duration="11.5" data-volume="0.16"></audio>
-      <audio id="sfx-clique1" src="assets/audio/k_clique.mp3" data-sinc="palavra:casamento:1:-0.05" data-start="4.98" data-duration="1" data-volume="0.5"></audio>
-      <audio id="sfx-clique2" src="assets/audio/k_clique.mp3" data-sinc="palavra:escola:1:-0.05" data-start="6.39" data-duration="1" data-volume="0.5"></audio>
-      <audio id="sfx-clique3" src="assets/audio/k_clique.mp3" data-sinc="palavra:natal:1:-0.05" data-start="7.28" data-duration="1" data-volume="0.5"></audio>
-      <audio id="sfx-flash" src="assets/audio/k_flash1.mp3" data-sinc="palavra:kodak:1:-0.1" data-start="10.41" data-duration="1.6" data-volume="0.7"></audio>
-      <audio id="sfx-fita" src="assets/audio/k_fita.mp3" data-sinc="cena:4:0.3" data-start="21.0" data-duration="5" data-volume="0.45"></audio>
-      <audio id="sfx-clique4" src="assets/audio/k_clique.mp3" data-sinc="palavra:foto:2:0" data-start="26.61" data-duration="1" data-volume="0.6"></audio>
-      <audio id="sfx-relogio1" src="assets/audio/relogio.mp3" data-sinc="cena:6:0" data-start="29.88" data-duration="2.6" data-volume="0.35"></audio>
-      <audio id="sfx-tvon" src="assets/audio/k_tvon.mp3" data-sinc="palavra:televisão:1:-0.25" data-start="32.47" data-duration="2" data-volume="0.6"></audio>
-      <audio id="sfx-tv" src="assets/audio/k_tv.mp3" data-sinc="palavra:televisão:1:0.6" data-start="33.32" data-duration="4" data-volume="0.16"></audio>
-      <audio id="sfx-coracao" src="assets/audio/coracao.mp3" data-sinc="cena:9:-0.8" data-start="43.69" data-duration="5.5" data-volume="0.45"></audio>
-      <audio id="sfx-boom-virada" src="assets/audio/boom1.mp3" data-sinc="cena:10:-0.08" data-start="48.65" data-duration="2.78" data-volume="0.85"></audio>
-      <audio id="sfx-boom-1981" src="assets/audio/boom2.mp3" data-sinc="palavra:1981:1:-0.05" data-start="59.22" data-duration="2.09" data-volume="0.75"></audio>
-      <audio id="sfx-maquina" src="assets/audio/g_maquina.mp3" data-sinc="cena:13:0" data-start="61.52" data-duration="6.5" data-volume="0.28"></audio>
-      <audio id="sfx-relogio" src="assets/audio/relogio.mp3" data-sinc="cena:14:0" data-start="68.54" data-duration="8" data-volume="0.45"></audio>
-      <audio id="sfx-boom-dez" src="assets/audio/boom2.mp3" data-sinc="cena:15:-0.05" data-start="71.93" data-duration="2.09" data-volume="0.8"></audio>
-      <audio id="sfx-carimbo" src="assets/audio/g_carimbo.mp3" data-sinc="palavra:falência:1:0.05" data-start="83.57" data-duration="0.65" data-volume="0.9"></audio>
-      <audio id="amb-fabrica" src="assets/audio/k_fabrica.mp3" data-sinc="cena:18:0" data-start="81.11" data-duration="6.7" data-volume="0.3"></audio>
-      <audio id="sfx-luz" src="assets/audio/k_luz.mp3" data-sinc="palavra:empresa:2:-0.4" data-start="83.88" data-duration="0.86" data-volume="0.9"></audio>
-      <audio id="sfx-riser" src="assets/audio/riser.mp3" data-sinc="cena:19:-4.0" data-start="83.8" data-duration="4.03" data-volume="0.4"></audio>
-      <audio id="sfx-boom-hoje" src="assets/audio/boom2.mp3" data-sinc="cena:19:-0.05" data-start="87.75" data-duration="2.09" data-volume="0.85"></audio>
-      <audio id="sfx-relogio2" src="assets/audio/relogio.mp3" data-sinc="cena:22:0" data-start="105.95" data-duration="3.2" data-volume="0.55"></audio>
-      <audio id="sfx-braam-fim" src="assets/audio/braam.mp3" data-sinc="palavra:prazo:4:0.4" data-start="112.71" data-duration="4" data-volume="0.4"></audio>
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="78.78" data-volume="1"></audio>
+      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="81.3" data-volume="0.3" data-fade-out="1.5"></audio>
+      <audio id="amb-projetor" src="assets/audio/projetor.mp3" data-start="0" data-duration="14" data-volume="0.14"></audio>
+      <audio id="sfx-flash" src="assets/audio/k_flash1.mp3" data-sinc="cena:0:0.05" data-start="0.05" data-duration="1.6" data-volume="0.7"></audio>
+      <audio id="sfx-clique1" src="assets/audio/k_clique.mp3" data-sinc="palavra:casamento:1:-0.05" data-start="9.87" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-clique2" src="assets/audio/k_clique.mp3" data-sinc="palavra:escola:1:-0.05" data-start="11.14" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-clique3" src="assets/audio/k_clique.mp3" data-sinc="palavra:natal:1:-0.05" data-start="12.19" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-clique4" src="assets/audio/k_clique.mp3" data-sinc="palavra:digital:3:0" data-start="21.0" data-duration="1" data-volume="0.6"></audio>
+      <audio id="sfx-tvon" src="assets/audio/k_tvon.mp3" data-sinc="palavra:televisão:1:-0.25" data-start="23.55" data-duration="2" data-volume="0.6"></audio>
+      <audio id="sfx-tv" src="assets/audio/k_tv.mp3" data-sinc="palavra:televisão:1:0.6" data-start="24.4" data-duration="3" data-volume="0.16"></audio>
+      <audio id="sfx-coracao" src="assets/audio/coracao.mp3" data-sinc="cena:6:-0.8" data-start="27.71" data-duration="4.5" data-volume="0.45"></audio>
+      <audio id="sfx-boom-virada" src="assets/audio/boom1.mp3" data-sinc="cena:7:-0.08" data-start="32.33" data-duration="2.78" data-volume="0.85"></audio>
+      <audio id="sfx-gaveta1" src="assets/audio/k_gaveta_fecha.mp3" data-sinc="cena:9:3.9" data-start="48.13" data-duration="1.05" data-volume="0.9"></audio>
+      <audio id="sfx-boom-gaveta" src="assets/audio/boom2.mp3" data-sinc="cena:9:3.95" data-start="48.18" data-duration="2.09" data-volume="0.5"></audio>
+      <audio id="sfx-carimbo" src="assets/audio/g_carimbo.mp3" data-sinc="palavra:falência:1:0.05" data-start="52.34" data-duration="0.65" data-volume="0.9"></audio>
+      <audio id="amb-fabrica" src="assets/audio/k_fabrica.mp3" data-sinc="cena:10:0" data-start="49.51" data-duration="4.6" data-volume="0.25"></audio>
+      <audio id="sfx-riser" src="assets/audio/riser.mp3" data-sinc="cena:11:-4.0" data-start="50.19" data-duration="4.03" data-volume="0.4"></audio>
+      <audio id="sfx-boom-hoje" src="assets/audio/boom2.mp3" data-sinc="cena:11:-0.05" data-start="54.14" data-duration="2.09" data-volume="0.85"></audio>
+      <audio id="sfx-boom-cit2" src="assets/audio/boom1.mp3" data-sinc="cena:12:-0.08" data-start="60.77" data-duration="2.78" data-volume="0.55"></audio>
+      <audio id="sfx-gaveta2" src="assets/audio/k_gaveta_fecha.mp3" data-sinc="cena:13:1.7" data-start="66.12" data-duration="1.05" data-volume="0.9"></audio>
+      <audio id="sfx-relogio" src="assets/audio/relogio.mp3" data-sinc="cena:14:0" data-start="69.33" data-duration="3.5" data-volume="0.4"></audio>
+      <audio id="sfx-gaveta3" src="assets/audio/k_gaveta_abre.mp3" data-sinc="cena:14:0.5" data-start="69.83" data-duration="1.2" data-volume="0.8"></audio>
+      <audio id="sfx-gaveta4" src="assets/audio/k_gaveta_abre.mp3" data-sinc="palavra:ajudo:1:0.4" data-start="75.63" data-duration="1.2" data-volume="0.8"></audio>
+      <audio id="sfx-braam-fim" src="assets/audio/braam.mp3" data-sinc="palavra:gaveta:4:0.4" data-start="76.97" data-duration="4" data-volume="0.4"></audio>
     </div>
 
     <script>
       const PALAVRAS = window.LEGENDA || [];
       const C = window.CENAS;
-      const DURACAO = 117.0;
+      const DURACAO = 81.3;
       const limpar = (s) => s.toLowerCase().replace(/[.,?!:;…]/g, "");
       function em(palavra, n = 1, fallback = 0) {
         let visto = 0;
@@ -181,11 +183,11 @@
 
       // ---- texto palavra a palavra ----
       // 1º ato (história, até "Ele não respondeu"): serifa itálica, palavras douradas. Da virada em diante: Anton, vermelho.
-      const DOURADAS = new Set(["família#1", "casamento#1", "escola#1", "avó#1", "kodak#1", "1975#1", "sasson#1", "importância#1", "quilos#1", "cassete#1", "joy#1", "televisão#1", "nenhum#1", "digital#1", "diretoria#1", "bonitinho#1", "ninguém#1"]);
-      const VERMELHAS = new Set(["diretoria#2", "pronta#1", "1975#2", "1981#1", "substituir#1", "dez#1", "dez#2", "anos#3", "prazo#1", "prazo#2", "filme#3", "falência#1", "inteligência#1", "artificial#1", "antigo#1", "igualzinho#1", "dez#3", "câmera#4"]);
-      const VIRADA = 10;
-      const CENTRO = new Set([11, 15, 23]);
-      const SEM_TEXTO = new Set([25]);
+      const DOURADAS = new Set(["faliu#1", "digital#2", "família#1", "casamento#1", "escola#1", "avó#1", "1975#1", "digital#3", "filme#1", "televisão#1", "chefes#1"]);
+      const VERMELHAS = new Set(["filme#2", "filme#3", "primeiro#2", "gaveta#1", "antigo#1", "falência#1", "inteligência#1", "artificial#1", "gaveta#2", "planilha#1", "gaveta#3", "concorrente#1", "câmera#5", "gaveta#4"]);
+      const VIRADA = 7;
+      const CENTRO = new Set([]);
+      const SEM_TEXTO = new Set([6, 12, 16]);
       const caixa = document.getElementById("texto");
       const cenaDe = (t) => { let i = 0; while (i + 1 < C.length && C[i + 1] <= t + 0.01) i++; return i; };
       const contagem = {};
@@ -239,61 +241,49 @@
       const ouro = (sel, a, b) => { tl.fromTo(sel, { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "power2.out" }, a); tl.to(sel, { opacity: 0, duration: 0.3 }, b - 0.3); };
       function shake(sel, t, n = 8, a = 14) { for (let i = 0; i < n; i++) tl.to(sel, { x: (i % 2 ? -1 : 1) * a * (1 - i / n), y: (i % 3 - 1) * a * 0.6, duration: 0.05 }, t + i * 0.05); tl.to(sel, { x: 0, y: 0, duration: 0.05 }, t + n * 0.05); }
       // selo de história real durante a história
-      tl.fromTo("#selo", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.3);
+      tl.fromTo("#selo", { opacity: 0 }, { opacity: 1, duration: 0.4 }, C[1]);
       tl.set("#selo", { opacity: 0 }, C[VIRADA]);
+      // 0 · gancho: flash + 1975 → 2012
+      tl.fromTo("#tremor", { opacity: 0.85 }, { opacity: 0, duration: 0.5 }, 0.05);
+      ouro("#o-gancho", 0.3, C[1]);
       // flash de câmera nos cliques do álbum
       ["casamento", "escola", "natal"].forEach((p) => tl.fromTo("#tremor", { opacity: 0.55 }, { opacity: 0, duration: 0.3 }, em(p, 1, 5)));
-      tl.fromTo("#tremor", { opacity: 0.8 }, { opacity: 0, duration: 0.45 }, em("kodak", 1, 10));
-      // 3 · 1975
-      ouro("#o-1975", C[3] + 0.1, em("sasson", 1, 16) - 0.3);
-      // 4 · 3,6 kg, fita cassete
-      ouro("#o-kg", C[4] + 0.3, C[5]);
-      tl.fromTo("#tremor", { opacity: 0.6 }, { opacity: 0, duration: 0.3 }, em("foto", 2, 27));
-      // 6 · 23 segundos contando → a foto aparece na TV, linha a linha
-      { const el = document.getElementById("n-seg"); const o = { v: 0 }; const tv = em("televisão", 1, 33);
-        const escreve = () => (el.textContent = Math.round(o.v) + " s");
-        tl.set(o, { v: 0, onUpdate: escreve }, 0);
-        tl.fromTo("#o-seg", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3 }, C[6]);
-        tl.to(o, { v: 23, duration: tv - C[6] - 0.3, ease: "none", onUpdate: escreve }, C[6] + 0.1);
-        tl.to("#o-seg", { opacity: 0, duration: 0.2 }, tv - 0.2);
-        tl.fromTo("#foto", { opacity: 0 }, { opacity: 1, duration: 0.2 }, tv - 0.1);
-        tl.fromTo("#foto .scan", { scaleY: 1 }, { scaleY: 0, duration: 1.6, ease: "steps(24)" }, tv);
-        tl.to("#foto", { opacity: 0, duration: 0.3 }, C[8] - 0.3); }
-      // 9 · a resposta da diretoria: silêncio, quadro vazio
-      // 10 · falsa virada: preto seco + Anton
-      preta(C[VIRADA] - 0.4, em("mas", 2, 51) - 0.1);
-      tremor(C[VIRADA] - 0.08);
-      // 11–12 · 1975 riscado → 1981
-      preta(C[11], C[12]);
-      { tl.fromTo("#conta", { opacity: 0 }, { opacity: 1, duration: 0.3 }, C[11] + 0.1);
-        tl.fromTo("#conta .risco", { scaleX: 0, rotation: -6 }, { scaleX: 1, rotation: -6, duration: 0.25, ease: "power3.out" }, em("1975", 2, 57) + 0.2);
-        tl.to("#conta .novo", { opacity: 1, duration: 0.2 }, em("1981", 1, 59) - 0.05);
-        tremor(em("1981", 1, 59) - 0.05);
-        tl.to("#conta", { opacity: 0, duration: 0.3 }, C[13] - 0.3); }
-      // 14 · o prazo: 1981 → 1991 girando
-      { const el = document.getElementById("n-anos"); const o = { v: 1981 };
-        const escreve = () => (el.textContent = Math.round(o.v));
-        tl.set(o, { v: 1981, onUpdate: escreve }, 0);
-        tl.fromTo("#o-anos", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.3 }, C[14] + 0.2);
-        tl.to(o, { v: 1991, duration: C[15] - C[14] - 0.6, ease: "power1.inOut", onUpdate: escreve }, C[14] + 0.4);
-        tl.set("#s-anos", { textContent: "DEZ ANOS DE AVISO" }, C[15] - 0.4);
-        tl.to("#o-anos", { opacity: 0, duration: 0.2 }, C[15] - 0.05); }
-      // 15 · "Dez anos." no preto
-      preta(C[15], C[16]); tremor(C[15] - 0.05);
-      // 18 · carimbo FALÊNCIA e as luzes da fábrica apagando
-      { const t = em("falência", 1, 83); tl.fromTo("#fechado", { opacity: 0, scale: 1.6, rotation: -8 }, { opacity: 1, scale: 1, rotation: -8, duration: 0.18, ease: "power4.in" }, t);
-        tremor(t + 0.15); tl.to("#fechado", { opacity: 0, duration: 0.3 }, em("empresa", 2, 85) - 0.4);
-        const l = em("empresa", 2, 85) - 0.4; [0, 0.1, 0.25].forEach((d, i) => tl.set("#preta", { opacity: i % 2 ? 0 : 0.7 }, l + d)); tl.set("#preta", { opacity: 0 }, l + 0.35); }
-      // 19 · HOJE: corte seco
-      tremor(C[19] - 0.05);
-      // 23 · Eu não vendo câmera (tela preta)
-      preta(C[23], C[24]);
-      // 25 · CTA
-      tl.set("#cta", { opacity: 1 }, C[25]);
+      // 3 · 1975, a primeira câmera digital
+      ouro("#o-1975", em("1975", 1, 15) - 0.1, C[4]);
+      tl.fromTo("#tremor", { opacity: 0.6 }, { opacity: 0, duration: 0.3 }, em("digital", 3, 20));
+      // 4 · a foto aparece na televisão, linha a linha
+      { const tv = em("televisão", 1, 24); tl.fromTo("#foto", { opacity: 0 }, { opacity: 1, duration: 0.2 }, C[4] + 0.2);
+        tl.fromTo("#foto .scan", { scaleY: 1 }, { scaleY: 0, duration: 1.6, ease: "steps(24)" }, tv - 0.3);
+        tl.to("#foto", { opacity: 0, duration: 0.3 }, C[5] - 0.2); }
+      // citações: a mesma frase em 1975 e hoje (palavra por palavra, mesmo desenho)
+      const citacao = (id, cena, vermelhas) => {
+        const q = document.querySelector(id + " .q"); const ini = C[cena], fimC = C[cena + 1];
+        const ws = PALAVRAS.filter((p) => p.s >= ini - 0.01 && p.s < fimC - 0.01);
+        ws.forEach((p) => { const s = document.createElement("span"); s.textContent = p.w + " "; if (vermelhas.includes(limpar(p.w))) s.className = "k"; q.appendChild(s);
+          tl.fromTo(s, { opacity: 0 }, { opacity: 1, duration: 0.25 }, p.s - 0.05); });
+        tl.fromTo(id, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.4 }, ini - 0.3);
+        tl.to(id + " .quem", { opacity: 1, duration: 0.3 }, ws[ws.length - 1].e + 0.1);
+        tl.to(id, { opacity: 0, duration: 0.3 }, fimC - 0.15); };
+      citacao("#cit1", 6, ["ninguém"]);
+      citacao("#cit2", 12, ["sempre", "assim"]);
+      // 7 · virada: tremor e preto curto no "Sabe por quê?"
+      preta(C[VIRADA] - 0.4, em("kodak", 3, 34) - 0.1); tremor(C[VIRADA] - 0.08);
+      // 9 · a gaveta fecha
+      tremor(C[9] + 3.95);
+      // 10 · carimbo FALÊNCIA
+      { const t = em("falência", 1, 52); tl.fromTo("#fechado", { opacity: 0, scale: 1.6, rotation: -8 }, { opacity: 1, scale: 1, rotation: -8, duration: 0.18, ease: "power4.in" }, t);
+        tremor(t + 0.15); tl.to("#fechado", { opacity: 0, duration: 0.3 }, C[11] - 0.3); }
+      // 11 · HOJE
+      tremor(C[11] - 0.05);
+      tremor(C[13] + 1.75);
+      // 15 · Eu não vendo câmera (preto) → a gaveta abre
+      preta(C[15], em("ajudo", 1, 75) - 0.1);
+      // 16 · CTA
+      tl.set("#cta", { opacity: 1 }, C[16]);
       { const chave = "DIAGNÓSTICO"; const dig = document.getElementById("digitado");
-        for (let i = 0; i <= chave.length; i++) tl.set(dig, { textContent: chave.slice(0, i) }, em("diagnóstico", 1, 114) - 0.1 + i * 0.05); }
-      tl.fromTo(["#cta .assina", "#cta .serie", "#cta img"], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.15 }, C[25] + 1.2);
-      tl.set("#marca", { opacity: 0 }, C[25]);
+        for (let i = 0; i <= chave.length; i++) tl.set(dig, { textContent: chave.slice(0, i) }, em("diagnóstico", 1, 78) - 0.1 + i * 0.05); }
+      tl.fromTo(["#cta .assina", "#cta .serie", "#cta img"], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.15 }, C[16] + 1.2);
+      tl.set("#marca", { opacity: 0 }, C[16]);
 
       // ---- grão de filme vivo ----
       for (let t = 0, k = 0; t < DURACAO; t += 1 / 24, k++) {

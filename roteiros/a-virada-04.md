@@ -5,16 +5,40 @@
 | Série | A Virada (toda segunda, 12h00) |
 | Pauta | história real com virada → diagnóstico: "o erro não foi não ver o futuro; foi ver e usar o prazo pra proteger o passado" |
 | Formato | F14 Manifesto cinematográfico ([formatos](../formatos/README.md)) |
-| Duração | ~117 s |
+| Duração | v2 ~81 s |
 | Voz | clone do Moisés, fala por fala ([regras](../guias/voz-e-audio.md)) |
 | Diferente das anteriores | **falsa virada + virada de verdade**: o vídeo deixa o público culpar a diretoria ("não conta pra ninguém"), depois desmonta isso com honestidade ("a câmera não estava pronta") e revela o erro real: o estudo de 1981 que deu dez anos de aviso. Apego pela **marca da memória de todo mundo** (fotos de família) e pelo engenheiro jovem. |
 | Efeitos | fotos de família em papel amarelado com bordas brancas, passando como álbum · "flash" de câmera nos cortes · TV de tubo ligando com a primeira foto pixelada 100×100 surgindo linha a linha · relógio/contador **1981 → 1991** girando · pull-back reveal da fábrica vazia · tela preta "**DEZ** ANOS" |
 | Som | projetor de slide (clack) e obturador nos cortes do álbum · fita cassete rodando + chiado de TV de tubo ligando · silêncio · tique-taque de relógio crescendo na virada · portão/fábrica: eco + luz desligando (clunk) · no hoje: notificação + o mesmo tique-taque, mais rápido |
 | CTA | comenta `DIAGNÓSTICO` |
 | Publicação | segunda 09/11/2026, 12h00 |
-| Status | aprovado (roteiro) · produzido · agendado no Mac (launchd) para 11h45 → no ar ~12h00, com capa e legenda |
+| Status | v2 produzida (~81 s) · agendado no Mac (launchd) para 11h45 → no ar ~12h00, com capa e legenda |
 
-## Narração
+## v2 (aprovada e produzida em 19/10/2026) · o dono deu 3/10 na v1: confusa
+Diagnóstico da v1: falsa virada + virada (1975 → 1981 → "dez anos"), estudo e prazo abstratos, metáfora "o estudo de 1981 chama IA". ~2 min.
+Regra da v2: um paradoxo no gancho, uma frase da diretoria, e **a mesma frase volta** na parte da IA ("que bonitinho, mas..."). ~65 s.
+Símbolo visual: **a gaveta** (a câmera vai pra gaveta em 1975; a IA vai pra gaveta hoje; no fim a gaveta abre).
+
+1. A empresa que inventou a câmera digital faliu por causa da câmera digital.
+2. Por quase cem anos, a Kodak guardou as fotos da sua família.
+3. O casamento. O primeiro dia de escola. O último Natal com a avó.
+4. Em 1975, um engenheiro recém-formado, lá dentro da Kodak, inventa a primeira câmera digital.
+5. Sem filme. A foto aparece numa televisão.
+6. Ele leva pros chefes. E ouve:
+7. Que bonitinho. Mas não conta pra ninguém.
+(silêncio + tela preta)
+8. Sabe por quê? A Kodak ganhava dinheiro vendendo filme. E câmera digital não usa filme.
+9. A Kodak não perdeu porque não viu o futuro. Ela viu primeiro.
+10. Ela perdeu porque guardou o futuro na gaveta, pra proteger o jeito antigo de ganhar dinheiro.
+11. Em 2012, a Kodak pediu falência.
+12. Hoje eu ouço a mesma frase em muita empresa. Só que sobre inteligência artificial.
+13. Que bonitinho. Mas aqui a gente sempre fez assim.
+14. E a IA vai pra gaveta. E a planilha de três horas por dia continua lá.
+15. Até o dia em que o concorrente abre a gaveta primeiro.
+16. Eu não vendo câmera. Eu ajudo a tirar a IA da gaveta.
+17. Comenta diagnóstico.
+
+## Narração v1
 **Ato 1: a memória (piano, quente, serifa dourada)**
 1. Por quase um século, quase toda foto de família passou pelas mãos de uma empresa.
 2. O casamento. O primeiro dia de escola. O último Natal com a avó.

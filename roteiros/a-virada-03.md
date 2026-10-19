@@ -5,16 +5,44 @@
 | Série | A Virada (toda segunda, 12h00) |
 | Pauta | história real com virada → diagnóstico: "a culpa não foi do piloto, foi da troca de sistema pela metade" |
 | Formato | F14 Manifesto cinematográfico ([formatos](../formatos/README.md)) |
-| Duração | ~128 s |
+| Duração | v2 ~92 s |
 | Voz | clone do Moisés, fala por fala ([regras](../guias/voz-e-audio.md)) |
 | Diferente da 01 e da 02 | não é "aviso ignorado" (Titanic) nem "comprou a máquina errada" (padaria): é **herói que salva o dia + virada que revela que o erro era uma conta**. Primeira A Virada com final feliz antes da virada, e com a **trilha sonora carregando o suspense** (o avião em silêncio). |
 | Efeitos | contador de altitude caindo (12.500 m → 0) · apagão do painel (glitch + corte para preto) · silêncio real de ~2 s quando os motores param · câmera inclinando na manobra (rotate + camera-shake) · número "1,77" gigante dourado → riscado em vermelho, com "0,80" ao lado · carimbo "CULPA: EMPRESA" |
 | Som | cabine (zumbido grave) → "ding" do alarme → motores desligando (whine descendo) → **silêncio, só vento** → coração → pneus estourando + metal raspando no asfalto → silêncio → aplausos distantes · na virada: clique de calculadora, máquina de escrever do relatório · no hoje: notificações empilhando |
 | CTA | comenta `DIAGNÓSTICO` |
 | Publicação | segunda 02/11/2026, 12h00 |
-| Status | aprovado (roteiro) · produzido · agendado no Mac (launchd) para 11h45 → no ar ~12h00, com capa e legenda |
+| Status | v2 produzida (~92 s) · agendado no Mac (launchd) para 11h45 → no ar ~12h00, com capa e legenda |
 
-## Narração
+## v2 (aprovada e produzida em 19/10/2026) · o dono deu 3/10 na v1: confusa
+Diagnóstico da v1: nomes demais (Pearson, Quintal, Gimli, Montreal), termo técnico (libras/quilos, 1,77, relatório, "frota metade/metade") e ponte abstrata pra IA. ~2 min.
+Regra da v2: um avião, um erro ("o avião era novo, a conta era velha"), a mesma frase volta na parte da IA. ~70 s.
+Símbolo visual que costura tudo: **o ponteiro do combustível** (cheio → zero na pane; meio tanque na virada; volta no fim "conferido").
+
+1. Um avião cheio de gente ficou sem combustível no meio do voo.
+2. E não tinha nenhum furo no tanque.
+3. Canadá, 1983. Um avião novinho, o mais moderno da companhia.
+4. Sessenta e nove pessoas a bordo. Gente voltando pra casa no fim de semana.
+5. A doze mil metros de altura, os dois motores param.
+6. As telas do painel apagam. Fica só o barulho do vento.
+7. Por sorte, o comandante tinha um hobby: voar de planador.
+8. E foi o que ele fez. Planou com um avião de passageiros por dezessete minutos.
+9. Até achar uma pista de uma antiga base aérea.
+10. O nariz bate no chão, o avião arrasta e para.
+11. Ninguém morreu.
+(silêncio + tela preta)
+12. Mas como um avião novo fica sem combustível?
+13. Simples. O avião era novo. A conta era velha.
+14. A companhia tinha mudado o jeito de medir o combustível. E ninguém treinou a equipe direito.
+15. Fizeram a conta nova do jeito antigo. E o avião saiu com menos da metade do que precisava.
+16. Hoje eu vejo isso toda semana, com inteligência artificial.
+17. A empresa compra a ferramenta mais moderna do mercado.
+18. E continua fazendo a conta do jeito antigo. Sem treinar ninguém. Sem conferir o processo.
+19. A IA é nova. O processo é velho. E um dia o motor para.
+20. Eu não vendo avião. Eu confiro o combustível antes de decolar.
+21. Comenta diagnóstico.
+
+## Narração v1
 **Ato 1: a noite (trilha tensa e baixa)**
 1. Sábado, vinte e três de julho de 1983.
 2. Um Boeing 767 decola de Montreal. O avião mais novo da Air Canada. Tinha menos de quatro meses de uso.

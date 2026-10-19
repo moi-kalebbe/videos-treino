@@ -1,21 +1,18 @@
-A Kodak inventou a câmera digital. E teve dez anos de aviso. 📷
+A empresa que inventou a câmera digital faliu por causa da câmera digital. 📷
 
-Dezembro de 1975. Steve Sasson, engenheiro recém-formado da Kodak, monta uma caixa de 3,6 kg que grava a foto numa fita cassete: 100 × 100 pixels, preto e branco, 23 segundos pra gravar. A primeira câmera digital portátil.
+Em 1975, um engenheiro recém-formado da Kodak inventou a primeira câmera digital. Levou pros chefes e, segundo ele, ouviu: "Que bonitinho. Mas não conta pra ninguém."
 
-Anos depois, ele lembrou a reação da diretoria: "Que bonitinho. Mas não conta pra ninguém."
+O motivo: a Kodak ganhava dinheiro vendendo filme. E câmera digital não usa filme.
 
-Só que aquela câmera não estava pronta. O erro não foi em 1975.
+A Kodak não perdeu porque não viu o futuro. Ela viu primeiro. Perdeu porque guardou o futuro na gaveta pra proteger o jeito antigo de ganhar dinheiro. Em 2012, pediu falência.
 
-Foi em 1981: um estudo da própria Kodak concluiu que o digital ia substituir o filme, e que a empresa tinha uns dez anos pra se preparar. Ela tinha a invenção, a patente, o aviso e o prazo. Usou o prazo pra proteger o filme. Em 2012, pediu falência.
-
-Hoje o "estudo de 1981" já saiu pra todo mundo: chama inteligência artificial. E muita empresa faz o que a Kodak fez: sabe, concorda e usa o prazo pra proteger o jeito antigo. Um teste aqui, uma licença ali, e o processo igualzinho.
-
-Dessa vez ninguém vai te dar dez anos.
+Hoje eu ouço a mesma frase em muita empresa, só que sobre IA: "Que bonitinho. Mas aqui a gente sempre fez assim."
+E a IA vai pra gaveta. E a planilha de três horas por dia continua lá. Até o concorrente abrir a gaveta primeiro.
 
 Comenta DIAGNÓSTICO que eu te mando como funciona o diagnóstico de processos da Processos & IA.
 
 A Virada · toda segunda, 12h.
 
-Fontes: IEEE Spectrum e entrevista de Steve Sasson ao New York Times (2008); estudo de 1981 relatado por Vince Barabba, então chefe de inteligência de mercado da Kodak, no livro "The Decision Loom"; pedido de recuperação judicial (Chapter 11) de 19/01/2012. Imagens ilustrativas de banco (Pexels).
+Fontes: Steve Sasson, inventor da câmera (IEEE Spectrum; entrevista ao New York Times, 2008); pedido de recuperação judicial da Kodak em 19/01/2012. Imagens ilustrativas de banco (Pexels); a foto pixelada é ilustrativa, não é a original de 1975.
 
 #inteligenciaartificial #ia #gestao #processos #kodak #inovacao #transformacaodigital
