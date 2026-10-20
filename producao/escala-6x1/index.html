@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>A Conta · 01 · Escala 6x1</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-500.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+
+      /* A Conta: imagem parada animada (Abrahub), luz dourada, texto branco grande, vermelho só no clímax */
+      :root { --branco: #fffaf0; --verm: #ff2b2b; --ambar: #ffc04d; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #0a0705; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--branco); font-family: "Inter", sans-serif; }
+      .clip { position: absolute; inset: 0; }
+      #fundo { background: #0a0705; }
+
+      /* imagens: mesma correção de cor em todas (quente, um pouco saturada) */
+      .img { position: absolute; inset: -60px; opacity: 0; will-change: transform; }
+      .img img { width: 100%; height: 100%; object-fit: cover; filter: saturate(1.18) contrast(1.06) sepia(0.12) brightness(0.98); }
+      #quente { position: absolute; inset: 0; background: linear-gradient(180deg, #ff9a3c22 0%, #00000000 40%, #ff7a1a1c 100%); mix-blend-mode: soft-light; }
+      #sombra { position: absolute; inset: 0; background: linear-gradient(180deg, #0000008c 0%, #00000000 22%, #00000000 55%, #000000c8 82%, #000000e6 100%); }
+      #vinheta { position: absolute; inset: 0; background: radial-gradient(120% 85% at 50% 48%, #0000 52%, #000000b5 100%); }
+      #grao { position: absolute; inset: -40px; background: url("assets/img/grao.png"); background-size: 540px 960px; opacity: 0.1; mix-blend-mode: overlay; }
+      #quente, #sombra { z-index: 30; } #papeis { position: absolute; inset: 0; z-index: 45; }
+      .corte, #conta, .chips, #painel, #legenda { z-index: 50; } #cta { z-index: 55; }
+      #vinheta, #grao, #flash { z-index: 60; } #selo, #marca { z-index: 70; }
+      #flash { position: absolute; inset: 0; background: #fff4dc; opacity: 0; mix-blend-mode: screen; }
+      .papel { position: absolute; width: 30px; height: 40px; background: linear-gradient(160deg, #fbf6ea, #d9cfbb); box-shadow: 0 6px 18px #0006; opacity: 0; border-radius: 2px; }
+
+      /* texto de corte: uma frase por imagem */
+      .corte { position: absolute; left: 60px; right: 60px; top: 1210px; text-align: center; opacity: 0; }
+      .corte .g { font: 800 104px/1.0 "Inter"; letter-spacing: -0.035em; text-shadow: 0 6px 30px #000, 0 0 3px #000; }
+      .corte .p { margin-top: 18px; font: 500 30px "JetBrains Mono"; letter-spacing: 0.18em; color: #fffaf0d9; text-shadow: 0 2px 12px #000; }
+      .corte .a { color: var(--ambar); }
+      #c-clima .g { font: 400 190px/0.9 "Anton"; letter-spacing: 0; color: var(--verm); text-transform: uppercase; text-shadow: 0 10px 40px #000; }
+
+      /* conta da parte 2 */
+      #conta { position: absolute; left: 60px; right: 60px; top: 360px; text-align: center; opacity: 0; }
+      #conta .l { display: inline-block; margin: 8px 0; padding: 12px 26px; background: #0a0705c9; font: 800 92px/1 "Inter"; letter-spacing: -0.03em; opacity: 0; }
+      #conta .l b { color: var(--ambar); }
+      .chips { position: absolute; left: 70px; right: 70px; top: 1080px; display: grid; gap: 18px; }
+      .chips div { padding: 18px 26px; background: #fffaf0f0; color: #1b130c; font: 700 46px/1.1 "Inter"; border-radius: 10px; box-shadow: 0 18px 50px #0009; opacity: 0; }
+      .chips div:nth-child(2) { margin-left: 70px; } .chips div:nth-child(3) { margin-left: 140px; }
+
+      /* painel: horas devolvidas (exemplo) */
+      #painel { position: absolute; left: 70px; right: 70px; top: 360px; padding: 30px 34px; background: #0a0705e0; border: 2px solid #ffc04d88; border-radius: 16px; opacity: 0; }
+      #painel .t { font: 500 28px "JetBrains Mono"; letter-spacing: 0.14em; color: var(--ambar); }
+      #painel .n { margin-top: 10px; font: 800 150px/1 "Inter"; letter-spacing: -0.04em; }
+      #painel .r { margin-top: 18px; display: grid; gap: 10px; }
+      #painel .r p { display: flex; justify-content: space-between; font: 700 36px "Inter"; opacity: 0; }
+      #painel .r p span:last-child { font: 500 32px "JetBrains Mono"; color: var(--ambar); }
+      #painel .ex { margin-top: 18px; font: 500 22px "JetBrains Mono"; letter-spacing: 0.12em; color: #fffaf080; }
+
+      /* legenda da voz (frase inteira, pequena) */
+      #legenda { position: absolute; left: 70px; right: 70px; top: 1540px; }
+      #legenda p { position: absolute; left: 0; right: 0; top: 0; text-align: center; font: 700 46px/1.25 "Inter"; text-shadow: 0 3px 16px #000, 0 0 2px #000; opacity: 0; }
+
+      #cta { position: absolute; inset: 0; opacity: 0; }
+      #cta .fundo { position: absolute; inset: 0; background: #0a0705d9; }
+      #cta .pede { position: absolute; left: 0; right: 0; top: 660px; text-align: center; font: 800 96px "Inter"; letter-spacing: -0.03em; }
+      #cta .campo { position: absolute; left: 90px; right: 90px; top: 800px; height: 180px; border: 5px solid var(--ambar); display: flex; align-items: center; justify-content: center; font: 400 130px "Anton"; color: var(--ambar); }
+      #cta .assina { position: absolute; left: 0; right: 0; top: 1060px; text-align: center; font: 500 40px "Inter"; color: #fffaf0d0; }
+      #cta img { position: absolute; left: 50%; top: 1220px; width: 200px; margin-left: -100px; }
+      #marca { position: absolute; right: 54px; top: 64px; width: 110px; opacity: 0.75; }
+      #selo { position: absolute; left: 60px; top: 236px; font: 500 22px "JetBrains Mono"; letter-spacing: 0.2em; color: #fffaf099; text-shadow: 0 2px 10px #000; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="48.4" data-width="1080" data-height="1920">
+      <div id="fundo" class="clip" data-start="0" data-duration="48.4" data-track-index="0"></div>
+      <section id="palco" class="clip" data-start="0" data-duration="48.4" data-track-index="1">
+        <div class="img" id="i-cabo"><img src="assets/gerado/cabo.png" alt="" /></div>
+        <div class="img" id="i-plenario"><img src="assets/gerado/plenario.jpg" alt="" /></div>
+        <div class="img" id="i-sabado"><img src="assets/gerado/sabado.jpg" alt="" /></div>
+        <div class="img" id="i-ponto"><img src="assets/gerado/ponto.png" alt="" /></div>
+        <div class="img" id="i-salario"><img src="assets/gerado/salario.jpg" alt="" /></div>
+        <div class="img" id="i-rede"><img src="assets/gerado/rede.jpg" alt="" /></div>
+        <div class="img" id="i-caixas"><img src="assets/gerado/caixas.jpg" alt="" /></div>
+        <div class="img" id="i-crachas"><img src="assets/gerado/crachas.jpg" alt="" /></div>
+        <div class="img" id="i-mensagens"><img src="assets/gerado/mensagens.jpg" alt="" /></div>
+        <div id="quente"></div>
+        <div id="sombra"></div>
+        <div id="papeis"></div>
+
+        <div class="corte" id="c-escala"><p class="p">O FIM DA</p><p class="g">ESCALA <span class="a">6x1</span></p></div>
+        <div class="corte" id="c-votos"><p class="g"><span class="a">75</span> × 1</p><p class="p">APROVADO NO SENADO · 14/10</p></div>
+        <div class="corte" id="c-folgas"><p class="g">2 FOLGAS<br />POR SEMANA</p></div>
+        <div class="corte" id="c-horas"><p class="g">44H → <span class="a">40H</span></p><p class="p">POR SEMANA</p></div>
+        <div class="corte" id="c-salario"><p class="g">MESMO<br />SALÁRIO</p></div>
+        <div class="corte" id="c-menor"><p class="g">A SEMANA<br />FICOU MENOR.</p></div>
+        <div class="corte" id="c-clima"><p class="g">O TRABALHO<br />NÃO.</p></div>
+
+        <div id="conta"><p class="l">10 × 4H = <b>40H</b></p><br /><p class="l">= <b>1 VAGA</b></p></div>
+        <div class="chips" id="chips"><div>copiar pedido pra planilha</div><div>a mesma pergunta no WhatsApp</div><div>conferir nota por nota</div></div>
+        <div id="painel">
+          <p class="t">HORAS DEVOLVIDAS NA SEMANA</p>
+          <p class="n" id="n-horas">0H</p>
+          <div class="r"><p><span>Pedidos lançados sozinhos</span><span>14h</span></p><p><span>Respostas no WhatsApp</span><span>16h</span></p><p><span>Conferência de notas</span><span>10h</span></p></div>
+          <p class="ex">EXEMPLO · EQUIPE DE 10 PESSOAS</p>
+        </div>
+        <div class="corte" id="c-prazo" style="top:420px"><p class="p">PRA CHEGAR NAS 40H</p><p class="g">ATÉ <span class="a">14 MESES</span></p></div>
+
+        <div id="legenda"></div>
+        <div id="cta"><div class="fundo"></div><p class="pede">COMENTA</p><div class="campo"><span id="digitado"></span></div><p class="assina">que eu te mostro de onde tirar essas horas.</p><img src="assets/marca/logo-branca.png" alt="" /></div>
+        <div id="vinheta"></div>
+        <div id="grao"></div>
+        <div id="flash"></div>
+        <p id="selo">CENAS CRIADAS COM IA</p>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+      </section>
+
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="14" data-duration="31.84" data-volume="1"></audio>
+      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="48.4" data-volume="0.36" data-fade-out="1.5"></audio>
+      <audio id="sfx-rasgo" src="assets/audio/s_rasgo.mp3" data-start="0.35" data-duration="1" data-volume="0.9"></audio>
+      <audio id="sfx-hit0" src="assets/audio/s_hit.mp3" data-start="0.05" data-duration="2" data-volume="0.6"></audio>
+      <audio id="sfx-carimbo" src="assets/audio/g_carimbo.mp3" data-start="2.1" data-duration="0.65" data-volume="0.9"></audio>
+      <audio id="sfx-papel" src="assets/audio/s_papel.mp3" data-start="4.1" data-duration="1" data-volume="0.8"></audio>
+      <audio id="sfx-ponto" src="assets/audio/s_ponto.mp3" data-start="6.2" data-duration="1" data-volume="0.9"></audio>
+      <audio id="sfx-whoosh" src="assets/audio/whoosh.mp3" data-start="9.6" data-duration="1.5" data-volume="0.4"></audio>
+      <audio id="sfx-queda" src="assets/audio/s_queda.mp3" data-start="12.05" data-duration="3" data-volume="0.9"></audio>
+      <audio id="sfx-boom" src="assets/audio/boom2.mp3" data-start="12.1" data-duration="2.09" data-volume="0.9"></audio>
+      <audio id="sfx-hit2" src="assets/audio/s_hit2.mp3" data-sinc="palavra:quarenta:1:-0.05" data-start="17.82" data-duration="2" data-volume="0.5"></audio>
+      <audio id="sfx-notif1" src="assets/audio/s_notif.mp3" data-sinc="palavra:copiar:1:0" data-start="25.85" data-duration="1" data-volume="0.55"></audio>
+      <audio id="sfx-notif2" src="assets/audio/s_notif.mp3" data-sinc="palavra:responder:1:0" data-start="27.41" data-duration="1" data-volume="0.55"></audio>
+      <audio id="sfx-notif3" src="assets/audio/s_notif.mp3" data-sinc="palavra:conferir:1:0" data-start="29.55" data-duration="1" data-volume="0.55"></audio>
+      <audio id="sfx-braam" src="assets/audio/braam.mp3" data-sinc="palavra:comenta:1:0" data-start="41.89" data-duration="4" data-volume="0.35"></audio>
+    </div>
+
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const C = window.CENAS;
+      const DURACAO = 48.4;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;"]/g, "");
+      function em(p, n = 1, f = 0) { let v = 0; for (const w of PALAVRAS) if (limpar(w.w) === p && ++v === n) return w.s; return f; }
+      const tl = gsap.timeline({ paused: true });
+      const flash = (t, o = 0.35) => tl.fromTo("#flash", { opacity: o }, { opacity: 0, duration: 0.28 }, t);
+      function treme(t, n = 10, a = 16) { for (let i = 0; i < n; i++) tl.to("#palco", { x: (i % 2 ? -1 : 1) * a * (1 - i / n), y: ((i % 3) - 1) * a * 0.5, duration: 0.04 }, t + i * 0.04); tl.to("#palco", { x: 0, y: 0, duration: 0.05 }, t + n * 0.04); }
+
+      // planos: cada imagem entra com corte seco + movimento de câmera (push-in e deslocamento)
+      const MOV = [[1.0, 1.12, 0, -20], [1.14, 1.0, 20, 0], [1.0, 1.1, -24, 0], [1.08, 1.0, 0, 24]];
+      const PAN = { "#i-caixas": [18, 46], "#i-rede": [28, 58], "#i-salario": [38, 62], "#i-crachas": [40, 46], "#i-mensagens": [72, 58], "#i-sabado": [42, 60] };
+      let k = 0;
+      function plano(id, a, b) {
+        const [s0, s1, x0, x1] = MOV[k++ % MOV.length];
+        tl.set(id, { opacity: 1, zIndex: k }, a);
+        tl.fromTo(id, { scale: s0, x: x0 }, { scale: s1, x: x1, duration: b - a, ease: "none" }, a);
+        if (PAN[id]) tl.fromTo(id + " img", { objectPosition: PAN[id][0] + "% 50%" }, { objectPosition: PAN[id][1] + "% 50%", duration: b - a, ease: "none" }, a);
+        tl.set(id, { opacity: 0 }, b);
+        flash(a, 0.28);
+      }
+      // parte 1: um corte a cada 2 s
+      const P1 = ["#i-cabo", "#i-plenario", "#i-sabado", "#i-ponto", "#i-salario", "#i-rede", "#i-caixas"];
+      const T1 = ["#c-escala", "#c-votos", "#c-folgas", "#c-horas", "#c-salario", "#c-menor", "#c-clima"];
+      P1.forEach((id, i) => plano(id, i * 2, i * 2 + 2));
+      T1.forEach((id, i) => {
+        if (id === "#c-clima") tl.fromTo(id, { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.16, ease: "power4.in" }, i * 2 + 0.05);
+        else tl.fromTo(id, { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.22, ease: "power3.out" }, i * 2 + 0.12);
+        tl.set(id, { opacity: 0 }, i * 2 + 2 - 0.02);
+      });
+      treme(0.35, 8, 12); treme(12.1, 14, 22);
+      // papéis voando no rasgo, na folha do sábado e na avalanche
+      const caixaP = document.getElementById("papeis");
+      const voa = (t, n, x0, y0) => { for (let i = 0; i < n; i++) { const d = document.createElement("div"); d.className = "papel"; caixaP.appendChild(d);
+        const ang = (i * 137) % 360, dx = Math.cos(ang) * (300 + (i * 53) % 260), dy = -200 - (i * 71) % 500;
+        tl.set(d, { opacity: 1, x: x0, y: y0, rotation: 0 }, t); tl.to(d, { x: x0 + dx, y: y0 + dy, rotation: (i % 2 ? 1 : -1) * (180 + i * 40), duration: 1.6, ease: "power2.out" }, t); tl.to(d, { y: y0 + dy + 600, opacity: 0, duration: 1.2, ease: "power1.in" }, t + 1.2); } };
+      voa(0.35, 9, 520, 820); voa(4.2, 6, 520, 700); voa(12.1, 12, 520, 760);
+
+      // parte 2: a sua voz
+      plano("#i-crachas", C[0], em("mesmo", 1, 20) - 0.3);
+      plano("#i-salario", em("mesmo", 1, 20) - 0.3, C[1]);
+      tl.set("#conta", { opacity: 1 }, em("quarenta", 1, 17.9) - 0.2);
+      tl.fromTo("#conta .l:nth-child(1)", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25 }, em("quarenta", 1, 17.9) - 0.1);
+      tl.fromTo("#conta .l:nth-child(3)", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.18, ease: "power4.in" }, em("vaga", 1, 19) - 0.05);
+      tl.to("#conta", { opacity: 0, duration: 0.2 }, C[1] - 0.2);
+      plano("#i-caixas", C[1], em("repetido", 1, 25.1) - 0.3);
+      plano("#i-mensagens", em("repetido", 1, 25.1) - 0.3, C[2]);
+      [["copiar", 1], ["responder", 1], ["conferir", 1]].forEach(([w, n], i) =>
+        tl.fromTo(`#chips div:nth-child(${i + 1})`, { opacity: 0, x: 60, rotation: i % 2 ? 2 : -2 }, { opacity: 1, x: 0, duration: 0.25, ease: "power3.out" }, em(w, n, 26 + i) - 0.05));
+      tl.to("#chips div", { opacity: 0, duration: 0.2 }, C[2] - 0.2);
+      plano("#i-rede", C[2], C[3]);
+      tl.fromTo("#painel", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.35 }, C[2] + 0.15);
+      { const el = document.getElementById("n-horas"), o = { v: 0 }; const w = () => (el.textContent = Math.round(o.v) + "H");
+        tl.set(o, { v: 0, onUpdate: w }, 0); tl.to(o, { v: 40, duration: 2.4, ease: "power2.out", onUpdate: w }, em("devolve", 1, 32.9) - 0.2);
+        tl.to("#painel .r p", { opacity: 1, duration: 0.2, stagger: 0.4 }, em("devolve", 1, 32.9)); }
+      tl.to("#painel", { opacity: 0, duration: 0.25 }, C[3] - 0.25);
+      plano("#i-sabado", C[3], em("comenta", 1, 41.9));
+      tl.fromTo("#c-prazo", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25 }, em("catorze", 1, 36.7) - 0.1);
+      tl.to("#c-prazo", { opacity: 0, duration: 0.2 }, em("comenta", 1, 41.9) - 0.2);
+      plano("#i-cabo", em("comenta", 1, 41.9), DURACAO);
+      tl.set("#cta", { opacity: 1 }, em("comenta", 1, 41.9));
+      { const ch = "DIAGNÓSTICO", d = document.getElementById("digitado"); for (let i = 0; i <= ch.length; i++) tl.set(d, { textContent: ch.slice(0, i) }, em("diagnóstico", 1, 42.4) - 0.1 + i * 0.05); }
+      tl.fromTo(["#cta .assina", "#cta img"], { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.25 }, em("diagnóstico", 1, 42.4) + 0.6);
+      tl.set(["#marca", "#selo"], { opacity: 0 }, em("comenta", 1, 41.9));
+
+      // legenda da voz: frase inteira
+      const caixa = document.getElementById("legenda"); let fr = [];
+      const fecha = () => { if (!fr.length) return; const ini = fr[0].s; if (ini < em("comenta", 1, 41.9) - 0.1) {
+        const p = document.createElement("p"); p.textContent = fr.map((w) => w.w).join(" "); caixa.appendChild(p);
+        const prox = PALAVRAS[PALAVRAS.indexOf(fr[fr.length - 1]) + 1]; const fim = prox ? Math.min(fr[fr.length - 1].e + 0.4, prox.s - 0.05) : fr[fr.length - 1].e + 0.6;
+        tl.fromTo(p, { opacity: 0 }, { opacity: 1, duration: 0.12 }, ini - 0.05); tl.set(p, { opacity: 0 }, fim); } fr = []; };
+      PALAVRAS.forEach((w, i) => { fr.push(w); if (/[.?!:,]$/.test(w.w) && fr.length >= 3 || /[.?!:]$/.test(w.w) || fr.length >= 7 || !PALAVRAS[i + 1]) fecha(); });
+
+      for (let t = 0, j = 0; t < DURACAO; t += 1 / 24, j++) tl.set("#grao", { backgroundPosition: `${(j * 137) % 540}px ${(j * 311) % 960}px` }, t);
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

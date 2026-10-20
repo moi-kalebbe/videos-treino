@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>A Conta · 01 · O sábado (v3)</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-500.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      @font-face { font-family: "Instrument Serif"; font-style: italic; src: url("assets/fonts/instrument-serif-italic.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+
+      /* O sábado v3: a voz conta a história; texto só na palavra-chave; telas mostram a IA trabalhando */
+      :root { --branco: #fff8ec; --verm: #ff3b2f; --ambar: #ffbe55; --zap: #1fa855; --zapclaro: #d9fdd3; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #070504; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--branco); font-family: "Inter", sans-serif; }
+      .clip { position: absolute; inset: 0; }
+      #fundo { background: #070504; }
+
+      .img { position: absolute; inset: -50px; opacity: 0; z-index: 1; }
+      .img img { width: 100%; height: 100%; object-fit: cover; filter: saturate(1.12) contrast(1.06) sepia(0.1); }
+      #sombra { position: absolute; inset: 0; z-index: 30; background: linear-gradient(180deg, #00000080 0%, #00000000 20%, #00000000 50%, #000000a8 72%, #000000e6 100%); }
+      #escuro { position: absolute; inset: 0; z-index: 31; background: #070504; opacity: 0; }
+      #preto { position: absolute; inset: 0; z-index: 40; background: #070504; opacity: 0; }
+      #vinheta { position: absolute; inset: 0; z-index: 60; background: radial-gradient(120% 85% at 50% 46%, #0000 55%, #000000b0 100%); }
+      #grao { position: absolute; inset: -40px; z-index: 61; background: url("assets/img/grao.png"); background-size: 540px 960px; opacity: 0.11; mix-blend-mode: overlay; }
+
+      .t { position: absolute; left: 70px; right: 70px; top: 1180px; text-align: center; opacity: 0; z-index: 50; text-shadow: 0 6px 34px #000, 0 0 3px #000; }
+      .serif { font: italic 400 96px/1.05 "Instrument Serif"; }
+      .golpe { font: 400 170px/0.95 "Anton"; text-transform: uppercase; }
+      .mono { margin-top: 16px; font: 500 28px "JetBrains Mono"; letter-spacing: 0.2em; color: #fff8ecd0; }
+      .a { color: var(--ambar); }
+      #t-aprovado { top: 700px; }
+      #t-aprovado .golpe { color: var(--verm); font-size: 210px; border: 12px solid var(--verm); display: inline-block; padding: 6px 34px 0; }
+      #t-certos { top: 1130px; } #t-certos .golpe { font-size: 150px; }
+
+      #legenda { position: absolute; left: 70px; right: 70px; top: 1560px; z-index: 52; }
+      #legenda p { position: absolute; left: 0; right: 0; top: 0; text-align: center; font: 700 46px/1.25 "Inter"; text-shadow: 0 3px 16px #000, 0 0 2px #000; opacity: 0; }
+
+      /* telas da IA */
+      .tela { position: absolute; left: 70px; right: 70px; top: 300px; z-index: 50; opacity: 0; border-radius: 28px; overflow: hidden; box-shadow: 0 30px 80px #000c; }
+      .rot { position: absolute; left: 70px; right: 70px; z-index: 51; font: 500 24px "JetBrains Mono"; letter-spacing: 0.16em; color: #fff8ecb0; text-align: right; opacity: 0; }
+      #zap { background: #efe7dd; color: #111; }
+      #zap .topo { display: flex; align-items: center; gap: 22px; padding: 26px 30px; background: #075e54; color: #fff; }
+      #zap .av { width: 70px; height: 70px; border-radius: 50%; background: #f3c37a; display: flex; align-items: center; justify-content: center; font: 800 34px "Inter"; color: #6b3f12; }
+      #zap .nome { font: 700 38px "Inter"; } #zap .sub { font: 500 26px "Inter"; opacity: 0.85; }
+      #zap .hora { margin-left: auto; font: 500 30px "JetBrains Mono"; }
+      #zap .corpo { padding: 34px 28px 40px; display: grid; gap: 22px; }
+      .bal { max-width: 78%; padding: 20px 26px 30px; border-radius: 22px; font: 500 38px/1.3 "Inter"; position: relative; opacity: 0; }
+      .bal small { position: absolute; right: 18px; bottom: 8px; font: 500 20px "Inter"; color: #667; }
+      .bal.cli { background: #fff; justify-self: start; }
+      .bal.ia { background: var(--zapclaro); justify-self: end; }
+      .bal.ia b { display: block; font: 700 22px "JetBrains Mono"; color: var(--zap); letter-spacing: 0.1em; margin-bottom: 6px; }
+      .digit { justify-self: end; padding: 16px 26px; background: var(--zapclaro); border-radius: 22px; font: 700 40px "Inter"; color: #4a7; opacity: 0; }
+
+      #pedido { background: #fbf6ec; color: #1b130c; padding: 34px 34px 40px; }
+      #pedido .msg { padding: 22px 26px; background: #fff; border-radius: 20px; box-shadow: 0 6px 20px #0002; font: 500 36px/1.3 "Inter"; }
+      #pedido .msg i { display: block; font: 500 22px "JetBrains Mono"; font-style: normal; color: var(--zap); letter-spacing: 0.1em; margin-bottom: 6px; }
+      #pedido .seta { text-align: center; font: 800 60px "Inter"; color: #c58a1d; margin: 14px 0; opacity: 0; }
+      #pedido .lista { border: 3px solid #1b130c; border-radius: 18px; overflow: hidden; }
+      #pedido .lista h3 { padding: 18px 24px; background: #1b130c; color: var(--ambar); font: 500 28px "JetBrains Mono"; letter-spacing: 0.14em; }
+      #pedido .lista p { display: flex; justify-content: space-between; padding: 18px 24px; font: 700 38px "Inter"; border-top: 2px solid #1b130c22; opacity: 0; }
+      #pedido .lista p span:last-child { font: 500 34px "JetBrains Mono"; }
+
+      #notas { background: #fbf6ec; color: #1b130c; padding: 32px 34px 36px; }
+      #notas h3 { display: flex; justify-content: space-between; align-items: baseline; font: 500 28px "JetBrains Mono"; letter-spacing: 0.12em; }
+      #notas h3 b { font: 400 96px "Anton"; letter-spacing: 0; color: #1b130c; }
+      #notas .ln { display: flex; justify-content: space-between; padding: 14px 6px; border-top: 2px solid #1b130c18; font: 500 32px "JetBrains Mono"; }
+      #notas .ln span:last-child { color: #1d8a4a; }
+      #notas .erro { margin-top: 10px; padding: 20px 22px; border-radius: 16px; background: #ffe1dc; border: 3px solid var(--verm); font: 700 34px/1.3 "Inter"; color: #8a160d; opacity: 0; }
+      #notas .erro small { display: block; font: 500 22px "JetBrains Mono"; letter-spacing: 0.12em; color: var(--verm); }
+
+      #horas { position: absolute; left: 0; right: 0; top: 520px; z-index: 50; text-align: center; opacity: 0; text-shadow: 0 8px 40px #000; }
+      #horas .n { font: 400 300px/0.9 "Anton"; color: var(--ambar); }
+      #horas .s { font: 500 34px "JetBrains Mono"; letter-spacing: 0.2em; }
+      #horas .e { margin-top: 12px; font: 500 22px "JetBrains Mono"; letter-spacing: 0.2em; color: #fff8ec99; }
+
+      #repos { background: #fbf6ec; color: #1b130c; }
+      #repos h3 { padding: 22px 28px; background: #0f3d7a; color: #fff; font: 500 28px "JetBrains Mono"; letter-spacing: 0.12em; }
+      #repos h3 small { display: block; margin-top: 4px; font: 500 22px "JetBrains Mono"; color: #bcd3f5; letter-spacing: 0.1em; }
+      #repos p { display: flex; justify-content: space-between; padding: 18px 28px; font: 700 36px "Inter"; border-top: 2px solid #1b130c18; opacity: 0; }
+      #repos p span:last-child { font: 500 32px "JetBrains Mono"; color: #0f3d7a; }
+      #dias { position: absolute; left: 0; right: 0; top: 1150px; z-index: 50; text-align: center; opacity: 0; text-shadow: 0 6px 30px #000; font: 400 130px "Anton"; }
+      #dias s { color: #fff8ec80; text-decoration-color: var(--verm); text-decoration-thickness: 10px; }
+
+      #cta { position: absolute; inset: 0; z-index: 55; opacity: 0; }
+      #cta .fundo { position: absolute; inset: 0; background: linear-gradient(180deg, #07050400 30%, #070504e0 48%, #070504f0 100%); }
+      #cta .pede { position: absolute; left: 0; right: 0; top: 980px; text-align: center; font: italic 400 96px "Instrument Serif"; }
+      #cta .campo { position: absolute; left: 110px; right: 110px; top: 1110px; height: 170px; border: 4px solid var(--ambar); display: flex; align-items: center; justify-content: center; font: 400 120px "Anton"; color: var(--ambar); }
+      #cta .assina { position: absolute; left: 60px; right: 60px; top: 1330px; text-align: center; font: 700 40px/1.3 "Inter"; color: #fff8ecd8; }
+      #cta img { position: absolute; left: 50%; top: 1480px; width: 170px; margin-left: -85px; }
+      #marca { position: absolute; right: 54px; top: 64px; width: 104px; opacity: 0.7; z-index: 70; }
+      #selo { position: absolute; left: 60px; top: 236px; z-index: 70; font: 500 21px "JetBrains Mono"; letter-spacing: 0.2em; color: #fff8ec90; text-shadow: 0 2px 10px #000; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="80.3" data-width="1080" data-height="1920">
+      <div id="fundo" class="clip" data-start="0" data-duration="80.3" data-track-index="0"></div>
+      <section id="palco" class="clip" data-start="0" data-duration="80.3" data-track-index="1">
+        <div id="imagens"></div>
+        <div id="sombra"></div>
+        <div id="escuro"></div>
+        <div id="preto"></div>
+
+        <div class="t" id="t-540"><p class="golpe" style="text-transform:none">5h40</p><p class="mono">O FILHO AINDA DORME</p></div>
+        <div class="t" id="t-22"><p class="golpe" style="text-transform:none">22h</p><p class="mono">O FILHO JÁ DORME</p></div>
+        <div class="t" id="t-escala"><p class="golpe">Escala <span class="a" style="text-transform:none">6x1</span></p></div>
+        <div class="t" id="t-312"><p class="serif">312 sábados.</p><p class="mono">6 ANOS × 52</p></div>
+        <div class="t" id="t-filho"><p class="serif">O filho crescendo <span class="a">sem ele.</span></p></div>
+        <div class="t" id="t-aprovado"><p class="golpe">Aprovado</p><p class="mono">FIM DA 6x1 · OUTUBRO DE 2026</p></div>
+        <div class="t" id="t-30"><p class="serif">30 anos.</p><p class="mono">A PADARIA DO PAI</p></div>
+        <div class="t" id="t-9"><p class="serif">9 funcionários.</p><p class="mono">SE UM FALTA, É ELE</p></div>
+        <div class="t" id="t-quem"><p class="serif">Quem cobre o <span class="a">sábado?</span></p></div>
+        <div class="t" id="t-certos"><p class="golpe">Os dois estão certos.</p></div>
+        <div class="t" id="t-dai"><p class="golpe">É daí que sai o <span class="a">sábado.</span></p></div>
+
+        <div class="tela" id="zap">
+          <div class="topo"><div class="av">N</div><div><p class="nome">Padaria do Nelson</p><p class="sub">atendimento com IA</p></div><p class="hora">23:47</p></div>
+          <div class="corpo">
+            <p class="bal cli">Boa noite! Amanhã cedo tem pão de queijo?<small>23:47</small></p>
+            <p class="digit">• • •</p>
+            <p class="bal ia"><b>IA DA PADARIA</b>Tem sim! A primeira fornada sai às 6h. Quer que eu separe 10 pra você?<small>23:47</small></p>
+          </div>
+        </div>
+        <p class="rot" id="rot-zap" style="top: 1150px">RESPONDIDO EM 1 S · EXEMPLO</p>
+
+        <div class="tela" id="pedido">
+          <p class="msg"><i>WHATSAPP · 21:12</i>2 dúzias de pão francês e 1 bolo de fubá pra amanhã às 7h</p>
+          <p class="seta">↓</p>
+          <div class="lista"><h3>PRODUÇÃO DE AMANHÃ</h3><p><span>Pão francês</span><span>24 un</span></p><p><span>Bolo de fubá</span><span>1 un</span></p><p><span>Entrega</span><span>7h00</span></p></div>
+        </div>
+        <p class="rot" id="rot-pedido" style="top: 1180px">NINGUÉM COPIOU NA MÃO · EXEMPLO</p>
+
+        <div class="tela" id="notas">
+          <h3><span>NOTAS DO MÊS<br />CONFERIDAS PELA IA</span><b id="n-notas">0</b></h3>
+          <p class="ln"><span>NF 4468 · farinha</span><span>OK</span></p>
+          <p class="ln"><span>NF 4469 · leite</span><span>OK</span></p>
+          <p class="ln"><span>NF 4470 · ovos</span><span>OK</span></p>
+          <p class="erro"><small>1 DIVERGÊNCIA</small>NF 4471 · cobrou 12 kg de manteiga, chegaram 10</p>
+        </div>
+        <p class="rot" id="rot-notas" style="top: 1180px">EXEMPLO</p>
+
+        <div id="horas"><p class="n">≈12h</p><p class="s">POR SEMANA QUE VOLTAM</p><p class="e">EXEMPLO · PADARIA COM 9 PESSOAS</p></div>
+
+        <div class="tela" id="repos">
+          <h3>REPOSIÇÃO DE SEGUNDA<small>PEDIDO MONTADO PELA IA</small></h3>
+          <p><span>Arroz 5 kg</span><span>40 fardos</span></p>
+          <p><span>Café 500 g</span><span>60 un</span></p>
+          <p><span>Óleo de soja</span><span>36 cx</span></p>
+          <p><span>Leite integral</span><span>120 un</span></p>
+        </div>
+        <div id="dias"><s>6 dias</s> → <span class="a">5</span></div>
+
+        <div id="legenda"></div>
+        <div id="cta"><div class="fundo"></div><p class="pede">Comenta</p><div class="campo"><span id="digitado"></span></div><p class="assina">que eu te mostro onde estão essas horas na sua empresa.</p><img src="assets/marca/logo-branca.png" alt="" /></div>
+        <div id="vinheta"></div>
+        <div id="grao"></div>
+        <p id="selo">PERSONAGENS FICTÍCIOS · CENAS CRIADAS COM IA</p>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+      </section>
+
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="77.82" data-volume="1"></audio>
+      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="80.3" data-volume="0.42"></audio>
+      <audio id="amb-onibus" src="assets/audio/a_onibus_c.mp3" data-start="3.6" data-duration="3.5" data-volume="0.3"></audio>
+      <audio id="amb-festa" src="assets/audio/a_festa_cel.mp3" data-sinc="palavra:viu:1:-0.4" data-start="15.38" data-duration="4.5" data-volume="0.55"></audio>
+      <audio id="sfx-carimbo" src="assets/audio/g_carimbo.mp3" data-sinc="palavra:aí:1:0.0" data-start="18.83" data-duration="0.65" data-volume="1"></audio>
+      <audio id="sfx-boom" src="assets/audio/boom2.mp3" data-sinc="palavra:aí:1:0.02" data-start="18.85" data-duration="2.09" data-volume="0.7"></audio>
+      <audio id="amb-porta" src="assets/audio/a_porta_c.mp3" data-sinc="palavra:nelson:1:-0.9" data-start="19.64" data-duration="2.7" data-volume="0.4"></audio>
+      <audio id="sfx-hit" src="assets/audio/s_hit2.mp3" data-sinc="palavra:certos:1:-0.7" data-start="37.32" data-duration="2" data-volume="0.45"></audio>
+      <audio id="sfx-zap1" src="assets/audio/s_notif.mp3" data-sinc="palavra:respondendo:1:-0.2" data-start="42.5" data-duration="1" data-volume="0.55"></audio>
+      <audio id="sfx-zap2" src="assets/audio/s_notif.mp3" data-sinc="palavra:ia:1:0.25" data-start="44.81" data-duration="1" data-volume="0.55"></audio>
+      <audio id="sfx-papel" src="assets/audio/s_papel.mp3" data-sinc="palavra:sozinho:1:0" data-start="48.85" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-erro" src="assets/audio/s_ponto.mp3" data-sinc="palavra:errada:1:-0.1" data-start="56.65" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-horas" src="assets/audio/s_hit.mp3" data-sinc="palavra:doze:1:-0.05" data-start="59.03" data-duration="2" data-volume="0.45"></audio>
+      <audio id="sfx-whoosh" src="assets/audio/whoosh.mp3" data-sinc="palavra:daí:1:-0.3" data-start="69.66" data-duration="1.5" data-volume="0.35"></audio>
+    </div>
+
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const DURACAO = 80.3;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;"]/g, "");
+      function em(p, n = 1, f = 0) { let v = 0; for (const w of PALAVRAS) if (limpar(w.w) === p && ++v === n) return w.s; return f; }
+      const tl = gsap.timeline({ paused: true });
+
+      // marcos da fala
+      const M = {
+        volta: em("volta") - 0.1, sabado: em("sábado", 1) - 0.1, seis: em("seis", 1) - 0.1, ultimo: em("último") - 0.35, viu: em("viu") - 0.1,
+        filho: em("viu") + 1.9, lei: em("aí", 1) - 0.05, nelson: em("nelson", 1) - 0.45, primeiro: em("primeiro") - 0.3, tem: em("tem", 1) - 0.1,
+        agora: em("agora") - 0.1, pergunta: em("pergunta") - 0.45, quem: em("quem", 2) - 0.1, certos: em("certos") - 0.75, padaria: em("padaria", 2) - 0.4,
+        pedido: em("pedido", 1) - 0.1, cento: em("cento") - 0.45, somando: em("somando") - 0.1, mercado: em("mercado", 2) - 0.4, dai: em("daí") - 0.15,
+        rafael: em("rafael", 3) - 0.75, nelson2: em("nelson", 2) - 0.75, cta: em("comenta") - 0.1,
+      };
+      const CENAS = [
+        ["n1", 0, M.volta], ["s05", M.volta, M.sabado], ["s03", M.sabado, M.seis], ["s04", M.seis, M.ultimo], ["s01", M.ultimo, M.viu],
+        ["s02", M.viu, M.filho], ["s06", M.filho, M.lei], ["s07", M.lei, M.nelson, "seco"],
+        ["s08", M.nelson, M.primeiro], ["s12", M.primeiro, M.tem], ["s09", M.tem, M.agora], ["s10", M.agora, M.pergunta],
+        ["n2", M.pergunta, M.quem], ["s11", M.quem, M.certos],
+        ["s13", M.certos, M.padaria], ["s15", M.padaria, M.pedido], ["s17", M.pedido, M.cento], ["s16", M.cento, M.somando],
+        ["s14", M.somando, M.mercado], ["nm", M.mercado, M.dai], ["s18", M.dai, M.rafael], ["s19", M.rafael, M.nelson2],
+        ["s20", M.nelson2, M.cta], ["s21", M.cta, DURACAO],
+      ];
+      const caixaImg = document.getElementById("imagens");
+      const MOV = [[1.0, 1.08, 0, -14], [1.08, 1.0, 14, 0], [1.02, 1.1, -10, 6], [1.1, 1.02, 0, 12]];
+      CENAS.forEach(([f, a, b, corte], i) => {
+        const d = document.createElement("div"); d.className = "img"; d.id = "i-" + f;
+        d.innerHTML = `<img src="assets/gerado/${f}.jpg" alt="" />`; caixaImg.appendChild(d);
+        const ZOOM = { s12: ["50% 12%", 1.3, 1.38], s10: ["50% 88%", 1.28, 1.34] };
+        const [s0, s1, x0, x1] = ZOOM[f] ? [ZOOM[f][1], ZOOM[f][2], 0, 0] : MOV[i % MOV.length];
+        if (ZOOM[f]) d.style.transformOrigin = ZOOM[f][0];
+        tl.set(d, { opacity: 1, zIndex: i + 2 }, a);
+        tl.fromTo(d, { scale: s0, x: x0 }, { scale: s1, x: x1, duration: b - a + 0.3, ease: "none" }, a);
+        tl.set(d, { opacity: 0 }, b + 0.3);
+        if (!corte && i > 0) tl.fromTo("#preto", { opacity: 0.85 }, { opacity: 0, duration: 0.45, ease: "power1.out" }, a);
+      });
+      tl.fromTo("#preto", { opacity: 1 }, { opacity: 0, duration: 0.5 }, 0);
+
+      // palavras-chave
+      const TX = [["#t-540", 0.2, M.volta], ["#t-22", M.volta + 0.25, M.sabado], ["#t-escala", M.sabado + 0.2, M.seis], ["#t-312", M.seis + 0.1, M.ultimo],
+        ["#t-filho", M.filho + 0.15, M.lei], ["#t-30", em("trinta") - 0.1, M.primeiro + 0.6], ["#t-9", em("nove") - 0.1, M.agora],
+        ["#t-quem", M.quem + 0.05, M.certos], ["#t-certos", M.certos + 0.05, em("perdem") - 0.1], ["#t-dai", M.dai + 0.1, M.rafael]];
+      TX.forEach(([id, a, b]) => {
+        if (document.querySelector(id + " .golpe")) tl.fromTo(id, { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.18, ease: "power4.in" }, a);
+        else tl.fromTo(id, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, a);
+        tl.to(id, { opacity: 0, duration: 0.18 }, b - 0.18);
+      });
+
+      // carimbo: a lei cai do alto e a música para
+      tl.fromTo("#t-aprovado", { opacity: 0, scale: 2.6, rotation: -14 }, { opacity: 1, scale: 1, rotation: -8, duration: 0.2, ease: "power4.in" }, M.lei - 0.15);
+      tl.to("#t-aprovado", { opacity: 0, duration: 0.2 }, M.nelson - 0.2);
+      const treme = (t, n, amp) => { for (let i = 0; i < n; i++) tl.to("#palco", { x: (i % 2 ? -1 : 1) * amp * (1 - i / n), y: ((i % 3) - 1) * amp * 0.6, duration: 0.04 }, t + i * 0.04); tl.to("#palco", { x: 0, y: 0, duration: 0.05 }, t + n * 0.04); };
+      treme(M.lei + 0.05, 10, 12);
+
+      // telas da IA: escurece a cena por baixo para a tela ler bem
+      const tela = (id, rot, a, b) => { tl.to("#escuro", { opacity: 0.45, duration: 0.3 }, a); tl.fromTo(id, { opacity: 0, y: 60, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.45, ease: "power3.out" }, a);
+        if (rot) tl.to(rot, { opacity: 1, duration: 0.3 }, a + 0.3);
+        tl.to([id, rot].filter(Boolean), { opacity: 0, duration: 0.25 }, b - 0.25); tl.to("#escuro", { opacity: 0, duration: 0.3 }, b - 0.25); };
+      // WhatsApp respondido pela IA
+      tela("#zap", "#rot-zap", M.padaria + 0.3, M.pedido);
+      tl.fromTo("#zap .bal.cli", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3 }, M.padaria + 0.6);
+      tl.fromTo("#zap .digit", { opacity: 0 }, { opacity: 1, duration: 0.2 }, em("respondendo") + 0.6); tl.to("#zap .digit", { opacity: 0, duration: 0.1 }, em("ia", 1) + 0.2);
+      tl.fromTo("#zap .bal.ia", { opacity: 0, y: 20, scale: 0.95 }, { opacity: 1, y: 0, scale: 1, duration: 0.3 }, em("ia", 1) + 0.25);
+      // pedido indo sozinho para a produção
+      tela("#pedido", "#rot-pedido", M.pedido + 0.2, M.cento);
+      tl.fromTo("#pedido .seta", { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 0.3 }, em("sozinho") - 0.2);
+      tl.to("#pedido .lista p", { opacity: 1, duration: 0.2, stagger: 0.3 }, em("lista") - 0.1);
+      // notas conferidas, só a errada aparece
+      tela("#notas", "#rot-notas", M.cento + 0.2, M.somando);
+      { const el = document.getElementById("n-notas"), o = { v: 0 }; const w = () => (el.textContent = Math.round(o.v));
+        tl.set(o, { v: 0, onUpdate: w }, 0); tl.to(o, { v: 150, duration: 2.0, ease: "power1.inOut", onUpdate: w }, em("confere") - 0.2); }
+      tl.fromTo("#notas .erro", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.25 }, em("errada") - 0.15);
+      // as horas que voltam
+      tl.to("#escuro", { opacity: 0.35, duration: 0.3 }, em("doze") - 0.2);
+      tl.fromTo("#horas", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power4.in" }, em("doze") - 0.1);
+      tl.to("#horas", { opacity: 0, duration: 0.2 }, M.mercado - 0.2); tl.to("#escuro", { opacity: 0, duration: 0.3 }, M.mercado - 0.2);
+      // reposição do mercado
+      tela("#repos", null, em("prevê") - 0.3, M.dai);
+      tl.to("#repos p", { opacity: 1, duration: 0.2, stagger: 0.35 }, em("monta") - 0.3);
+      tl.fromTo("#dias", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.35 }, em("seis", 2) - 0.1); tl.to("#dias", { opacity: 0, duration: 0.2 }, M.dai - 0.2);
+
+      // legenda da voz: frase inteira, menos as que já estão grandes
+      const caixa = document.getElementById("legenda"); let fr = [];
+      const GRANDES = ["os dois estão certos", "é daí que sai o sábado"];
+      const fecha = () => { if (!fr.length) return; const txt = fr.map((w) => w.w).join(" "); const ini = fr[0].s;
+        if (ini < M.cta && !GRANDES.includes(limpar(txt))) {
+          const p = document.createElement("p"); p.textContent = txt; caixa.appendChild(p);
+          const prox = PALAVRAS[PALAVRAS.indexOf(fr[fr.length - 1]) + 1]; const fim = prox ? Math.min(fr[fr.length - 1].e + 0.35, prox.s - 0.05) : fr[fr.length - 1].e + 0.5;
+          tl.fromTo(p, { opacity: 0 }, { opacity: 1, duration: 0.12 }, ini - 0.05); tl.set(p, { opacity: 0 }, fim); }
+        fr = []; };
+      PALAVRAS.forEach((w, i) => { fr.push(w); if (/[.?!:]$/.test(w.w) || (/,$/.test(w.w) && fr.length >= 5) || fr.length >= 10 || !PALAVRAS[i + 1]) fecha(); });
+
+      // CTA
+      tl.fromTo("#cta", { opacity: 0 }, { opacity: 1, duration: 0.5 }, M.cta);
+      { const ch = "DIAGNÓSTICO", d = document.getElementById("digitado"); const t0 = em("diagnóstico") - 0.05;
+        for (let i = 0; i <= ch.length; i++) tl.set(d, { textContent: ch.slice(0, i) }, t0 + i * 0.05); }
+      tl.fromTo(["#cta .assina", "#cta img"], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, stagger: 0.3 }, em("diagnóstico") + 0.8);
+      tl.to(["#marca", "#selo"], { opacity: 0, duration: 0.3 }, M.cta);
+      tl.to("#preto", { opacity: 1, duration: 1.2 }, DURACAO - 1.2);
+
+      for (let t = 0, j = 0; t < DURACAO; t += 1 / 24, j++) tl.set("#grao", { backgroundPosition: `${(j * 137) % 540}px ${(j * 311) % 960}px` }, t);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
