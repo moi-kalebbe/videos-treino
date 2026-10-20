@@ -1,9 +1,9 @@
 # Instruções para agentes (Claude Code e Codex)
 
-Este repo treina agentes para criar e editar vídeos curtos verticais sobre **implementação de IA em empresas**.
+Este repo treina agentes para criar e editar vídeos curtos verticais sobre **implementação de IA em empresas** e a série de Stories de desenvolvimento pessoal **Lições para a Vida**. Para essa série, seguir `guias/serie-licoes-para-a-vida.md` antes de produzir.
 
 ## Quando o dono pedir um vídeo novo
-1. **Perguntar primeiro: "Que estilo de vídeo você quer?"** e listar os estilos de `estilos/README.md` (ou "um formato novo").
+1. **Perguntar primeiro: "Que estilo de vídeo você quer?"** e listar os estilos de `estilos/README.md` (ou "um formato novo"). Se o pedido for da série **Lições para a Vida**, o estilo já está definido em `guias/serie-licoes-para-a-vida.md` e não é necessário perguntar de novo.
 2. Se ele escolher um estilo salvo: ler `estilos/<estilo>/README.md`, mandar a ele o **briefing** daquele estilo (o que preciso dele + custo típico) e rodar `scripts/novo-video.sh <estilo> <slug>`.
 3. **Antes de produzir, fazer a análise do vídeo** (o estilo é ponto de partida, não molde):
    - o que o tema pede;
@@ -38,7 +38,7 @@ O dono sobe vídeos de referência nas **Notas Rápidas** do Mac. Quando pedir p
 - **Mídia grátis primeiro:** antes de gerar imagem ou vídeo pago, ver `guias/bancos-de-midia.md` (Pexels, Pixabay, NASA, Wikimedia, Hugging Face, LTX local).
 - **Efeitos:** catálogo dos 17 efeitos e como fazer cada um no HyperFrames em `guias/efeitos-video.md` (vale para todos os estilos).
 - **Roteiro:** seguir `guias/linguagem-natural.md` (fala de conversa, sem impacto genérico, humor quando couber).
-- Por enquanto **nenhum vídeo mostra rosto**: só motion, telas simuladas, texto e narração.
+- Usar rosto/avatar do dono somente a partir de material que ele confirmou ser seu. Não tratar rostos gerados ou opções de apresentador como se fossem ele.
 - Voz: **ElevenLabs** (`ELEVENLABS_API_KEY` no `.env`, que nunca vai pro git).
 - **Transcrição sempre com whisper local** (`whisper-cli`), nunca com o ElevenLabs. Créditos do ElevenLabs só para o que entra no vídeo final; usar `estimate_only` antes de gerações caras.
 - Número ou notícia na tela só com fonte listada no roteiro, ou marcado como exemplo.
