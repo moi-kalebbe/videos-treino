@@ -1,0 +1,203 @@
+{
+ "numero": 2,
+ "total": 3,
+ "titulo": "Um obrigado que mostra o",
+ "titulo_destaque": "motivo",
+ "livro": {
+  "titulo": "Como Fazer Amigos e Influenciar Pessoas",
+  "autor": "Dale Carnegie",
+  "capitulo": "Parte 1 · Cap. 2 · O grande segredo de lidar com as pessoas"
+ },
+ "audios": [
+  {
+   "arquivo": "voz.mp3",
+   "json": "voz.json",
+   "inicio": 0
+  }
+ ],
+ "cenas": [
+  {
+   "img": "a-titulo.png"
+  },
+  {
+   "img": "b-livro.png",
+   "entra": [
+    "essa",
+    1
+   ]
+  },
+  {
+   "img": "c-caixas.png",
+   "entra": [
+    "sabe",
+    1
+   ],
+   "zoom": {
+    "palavra": [
+     "valeu",
+     1
+    ],
+    "escala": 1.25,
+    "origem": "45% 35%"
+   }
+  },
+  {
+   "img": "d-apreciar.png",
+   "entra": [
+    "ideia",
+    1
+   ]
+  },
+  {
+   "img": "e-obrigado.png",
+   "entra": [
+    "hoje",
+    1
+   ]
+  },
+  {
+   "img": "f-mensagem.png",
+   "entra": [
+    "completa",
+    1
+   ]
+  },
+  {
+   "img": "h-fim.png",
+   "entra": [
+    "então",
+    1,
+    -0.2
+   ]
+  }
+ ],
+ "momentos": {
+  "livro": [
+   "livro",
+   1
+  ],
+  "capitulo": [
+   "parte",
+   1
+  ],
+  "livro_sai": [
+   "sabe",
+   1
+  ],
+  "passos": [
+   "hoje",
+   1
+  ]
+ },
+ "overlays": [
+  {
+   "texto": "💬 “valeu”",
+   "estilo": "left:520px;top:420px",
+   "entra": [
+    "valeu",
+    1,
+    -0.1
+   ],
+   "sai": [
+    "ideia",
+    1
+   ]
+  },
+  {
+   "texto": "🤔 ajudou em quê?",
+   "estilo": "left:130px;top:620px",
+   "entra": [
+    "talvez",
+    1
+   ],
+   "sai": [
+    "ideia",
+    1
+   ]
+  }
+ ],
+ "frase": {
+  "texto": "Diga o que a pessoa fez<br />e <em>como isso te ajudou.</em>",
+  "entra": [
+   "dizer",
+   1
+  ],
+  "sai": [
+   "hoje",
+   1
+  ]
+ },
+ "passos": [
+  {
+   "texto": "Lembra de uma ajuda real que você recebeu",
+   "entra": [
+    "lembra",
+    1
+   ],
+   "check": [
+    "completa",
+    1,
+    -0.3
+   ]
+  },
+  {
+   "texto": "“Obrigado por ___. Isso me ajudou a ___.”",
+   "entra": [
+    "completa",
+    1
+   ],
+   "check": [
+    "então",
+    1,
+    -0.4
+   ]
+  }
+ ],
+ "resumo": [
+  "Agradeça citando o que a pessoa fez",
+  "E o que aquilo mudou pra você"
+ ],
+ "fim": {
+  "tipo": "proximo",
+  "entra": [
+   "passa",
+   1
+  ],
+  "titulo": "Nem tudo precisa ficar mais rápido",
+  "livro": "A Meta",
+  "autor": "Eliyahu M. Goldratt e Jeff Cox"
+ },
+ "chaves": [
+  "motivo",
+  "livro",
+  "carnegie",
+  "caixas",
+  "valeu",
+  "sincera",
+  "ajudou",
+  "favor",
+  "obrigado",
+  "hoje",
+  "real"
+ ],
+ "sons": [
+  {
+   "arquivo": "s_notif.mp3",
+   "palavra": [
+    "valeu",
+    1
+   ],
+   "vol": 0.35
+  },
+  {
+   "arquivo": "riser.mp3",
+   "palavra": [
+    "sincera",
+    1
+   ],
+   "desloc": -1.5,
+   "d": 2,
+   "vol": 0.25
+  }
+ ]
+}

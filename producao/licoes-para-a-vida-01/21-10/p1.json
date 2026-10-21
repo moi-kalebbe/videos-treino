@@ -1,0 +1,130 @@
+{
+ "numero": 1,
+ "total": 1,
+ "data": "2026-10-21",
+ "audios": [
+  {
+   "arquivo": "voz.mp3",
+   "json": "voz.json",
+   "inicio": 0
+  }
+ ],
+ "selo": "LIÇÃO DO DIA · PARTE 1 DE 3",
+ "titulo": "A frase que vira",
+ "titulo_destaque": "briga",
+ "cenas": [
+  {
+   "img": "a-cafe.png"
+  },
+  {
+   "img": "c-espera.png",
+   "entra": [
+    "você",
+    1
+   ]
+  },
+  {
+   "img": "c-chega.png",
+   "entra": [
+    "chega",
+    1
+   ]
+  },
+  {
+   "img": "c-briga.png",
+   "entra": [
+    "pronto",
+    1
+   ]
+  }
+ ],
+ "overlays": [
+  {
+   "texto": "🕒 15:00",
+   "estilo": "left:110px;top:520px",
+   "entra": [
+    "três",
+    1
+   ],
+   "sai": [
+    "chega",
+    1
+   ]
+  },
+  {
+   "texto": "🕒 15:15 · e nada",
+   "estilo": "left:470px;top:640px;background:#e2402fe6;color:#fff",
+   "entra": [
+    "quinze",
+    1
+   ],
+   "sai": [
+    "chega",
+    1
+   ],
+   "pisca": true
+  },
+  {
+   "texto": "“Você é irresponsável!”",
+   "estilo": "left:120px;top:560px;background:#e2402f;color:#fff;font-size:52px",
+   "entra": [
+    "irresponsável",
+    1,
+    -0.2
+   ],
+   "sai": [
+    "toca",
+    1
+   ]
+  }
+ ],
+ "fim": {
+  "tipo": "proximo",
+  "entra": [
+   "toca",
+   1
+  ],
+  "rotulo": "PARTE 2 DE 3",
+  "titulo": "O que o livro ensina",
+  "botao": "Toque para continuar ▶"
+ },
+ "chaves": [
+  "briga",
+  "café",
+  "quinze",
+  "nada",
+  "irresponsável",
+  "assunto",
+  "livro"
+ ],
+ "sons": [
+  {
+   "arquivo": "relogio.mp3",
+   "palavra": [
+    "três",
+    1
+   ],
+   "d": 2.5,
+   "vol": 0.3
+  },
+  {
+   "arquivo": "s_hit2.mp3",
+   "palavra": [
+    "irresponsável",
+    1
+   ],
+   "desloc": -0.1,
+   "d": 2,
+   "vol": 0.5
+  },
+  {
+   "arquivo": "trombone.mp3",
+   "palavra": [
+    "briga",
+    1
+   ],
+   "d": 2,
+   "vol": 0.25
+  }
+ ]
+}

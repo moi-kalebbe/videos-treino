@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Extra · A escala nova e a IA · v2</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-500.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+
+      /* Parte 1: explicação em vidro sobre vídeo real. Parte 2: tela real do claude.ai, destaque laranja do Claude. */
+      :root { --branco: #f7f9ff; --azul: #3b74ff; --folga: #1fd1a5; --amarelo: #ffd84a; --verm: #ff5a4f; --claude: #e8845f; --vidro: rgba(14, 20, 38, 0.58); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #070a12; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--branco); font-family: "Inter", sans-serif; }
+      .clip { position: absolute; inset: 0; }
+      .vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+      #palco { z-index: 5; }
+      #escurece { position: absolute; inset: 0; background: linear-gradient(180deg, #070a12b0 0%, #070a1240 28%, #070a1240 55%, #070a12e8 100%); }
+      #foco { position: absolute; inset: 0; background: #05070d; opacity: 0; backdrop-filter: blur(16px); }
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 90; }
+
+      .t { position: absolute; left: 60px; right: 60px; text-align: center; opacity: 0; text-shadow: 0 6px 30px #000c; }
+      .golpe { font: 400 140px/0.95 "Anton"; text-transform: uppercase; }
+      .golpe .a { color: var(--amarelo); }
+      .mono { font: 500 28px "JetBrains Mono"; letter-spacing: 0.18em; color: #f7f9ffcc; }
+      #gancho { top: 560px; } #gancho .mono { margin-top: 30px; opacity: 0; }
+
+      /* a semana da Joana */
+      #semana { position: absolute; left: 60px; right: 60px; top: 430px; padding: 34px 30px 36px; border-radius: 32px; background: var(--vidro); border: 2px solid #ffffff2e; backdrop-filter: blur(18px); opacity: 0; box-shadow: 0 30px 80px #0008; }
+      #semana .topo { display: flex; justify-content: space-between; align-items: center; }
+      #sem-tit { font: 500 28px "JetBrains Mono"; letter-spacing: 0.16em; color: #f7f9ffc0; }
+      #joana { padding: 8px 18px; border-radius: 30px; background: #ffffff1c; font: 700 30px "Inter"; }
+      #semana .dias { margin-top: 26px; display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; }
+      .dia { height: 210px; border-radius: 18px; background: #ffffff14; border: 2px solid #ffffff22; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 20px 0 18px; }
+      .dia b { font: 800 30px "Inter"; }
+      .dia span { font: 500 19px "JetBrains Mono"; letter-spacing: 0.04em; opacity: 0; }
+      .dia.trab { background: #2b5fe0; border-color: #9db8ff; }
+      .dia.folga { background: var(--folga); border-color: #b5ffe9; color: #06231b; }
+      #semana .linha { margin-top: 30px; display: flex; align-items: baseline; justify-content: space-between; min-height: 150px; }
+      #horas { font: 400 150px/1 "Anton"; opacity: 0; }
+      #horas small { font: 400 70px "Anton"; }
+      #quando { font: 500 30px/1.3 "JetBrains Mono"; letter-spacing: 0.12em; color: var(--amarelo); text-align: right; opacity: 0; }
+      #salario { margin-top: 14px; font: 800 44px "Inter"; color: var(--folga); opacity: 0; }
+      #carimbo { position: absolute; right: 60px; bottom: 80px; padding: 14px 26px; border: 6px solid var(--verm); border-radius: 16px; color: var(--verm); font: 400 64px "Anton"; background: #070a12d0; transform: rotate(-7deg); opacity: 0; }
+      #resumo6 { position: absolute; left: 60px; right: 60px; top: 1130px; text-align: center; font: 800 46px "Inter"; opacity: 0; text-shadow: 0 4px 20px #000; }
+      #resumo6 em { font-style: normal; color: var(--azul); } #resumo6 i { font-style: normal; color: var(--folga); }
+
+      /* ou seja */
+      #ouseja { position: absolute; left: 70px; right: 70px; top: 470px; }
+      #ouseja .ab { font: 500 30px "JetBrains Mono"; letter-spacing: 0.2em; color: var(--amarelo); opacity: 0; margin-bottom: 26px; }
+      #ouseja .l { font: 400 120px/1.02 "Anton"; text-transform: uppercase; clip-path: inset(0 100% 0 0); text-shadow: 0 6px 30px #000a; }
+      #ouseja .l:nth-child(3) { color: var(--folga); }
+      #ouseja .l:nth-child(4) { color: var(--amarelo); font-size: 96px; }
+      #pergunta { top: 600px; }
+      #pergunta .q { font: 800 108px/1.02 "Inter"; letter-spacing: -0.035em; }
+      #pergunta .q em { font-style: normal; color: var(--amarelo); }
+      #virada { top: 600px; }
+      #virada .s1 { font: 500 34px "JetBrains Mono"; letter-spacing: 0.18em; color: #f7f9ffd0; }
+      #virada .g { margin-top: 18px; font: 400 190px/0.95 "Anton"; color: var(--amarelo); opacity: 0; }
+      #virada .s2 { margin-top: 30px; font: 800 70px "Inter"; letter-spacing: -0.02em; opacity: 0; }
+      #virada .s2 b { color: var(--claude); }
+
+      /* etiqueta do passo */
+      #tag { position: absolute; left: 0; right: 0; top: 176px; display: flex; justify-content: center; z-index: 25; opacity: 0; }
+      #tag p { padding: 16px 34px; border-radius: 50px; background: var(--amarelo); color: #1a1500; font: 800 40px "Inter"; letter-spacing: -0.01em; box-shadow: 0 10px 40px #0009; }
+
+      /* janela com a tela */
+      #tela { position: absolute; left: 60px; top: 290px; width: 960px; height: 1190px; border-radius: 30px; background: #151515; border: 2px solid #ffffff2a; box-shadow: 0 50px 120px #000d; overflow: hidden; z-index: 20; opacity: 0; }
+      #barra { position: absolute; left: 0; right: 0; top: 0; height: 70px; background: #232323; border-bottom: 2px solid #ffffff14; display: flex; align-items: center; padding: 0 26px; gap: 12px; }
+      #barra i { width: 18px; height: 18px; border-radius: 50%; background: #ff5f57; } #barra i:nth-child(2) { background: #febc2e; } #barra i:nth-child(3) { background: #28c840; }
+      #url { margin-left: 24px; flex: 1; height: 44px; border-radius: 22px; background: #151515; display: flex; align-items: center; padding: 0 24px; font: 500 26px "JetBrains Mono"; color: #f7f9ffd8; }
+      #vista { position: absolute; left: 0; top: 72px; width: 960px; height: 1118px; overflow: hidden; }
+      .cena { position: absolute; inset: 0; opacity: 0; }
+      .quadro { position: absolute; left: 0; top: 0; width: 960px; transform-origin: 0 0; }
+      .quadro img { display: block; width: 100%; }
+      .hl { position: absolute; border: 6px solid var(--claude); border-radius: 14px; box-shadow: 0 0 30px #e8845f88; opacity: 0; }
+      .hl.cheio { background: #e8845f2e; }
+      .masc { position: absolute; background: #20201e; }
+
+      /* sistema do caixa (exemplo) */
+      #pos { background: #eef1f6; color: #1d2433; }
+      #pos .menu { position: absolute; left: 0; top: 0; bottom: 0; width: 300px; background: #1d2433; color: #cfd6e4; padding: 40px 0; }
+      #pos .menu h4 { padding: 0 32px 34px; font: 800 34px "Inter"; color: #fff; }
+      #pos .menu p { padding: 22px 32px; font: 700 32px "Inter"; }
+      #pos .menu p.on { background: #3b74ff; color: #fff; }
+      #pos .corpo { position: absolute; left: 300px; right: 0; top: 0; bottom: 0; padding: 44px 40px; }
+      #pos .corpo h3 { font: 800 44px "Inter"; margin-bottom: 30px; }
+      #pos .item { padding: 26px 28px; margin-bottom: 16px; border-radius: 16px; background: #fff; font: 700 34px "Inter"; border: 3px solid #dfe4ee; }
+      #pos .item.on { border-color: #3b74ff; background: #e8efff; }
+      #pos .rel { position: absolute; left: 300px; right: 0; top: 0; bottom: 0; padding: 44px 40px; background: #eef1f6; opacity: 0; }
+      #pos .rel h3 { font: 800 42px "Inter"; }
+      #pos .barras { margin-top: 34px; height: 380px; display: flex; align-items: flex-end; gap: 12px; padding: 20px; background: #fff; border-radius: 16px; }
+      #pos .barras i { flex: 1; background: #3b74ff; border-radius: 6px 6px 0 0; }
+      #pos .exp { margin-top: 34px; display: inline-block; padding: 22px 34px; border-radius: 14px; background: #1d9e5a; color: #fff; font: 800 34px "Inter"; }
+      #pos .drop { margin-top: 14px; width: 380px; border-radius: 14px; background: #fff; border: 3px solid #dfe4ee; opacity: 0; }
+      #pos .drop p { padding: 22px 26px; font: 700 32px "Inter"; }
+      #pos .drop p.on { background: #e3f6ec; color: #11673b; }
+      #pos .exemplo { position: absolute; right: 24px; bottom: 22px; font: 500 22px "JetBrains Mono"; letter-spacing: 0.12em; color: #1d243380; }
+      #baixou { position: absolute; left: 40px; right: 40px; bottom: 90px; padding: 26px 30px; border-radius: 18px; background: #1d2433; color: #fff; font: 700 34px "Inter"; display: flex; gap: 20px; align-items: center; opacity: 0; }
+      #baixou b { padding: 8px 14px; border-radius: 10px; background: #1d9e5a; font: 800 26px "Inter"; }
+
+      #cursor { position: absolute; left: 0; top: 0; width: 56px; z-index: 6; opacity: 0; filter: drop-shadow(0 4px 8px #000a); }
+      #onda { position: absolute; left: 0; top: 0; width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%; border: 6px solid var(--claude); opacity: 0; z-index: 5; }
+
+      #nao { position: absolute; left: 60px; right: 60px; top: 760px; z-index: 26; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+      #nao p { position: relative; padding: 20px 44px; border-radius: 20px; background: #0d1020ee; border: 3px solid #ffffff40; font: 800 60px "Inter"; opacity: 0; }
+      #nao p s { position: absolute; left: 20px; right: 20px; top: 50%; height: 10px; margin-top: -5px; background: var(--verm); border-radius: 6px; transform: scaleX(0); transform-origin: 0 50%; }
+      #nao .sim { background: var(--claude); border-color: var(--claude); color: #1c0d05; }
+      #pedido { position: absolute; left: 50px; right: 50px; top: 520px; padding: 46px 48px 50px; border-radius: 34px; background: #2a2a28; border: 4px solid var(--claude); box-shadow: 0 40px 120px #000e; z-index: 27; opacity: 0; }
+      #pedido .ro { font: 500 26px "JetBrains Mono"; letter-spacing: 0.16em; color: var(--claude); margin-bottom: 22px; }
+      #pedido .tx { font: 500 47px/1.34 "Inter"; color: #fff; min-height: 380px; }
+      #chip { position: absolute; left: 0; right: 0; top: 1500px; text-align: center; z-index: 31; opacity: 0; }
+      #chip span { display: inline-block; padding: 12px 26px; border-radius: 30px; background: #0d1020; border: 2px solid #ffffff40; font: 500 26px "JetBrains Mono"; letter-spacing: 0.08em; }
+
+      #legenda { position: absolute; left: 60px; right: 60px; top: 1600px; z-index: 30; }
+      #legenda p { position: absolute; left: 0; right: 0; top: 0; text-align: center; font: 700 46px/1.25 "Inter"; text-shadow: 0 3px 16px #000, 0 0 2px #000; opacity: 0; }
+      #fonte { position: absolute; left: 60px; top: 1500px; z-index: 30; font: 500 22px "JetBrains Mono"; letter-spacing: 0.12em; color: #f7f9ff90; opacity: 0; }
+      #nota { position: absolute; left: 0; right: 0; top: 1498px; text-align: center; z-index: 30; font: 500 22px "JetBrains Mono"; letter-spacing: 0.12em; color: #f7f9ff90; opacity: 0; }
+
+      #aviso { position: absolute; left: 70px; right: 70px; top: 640px; padding: 50px 46px; border-radius: 30px; background: var(--vidro); border: 3px solid var(--amarelo); backdrop-filter: blur(18px); text-align: center; z-index: 35; opacity: 0; }
+      #aviso .i { font: 400 90px/1 "Anton"; color: var(--amarelo); }
+      #aviso .x { margin-top: 20px; font: 800 58px/1.15 "Inter"; }
+      #cta { position: absolute; inset: 0; z-index: 40; opacity: 0; }
+      #cta .fundo { position: absolute; inset: 0; background: linear-gradient(180deg, #070a1260 0%, #070a12e8 42%, #070a12f5 100%); }
+      #cta .pede { position: absolute; left: 0; right: 0; top: 700px; text-align: center; font: 800 92px "Inter"; letter-spacing: -0.03em; }
+      #cta .campo { position: absolute; left: 100px; right: 100px; top: 840px; height: 170px; border-radius: 24px; border: 4px solid var(--amarelo); display: flex; align-items: center; justify-content: center; font: 400 116px "Anton"; color: var(--amarelo); }
+      #cta .assina { position: absolute; left: 70px; right: 70px; top: 1070px; text-align: center; font: 700 42px/1.3 "Inter"; color: #f7f9ffe0; opacity: 0; }
+      #cta img { position: absolute; left: 50%; top: 1340px; width: 160px; margin-left: -80px; opacity: 0; }
+      #marca { position: absolute; right: 54px; top: 64px; width: 100px; opacity: 0.75; z-index: 50; }
+      #grao { position: absolute; inset: -40px; z-index: 60; background: url("assets/img/grao.png"); background-size: 540px 960px; opacity: 0.08; mix-blend-mode: overlay; pointer-events: none; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="100.6" data-width="1080" data-height="1920">
+      <video id="v-a0" class="vid" src="assets/video/a0.mp4" muted playsinline data-start="0.0" data-duration="5.243"></video>
+      <video id="v-a1" class="vid" src="assets/video/a1.mp4" muted playsinline data-start="5.243" data-duration="4.035"></video>
+      <video id="v-a2" class="vid" src="assets/video/a2.mp4" muted playsinline data-start="9.278" data-duration="4.48"></video>
+      <video id="v-a3" class="vid" src="assets/video/a3.mp4" muted playsinline data-start="13.758" data-duration="3.96"></video>
+      <video id="v-a4" class="vid" src="assets/video/a4.mp4" muted playsinline data-start="17.718" data-duration="2.641"></video>
+      <video id="v-a5" class="vid" src="assets/video/a5.mp4" muted playsinline data-start="20.359" data-duration="3.992"></video>
+      <video id="v-a6" class="vid" src="assets/video/a6.mp4" muted playsinline data-start="24.351" data-duration="5.238"></video>
+      <video id="v-a7" class="vid" src="assets/video/a7.mp4" muted playsinline data-start="29.589" data-duration="5.478"></video>
+      <video id="v-a8" class="vid" src="assets/video/a8.mp4" muted playsinline data-start="35.067" data-duration="4.225"></video>
+      <video id="v-a9" class="vid" src="assets/video/a9.mp4" muted playsinline data-start="39.292" data-duration="4.004"></video>
+      <video id="v-a10" class="vid" src="assets/video/a10.mp4" muted playsinline data-start="43.296" data-duration="6.437"></video>
+      <video id="v-a11" class="vid" src="assets/video/a11.mp4" muted playsinline data-start="49.733" data-duration="19.273"></video>
+      <video id="v-a12" class="vid" src="assets/video/a12.mp4" muted playsinline data-start="69.006" data-duration="10.196"></video>
+      <video id="v-a13" class="vid" src="assets/video/a13.mp4" muted playsinline data-start="79.202" data-duration="9.577"></video>
+      <video id="v-a14" class="vid" src="assets/video/a14.mp4" muted playsinline data-start="88.779" data-duration="11.821"></video>
+
+      <section id="palco" class="clip" data-start="0" data-duration="100.6" data-track-index="1">
+        <div id="escurece"></div>
+        <div id="foco"></div>
+
+        <div class="t" id="gancho"><p class="golpe">A escala do seu funcionário muda em <span class="a">dezembro</span></p><p class="mono">VOU EXPLICAR DO ZERO</p></div>
+
+        <div id="semana">
+          <div id="carimbo">ESCALA 6x1</div>
+          <div class="topo"><p id="sem-tit">A SEMANA DA</p><p id="joana">Joana</p></div>
+          <div class="dias">
+            <div class="dia"><b>SEG</b><span>trab.</span></div><div class="dia"><b>TER</b><span>trab.</span></div><div class="dia"><b>QUA</b><span>trab.</span></div><div class="dia"><b>QUI</b><span>trab.</span></div><div class="dia"><b>SEX</b><span>trab.</span></div><div class="dia"><b>SÁB</b><span>trab.</span></div><div class="dia"><b>DOM</b><span>folga</span></div>
+          </div>
+          <div class="linha"><p id="horas">44<small>h</small></p><p id="quando">POR SEMANA<br />ATÉ HOJE</p></div>
+          <p id="salario">✓ Salário igual</p>
+        </div>
+        <p id="resumo6"><em>6 dias</em> de trabalho · <i>1</i> de folga</p>
+
+        <div id="ouseja"><p class="ab">OU SEJA</p><p class="l">Mesma equipe</p><p class="l">Menos horas</p><p class="l">Loja aberta os mesmos dias</p></div>
+        <div class="t" id="pergunta"><p class="q">E aí, quem cobre o <em>sábado</em> da Joana?</p></div>
+        <div class="t" id="virada"><p class="s1">ESSA CONTA VOCÊ FAZ EM</p><p class="g">10 MINUTOS</p><p class="s2">com o chat do <b>Claude</b></p></div>
+
+        <div id="tag"><p id="tag-tx">PASSO 1 · NO CAIXA</p></div>
+        <div id="tela">
+          <div id="barra"><i></i><i></i><i></i><p id="url">sistema do caixa</p></div>
+          <div id="vista">
+            <div class="cena" id="pos">
+              <div class="menu"><h4>Caixa</h4><p>Vendas</p><p>Produtos</p><p>Estoque</p><p id="m-rel">Relatórios</p><p>Financeiro</p></div>
+              <div class="corpo"><h3>Relatórios</h3><p class="item">Vendas por dia</p><p class="item" id="i-hora">Vendas por hora</p><p class="item">Mais vendidos</p><p class="item">Fechamento</p></div>
+              <div class="rel"><h3>Vendas por hora</h3><div class="barras" id="barras"></div><p class="exp" id="b-exp">Exportar ▾</p><div class="drop" id="drop"><p id="d-xls">Excel (.xlsx)</p><p>PDF</p></div></div>
+              <div id="baixou">⬇ vendas-por-hora.xlsx <b>BAIXADO</b></div>
+              <p class="exemplo">TELA DE EXEMPLO · CADA SISTEMA TEM A SUA</p>
+            </div>
+            <div class="cena" id="k0"><div class="quadro"><img src="assets/telas/c0.png" alt="" /><div class="masc" id="mk-anexo"></div><div class="masc" id="mk-texto"></div></div></div>
+            <div class="cena" id="k1"><div class="quadro"><img src="assets/telas/c1.png" alt="" /></div></div>
+            <div class="cena" id="k3"><div class="quadro"><img src="assets/telas/c3.png" alt="" /></div></div>
+            <div class="cena" id="k2"><div class="quadro"><img src="assets/telas/c2.png" alt="" /></div></div>
+            <div class="cena" id="k5"><div class="quadro"><img src="assets/telas/c5.png" alt="" /></div></div>
+            <div class="cena" id="k6"><div class="quadro"><img src="assets/telas/c6.png" alt="" /></div></div>
+            <div class="cena" id="k7"><div class="quadro"><img src="assets/telas/c7.png" alt="" /></div></div>
+            <div id="onda"></div>
+            <svg id="cursor" viewBox="0 0 24 24"><path d="M4 2 L4 20 L9 15.5 L12.5 22 L15.5 20.5 L12.2 14.2 L19 14 Z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round" /></svg>
+          </div>
+        </div>
+
+        <div id="nao"><p>Claude Code<s></s></p><p>Codex<s></s></p><p class="sim">✓ O chat resolve</p></div>
+        <div id="pedido"><p class="ro">COLA ESSE PEDIDO</p><p class="tx" id="pedido-tx"></p></div>
+        <p id="chip"><span id="chip-tx">RESPOSTA REAL · LEVOU UNS 6 MINUTOS</span></p>
+
+        <p id="fonte">FONTE: EC 141/2026 · AGÊNCIA SENADO</p>
+        <p id="nota">DADOS DE EXEMPLO · CONVERSA REAL NO CLAUDE.AI</p>
+        <div id="legenda"></div>
+        <div id="aviso"><p class="i">ANTES DE MUDAR</p><p class="x">confere a convenção coletiva com o seu contador</p></div>
+        <div id="cta"><div class="fundo"></div><p class="pede">Comenta</p><div class="campo"><span id="digitado"></span></div><p class="assina">que eu te mando os pedidos prontos e te ajudo a montar a escala da sua empresa.</p><img src="assets/marca/logo-branca.png" alt="" /></div>
+        <div id="flash"></div>
+        <div id="grao"></div>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+      </section>
+
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="98.12" data-volume="1"></audio>
+      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="100.6" data-volume="0.12"></audio>
+      <audio id="sfx-hit0" src="assets/audio/s_hit.mp3" data-start="0.05" data-duration="2" data-volume="0.3"></audio>
+      <audio id="sfx-folga" src="assets/audio/s_ponto.mp3" data-start="8.5" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-carimbo" src="assets/audio/s_hit2.mp3" data-start="11.43" data-duration="2" data-volume="0.4"></audio>
+      <audio id="sfx-folga2" src="assets/audio/s_ponto.mp3" data-start="20.93" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-42" src="assets/audio/s_hit2.mp3" data-start="23.3" data-duration="2" data-volume="0.35"></audio>
+      <audio id="sfx-40" src="assets/audio/s_hit2.mp3" data-start="25.53" data-duration="2" data-volume="0.35"></audio>
+      <audio id="sfx-w1" src="assets/audio/whoosh.mp3" data-start="29.35" data-duration="1.5" data-volume="0.4"></audio>
+      <audio id="sfx-disco" src="assets/audio/s_disco.mp3" data-start="37.4" data-duration="1.6" data-volume="0.75"></audio>
+      <audio id="sfx-virada" src="assets/audio/s_hit.mp3" data-start="39.27" data-duration="2" data-volume="0.7"></audio>
+      <audio id="sfx-w2" src="assets/audio/whoosh.mp3" data-start="43.0" data-duration="1.5" data-volume="0.4"></audio>
+      <audio id="sfx-c1" src="assets/audio/s_clique.mp3" data-start="45.65" data-duration="0.65" data-volume="0.6"></audio>
+      <audio id="sfx-c2" src="assets/audio/s_clique.mp3" data-start="46.66" data-duration="0.65" data-volume="0.6"></audio>
+      <audio id="sfx-c3" src="assets/audio/s_clique.mp3" data-start="47.05" data-duration="0.65" data-volume="0.6"></audio>
+      <audio id="sfx-c4" src="assets/audio/s_clique.mp3" data-start="47.82" data-duration="0.65" data-volume="0.6"></audio>
+      <audio id="sfx-n1" src="assets/audio/s_notif.mp3" data-start="48.2" data-duration="1" data-volume="0.4"></audio>
+      <audio id="sfx-w3" src="assets/audio/whoosh.mp3" data-start="49.5" data-duration="1.5" data-volume="0.35"></audio>
+      <audio id="sfx-c5" src="assets/audio/s_clique.mp3" data-start="52.0" data-duration="0.65" data-volume="0.6"></audio>
+      <audio id="sfx-c6" src="assets/audio/s_clique.mp3" data-start="52.56" data-duration="0.65" data-volume="0.6"></audio>
+      <audio id="sfx-x1" src="assets/audio/s_papel.mp3" data-start="54.9" data-duration="1" data-volume="0.4"></audio>
+      <audio id="sfx-x2" src="assets/audio/s_papel.mp3" data-start="55.47" data-duration="1" data-volume="0.4"></audio>
+      <audio id="sfx-ok" src="assets/audio/s_ponto.mp3" data-start="57.4" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-tec1" src="assets/audio/s_teclado.mp3" data-start="58.93" data-duration="1.6" data-volume="0.45"></audio>
+      <audio id="sfx-envia" src="assets/audio/s_clique.mp3" data-start="62.1" data-duration="0.65" data-volume="0.6"></audio>
+      <audio id="sfx-n2" src="assets/audio/s_notif.mp3" data-start="63.4" data-duration="1" data-volume="0.4"></audio>
+      <audio id="sfx-n3" src="assets/audio/s_notif.mp3" data-start="65.5" data-duration="1" data-volume="0.35"></audio>
+      <audio id="sfx-baixa" src="assets/audio/s_clique.mp3" data-start="68.17" data-duration="0.65" data-volume="0.6"></audio>
+      <audio id="sfx-w4" src="assets/audio/whoosh.mp3" data-start="68.8" data-duration="1.5" data-volume="0.35"></audio>
+      <audio id="sfx-r1" src="assets/audio/s_ponto.mp3" data-start="72.43" data-duration="1" data-volume="0.35"></audio>
+      <audio id="sfx-r2" src="assets/audio/s_ponto.mp3" data-start="73.51" data-duration="1" data-volume="0.35"></audio>
+      <audio id="sfx-r3" src="assets/audio/s_ponto.mp3" data-start="75.33" data-duration="1" data-volume="0.35"></audio>
+      <audio id="sfx-w5" src="assets/audio/whoosh.mp3" data-start="79.0" data-duration="1.5" data-volume="0.35"></audio>
+      <audio id="sfx-c7" src="assets/audio/s_clique.mp3" data-start="82.47" data-duration="0.65" data-volume="0.6"></audio>
+      <audio id="sfx-c8" src="assets/audio/s_clique.mp3" data-start="83.93" data-duration="0.65" data-volume="0.6"></audio>
+      <audio id="sfx-w6" src="assets/audio/whoosh.mp3" data-start="88.55" data-duration="1.5" data-volume="0.4"></audio>
+      <audio id="sfx-cta" src="assets/audio/s_hit2.mp3" data-start="92.3" data-duration="2" data-volume="0.4"></audio>
+    </div>
+
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const DURACAO = 100.6;
+      const C = window.CENAS;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;"]/g, "");
+      function em(p, n = 1, f = 0) { let v = 0; for (const w of PALAVRAS) if (limpar(w.w) === p && ++v === n) return w.s; return f; }
+      const tl = gsap.timeline({ paused: true });
+      const aparece = (id, t, y = 30, d = 0.4) => tl.fromTo(id, { opacity: 0, y }, { opacity: 1, y: 0, duration: d, ease: "power3.out", immediateRender: false }, t);
+      const some = (id, t, d = 0.25) => tl.to(id, { opacity: 0, duration: d }, t - d);
+      const golpe = (id, t) => tl.fromTo(id, { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power4.in", immediateRender: false }, t);
+      const pulso = (id, t, s = 1.1) => tl.fromTo(id, { scale: 1 }, { scale: s, duration: 0.13, yoyo: true, repeat: 1, immediateRender: false }, t);
+
+      // ===== gancho =====
+      golpe("#gancho", 0.05);
+      tl.to("#gancho .mono", { opacity: 1, duration: 0.3 }, em("vou", 1, 2.7));
+      some("#gancho", C[1]);
+
+      // ===== a semana da Joana =====
+      tl.fromTo("#semana", { opacity: 0, x: -200, skewX: 8 }, { opacity: 1, x: 0, skewX: 0, duration: 0.5, ease: "power3.out", immediateRender: false }, C[1] + 0.02);
+      const dias = [...document.querySelectorAll("#semana .dia")];
+      const marcaDia = (d, cls, t, txt) => { tl.call(() => { d.classList.remove("trab", "folga"); }, null, t - 0.001); tl.call(() => { d.classList.remove("trab", "folga"); d.classList.add(cls); if (txt) d.querySelector("span").textContent = txt; }, null, t); pulso(d, t, 1.08); tl.to(d.querySelector("span"), { opacity: 1, duration: 0.15 }, t); };
+      const tSeg = em("segunda", 1, 7.12), tSab = em("sábado", 1, 7.72);
+      for (let i = 0; i < 6; i++) marcaDia(dias[i], "trab", tSeg + (i * (tSab - tSeg + 0.1)) / 5);
+      marcaDia(dias[6], "folga", em("folga", 1, 8.53));
+      aparece("#resumo6", em("seis", 1, 9.38) - 0.05, 20);
+      tl.fromTo("#carimbo", { opacity: 0, scale: 2.2, rotation: -16 }, { opacity: 1, scale: 1, rotation: -7, duration: 0.22, ease: "power4.in", immediateRender: false }, em("isso", 1, 11.43));
+      some("#resumo6", C[2]);
+      // até 44 horas
+      tl.to("#carimbo", { opacity: 0, duration: 0.25 }, C[2] - 0.1);
+      aparece("#horas", em("quarenta", 1, 15.57) - 0.15, 20); aparece("#quando", em("quarenta", 1, 15.57), 20);
+      // a nova lei
+      tl.call(() => { document.getElementById("sem-tit").textContent = "A SEMANA DA"; }, null, em("lei", 1, 18.2) - 0.01);
+      tl.call(() => { document.getElementById("sem-tit").textContent = "COM A NOVA LEI ·"; }, null, em("lei", 1, 18.2));
+      pulso("#sem-tit", em("lei", 1, 18.2), 1.06);
+      marcaDia(dias[5], "folga", em("folgas", 1, 20.95), "folga");
+      const H = document.getElementById("horas"), Q = document.getElementById("quando");
+      const poeHoras = (t, v, q, vAntes, qAntes) => { tl.call(() => { H.innerHTML = vAntes + "<small>h</small>"; Q.innerHTML = qAntes; }, null, t - 0.01); tl.call(() => { H.innerHTML = v + "<small>h</small>"; Q.innerHTML = q; }, null, t); tl.fromTo("#horas", { scale: 1.3, color: "#ffd84a" }, { scale: 1, color: "#f7f9ff", duration: 0.35, ease: "power3.out", immediateRender: false }, t); };
+      poeHoras(em("quarenta", 2, 23.32), 42, "A PARTIR DE<br />DEZ/2026", 44, "POR SEMANA<br />ATÉ HOJE");
+      poeHoras(em("quarenta", 3, 25.55), 40, "A PARTIR DE<br />DEZ/2027", 42, "A PARTIR DE<br />DEZ/2026");
+      aparece("#salario", em("salário", 1, 26.22) - 0.1, 14);
+      aparece("#fonte", C[3] + 0.3, 0); some("#fonte", C[4]);
+      tl.to("#semana", { opacity: 0, x: 200, skewX: -8, duration: 0.3 }, C[4] - 0.3);
+
+      // ===== ou seja =====
+      tl.to("#ouseja .ab", { opacity: 1, duration: 0.25 }, C[4]);
+      const linhas = document.querySelectorAll("#ouseja .l");
+      [["mesma", 30.31], ["menos", 31.38], ["loja", 32.78]].forEach(([p, f], i) => tl.to(linhas[i], { clipPath: "inset(0 0% 0 0)", duration: 0.35, ease: "power2.out" }, em(p, 1, f) - 0.1));
+      tl.to("#ouseja", { opacity: 0, y: -40, duration: 0.25 }, em("quem", 1, 35.7) - 0.6);
+      // a pergunta
+      aparece("#pergunta", em("quem", 1, 35.7) - 0.3, 40);
+      // disco arranha: a cena perde a cor e o texto "cai"
+      const tDisco = 38.0;
+      tl.to("#v-a8", { filter: "grayscale(1) brightness(0.45)", duration: 0.6 }, tDisco);
+      tl.to("#pergunta", { y: 60, scale: 0.94, rotation: -2, opacity: 0.35, duration: 0.8, ease: "power2.in" }, tDisco);
+      tl.to("#pergunta", { opacity: 0, duration: 0.15 }, C[5] - 0.15);
+
+      // ===== a virada =====
+      const tv = C[5];
+      tl.fromTo("#flash", { opacity: 0.9 }, { opacity: 0, duration: 0.4, immediateRender: false }, tv);
+      tl.fromTo("#v-a9", { scale: 1.7 }, { scale: 1, duration: 0.9, ease: "power3.out", immediateRender: false }, tv);
+      aparece("#virada", tv + 0.05, 30, 0.25);
+      golpe("#virada .g", em("dez", 1, 40.66));
+      tl.fromTo("#virada .s2", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, em("claude", 1, 42.05) - 0.25);
+      some("#virada", C[6] - 0.05);
+
+      // ===== tutorial =====
+      tl.to("#foco", { opacity: 0.62, duration: 0.4 }, C[6] - 0.3);
+      tl.fromTo("#tela", { opacity: 0, y: 160, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power3.out", immediateRender: false }, C[6] - 0.2);
+      const tagTx = document.getElementById("tag-tx"), url = document.getElementById("url");
+      const etiqueta = (txt, antes, t) => { tl.call(() => { tagTx.textContent = antes; }, null, t - 0.01); tl.call(() => { tagTx.textContent = txt; }, null, t); tl.fromTo("#tag", { opacity: 0, y: -30 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)", immediateRender: false }, t); };
+      const poeUrl = (txt, antes, t) => { tl.call(() => { url.textContent = antes; }, null, t - 0.01); tl.call(() => { url.textContent = txt; }, null, t); };
+      const LARG = { k0: 1200, k1: 973, k2: 952, k3: 952, k5: 973, k6: 1204, k7: 1061 };
+      const ALT = { k0: 470, k1: 1100, k2: 500, k3: 780, k5: 900, k6: 540, k7: 1030 };
+      const VW = 960, VH = 1118;
+      const quadro = (k) => document.getElementById(k).querySelector(".quadro");
+      // posição do quadro que leva o ponto (x, y) da imagem original ao centro da janela, com zoom z
+      const enquadra = (k, x, y, z) => { const s = (VW / LARG[k]) * z, w = LARG[k] * s, h = ALT[k] * s;
+        const tx = w <= VW ? (VW - w) / 2 : Math.min(0, Math.max(VW - w, VW / 2 - x * s)); const ty = h <= VH ? (VH - h) / 2 : Math.min(0, Math.max(VH - h, VH / 2 - y * s));
+        return { tx, ty, s }; };
+      const foca = (k, x, y, z, t, d = 0.6) => { const { tx, ty } = enquadra(k, x, y, z);
+        if (d === 0) tl.set(quadro(k), { x: tx, y: ty, scale: z }, t); else tl.to(quadro(k), { x: tx, y: ty, scale: z, duration: d, ease: "power2.inOut" }, t); };
+      // ponto da imagem original em coordenadas da janela, já com o enquadramento
+      const naJanela = (k, fx, fy, z, px, py) => { const { tx, ty, s } = enquadra(k, fx, fy, z); return [tx + px * s, ty + py * s]; };
+      const destaque = (k, x, y, w, h, t, fim, cheio = false) => { const s = VW / LARG[k], el = document.createElement("div"); el.className = "hl" + (cheio ? " cheio" : "");
+        Object.assign(el.style, { left: x * s - 8 + "px", top: y * s - 8 + "px", width: w * s + 16 + "px", height: h * s + 16 + "px" }); quadro(k).appendChild(el);
+        tl.fromTo(el, { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)", immediateRender: false }, t); if (fim) tl.to(el, { opacity: 0, duration: 0.2 }, fim); };
+      const cena = (id, a, b) => { tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.25, immediateRender: false }, a); if (b) tl.to(id, { opacity: 0, duration: 0.2 }, b - 0.2); };
+      // cursor em coordenadas da janela; a ponta da seta fica em (x, y)
+      const mira = (x, y, t, clica = true, d = 0.35) => { tl.to("#cursor", { x: x - 10, y: y - 4, duration: d, ease: "power2.inOut" }, t - d); if (clica) { tl.fromTo("#cursor", { scale: 1 }, { scale: 0.8, duration: 0.08, yoyo: true, repeat: 1, immediateRender: false }, t); tl.set("#onda", { x, y }, t); tl.fromTo("#onda", { opacity: 1, scale: 0.3 }, { opacity: 0, scale: 1.5, duration: 0.45, immediateRender: false }, t); } };
+
+      // passo 1: sistema do caixa (exemplo)
+      etiqueta("PASSO 1 · NO SISTEMA DO CAIXA", "PASSO 1 · NO SISTEMA DO CAIXA", C[6]);
+      cena("#pos", C[6]);
+      tl.set("#cursor", { x: 620, y: 900, opacity: 0 }, C[6]); tl.to("#cursor", { opacity: 1, duration: 0.2 }, C[6] + 0.3);
+      { const b = document.getElementById("barras"); [2, 3, 4, 6, 8, 9, 6, 5, 6, 9, 10, 7, 4, 2].forEach((v) => b.insertAdjacentHTML("beforeend", `<i style="height:${v * 9}%"></i>`)); }
+      const tRel = em("relatório", 1, 45.67), tHora = em("hora", 1, 46.68), tExp = em("exporta", 1, 47.07), tXls = em("excel", 1, 47.84);
+      const liga = (id, t) => { tl.call(() => document.getElementById(id).classList.remove("on"), null, t - 0.01); tl.call(() => document.getElementById(id).classList.add("on"), null, t); };
+      mira(160, 400, tRel); liga("m-rel", tRel);
+      mira(560, 258, tHora); liga("i-hora", tHora);
+      tl.to("#pos .rel", { opacity: 1, duration: 0.2 }, tHora + 0.15); tl.to("#pos .corpo", { opacity: 0, duration: 0.1 }, tHora + 0.3);
+      tl.fromTo("#barras i", { scaleY: 0, transformOrigin: "50% 100%" }, { scaleY: 1, duration: 0.25, stagger: 0.015, immediateRender: false }, tHora + 0.2);
+      mira(480, 600, tExp, true, 0.3); tl.to("#drop", { opacity: 1, duration: 0.15 }, tExp + 0.05);
+      mira(500, 720, tXls, true, 0.3); liga("d-xls", tXls);
+      tl.fromTo("#baixou", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)", immediateRender: false }, tXls + 0.35);
+      tl.to("#cursor", { opacity: 0, duration: 0.2 }, C[7] - 0.3);
+      some("#pos", C[7], 0.2);
+
+      // passo 2: claude.ai, clipe, anexa
+      etiqueta("PASSO 2 · NO CLAUDE.AI", "PASSO 1 · NO SISTEMA DO CAIXA", C[7]);
+      poeUrl("claude.ai", "sistema do caixa", em("claude", 2, 50.72));
+      cena("#k0", C[7]);
+      { const s = VW / 1200; Object.assign(document.getElementById("mk-anexo").style, { left: 45 * s + "px", top: 40 * s + "px", width: 230 * s + "px", height: 225 * s + "px" });
+        Object.assign(document.getElementById("mk-texto").style, { left: 40 * s + "px", top: 290 * s + "px", width: 1080 * s + "px", height: 115 * s + "px" }); }
+      foca("k0", 600, 235, 1, C[7], 0);
+      const tClipe = em("clipe", 1, 52.02), tAnexa = em("anexa", 1, 52.58);
+      foca("k0", 300, 300, 1.35, tClipe - 0.5, 0.45);
+      tl.set("#cursor", { x: 700, y: 900 }, C[7]); tl.to("#cursor", { opacity: 1, duration: 0.2 }, tClipe - 0.6);
+      { const [x, y] = naJanela("k0", 300, 300, 1.35, 70, 440); mira(x, y, tClipe, true, 0.3); }
+      tl.to("#mk-anexo", { opacity: 0, duration: 0.2 }, tAnexa);
+      destaque("k0", 55, 50, 200, 200, tAnexa + 0.05, 54.2);
+      tl.to("#cursor", { opacity: 0, duration: 0.2 }, 53.4);
+      foca("k0", 600, 235, 1, 53.5, 0.5);
+      // não precisa de Claude Code nem Codex
+      const nao = document.querySelectorAll("#nao p");
+      tl.fromTo(nao[0], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25, immediateRender: false }, em("claude", 3, 54.49) - 0.1);
+      tl.to(nao[0].querySelector("s"), { scaleX: 1, duration: 0.2 }, em("code", 1, 54.78) + 0.15);
+      tl.fromTo(nao[1], { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.25, immediateRender: false }, em("codex", 1, 55.35) - 0.15);
+      tl.to(nao[1].querySelector("s"), { scaleX: 1, duration: 0.2 }, em("codex", 1, 55.35) + 0.15);
+      tl.fromTo(nao[2], { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)", immediateRender: false }, em("chat", 2, 57.4));
+      tl.to("#nao", { opacity: 0, duration: 0.2 }, C[8] - 0.2);
+      // cola esse pedido
+      const PEDIDO = "Essa planilha tem minhas vendas por hora. Mostra os horários de pico e os horários parados. Depois monta uma escala para 5 funcionários com 2 folgas por semana cada, no máximo 42 horas, sem deixar o pico descoberto. Me devolve em planilha.";
+      aparece("#pedido", C[8] + 0.05, 50, 0.3);
+      { const el = document.getElementById("pedido-tx"), t0 = em("cola", 1, 58.93), dur = 1.5; tl.set(el, { textContent: "" }, C[8]); for (let i = 4; i <= PEDIDO.length; i += 4) tl.set(el, { textContent: PEDIDO.slice(0, i) }, t0 + (i / PEDIDO.length) * dur); tl.set(el, { textContent: PEDIDO }, t0 + dur); }
+      tl.to("#mk-texto", { opacity: 0, duration: 0.2 }, 60.6);
+      tl.to("#pedido", { opacity: 0, y: -40, duration: 0.25 }, C[9] - 0.35);
+      // envia e a resposta chega
+      tl.to("#cursor", { opacity: 1, duration: 0.15 }, 61.7);
+      { const [x, y] = naJanela("k0", 600, 235, 1, 1080, 440); mira(x, y, 62.1, true, 0.3); }
+      tl.to("#cursor", { opacity: 0, duration: 0.15 }, 62.5);
+      some("#k0", C[9] + 0.1, 0.2);
+      cena("#k1", C[9]);
+      foca("k1", 480, 330, 1.25, C[9], 0);
+      tl.fromTo("#chip", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, immediateRender: false }, em("poucos", 1, 62.43));
+      tl.to("#chip", { opacity: 0, duration: 0.2 }, em("monta", 1, 65.53) - 0.2);
+      destaque("k1", 30, 585, 790, 36, 62.6, em("mostra", 1, 63.42) + 0.2);
+      foca("k1", 380, 760, 1.15, em("mostra", 1, 63.42) - 0.1, 0.6);
+      destaque("k1", 70, 675, 790, 62, em("movimento", 1, 64.67), null, true);
+      destaque("k1", 70, 740, 790, 62, em("movimento", 1, 64.67) + 0.4, null, true);
+      some("#k1", em("monta", 1, 65.53), 0.2);
+      cena("#k3", em("monta", 1, 65.53) - 0.05, em("devolve", 1, 67.07));
+      foca("k3", 476, 330, 1, em("monta", 1, 65.53) - 0.05, 0);
+      destaque("k3", 36, 135, 600, 34, em("escala", 3, 66.27) - 0.1);
+      destaque("k3", 320, 265, 630, 262, em("escala", 3, 66.27) + 0.3);
+      cena("#k2", em("devolve", 1, 67.07) - 0.05, C[10]);
+      foca("k2", 476, 250, 1, em("devolve", 1, 67.07), 0);
+      destaque("k2", 36, 448, 600, 30, em("planilha", 2, 67.71) - 0.1, null, true);
+      destaque("k2", 806, 20, 40, 40, em("baixar", 1, 68.18) - 0.2);
+      tl.set("#cursor", { x: 600, y: 500 }, 67.4); tl.to("#cursor", { opacity: 1, duration: 0.15 }, 67.5);
+      { const [x, y] = naJanela("k2", 476, 250, 1, 826, 40); mira(x, y, em("baixar", 1, 68.18), true, 0.45); }
+      tl.to("#cursor", { opacity: 0, duration: 0.15 }, C[10] - 0.15);
+
+      // passo 3: quanto custa
+      etiqueta("PASSO 3 · QUANTO CUSTA", "PASSO 2 · NO CLAUDE.AI", C[10]);
+      cena("#k5", C[10], C[11]);
+      foca("k5", 560, 90, 1.5, C[10], 0);
+      destaque("k5", 192, 34, 735, 112, em("custa", 1, 70.73) - 0.2, em("tarde", 1, 72.45) - 0.4);
+      const tTarde = em("tarde", 1, 72.45), tMeio = em("meio", 1, 73.53), tExtra = em("extra", 1, 75.35);
+      foca("k5", 486, 700, 1, tTarde - 0.55, 0.5);
+      destaque("k5", 34, 555, 892, 48, tTarde, null, true);
+      destaque("k5", 34, 653, 892, 78, tMeio, null, true);
+      destaque("k5", 34, 733, 892, 76, tExtra, null, true);
+      destaque("k5", 30, 405, 790, 80, em("salário", 2, 76.62) - 0.1, 78.2);
+      destaque("k5", 515, 556, 412, 254, em("conta", 2, 78.42) - 0.2);
+      foca("k5", 700, 680, 1.35, em("conta", 2, 78.42) - 0.3, 0.6);
+
+      // bônus: tarefa agendada no Cowork
+      etiqueta("BÔNUS · TAREFA AGENDADA", "PASSO 3 · QUANTO CUSTA", C[11]);
+      poeUrl("claude.ai · Agendados", "claude.ai", C[11]);
+      const tTarefa = em("tarefa", 1, 82.49);
+      cena("#k6", C[11], tTarefa + 0.45);
+      foca("k6", 700, 200, 1.35, C[11], 0);
+      tl.set("#cursor", { x: 400, y: 700 }, C[11]); tl.to("#cursor", { opacity: 1, duration: 0.2 }, 81.3);
+      destaque("k6", 990, 148, 162, 42, tTarefa - 0.3, tTarefa + 0.4);
+      { const [x, y] = naJanela("k6", 700, 200, 1.35, 1070, 169); mira(x, y, tTarefa, true, 0.5); }
+      tl.to("#cursor", { opacity: 0, duration: 0.15 }, tTarefa + 0.3);
+      cena("#k7", tTarefa + 0.35);
+      foca("k7", 530, 515, 1, tTarefa + 0.35, 0);
+      destaque("k7", 42, 300, 994, 90, tTarefa + 0.6, em("segunda", 2, 83.95) - 0.2);
+      destaque("k7", 510, 826, 416, 58, em("segunda", 2, 83.95), null, true);
+      destaque("k7", 60, 352, 660, 34, em("pico", 2, 87.0) - 0.2, null, true);
+
+      tl.to(["#tela", "#tag", "#nota"], { opacity: 0, duration: 0.3 }, C[12] - 0.2);
+      tl.to("#foco", { opacity: 0.35, duration: 0.4 }, C[12] - 0.2);
+      tl.fromTo("#nota", { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, C[7] + 0.3);
+
+      // ===== fecho =====
+      tl.fromTo("#aviso", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(1.6)", immediateRender: false }, C[12] + 0.05);
+      tl.to("#aviso", { opacity: 0, duration: 0.25 }, em("comenta", 1, 92.33) - 0.3);
+      tl.fromTo("#cta", { opacity: 0 }, { opacity: 1, duration: 0.35, immediateRender: false }, em("comenta", 1, 92.33) - 0.15);
+      { const ch = "DIAGNÓSTICO", d = document.getElementById("digitado"); const t0 = em("diagnóstico", 1, 92.92) - 0.05;
+        for (let i = 0; i <= ch.length; i++) tl.set(d, { textContent: ch.slice(0, i) }, t0 + i * 0.05); }
+      tl.fromTo(["#cta .assina", "#cta img"], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.5, immediateRender: false }, em("diagnóstico", 1, 92.92) + 0.8);
+      tl.to("#marca", { opacity: 0, duration: 0.3 }, em("comenta", 1, 92.33));
+
+      // legenda da voz (fora o gancho, que já está escrito, e o fecho, que tem cartões)
+      const caixa = document.getElementById("legenda"); let fr = [];
+      const fecha = () => { if (!fr.length) return; const txt = fr.map((w) => w.w).join(" "); const ini = fr[0].s;
+        if (ini > C[1] - 0.2 && ini < C[12] - 0.1) {
+          const p = document.createElement("p"); p.textContent = txt; caixa.appendChild(p);
+          const prox = PALAVRAS[PALAVRAS.indexOf(fr[fr.length - 1]) + 1]; const fim = prox ? Math.min(fr[fr.length - 1].e + 0.35, prox.s - 0.05) : fr[fr.length - 1].e + 0.5;
+          tl.fromTo(p, { opacity: 0 }, { opacity: 1, duration: 0.12, immediateRender: false }, ini - 0.05); tl.set(p, { opacity: 0 }, fim); }
+        fr = []; };
+      PALAVRAS.forEach((w, i) => { fr.push(w); if (/[.?!:]$/.test(w.w) || (/,$/.test(w.w) && fr.length >= 5) || fr.length >= 8 || !PALAVRAS[i + 1]) fecha(); });
+
+      for (let t = 0, j = 0; t < DURACAO; t += 1 / 24, j++) tl.set("#grao", { backgroundPosition: `${(j * 137) % 540}px ${(j * 311) % 960}px` }, t);
+      tl.set({}, {}, DURACAO);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

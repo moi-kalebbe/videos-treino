@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.moiseskalebbe.publicar-licao-21-10</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/Users/moiseskalebbe/.local/share/videos-treino/publicar-licao-21-10.sh</string>
+	</array>
+	<key>StandardErrorPath</key>
+	<string>/Users/moiseskalebbe/.local/share/videos-treino/licao-21-10.log</string>
+	<key>StandardOutPath</key>
+	<string>/Users/moiseskalebbe/.local/share/videos-treino/licao-21-10.log</string>
+	<key>StartCalendarInterval</key>
+	<dict>
+		<key>Day</key>
+		<integer>21</integer>
+		<key>Hour</key>
+		<integer>5</integer>
+		<key>Minute</key>
+		<integer>57</integer>
+		<key>Month</key>
+		<integer>10</integer>
+	</dict>
+</dict>
+</plist>

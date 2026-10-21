@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Lições para a Vida · 1/1 · A frase que vira briga</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      :root { --azul: #1f2d55; --creme: #fdf1d6; --coral: #ff7a59; --verde: #2bd38a; --amarelo: #ffd84a; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #111; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; color: #fff; }
+      .cena { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; }
+      #topo { position: absolute; inset: 0 0 auto 0; height: 760px; background: linear-gradient(180deg, #0d1430f2 0%, #0d1430b0 45%, #0d143000 100%); z-index: 5; }
+      #base { position: absolute; inset: auto 0 0 0; height: 1000px; background: linear-gradient(0deg, #0d1430f0 0%, #0d143099 50%, #0d143000 100%); z-index: 5; }
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 60; }
+      #selo { position: absolute; left: 70px; top: 170px; z-index: 30; padding: 12px 24px; border-radius: 40px; background: var(--coral); color: #1b1208; font: 800 30px "Inter"; letter-spacing: 0.06em; }
+      /* capa de revista: título atrás do personagem recortado */
+      #capa-titulo { position: absolute; left: 40px; right: 40px; top: 290px; z-index: 6; font: 400 158px/0.95 "Anton"; text-transform: uppercase; text-align: center; color: #fff; text-shadow: 0 10px 40px #0007; opacity: 0; }
+      #capa-titulo em { position: relative; font-style: normal; color: var(--amarelo); }
+      #capa-rec { position: absolute; inset: 0; background: url(assets/img/capa-recorte.png) center / cover; z-index: 7; opacity: 0; }
+      .doodle { position: absolute; z-index: 25; overflow: visible; pointer-events: none; }
+      .doodle path { fill: none; stroke: var(--amarelo); stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; }
+      #livro { position: absolute; left: 60px; right: 60px; top: 960px; z-index: 12; padding: 40px 44px 44px; border-radius: 34px; background: var(--creme); color: var(--azul); box-shadow: 0 30px 80px #0009; opacity: 0; }
+      #livro .r { font: 800 28px "Inter"; letter-spacing: 0.14em; color: #b4532f; }
+      #livro h2 { margin-top: 14px; font: 800 60px/1.08 "Inter"; }
+      #livro .autor { margin-top: 16px; font: 700 42px "Inter"; color: #3d4a70; }
+      #livro .cap { position: relative; display: inline-block; margin-top: 26px; padding: 14px 26px; border-radius: 18px; background: var(--azul); color: #fff; font: 800 36px/1.25 "Inter"; opacity: 0; }
+      #livro .cap .doodle path { stroke: #e2502f; }
+      .bolha { position: absolute; z-index: 14; padding: 18px 28px; border-radius: 26px; background: #ffffffe8; color: var(--azul); font: 800 38px "Inter"; box-shadow: 0 16px 40px #0007; opacity: 0; white-space: nowrap; }
+      #frase { position: absolute; left: 70px; right: 70px; top: 1060px; z-index: 12; font: 400 96px/1.04 "Anton"; text-transform: uppercase; text-shadow: 0 8px 30px #000a; opacity: 0; }
+      #frase em { font-style: normal; color: var(--verde); }
+      .cartao { position: absolute; left: 60px; right: 60px; top: 920px; z-index: 12; padding: 34px 40px; border-radius: 30px; background: #fffaf0f2; color: var(--azul); box-shadow: 0 24px 70px #0008; opacity: 0; }
+      .cartao h3 { font: 400 70px/1 "Anton"; text-transform: uppercase; color: #c9502b; margin-bottom: 10px; }
+      .passo { position: relative; display: flex; gap: 20px; margin-top: 18px; opacity: 0; }
+      .passo i { flex: none; position: relative; width: 64px; height: 64px; border-radius: 50%; background: var(--azul); color: #fff; font: 800 36px/64px "Inter"; font-style: normal; text-align: center; }
+      .passo i b { position: absolute; inset: 0; border-radius: 50%; background: #1a9a5e; font: 800 40px/64px "Inter"; transform: scale(0); }
+      .passo p { font: 800 44px/1.18 "Inter"; padding-top: 4px; }
+      .passo .marca { position: relative; display: inline-block; }
+      /* visor de câmera (para o teste da câmera) */
+      #visor { position: absolute; left: 50px; right: 50px; top: 150px; bottom: 360px; z-index: 15; opacity: 0; pointer-events: none; }
+      #visor i { position: absolute; width: 110px; height: 110px; border: 0 solid #fff; }
+      #visor .c1 { left: 0; top: 0; border-top-width: 10px; border-left-width: 10px; }
+      #visor .c2 { right: 0; top: 0; border-top-width: 10px; border-right-width: 10px; }
+      #visor .c3 { left: 0; bottom: 0; border-bottom-width: 10px; border-left-width: 10px; }
+      #visor .c4 { right: 0; bottom: 0; border-bottom-width: 10px; border-right-width: 10px; }
+      #visor .rec { position: absolute; left: 40px; top: 36px; font: 800 48px "Inter"; color: #fff; text-shadow: 0 2px 10px #000; }
+      #visor .rec b { color: #ff3b3b; }
+      #visor .tc { position: absolute; right: 40px; top: 36px; font: 800 48px "Inter"; color: #fff; text-shadow: 0 2px 10px #000; }
+      .bolha.flutua { background: none; box-shadow: none; padding: 0; font: 400 150px/1 "Anton"; color: #ff4a3a; text-transform: uppercase; text-shadow: 0 0 24px #000c, 3px 0 0 #2bd38a80, -3px 0 0 #3b74ff80; }
+      #legenda { position: absolute; left: 60px; right: 60px; top: 1450px; z-index: 40; }
+      #legenda p { position: absolute; left: 0; right: 0; text-align: center; font: 800 64px/1.15 "Inter"; text-shadow: 0 4px 18px #000, 0 0 3px #000; opacity: 0; }
+      #legenda p b { color: var(--amarelo); }
+      #resumo { position: absolute; left: 60px; right: 60px; top: 880px; z-index: 12; padding: 34px 40px; border-radius: 30px; background: #0d1430e0; border: 3px solid #ffffff55; backdrop-filter: blur(18px); opacity: 0; }
+      #resumo p { font: 800 44px/1.25 "Inter"; margin: 6px 0; opacity: 0; }
+      #resumo p span { color: var(--verde); }
+      #amanha { position: absolute; left: 60px; right: 60px; top: 880px; z-index: 13; padding: 34px 40px 40px; border-radius: 30px; background: var(--creme); color: var(--azul); box-shadow: 0 30px 80px #0009; opacity: 0; }
+      #amanha .r { font: 800 28px "Inter"; letter-spacing: 0.14em; color: #b4532f; }
+      #amanha h4 { margin-top: 10px; font: 400 88px/1 "Anton"; text-transform: uppercase; }
+      #amanha .t { margin-top: 14px; font: 800 42px/1.2 "Inter"; }
+      #amanha .a { margin-top: 8px; font: 700 34px "Inter"; color: #3d4a70; }
+      #seguir, #proximo { position: absolute; left: 50%; top: 1500px; z-index: 13; width: 680px; margin-left: -340px; height: 120px; border-radius: 28px; background: #0095f6; font: 800 48px/120px "Inter"; text-align: center; opacity: 0; }
+      #proximo { background: #ffffff; color: var(--azul); }
+      #seguir.ok { background: #2a2a31; }
+      #toque { position: absolute; left: 680px; top: 1540px; z-index: 14; width: 96px; height: 96px; border-radius: 50%; border: 6px solid #fff; background: #ffffff40; opacity: 0; }
+      #resumo { top: 300px; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="59.86" data-width="1080" data-height="1920">
+      <div class="cena" id="cena0" style="background-image:url(assets/img/a-cafe.png)"></div>
+      <p id="capa-titulo" style="font-size:158px">A frase que vira <em>briga</em></p>
+      <div id="capa-rec"></div>
+      <div class="cena" id="cena1" style="background-image:url(assets/img/c-espera.png)"></div>
+      <div class="cena" id="cena2" style="background-image:url(assets/img/c-chega.png)"></div>
+      <div class="cena" id="cena3" style="background-image:url(assets/img/c-briga.png)"></div>
+      <div class="cena" id="cena4" style="background-image:url(assets/img/c-chega.png)"></div>
+      <div class="cena" id="cena5" style="background-image:url(assets/img/c-espera.png)"></div>
+      <div class="cena" id="cena6" style="background-image:url(assets/img/b-livro.png)"></div>
+      <div class="cena" id="cena7" style="background-image:url(assets/img/c-chega.png)"></div>
+      <div class="cena" id="cena8" style="background-image:url(assets/img/f-calma.png)"></div>
+      <div class="cena" id="cena9" style="background-image:url(assets/img/e-louca.png)"></div>
+      <div class="cena" id="cena10" style="background-image:url(assets/img/f-jantar.png)"></div>
+      <div class="cena" id="cena11" style="background-image:url(assets/img/g-relatorio.png)"></div>
+      <div class="cena" id="cena12" style="background-image:url(assets/img/h-quarto.png)"></div>
+      <div class="cena" id="cena13" style="background-image:url(assets/img/g-encomenda.png)"></div>
+      <div class="cena" id="cena14" style="background-image:url(assets/img/d-camera.png)"></div>
+      <div class="cena" id="cena15" style="background-image:url(assets/img/h-fim.png)"></div>
+      <div id="topo"></div><div id="base"></div>
+      <p id="selo">LIÇÃO DO DIA</p>
+      <div id="livro"><p class="r">📖 DE QUAL LIVRO É</p><h2>Comunicação Não-Violenta</h2><p class="autor">Marshall B. Rosenberg</p><p class="cap">Capítulo 3 · Observar sem avaliar<svg class="doodle" style="left:-26px;top:-20px;width:calc(100% + 52px);height:calc(100% + 40px)" viewBox="0 0 100 100" preserveAspectRatio="none"><path id="circ-cap" vector-effect="non-scaling-stroke" d="M50 4 C 82 2, 98 30, 97 52 C 96 80, 70 97, 46 96 C 18 95, 2 74, 4 48 C 6 24, 28 3, 58 6" /></svg></p></div>
+      <div id="visor"><i class="c1"></i><i class="c2"></i><i class="c3"></i><i class="c4"></i><p class="rec"><b>●</b> REC</p><p class="tc">15:15:04</p></div>
+      <p class="bolha" id="ov0" style="left:110px;top:520px">🕒 15:00</p>
+      <p class="bolha" id="ov1" style="left:470px;top:640px;background:#e2402fe6;color:#fff">🕒 15:15</p>
+      <p class="bolha" id="ov2" style="left:90px;top:520px;background:#e2402f;color:#fff;font-size:54px">“Você é irresponsável!”</p>
+      <p class="bolha" id="ov3" style="left:300px;top:660px;background:#fff;font-size:48px">“Eu? Você que é exagerada!”</p>
+      <p class="bolha" id="ov4" style="left:250px;top:820px;background:#e2402f;color:#fff;font-size:110px;padding:24px 50px;transform:rotate(-8deg)">❌ RÓTULO</p>
+      <p class="bolha" id="ov5" style="left:170px;top:380px;background:#111;color:#fff;font-size:60px;letter-spacing:0.06em">◀◀ VOLTANDO A FITA</p>
+      <p class="bolha" id="ov6" style="left:110px;top:330px;background:#ddf7e9">✓ relógio: 15h15</p>
+      <p class="bolha" id="ov7" style="left:470px;top:450px;background:#ddf7e9">✓ ele chegando</p>
+      <p class="bolha flutua" id="ov8" style="left:240px;top:640px">irresponsável</p>
+      <p class="bolha" id="ov9" style="left:150px;top:840px;background:#e2402f;color:#fff;font-size:46px">❌ a câmera não grava isso</p>
+      <p class="bolha" id="ov10" style="left:70px;top:330px;background:#ddf7e9">1 · FATO</p>
+      <p class="bolha" id="ov11" style="left:70px;top:440px;background:#ddf7e9">2 · IMPACTO</p>
+      <p class="bolha" id="ov12" style="left:70px;top:550px;background:#ddf7e9">3 · PEDIDO</p>
+      <p class="bolha" id="ov13" style="left:140px;top:820px;background:#1a9a5e;color:#fff;font-size:62px">✅ CONVERSA RESOLVIDA</p>
+      <p class="bolha" id="ov14" style="left:110px;top:820px;background:#ffd84a;font-size:56px">5 situações do dia a dia</p>
+      <p class="bolha" id="ov15" style="left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px">1/5 · CASA</p>
+      <p class="bolha" id="ov16" style="left:70px;top:390px;background:#fde3de">❌ <s>“Você nunca lava a louça”</s></p>
+      <p class="bolha" id="ov17" style="left:70px;top:500px;background:#ddf7e9;font-size:36px">✅ “A louça de ontem ainda tá na pia”</p>
+      <p class="bolha" id="ov18" style="left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px">2/5 · FAMÍLIA</p>
+      <p class="bolha" id="ov19" style="left:70px;top:390px;background:#fde3de">❌ <s>“Você vive no celular”</s></p>
+      <p class="bolha" id="ov20" style="left:70px;top:500px;background:#ddf7e9;font-size:36px">✅ “No jantar, pegou o celular 5 vezes”</p>
+      <p class="bolha" id="ov21" style="left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px">3/5 · TRABALHO</p>
+      <p class="bolha" id="ov22" style="left:70px;top:390px;background:#fde3de">❌ <s>“Você é desorganizado”</s></p>
+      <p class="bolha" id="ov23" style="left:70px;top:500px;background:#ddf7e9;font-size:36px">✅ “O relatório veio sem março”</p>
+      <p class="bolha" id="ov24" style="left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px">4/5 · FILHOS</p>
+      <p class="bolha" id="ov25" style="left:70px;top:390px;background:#fde3de">❌ <s>“Você é preguiçoso”</s></p>
+      <p class="bolha" id="ov26" style="left:70px;top:500px;background:#ddf7e9;font-size:36px">✅ “Roupa no chão desde segunda”</p>
+      <p class="bolha" id="ov27" style="left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px">5/5 · COMPRAS</p>
+      <p class="bolha" id="ov28" style="left:70px;top:390px;background:#fde3de">❌ <s>“Vocês são uma bagunça”</s></p>
+      <p class="bolha" id="ov29" style="left:70px;top:500px;background:#ddf7e9;font-size:36px">✅ “Pedi 3 cadernos e recebi 2”</p>
+      <p class="bolha" id="ov30" style="left:110px;top:1240px;background:#fff;font-size:48px">↗ Envie pra quem precisa ver</p>
+      <p id="frase">Câmera grava? É <em>fato</em>.<br />Não grava? É rótulo.</p>
+      
+      <div id="resumo"><p><span>✓</span> 🎥 A câmera filmaria isso?</p><p><span>✓</span> Fato → Impacto → Pedido</p></div>
+      <div id="amanha"><p class="r">AMANHÃ CEDO</p><h4>Mais uma lição</h4><p class="t">Uma ideia de livro + como aplicar no dia a dia</p></div><p id="seguir">Seguir @moiseskalebbe</p><div id="toque"></div>
+      <div id="legenda"></div>
+      <div id="flash"></div>
+      <audio id="voz0" src="assets/audio/n1.mp3" data-start="0.0" data-duration="5.67" data-volume="1"></audio>
+      <audio id="voz1" src="assets/audio/f1.mp3" data-start="5.75" data-duration="1.67" data-volume="1"></audio>
+      <audio id="voz2" src="assets/audio/m1.mp3" data-start="7.5" data-duration="2.55" data-volume="1"></audio>
+      <audio id="voz3" src="assets/audio/n2.mp3" data-start="10.15" data-duration="2.28" data-volume="1"></audio>
+      <audio id="voz4" src="assets/audio/n3.mp3" data-start="13.6" data-duration="11.98" data-volume="1"></audio>
+      <audio id="voz5" src="assets/audio/f2.mp3" data-start="25.75" data-duration="6.22" data-volume="1"></audio>
+      <audio id="voz6" src="assets/audio/m2.mp3" data-start="32.1" data-duration="1.3" data-volume="1"></audio>
+      <audio id="voz7" src="assets/audio/n4.mp3" data-start="33.55" data-duration="14.58" data-volume="1"></audio>
+      <audio id="voz8" src="assets/audio/n5.mp3" data-start="48.3" data-duration="10.96" data-volume="1"></audio>
+      <audio id="som0" src="assets/sons/m_sunset.mp3" data-start="0.00" data-duration="59.86" data-volume="0.11"></audio>
+      <audio id="som1" src="assets/sons/s_hit2.mp3" data-start="0.05" data-duration="2" data-volume="0.45"></audio>
+      <audio id="som2" src="assets/sons/whoosh.mp3" data-start="2.69" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som3" src="assets/sons/whoosh.mp3" data-start="5.10" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som4" src="assets/sons/whoosh.mp3" data-start="7.50" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som5" src="assets/sons/whoosh.mp3" data-start="12.55" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som6" src="assets/sons/whoosh.mp3" data-start="13.05" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som7" src="assets/sons/whoosh.mp3" data-start="13.66" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som8" src="assets/sons/whoosh.mp3" data-start="19.75" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som9" src="assets/sons/whoosh.mp3" data-start="25.75" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som10" src="assets/sons/whoosh.mp3" data-start="35.90" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som11" src="assets/sons/whoosh.mp3" data-start="37.99" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som12" src="assets/sons/whoosh.mp3" data-start="40.81" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som13" src="assets/sons/whoosh.mp3" data-start="43.27" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som14" src="assets/sons/whoosh.mp3" data-start="45.72" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som15" src="assets/sons/whoosh.mp3" data-start="48.15" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som16" src="assets/sons/whoosh.mp3" data-start="57.24" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som17" src="assets/sons/s_papel.mp3" data-start="13.61" data-duration="1" data-volume="0.5"></audio>
+      <audio id="som18" src="assets/sons/s_papel.mp3" data-start="17.00" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som19" src="assets/sons/ding.mp3" data-start="52.27" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som20" src="assets/sons/whoosh.mp3" data-start="48.00" data-duration="0.68" data-volume="0.35"></audio>
+      <audio id="som21" src="assets/sons/s_hit2.mp3" data-start="57.34" data-duration="2" data-volume="0.35"></audio>
+      <audio id="som22" src="assets/sons/s_clique.mp3" data-start="58.49" data-duration="0.65" data-volume="0.7"></audio>
+      <audio id="som23" src="assets/sons/vinheta.mp3" data-start="57.26" data-duration="2.6" data-volume="0.35"></audio>
+      <audio id="som24" src="assets/sons/relogio.mp3" data-start="3.70" data-duration="2.5" data-volume="0.3"></audio>
+      <audio id="som25" src="assets/sons/s_hit2.mp3" data-start="6.00" data-duration="2" data-volume="0.5"></audio>
+      <audio id="som26" src="assets/sons/trombone.mp3" data-start="10.68" data-duration="2" data-volume="0.25"></audio>
+      <audio id="som27" src="assets/sons/rebobinar.mp3" data-start="12.21" data-duration="1.3" data-volume="0.5"></audio>
+      <audio id="som28" src="assets/sons/k_obturador.mp3" data-start="19.90" data-duration="1" data-volume="0.45"></audio>
+      <audio id="som29" src="assets/sons/s_ponto.mp3" data-start="21.54" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som30" src="assets/sons/s_ponto.mp3" data-start="22.47" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som31" src="assets/sons/glitch.mp3" data-start="23.65" data-duration="1.2" data-volume="0.4"></audio>
+      <audio id="som32" src="assets/sons/s_hit2.mp3" data-start="24.70" data-duration="2" data-volume="0.35"></audio>
+      <audio id="som33" src="assets/sons/s_ponto.mp3" data-start="28.65" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som34" src="assets/sons/s_ponto.mp3" data-start="30.84" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som35" src="assets/sons/ding.mp3" data-start="32.67" data-duration="1" data-volume="0.45"></audio>
+      <audio id="som36" src="assets/sons/s_ponto.mp3" data-start="36.05" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som37" src="assets/sons/s_ponto.mp3" data-start="38.14" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som38" src="assets/sons/s_ponto.mp3" data-start="40.96" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som39" src="assets/sons/s_ponto.mp3" data-start="43.42" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som40" src="assets/sons/s_ponto.mp3" data-start="45.87" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som41" src="assets/sons/s_clique.mp3" data-start="55.32" data-duration="0.65" data-volume="0.6"></audio>
+    </div>
+    <script>
+      const PALAVRAS = [{"w": "Uma", "s": 0.0, "e": 0.313}, {"w": "frase", "s": 0.372, "e": 0.813}, {"w": "só", "s": 0.871, "e": 0.998}, {"w": "transforma", "s": 1.045, "e": 1.463}, {"w": "um", "s": 1.579, "e": 1.672}, {"w": "atraso", "s": 1.718, "e": 2.148}, {"w": "numa", "s": 2.229, "e": 2.415}, {"w": "briga.", "s": 2.461, "e": 2.81}, {"w": "Café", "s": 2.844, "e": 3.135}, {"w": "marcado", "s": 3.181, "e": 3.576}, {"w": "às", "s": 3.599, "e": 3.657}, {"w": "três.", "s": 3.704, "e": 4.075}, {"w": "Três", "s": 4.168, "e": 4.389}, {"w": "e", "s": 4.435, "e": 4.458}, {"w": "quinze,", "s": 4.505, "e": 4.934}, {"w": "ele", "s": 5.016, "e": 5.201}, {"w": "chega.", "s": 5.248, "e": 5.666}, {"w": "Você", "s": 5.75, "e": 6.122}, {"w": "é", "s": 6.203, "e": 6.238}, {"w": "irresponsável!", "s": 6.296, "e": 7.422}, {"w": "Eu?", "s": 7.5, "e": 7.848}, {"w": "Irresponsável?", "s": 7.93, "e": 8.812}, {"w": "Você", "s": 8.847, "e": 9.102}, {"w": "que", "s": 9.183, "e": 9.265}, {"w": "é", "s": 9.3, "e": 9.334}, {"w": "exagerada!", "s": 9.358, "e": 10.054}, {"w": "Pronto,", "s": 10.15, "e": 10.568}, {"w": "virou", "s": 10.684, "e": 10.951}, {"w": "briga.", "s": 11.009, "e": 11.404}, {"w": "Volta", "s": 11.485, "e": 11.81}, {"w": "a", "s": 11.833, "e": 11.857}, {"w": "fita.", "s": 11.915, "e": 12.426}, {"w": "No", "s": 13.6, "e": 13.763}, {"w": "livro", "s": 13.809, "e": 14.041}, {"w": "Comunicação", "s": 14.122, "e": 14.842}, {"w": "Não-Violenta,", "s": 14.935, "e": 15.771}, {"w": "do", "s": 15.806, "e": 15.887}, {"w": "Marshall", "s": 15.945, "e": 16.305}, {"w": "Rosenberg,", "s": 16.386, "e": 16.944}, {"w": "capítulo", "s": 17.002, "e": 17.501}, {"w": "três,", "s": 17.559, "e": 17.977}, {"w": "Observar", "s": 18.0, "e": 18.476}, {"w": "sem", "s": 18.511, "e": 18.616}, {"w": "Avaliar,", "s": 18.65, "e": 19.138}, {"w": "tem", "s": 19.173, "e": 19.335}, {"w": "um", "s": 19.359, "e": 19.405}, {"w": "teste:", "s": 19.486, "e": 19.869}, {"w": "imagina", "s": 19.904, "e": 20.357}, {"w": "uma", "s": 20.38, "e": 20.508}, {"w": "câmera.", "s": 20.566, "e": 20.984}, {"w": "Ela", "s": 21.019, "e": 21.193}, {"w": "grava", "s": 21.239, "e": 21.46}, {"w": "o", "s": 21.483, "e": 21.506}, {"w": "relógio", "s": 21.541, "e": 21.994}, {"w": "e", "s": 22.075, "e": 22.226}, {"w": "ele", "s": 22.284, "e": 22.424}, {"w": "chegando.", "s": 22.47, "e": 22.946}, {"w": "Mas", "s": 22.981, "e": 23.12}, {"w": "não", "s": 23.155, "e": 23.248}, {"w": "grava", "s": 23.283, "e": 23.585}, {"w": "\"irresponsável\".", "s": 23.654, "e": 24.653}, {"w": "Isso", "s": 24.699, "e": 24.931}, {"w": "é", "s": 24.955, "e": 24.978}, {"w": "rótulo.", "s": 25.036, "e": 25.581}, {"w": "Combinamos", "s": 25.75, "e": 26.389}, {"w": "às", "s": 26.47, "e": 26.598}, {"w": "três,", "s": 26.69, "e": 27.201}, {"w": "e", "s": 27.236, "e": 27.283}, {"w": "são", "s": 27.341, "e": 27.538}, {"w": "três", "s": 27.584, "e": 27.909}, {"w": "e", "s": 27.979, "e": 28.026}, {"w": "quinze.", "s": 28.095, "e": 28.583}, {"w": "Preciso", "s": 28.652, "e": 29.129}, {"w": "sair", "s": 29.175, "e": 29.442}, {"w": "às", "s": 29.5, "e": 29.581}, {"w": "quatro.", "s": 29.651, "e": 30.15}, {"w": "Me", "s": 30.197, "e": 30.301}, {"w": "avisa", "s": 30.348, "e": 30.673}, {"w": "da", "s": 30.731, "e": 30.8}, {"w": "próxima", "s": 30.835, "e": 31.276}, {"w": "vez?", "s": 31.346, "e": 31.973}, {"w": "Desculpa.", "s": 32.1, "e": 32.611}, {"w": "Vou", "s": 32.669, "e": 32.808}, {"w": "te", "s": 32.855, "e": 32.913}, {"w": "avisar.", "s": 32.936, "e": 33.4}, {"w": "Agora,", "s": 33.55, "e": 34.177}, {"w": "cinco", "s": 34.351, "e": 34.955}, {"w": "do", "s": 35.013, "e": 35.129}, {"w": "dia", "s": 35.199, "e": 35.35}, {"w": "a", "s": 35.373, "e": 35.396}, {"w": "dia.", "s": 35.477, "e": 35.791}, {"w": "A", "s": 35.872, "e": 35.953}, {"w": "louça", "s": 36.046, "e": 36.325}, {"w": "de", "s": 36.383, "e": 36.452}, {"w": "ontem", "s": 36.522, "e": 36.847}, {"w": "ainda", "s": 36.929, "e": 37.196}, {"w": "tá", "s": 37.242, "e": 37.323}, {"w": "na", "s": 37.37, "e": 37.439}, {"w": "pia.", "s": 37.509, "e": 37.857}, {"w": "No", "s": 37.95, "e": 38.066}, {"w": "jantar,", "s": 38.136, "e": 38.658}, {"w": "você", "s": 38.705, "e": 38.902}, {"w": "pegou", "s": 38.972, "e": 39.169}, {"w": "o", "s": 39.192, "e": 39.216}, {"w": "celular", "s": 39.25, "e": 39.761}, {"w": "cinco", "s": 39.877, "e": 40.249}, {"w": "vezes.", "s": 40.307, "e": 40.76}, {"w": "O", "s": 40.795, "e": 40.864}, {"w": "relatório", "s": 40.957, "e": 41.48}, {"w": "veio", "s": 41.561, "e": 41.816}, {"w": "sem", "s": 41.886, "e": 42.072}, {"w": "os", "s": 42.13, "e": 42.199}, {"w": "números", "s": 42.257, "e": 42.559}, {"w": "de", "s": 42.594, "e": 42.652}, {"w": "março.", "s": 42.71, "e": 43.163}, {"w": "Tem", "s": 43.209, "e": 43.372}, {"w": "roupa", "s": 43.418, "e": 43.697}, {"w": "no", "s": 43.72, "e": 43.778}, {"w": "chão", "s": 43.825, "e": 43.999}, {"w": "do", "s": 44.034, "e": 44.115}, {"w": "quarto", "s": 44.173, "e": 44.672}, {"w": "desde", "s": 44.788, "e": 45.183}, {"w": "segunda.", "s": 45.253, "e": 45.833}, {"w": "Pedi", "s": 45.868, "e": 46.089}, {"w": "três", "s": 46.158, "e": 46.379}, {"w": "cadernos", "s": 46.437, "e": 46.971}, {"w": "e", "s": 47.064, "e": 47.099}, {"w": "recebi", "s": 47.145, "e": 47.517}, {"w": "dois.", "s": 47.575, "e": 48.132}, {"w": "Então,", "s": 48.3, "e": 48.869}, {"w": "hoje:", "s": 48.904, "e": 49.38}, {"w": "antes", "s": 49.426, "e": 49.763}, {"w": "de", "s": 49.786, "e": 49.844}, {"w": "reclamar,", "s": 49.879, "e": 50.459}, {"w": "pergunta:", "s": 50.494, "e": 51.179}, {"w": "a", "s": 51.226, "e": 51.295}, {"w": "câmera", "s": 51.388, "e": 51.748}, {"w": "filmaria", "s": 51.795, "e": 52.201}, {"w": "isso?", "s": 52.271, "e": 52.572}, {"w": "Fala", "s": 52.607, "e": 52.863}, {"w": "o", "s": 52.898, "e": 52.921}, {"w": "fato,", "s": 52.99, "e": 53.455}, {"w": "o", "s": 53.501, "e": 53.571}, {"w": "impacto", "s": 53.629, "e": 54.302}, {"w": "e", "s": 54.36, "e": 54.477}, {"w": "o", "s": 54.511, "e": 54.535}, {"w": "pedido.", "s": 54.604, "e": 55.127}, {"w": "E", "s": 55.161, "e": 55.231}, {"w": "manda", "s": 55.324, "e": 55.568}, {"w": "esse", "s": 55.591, "e": 55.754}, {"w": "Story", "s": 55.788, "e": 56.253}, {"w": "pra", "s": 56.369, "e": 56.473}, {"w": "quem", "s": 56.52, "e": 56.624}, {"w": "precisa", "s": 56.682, "e": 57.019}, {"w": "ver.", "s": 57.077, "e": 57.344}, {"w": "Amanhã", "s": 57.391, "e": 57.925}, {"w": "tem", "s": 58.052, "e": 58.238}, {"w": "mais", "s": 58.308, "e": 58.517}, {"w": "uma", "s": 58.563, "e": 58.679}, {"w": "lição.", "s": 58.714, "e": 59.26}];
+      const CFG = {"cenas": [{"img": "a-cafe.png"}, {"img": "c-espera.png", "entra": ["café", 1]}, {"img": "c-chega.png", "entra": ["chega", 1]}, {"img": "c-briga.png", "entra": 7.5}, {"img": "c-chega.png", "entra": 12.55}, {"img": "c-espera.png", "entra": 13.05}, {"img": "b-livro.png", "entra": ["livro", 1, -0.4]}, {"img": "c-chega.png", "entra": ["imagina", 1]}, {"img": "f-calma.png", "entra": 25.75}, {"img": "e-louca.png", "entra": ["louça", 1, -0.5]}, {"img": "f-jantar.png", "entra": ["jantar", 1, -0.3]}, {"img": "g-relatorio.png", "entra": ["relatório", 1, -0.3]}, {"img": "h-quarto.png", "entra": ["roupa", 1, -0.4]}, {"img": "g-encomenda.png", "entra": ["pedi", 1, -0.2]}, {"img": "d-camera.png", "entra": ["então", 1, -0.1]}, {"img": "h-fim.png", "entra": ["amanhã", 1, -0.2]}], "momentos": {"livro": ["livro", 1], "capitulo": ["capítulo", 1], "livro_sai": ["imagina", 1]}, "frase": {"texto": "Câmera grava? É <em>fato</em>.<br />Não grava? É rótulo.", "entra": ["isso", 1, 0.4], "sai": 25.75}, "fim": {"tipo": "amanha", "entra": ["amanhã", 1], "seguir": ["lição", 1], "titulo": "Mais uma lição", "subtitulo": "Uma ideia de livro + como aplicar no dia a dia"}, "chaves": ["briga", "irresponsável", "exagerada", "fita", "livro", "câmera", "rótulo", "louça", "celular", "relatório", "roupa", "cadernos", "isso", "fato", "impacto", "pedido", "manda"], "overlays": [{"texto": "🕒 15:00", "estilo": "left:110px;top:520px", "entra": ["três", 1], "sai": ["chega", 1]}, {"texto": "🕒 15:15", "estilo": "left:470px;top:640px;background:#e2402fe6;color:#fff", "entra": ["quinze", 1], "sai": ["chega", 1], "pisca": true}, {"texto": "“Você é irresponsável!”", "estilo": "left:90px;top:520px;background:#e2402f;color:#fff;font-size:54px", "entra": 5.7, "sai": 10.05}, {"texto": "“Eu? Você que é exagerada!”", "estilo": "left:300px;top:660px;background:#fff;font-size:48px", "entra": 7.45, "sai": 10.05}, {"texto": "❌ RÓTULO", "estilo": "left:250px;top:820px;background:#e2402f;color:#fff;font-size:110px;padding:24px 50px;transform:rotate(-8deg)", "entra": ["virou", 1], "sai": 12.45}, {"texto": "◀◀ VOLTANDO A FITA", "estilo": "left:170px;top:380px;background:#111;color:#fff;font-size:60px;letter-spacing:0.06em", "entra": 12.45, "sai": 13.55, "pisca": true}, {"texto": "✓ relógio: 15h15", "estilo": "left:110px;top:330px;background:#ddf7e9", "entra": ["relógio", 1], "sai": ["rótulo", 1, 0.7]}, {"texto": "✓ ele chegando", "estilo": "left:470px;top:450px;background:#ddf7e9", "entra": ["chegando", 1], "sai": ["rótulo", 1, 0.7]}, {"texto": "irresponsável", "estilo": "left:240px;top:640px", "entra": ["irresponsável", 3, -0.2], "sai": ["isso", 1, 0.3], "flutua": true}, {"texto": "❌ a câmera não grava isso", "estilo": "left:150px;top:840px;background:#e2402f;color:#fff;font-size:46px", "entra": ["isso", 1], "sai": 25.7}, {"texto": "1 · FATO", "estilo": "left:70px;top:330px;background:#ddf7e9", "entra": 25.75, "sai": 33.45}, {"texto": "2 · IMPACTO", "estilo": "left:70px;top:440px;background:#ddf7e9", "entra": ["preciso", 1], "sai": 33.45}, {"texto": "3 · PEDIDO", "estilo": "left:70px;top:550px;background:#ddf7e9", "entra": ["próxima", 1], "sai": 33.45}, {"texto": "✅ CONVERSA RESOLVIDA", "estilo": "left:140px;top:820px;background:#1a9a5e;color:#fff;font-size:62px", "entra": ["vou", 1], "sai": 33.45}, {"texto": "5 situações do dia a dia", "estilo": "left:110px;top:820px;background:#ffd84a;font-size:56px", "entra": ["cinco", 1], "sai": ["louça", 1, -0.5]}, {"texto": "1/5 · CASA", "estilo": "left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px", "entra": ["louça", 1, -0.5], "sai": ["jantar", 1, -0.3]}, {"texto": "❌ <s>“Você nunca lava a louça”</s>", "estilo": "left:70px;top:390px;background:#fde3de", "entra": ["louça", 1, -0.5], "sai": ["jantar", 1, -0.3]}, {"texto": "✅ “A louça de ontem ainda tá na pia”", "estilo": "left:70px;top:500px;background:#ddf7e9;font-size:36px", "entra": ["louça", 1, 0.0], "sai": ["jantar", 1, -0.3]}, {"texto": "2/5 · FAMÍLIA", "estilo": "left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px", "entra": ["jantar", 1, -0.3], "sai": ["relatório", 1, -0.3]}, {"texto": "❌ <s>“Você vive no celular”</s>", "estilo": "left:70px;top:390px;background:#fde3de", "entra": ["jantar", 1, -0.3], "sai": ["relatório", 1, -0.3]}, {"texto": "✅ “No jantar, pegou o celular 5 vezes”", "estilo": "left:70px;top:500px;background:#ddf7e9;font-size:36px", "entra": ["jantar", 1, 0.2], "sai": ["relatório", 1, -0.3]}, {"texto": "3/5 · TRABALHO", "estilo": "left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px", "entra": ["relatório", 1, -0.3], "sai": ["roupa", 1, -0.4]}, {"texto": "❌ <s>“Você é desorganizado”</s>", "estilo": "left:70px;top:390px;background:#fde3de", "entra": ["relatório", 1, -0.3], "sai": ["roupa", 1, -0.4]}, {"texto": "✅ “O relatório veio sem março”", "estilo": "left:70px;top:500px;background:#ddf7e9;font-size:36px", "entra": ["relatório", 1, 0.2], "sai": ["roupa", 1, -0.4]}, {"texto": "4/5 · FILHOS", "estilo": "left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px", "entra": ["roupa", 1, -0.4], "sai": ["pedi", 1, -0.2]}, {"texto": "❌ <s>“Você é preguiçoso”</s>", "estilo": "left:70px;top:390px;background:#fde3de", "entra": ["roupa", 1, -0.4], "sai": ["pedi", 1, -0.2]}, {"texto": "✅ “Roupa no chão desde segunda”", "estilo": "left:70px;top:500px;background:#ddf7e9;font-size:36px", "entra": ["roupa", 1, 0.09999999999999998], "sai": ["pedi", 1, -0.2]}, {"texto": "5/5 · COMPRAS", "estilo": "left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px", "entra": ["pedi", 1, -0.2], "sai": ["então", 1, -0.1]}, {"texto": "❌ <s>“Vocês são uma bagunça”</s>", "estilo": "left:70px;top:390px;background:#fde3de", "entra": ["pedi", 1, -0.2], "sai": ["então", 1, -0.1]}, {"texto": "✅ “Pedi 3 cadernos e recebi 2”", "estilo": "left:70px;top:500px;background:#ddf7e9;font-size:36px", "entra": ["pedi", 1, 0.3], "sai": ["então", 1, -0.1]}, {"texto": "↗ Envie pra quem precisa ver", "estilo": "left:110px;top:1240px;background:#fff;font-size:48px", "entra": ["manda", 1], "sai": ["amanhã", 1, -0.1]}], "resumo": ["🎥 A câmera filmaria isso?", "Fato → Impacto → Pedido"], "visor": {"entra": ["imagina", 1], "sai": ["rótulo", 1, 0.7]}};
+      const DURACAO = 59.86;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;"…]/g, "");
+      function em(p, n = 1) { let v = 0; for (const w of PALAVRAS) if (limpar(w.w) === p && ++v === n) return w.s; return 0; }
+      function ultimo(p) { let s = 0; for (const w of PALAVRAS) if (limpar(w.w) === p) s = w.s; return s; }
+      const T = (x) => (Array.isArray(x) ? em(x[0], x[1] || 1) + (x[2] || 0) : x);
+      const tl = gsap.timeline({ paused: true });
+      const entra = (el, t, y = 40) => tl.fromTo(el, { opacity: 0, y }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)", immediateRender: false }, t);
+      const sai = (el, t) => tl.to(el, { opacity: 0, y: -30, duration: 0.25 }, t - 0.25);
+      const rabisca = (el, t, d = 0.45) => { const L = el.getTotalLength ? el.getTotalLength() : 1200;
+        tl.set(el, { strokeDasharray: L, strokeDashoffset: L }, 0);
+        tl.to(el, { strokeDashoffset: 0, duration: d, ease: "power2.out" }, t);
+        for (let k = 0; k < 24; k++) tl.set(el, { x: (k % 3) - 1, y: ((k + 1) % 3) - 1, rotation: k % 2 ? 0.6 : -0.6 }, t + d + k * 0.1); };
+
+      // cenas em tela cheia: Ken Burns alternado e corte com cortina
+      const temResumo = (CFG.resumo || []).length > 0;
+      const tCard = T(CFG.fim.entra);
+      const tFim = temResumo ? ultimo("então") : tCard - 0.3;
+      const inicio = CFG.cenas.map((c, i) => (i === 0 ? 0 : T(c.entra) - 0.1));
+      CFG.cenas.forEach((c, i) => { const el = document.getElementById("cena" + i); const t = inicio[i]; const fim = i + 1 < inicio.length ? inicio[i + 1] : DURACAO;
+        tl.set(el, { opacity: 1 }, t);
+        tl.fromTo(el, { scale: i % 2 ? 1.16 : 1.04, xPercent: i % 2 ? -2 : 2 }, { scale: i % 2 ? 1.04 : 1.16, xPercent: i % 2 ? 2 : -2, duration: fim - t + 0.3, ease: "none", immediateRender: false }, t);
+        if (i) tl.fromTo(el, { clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)", duration: 0.35, ease: "power3.out", immediateRender: false }, t);
+        if (c.zoom) tl.to(el, { scale: c.zoom.escala, transformOrigin: c.zoom.origem, duration: c.zoom.duracao || 0.25, ease: "power3.out" }, T(c.zoom.palavra) - 0.15);
+        if (i + 1 < inicio.length) tl.set(el, { opacity: 0 }, fim + 0.36); });
+
+      const M0 = CFG.momentos || {};
+      // abertura: título atrás do personagem
+      tl.set("#capa-rec", { opacity: 1 }, 0);
+      tl.fromTo("#capa-rec", { scale: 1.04, xPercent: 2 }, { scale: 1.16, xPercent: -2, duration: inicio[1] + 0.3, ease: "none", immediateRender: false }, 0);
+      tl.fromTo("#capa-titulo", { opacity: 0, scale: 1.35 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.in", immediateRender: false }, 0.05);
+      tl.fromTo("#flash", { opacity: 0.6 }, { opacity: 0, duration: 0.3, immediateRender: false }, 0.35);
+      tl.set(["#capa-rec", "#capa-titulo"], { opacity: 0 }, inicio[1] + 0.36);
+      tl.to("#capa-titulo", { opacity: 0, duration: 0.2 }, Math.min(inicio[1] + 0.15, M0.livro ? T(M0.livro) - 0.25 : 999));
+
+      // livro com título, autor e capítulo
+      const M = CFG.momentos || {};
+      if (document.getElementById("livro")) {
+        entra("#livro", T(M.livro) - 0.2, 60);
+        entra("#livro .cap", T(M.capitulo) - 0.1, 20);
+        rabisca(document.getElementById("circ-cap"), T(M.capitulo) + 0.5, 0.5);
+        sai("#livro", T(M.livro_sai)); }
+
+      // visor de câmera: moldura, REC piscando e relógio correndo
+      if (CFG.visor) { const v0 = T(CFG.visor.entra), v1 = T(CFG.visor.sai);
+        tl.fromTo("#visor", { opacity: 0, scale: 1.08 }, { opacity: 1, scale: 1, duration: 0.3, immediateRender: false }, v0);
+        tl.to("#selo", { opacity: 0, duration: 0.15 }, v0); tl.to("#selo", { opacity: 1, duration: 0.2 }, v1);
+        tl.to("#visor .rec b", { opacity: 0.1, duration: 0.4, yoyo: true, repeat: Math.max(1, Math.floor((v1 - v0) / 0.4) | 1) }, v0 + 0.3);
+        const tc = document.querySelector("#visor .tc"), o = { s: 0 };
+        tl.to(o, { s: v1 - v0, duration: v1 - v0, ease: "none", onUpdate: () => { const t = Math.floor(o.s); tc.textContent = "15:15:" + String(4 + t).padStart(2, "0"); } }, v0);
+        tl.to("#visor", { opacity: 0, duration: 0.2 }, v1 - 0.2); tl.set("#visor", { opacity: 0 }, v1); }
+      // balões e selos da cena
+      (CFG.overlays || []).forEach((o, i) => { const el = document.getElementById("ov" + i);
+        tl.fromTo(el, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.2)", immediateRender: false }, T(o.entra));
+        const fimOv = T(o.sai);
+        if (o.flutua) { tl.fromTo(el, { x: -380, rotation: -4 }, { x: 160, rotation: 3, duration: fimOv - T(o.entra), ease: "none", immediateRender: false }, T(o.entra));
+          tl.to(el, { opacity: 0.15, duration: 0.07, yoyo: true, repeat: 9 }, fimOv - 1.0); }
+        if (o.pisca) { const vezes = Math.max(1, Math.min(5, Math.floor((fimOv - T(o.entra) - 0.6) / 0.18)));
+          tl.to(el, { opacity: 0.35, duration: 0.18, yoyo: true, repeat: vezes % 2 ? vezes : vezes - 1 }, T(o.entra) + 0.3); }
+        tl.to(el, { opacity: 0, duration: 0.2 }, fimOv - 0.2);
+        tl.set(el, { opacity: 0 }, fimOv); });
+
+      // a ideia em uma frase
+      if (CFG.frase) {
+        entra("#frase", T(CFG.frase.entra) - 0.15, 40);
+        tl.fromTo("#flash", { opacity: 0.3 }, { opacity: 0, duration: 0.3, immediateRender: false }, T(CFG.frase.entra));
+        sai("#frase", T(CFG.frase.sai)); }
+
+      // testa hoje: checklist
+      if (document.getElementById("hoje")) {
+        entra("#hoje", T(M.passos), 40);
+        const passos = document.querySelectorAll(".passo");
+        CFG.passos.forEach((p, i) => { entra(passos[i], T(p.entra) - 0.1, 24); tl.to(passos[i].querySelector("b"), { scale: 1, duration: 0.25, ease: "back.out(2.5)" }, T(p.check)); });
+        if (CFG.circula_passo) rabisca(document.getElementById("circ-passo"), T(CFG.circula_passo.palavra) - 0.05, 0.4);
+        sai("#hoje", (CFG.passos_sai ? T(CFG.passos_sai) : tFim) - 0.1); }
+
+      // final: resumo, próxima lição (ou amanhã) e botão
+      tl.to("#selo", { opacity: 0, duration: 0.2 }, tFim - 0.2);
+      if (temResumo) {
+        entra("#resumo", tFim, 40);
+        const linhas = document.querySelectorAll("#resumo p");
+        linhas.forEach((l, i) => entra(l, tFim + 0.35 + i * 0.9, 16));
+        tl.to("#resumo", { opacity: 0, y: -40, duration: 0.25 }, tCard - 0.2); }
+      tl.fromTo("#amanha", { opacity: 0, scale: 0.85, rotation: -3 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(1.8)", immediateRender: false }, tCard - 0.05);
+      if (CFG.fim.tipo === "proximo") {
+        tl.fromTo("#proximo", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.8)", immediateRender: false }, tCard + 0.6);
+        tl.to("#proximo", { x: 18, duration: 0.25, yoyo: true, repeat: 7, ease: "sine.inOut" }, tCard + 1.1);
+      } else {
+        const tS = T(CFG.fim.seguir);
+        tl.fromTo("#seguir", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.8)", immediateRender: false }, tS - 0.15);
+        tl.fromTo("#toque", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.25, immediateRender: false }, tCard + 0.85);
+        tl.call(() => { const b = document.getElementById("seguir"); b.classList.remove("ok"); b.textContent = "Seguir @moiseskalebbe"; }, null, tCard + 1.099);
+        tl.call(() => { const b = document.getElementById("seguir"); b.classList.add("ok"); b.textContent = "Seguindo ✓"; }, null, tCard + 1.1);
+        tl.to("#toque", { opacity: 0, duration: 0.25 }, tCard + 1.5);
+      }
+
+      // legenda grande (fora da abertura e do cartão final)
+      const caixa = document.getElementById("legenda"); let fr = [];
+      const fecha = () => { if (!fr.length) return; const ini = fr[0].s;
+        if (ini > 0.9 && ini < tCard - 0.3) { const p = document.createElement("p");
+          p.innerHTML = fr.map((w) => (CFG.chaves.includes(limpar(w.w)) ? "<b>" + w.w + "</b>" : w.w)).join(" "); caixa.appendChild(p);
+          const prox = PALAVRAS[PALAVRAS.indexOf(fr[fr.length - 1]) + 1]; const fim = prox ? Math.min(fr[fr.length - 1].e + 0.3, prox.s - 0.03) : fr[fr.length - 1].e + 0.5;
+          tl.fromTo(p, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.1, immediateRender: false }, ini - 0.03); tl.set(p, { opacity: 0 }, Math.min(fim, tCard - 0.2)); }
+        fr = []; };
+      PALAVRAS.forEach((w, i) => { fr.push(w); if ((/[.?!:…,]$/.test(w.w) && fr.length >= 2) || fr.length >= 4 || !PALAVRAS[i + 1]) fecha(); });
+
+      tl.set({}, {}, DURACAO);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

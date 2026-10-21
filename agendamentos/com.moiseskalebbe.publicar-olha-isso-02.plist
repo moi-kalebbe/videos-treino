@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>com.moiseskalebbe.publicar-olha-isso-02</string>
+  <key>ProgramArguments</key><array><string>/Users/moiseskalebbe/.local/share/videos-treino/publicar-olha-isso-02.sh</string></array>
+  <key>StartCalendarInterval</key><dict><key>Month</key><integer>10</integer><key>Day</key><integer>24</integer><key>Hour</key><integer>10</integer><key>Minute</key><integer>45</integer></dict>
+  <key>StandardOutPath</key><string>/Users/moiseskalebbe/.local/share/videos-treino/olha-isso-02.log</string>
+  <key>StandardErrorPath</key><string>/Users/moiseskalebbe/.local/share/videos-treino/olha-isso-02.log</string>
+</dict>
+</plist>

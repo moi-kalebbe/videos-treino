@@ -1,0 +1,28 @@
+#voz=aORS9tvW5qcMM0bnzsRU
+A escala do seu funcionário muda em dezembro. Vou explicar do jeito mais simples possível.
+
+Pensa na Joana. Ela trabalha de segunda a sábado e só folga no domingo. Seis dias de trabalho, um de folga: isso é a escala seis por um.
+
+Até agora, dava pra trabalhar até quarenta e quatro horas por semana.
+
+Com a nova lei, em dezembro, a Joana passa a ter duas folgas por semana e trabalha no máximo quarenta e duas horas. Um ano depois, quarenta. E o salário não pode diminuir.
+
+Ou seja: a mesma equipe, com menos horas, e a sua loja continua aberta os mesmos dias. E aí, quem cobre o sábado da Joana?
+#pausa=1.2
+
+Essa conta você faz em dez minutos, com o chat do Claude. Te mostro.
+
+Passo um: no sistema do seu caixa, procura o relatório de vendas por hora e exporta em Excel. Quase todo sistema tem.
+
+Passo dois: abre o claude ponto ai, clica no clipe e anexa a planilha. Não precisa de Claude Code nem de Codex, isso é pra programador. O chat resolve.
+
+Aí cola esse pedido.
+#pausa=2.5
+
+Em poucos minutos ele mostra onde está o movimento e monta a escala. E te devolve uma planilha pra baixar.
+
+Passo três: pergunta quanto custa cada saída. Abrir mais tarde, contratar meio período ou pagar hora extra no pico. Passa o salário de cada um, e ele faz a conta.
+
+Bônus: se você usa o Cowork, no app do Claude, cria uma tarefa agendada pra toda segunda ele conferir a semana e te avisar se algum pico ficou descoberto.
+
+Antes de mudar, confere a convenção coletiva com o seu contador. Comenta diagnóstico que eu te mando os pedidos prontos e te ajudo a montar a escala da sua empresa.

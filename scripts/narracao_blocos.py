@@ -30,8 +30,10 @@ from narracao import (  # noqa: E402
 )
 
 PAUSA_ENTRE_BLOCOS = 0.35
+VOZ_DONO = {"stability": 0.38, "similarity_boost": 0.85, "style": 0.3, "use_speaker_boost": True}
 AJUSTES = {  # voz clonada do dono: um pouco mais solta; narradores de biblioteca: estável
-    "aORS9tvW5qcMM0bnzsRU": {"stability": 0.38, "similarity_boost": 0.85, "style": 0.3, "use_speaker_boost": True},
+    "AscQZHgbWOkNYqBmOf0o": VOZ_DONO,  # clone 2, gravação própria de 20/10/2026 (oficial)
+    "aORS9tvW5qcMM0bnzsRU": VOZ_DONO,  # clone 1, do Reel (vídeos antigos)
 }
 PADRAO = {"stability": 0.5, "similarity_boost": 0.8, "style": 0.15, "use_speaker_boost": True}
 

@@ -1,0 +1,19 @@
+Sua escala de funcionário muda em dezembro. E dá pra reorganizar tudo em 10 minutos, com o chat do Claude.
+
+O que muda: hoje a 6x1 é 6 dias de trabalho e 1 de folga, até 44 horas por semana. Com a Emenda Constitucional 141, em dezembro passam a ser 2 folgas por semana e no máximo 42 horas. Um ano depois, 40 horas. Sem reduzir o salário.
+
+O caminho:
+1. No sistema do seu caixa, exporte o relatório de vendas por hora em Excel.
+2. Abra o claude.ai, anexe a planilha e peça os horários de pico e uma escala com 2 folgas por pessoa, sem deixar o pico descoberto.
+3. Pergunte quanto custa cada saída para cobrir o sábado: abrir mais tarde, meio período ou hora extra no pico.
+Bônus: no Cowork, deixe uma tarefa agendada conferindo a escala toda segunda.
+
+Não precisa de Claude Code nem de Codex. O chat resolve.
+
+Comenta DIAGNÓSTICO que eu te mando os pedidos prontos, é só copiar e colar, e te ajudo a montar a escala da sua empresa.
+
+Antes de mudar, confira a convenção coletiva da sua categoria com o seu contador. Regras para MEI e pequenas empresas ainda dependem de lei complementar.
+
+A conversa no vídeo é real, feita no claude.ai com uma loja de exemplo (dados fictícios). A tela do sistema do caixa é ilustrativa. Fontes da lei: Agência Senado e Exame.
+
+#escala6x1 #fimda6x1 #gestão #inteligenciaartificial #claude #pme #empreendedorismo

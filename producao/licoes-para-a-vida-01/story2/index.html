@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Lições para a Vida · 1/3 · Descanso não é prêmio (v3)</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <script src="assets/legenda-fecho.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      :root { --azul: #1f2d55; --creme: #fdf1d6; --coral: #ff7a59; --verde: #2bd38a; --amarelo: #ffd84a; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #111; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; color: #fff; }
+      .cena, .cam { position: absolute; inset: 0; }
+      .cena { background-size: cover; background-position: center; opacity: 0; }
+      #topo { position: absolute; inset: 0 0 auto 0; height: 560px; background: linear-gradient(180deg, #0d1430cc 0%, #0d143000 100%); z-index: 5; }
+      #base { position: absolute; inset: auto 0 0 0; height: 1000px; background: linear-gradient(0deg, #0d1430f0 0%, #0d143099 50%, #0d143000 100%); z-index: 5; }
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 60; }
+      #selo { position: absolute; left: 70px; top: 170px; z-index: 30; padding: 12px 24px; border-radius: 40px; background: var(--coral); color: #1b1208; font: 800 30px "Inter"; letter-spacing: 0.06em; }
+
+      /* capa de revista: título atrás do personagem recortado */
+      #capa-titulo { position: absolute; left: 40px; right: 40px; top: 290px; z-index: 6; font: 400 158px/0.95 "Anton"; text-transform: uppercase; text-align: center; color: #fff; text-shadow: 0 10px 40px #0007; opacity: 0; }
+      #capa-titulo em { font-style: normal; color: var(--amarelo); }
+      #a-rec { position: absolute; inset: 0; background: url(assets/img/a-recorte.png) center / cover; z-index: 7; opacity: 0; }
+
+      .doodle { position: absolute; z-index: 25; overflow: visible; pointer-events: none; }
+      .doodle path { fill: none; stroke: var(--amarelo); stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; }
+
+      #livro { position: absolute; left: 60px; right: 60px; top: 960px; z-index: 12; padding: 40px 44px 44px; border-radius: 34px; background: var(--creme); color: var(--azul); box-shadow: 0 30px 80px #0009; opacity: 0; }
+      #livro .r { font: 800 28px "Inter"; letter-spacing: 0.14em; color: #b4532f; }
+      #livro h2 { margin-top: 14px; font: 800 64px/1.08 "Inter"; }
+      #livro .autor { margin-top: 16px; font: 700 42px "Inter"; color: #3d4a70; }
+      #livro .cap { position: relative; display: inline-block; margin-top: 26px; padding: 14px 26px; border-radius: 18px; background: var(--azul); color: #fff; font: 800 38px "Inter"; opacity: 0; }
+      #livro .cap .doodle path { stroke: #e2502f; }
+
+      .bolha { position: absolute; z-index: 14; padding: 18px 28px; border-radius: 26px; background: #ffffffe8; color: var(--azul); font: 800 38px "Inter"; box-shadow: 0 16px 40px #0007; opacity: 0; white-space: nowrap; }
+      #bat-baixa { position: absolute; right: 90px; top: 300px; z-index: 14; padding: 14px 24px; border-radius: 22px; background: #e2402fe6; font: 800 44px "Inter"; opacity: 0; }
+
+      #frase { position: absolute; left: 70px; right: 70px; top: 1060px; z-index: 12; font: 400 100px/1.04 "Anton"; text-transform: uppercase; text-shadow: 0 8px 30px #000a; opacity: 0; }
+      #frase em { font-style: normal; color: var(--verde); }
+
+      .cartao { position: absolute; left: 60px; right: 60px; top: 960px; z-index: 12; padding: 34px 40px; border-radius: 30px; background: #fffaf0f2; color: var(--azul); box-shadow: 0 24px 70px #0008; opacity: 0; }
+      .cartao h3 { font: 400 70px/1 "Anton"; text-transform: uppercase; color: #c9502b; margin-bottom: 10px; }
+      .passo { position: relative; display: flex; gap: 20px; margin-top: 18px; opacity: 0; }
+      .passo i { flex: none; position: relative; width: 64px; height: 64px; border-radius: 50%; background: var(--azul); color: #fff; font: 800 36px/64px "Inter"; font-style: normal; text-align: center; }
+      .passo i b { position: absolute; inset: 0; border-radius: 50%; background: #1a9a5e; font: 800 40px/64px "Inter"; transform: scale(0); }
+      .passo p { font: 800 46px/1.18 "Inter"; padding-top: 4px; }
+      .passo .marca { position: relative; display: inline-block; }
+
+      #legenda { position: absolute; left: 60px; right: 60px; top: 1450px; z-index: 40; }
+      #legenda p { position: absolute; left: 0; right: 0; text-align: center; font: 800 64px/1.15 "Inter"; text-shadow: 0 4px 18px #000, 0 0 3px #000; opacity: 0; }
+      #legenda p b { color: var(--amarelo); }
+
+      /* final */
+      #resumo { position: absolute; left: 60px; right: 60px; top: 880px; z-index: 12; padding: 34px 40px; border-radius: 30px; background: #ffffff26; border: 3px solid #ffffff55; backdrop-filter: blur(18px); opacity: 0; }
+      #resumo p { font: 800 46px/1.25 "Inter"; margin: 6px 0; opacity: 0; }
+      #resumo p span { color: var(--verde); }
+      #amanha { position: absolute; left: 60px; right: 60px; top: 880px; z-index: 13; padding: 34px 40px 40px; border-radius: 30px; background: var(--creme); color: var(--azul); box-shadow: 0 30px 80px #0009; opacity: 0; }
+      #amanha .r { font: 800 28px "Inter"; letter-spacing: 0.14em; color: #b4532f; }
+      #amanha h4 { margin-top: 10px; font: 400 92px/1 "Anton"; text-transform: uppercase; }
+      #amanha .t { margin-top: 14px; font: 800 44px/1.2 "Inter"; }
+      #amanha .a { margin-top: 8px; font: 700 34px "Inter"; color: #3d4a70; }
+      #seguir { position: absolute; left: 50%; top: 1500px; z-index: 13; width: 640px; margin-left: -320px; height: 120px; border-radius: 28px; background: #0095f6; font: 800 50px/120px "Inter"; text-align: center; opacity: 0; }
+      #seguir.ok { background: #2a2a31; }
+      #toque { position: absolute; left: 680px; top: 1540px; z-index: 14; width: 96px; height: 96px; border-radius: 50%; border: 6px solid #fff; background: #ffffff40; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="42.5" data-width="1080" data-height="1920">
+      <div class="cena" id="a" style="background-image:url(assets/img/a-titulo.png)"></div>
+      <p id="capa-titulo">Descanso não é <em>prêmio</em></p>
+      <div id="a-rec"></div>
+      <div class="cena" id="b" style="background-image:url(assets/img/b-livro.png)"></div>
+      <div class="cena" id="c" style="background-image:url(assets/img/c-celular.png)"></div>
+      <div class="cena" id="d" style="background-image:url(assets/img/d-cuidar.png)"></div>
+      <div class="cena" id="e" style="background-image:url(assets/img/e-louca.png)"></div>
+      <div class="cena" id="f" style="background-image:url(assets/img/f-musica.png)"></div>
+      <div class="cena" id="g" style="background-image:url(assets/img/g-passeio.png)"></div>
+      <div class="cena" id="h" style="background-image:url(assets/img/h-fim.png)"></div>
+      <div id="topo"></div><div id="base"></div>
+
+      <p id="selo">LIÇÕES PARA A VIDA · 1/3</p>
+      <svg class="doodle" id="sub-premio" style="left:300px;top:590px;width:480px;height:60px;z-index:8" viewBox="0 0 600 60"><path d="M10 40 C 150 18, 300 52, 590 22" /></svg>
+
+      <div id="livro"><p class="r">📖 DE QUAL LIVRO É</p><h2>Os 7 Hábitos das Pessoas Altamente Eficazes</h2><p class="autor">Stephen R. Covey</p>
+        <p class="cap">Hábito 7 · Afine o instrumento<svg class="doodle" style="left:-26px;top:-20px;width:calc(100% + 52px);height:calc(100% + 40px)" viewBox="0 0 100 100" preserveAspectRatio="none"><path id="circ-cap" vector-effect="non-scaling-stroke" d="M50 4 C 82 2, 98 30, 97 52 C 96 80, 70 97, 46 96 C 18 95, 2 74, 4 48 C 6 24, 28 3, 58 6" /></svg></p></div>
+
+      <p class="bolha" id="b1" style="left:420px;top:560px">💬 12 mensagens</p>
+      <p class="bolha" id="b2" style="left:110px;top:700px">▶️ Próximo vídeo…</p>
+      <p class="bolha" id="b3" style="left:470px;top:840px">🔔 Mais uma tela</p>
+      <p id="bat-baixa">🪫 3%</p>
+
+      <p id="frase">Não é só fazer mais.<br />É <em>cuidar de quem faz.</em></p>
+      <div class="cartao" id="hoje"><h3>Testa hoje</h3>
+        <div class="passo"><i>1<b>✓</b></i><p>Depois de algo que você já faz (tipo guardar a louça)</p></div>
+        <div class="passo"><i>2<b>✓</b></i><p><span class="marca">10 minutos<svg class="doodle" style="left:-18px;top:-14px;width:calc(100% + 36px);height:calc(100% + 28px)" viewBox="0 0 100 100" preserveAspectRatio="none"><path id="circ-10" vector-effect="non-scaling-stroke" style="stroke:#e2502f" d="M50 4 C 82 2, 98 30, 97 52 C 96 80, 70 97, 46 96 C 18 95, 2 74, 4 48 C 6 24, 28 3, 58 6" /></svg></span> só pra algo que te renove 🎵 🚶</p></div>
+      </div>
+
+      <div id="resumo"><p><span>✓</span> Descanso não é prêmio</p><p><span>✓</span> 10 min depois de algo que você já faz</p></div>
+      <div id="amanha"><p class="r">AMANHÃ · LIÇÃO 2 DE 3</p><h4>Um obrigado que mostra o motivo</h4><p class="t">📖 Como Fazer Amigos e Influenciar Pessoas</p><p class="a">Dale Carnegie</p></div>
+      <p id="seguir">Seguir @moiseskalebbe</p>
+      <div id="toque"></div>
+      <div id="legenda"></div>
+      <div id="flash"></div>
+
+      <audio id="voz" src="assets/audio/voz.mp3" data-start="0" data-duration="33.65" data-volume="1"></audio>
+      <audio id="fecho" src="assets/audio/fecho.mp3" data-start="34.3" data-duration="5.86" data-volume="1"></audio>
+      <audio id="trilha" src="assets/audio/m_sunset.mp3" data-start="0" data-duration="42.5" data-volume="0.11"></audio>
+      <audio id="s-titulo" src="assets/audio/s_hit2.mp3" data-start="0.05" data-duration="2" data-volume="0.45"></audio>
+      <audio id="s-w1" src="assets/audio/whoosh.mp3" data-start="1.95" data-duration="0.68" data-volume="0.35"></audio>
+      <audio id="s-pag1" src="assets/audio/s_papel.mp3" data-start="2.8" data-duration="1" data-volume="0.5"></audio>
+      <audio id="s-pag2" src="assets/audio/s_papel.mp3" data-start="7.5" data-duration="1" data-volume="0.4"></audio>
+      <audio id="s-w2" src="assets/audio/whoosh.mp3" data-start="10.55" data-duration="0.68" data-volume="0.35"></audio>
+      <audio id="s-n1" src="assets/audio/notificacao.mp3" data-start="12.45" data-duration="0.6" data-volume="0.5"></audio>
+      <audio id="s-n2" src="assets/audio/s_notif.mp3" data-start="13.15" data-duration="1" data-volume="0.4"></audio>
+      <audio id="s-n3" src="assets/audio/notificacao.mp3" data-start="14.0" data-duration="0.6" data-volume="0.45"></audio>
+      <audio id="s-alerta" src="assets/audio/alerta.mp3" data-start="16.0" data-duration="1.48" data-volume="0.35"></audio>
+      <audio id="s-w3" src="assets/audio/whoosh.mp3" data-start="17.75" data-duration="0.68" data-volume="0.35"></audio>
+      <audio id="s-riser" src="assets/audio/riser.mp3" data-start="18.0" data-duration="2.6" data-volume="0.3"></audio>
+      <audio id="s-ding" src="assets/audio/ding.mp3" data-start="20.6" data-duration="1" data-volume="0.45"></audio>
+      <audio id="s-w4" src="assets/audio/whoosh.mp3" data-start="22.9" data-duration="0.68" data-volume="0.35"></audio>
+      <audio id="s-louca" src="assets/audio/k_gaveta_fecha.mp3" data-start="25.6" data-duration="1" data-volume="0.4"></audio>
+      <audio id="s-ok1" src="assets/audio/s_ponto.mp3" data-start="27.4" data-duration="1" data-volume="0.45"></audio>
+      <audio id="s-ok2" src="assets/audio/s_ponto.mp3" data-start="31.4" data-duration="1" data-volume="0.45"></audio>
+      <audio id="s-w5" src="assets/audio/whoosh.mp3" data-start="31.45" data-duration="0.68" data-volume="0.3"></audio>
+      <audio id="s-vento" src="assets/audio/g_vento.mp3" data-start="32.4" data-duration="2.2" data-volume="0.18"></audio>
+      <audio id="s-w6" src="assets/audio/whoosh.mp3" data-start="34.0" data-duration="0.68" data-volume="0.35"></audio>
+      <audio id="s-amanha" src="assets/audio/s_hit2.mp3" data-start="37.35" data-duration="2" data-volume="0.35"></audio>
+      <audio id="s-clique" src="assets/audio/s_clique.mp3" data-start="39.4" data-duration="0.65" data-volume="0.7"></audio>
+      <audio id="s-vinheta" src="assets/audio/vinheta.mp3" data-start="39.7" data-duration="2.8" data-volume="0.35"></audio>
+    </div>
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const DURACAO = 42.5;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;"…]/g, "");
+      function em(p, n = 1, f = 0) { let v = 0; for (const w of PALAVRAS) if (limpar(w.w) === p && ++v === n) return w.s; return f; }
+      const tl = gsap.timeline({ paused: true });
+      const entra = (id, t, y = 40) => tl.fromTo(id, { opacity: 0, y }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)", immediateRender: false }, t);
+      const sai = (id, t) => tl.to(id, { opacity: 0, y: -30, duration: 0.25 }, t - 0.25);
+      const pulso = (id, t, s = 1.1) => tl.fromTo(id, { scale: 1 }, { scale: s, duration: 0.13, yoyo: true, repeat: 1, immediateRender: false }, t);
+      // traço à mão: desenha e depois "treme" (doodle boil)
+      const rabisca = (el, t, d = 0.45) => { const L = el.getTotalLength ? el.getTotalLength() : 1200;
+        tl.set(el, { strokeDasharray: L, strokeDashoffset: L }, 0);
+        tl.to(el, { strokeDashoffset: 0, duration: d, ease: "power2.out" }, t);
+        for (let k = 0; k < 24; k++) tl.set(el, { x: (k % 3) - 1, y: ((k + 1) % 3) - 1, rotation: (k % 2 ? 0.6 : -0.6) }, t + d + k * 0.1); };
+
+      // ===== cenas (Ken Burns, cortes com wipe e whoosh) =====
+      const CENAS = [["#a", 0], ["#b", em("essa", 1, 2.08) - 0.1], ["#c", em("sabe", 1, 10.7) - 0.1], ["#d", em("ideia", 1, 17.93) - 0.15],
+                     ["#e", em("hoje", 1, 23.04) - 0.1], ["#f", em("uma", 3, 31.66) - 0.15], ["#g", em("passeio", 1, 32.62) - 0.2], ["#h", 34.1]];
+      CENAS.forEach(([id, t], i) => { const fim = i + 1 < CENAS.length ? CENAS[i + 1][1] : DURACAO; const d = fim - t;
+        tl.set(id, { opacity: 1 }, t);
+        tl.fromTo(id, { scale: i % 2 ? 1.16 : 1.04, xPercent: i % 2 ? -2 : 2 }, { scale: i % 2 ? 1.04 : 1.16, xPercent: i % 2 ? 2 : -2, duration: d + 0.3, ease: "none", immediateRender: false }, t);
+        if (i) tl.fromTo(id, { clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)", duration: 0.35, ease: "power3.out", immediateRender: false }, t);
+        if (i + 1 < CENAS.length) tl.set(id, { opacity: 0 }, fim + 0.36); });
+
+      // ===== abertura: capa de revista (título atrás do personagem) =====
+      tl.set("#a-rec", { opacity: 1 }, 0);
+      tl.fromTo("#a-rec", { scale: 1.04, xPercent: 2 }, { scale: 1.16, xPercent: -2, duration: CENAS[1][1] + 0.3, ease: "none", immediateRender: false }, 0);
+      tl.fromTo("#capa-titulo", { opacity: 0, scale: 1.35 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.in", immediateRender: false }, 0.05);
+      tl.fromTo("#flash", { opacity: 0.6 }, { opacity: 0, duration: 0.3, immediateRender: false }, 0.35);
+      rabisca(document.querySelector("#sub-premio path"), em("prêmio", 1, 1.3));
+      tl.set(["#a-rec", "#capa-titulo", "#sub-premio"], { opacity: 0 }, CENAS[1][1] + 0.36);
+
+      // ===== livro =====
+      entra("#livro", em("livro", 1, 3.0) - 0.2, 60);
+      entra("#livro .cap", em("capítulo", 1, 7.6) - 0.1, 20);
+      rabisca(document.getElementById("circ-cap"), em("afine", 1, 9.29) - 0.1, 0.5);
+      sai("#livro", em("sabe", 1, 10.7));
+
+      // ===== celular: zoom-punch + notificações + bateria acabando =====
+      const tc = em("celular", 1, 12.56);
+      tl.to("#c", { scale: 1.32, transformOrigin: "62% 52%", duration: 0.25, ease: "power3.out" }, tc - 0.15);
+      [["#b1", tc - 0.1], ["#b2", em("depois", 1, 13.21)], ["#b3", em("tela", 1, 14.1) - 0.1]].forEach(([b, t]) => tl.fromTo(b, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.2)", immediateRender: false }, t));
+      tl.fromTo("#bat-baixa", { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)", immediateRender: false }, em("pausa", 1, 16.1) - 0.1);
+      tl.to("#bat-baixa", { opacity: 0.35, duration: 0.18, yoyo: true, repeat: 5 }, em("pausa", 1, 16.1) + 0.2);
+      tl.to(["#b1", "#b2", "#b3", "#bat-baixa"], { opacity: 0, duration: 0.2 }, CENAS[3][1] - 0.05);
+
+      // ===== cuidar de quem faz: zoom na bateria carregando =====
+      tl.to("#d", { scale: 1.25, transformOrigin: "75% 30%", duration: 2.2, ease: "power1.inOut" }, em("renovar", 1, 19.3) - 0.2);
+      tl.fromTo("#flash", { opacity: 0.35 }, { opacity: 0, duration: 0.3, immediateRender: false }, 20.6);
+      entra("#frase", em("não", 2, 20.2) - 0.15, 40);
+      sai("#frase", em("hoje", 1, 23.04));
+
+      // ===== testa hoje: checklist =====
+      entra("#hoje", em("hoje", 1, 23.04), 40);
+      const passos = document.querySelectorAll(".passo");
+      entra(passos[0], em("depois", 2, 24.5) - 0.1, 24);
+      entra(passos[1], em("reserva", 1, 27.68) - 0.1, 24);
+      tl.to(passos[0].querySelector("b"), { scale: 1, duration: 0.25, ease: "back.out(2.5)" }, 27.4);
+      rabisca(document.getElementById("circ-10"), em("dez", 1, 28.3) - 0.05, 0.4);
+      tl.to(passos[1].querySelector("b"), { scale: 1, duration: 0.25, ease: "back.out(2.5)" }, 31.4);
+      sai("#hoje", em("uma", 3, 31.66) + 0.25);
+
+      // ===== final: resumo, amanhã e seguir =====
+      tl.to("#selo", { opacity: 0, duration: 0.2 }, 34.0);
+      const tf = em("então", 1, 34.3);
+      entra("#resumo", tf, 40);
+      const linhas = document.querySelectorAll("#resumo p");
+      entra(linhas[0], em("escolhe", 1, 34.7), 16); entra(linhas[1], em("ação", 1, 35.8), 16);
+      tl.to("#resumo", { opacity: 0, y: -40, duration: 0.25 }, em("amanhã", 1, 37.39) - 0.2);
+      tl.fromTo("#amanha", { opacity: 0, scale: 0.85, rotation: -3 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(1.8)", immediateRender: false }, em("amanhã", 1, 37.39) - 0.05);
+      tl.fromTo("#seguir", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.8)", immediateRender: false }, em("segue", 1, 39.07) - 0.15);
+      tl.fromTo("#toque", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.25, immediateRender: false }, 39.2);
+      tl.call(() => { const b = document.getElementById("seguir"); b.classList.remove("ok"); b.textContent = "Seguir @moiseskalebbe"; }, null, 39.399);
+      tl.call(() => { const b = document.getElementById("seguir"); b.classList.add("ok"); b.textContent = "Seguindo ✓"; }, null, 39.4);
+      pulso("#seguir", 39.4, 0.93);
+      tl.to("#toque", { opacity: 0, duration: 0.25 }, 39.8);
+
+      // legenda grande, até 4 palavras, palavra-chave em amarelo (some no final, que já tem cartões)
+      const CHAVE = ["prêmio", "livro", "covey", "celular", "pausa", "renovar", "cuidar", "louça", "dez", "minutos", "música", "passeio", "hoje", "amanhã"];
+      const caixa = document.getElementById("legenda"); let fr = [];
+      const fecha = () => { if (!fr.length) return; const p = document.createElement("p");
+        p.innerHTML = fr.map((w) => (CHAVE.includes(limpar(w.w)) ? "<b>" + w.w + "</b>" : w.w)).join(" "); caixa.appendChild(p);
+        const prox = PALAVRAS[PALAVRAS.indexOf(fr[fr.length - 1]) + 1]; const fim = prox ? Math.min(fr[fr.length - 1].e + 0.3, prox.s - 0.03) : fr[fr.length - 1].e + 0.5;
+        if (fr[0].s < 0.9) { fr = []; return; }
+        tl.fromTo(p, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.1, immediateRender: false }, fr[0].s - 0.03); tl.set(p, { opacity: 0 }, fim); fr = []; };
+      PALAVRAS.forEach((w, i) => { fr.push(w); if ((/[.?!:…,]$/.test(w.w) && fr.length >= 2) || fr.length >= 4 || !PALAVRAS[i + 1]) fecha(); });
+      tl.to("#legenda", { opacity: 0, duration: 0.2 }, em("segue", 1, 39.07) - 0.3);
+
+      tl.set({}, {}, DURACAO);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

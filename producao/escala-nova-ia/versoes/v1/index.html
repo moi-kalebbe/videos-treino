@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Extra · A escala nova e a IA</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-500.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      @font-face { font-family: "JetBrains Mono"; font-weight: 500; src: url("assets/fonts/jbmono-500.woff2") format("woff2"); }
+
+      /* Explicação em vidro sobre vídeo real (parte 1) + IA no celular (parte 2). Azul elétrico = trabalho, verde-água = folga. */
+      :root { --branco: #f7f9ff; --azul: #3b74ff; --folga: #1fd1a5; --amarelo: #ffd84a; --verm: #ff5a4f; --vidro: rgba(14, 20, 38, 0.55); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #070a12; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--branco); font-family: "Inter", sans-serif; }
+      .clip { position: absolute; inset: 0; }
+      .vid { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+      #palco { z-index: 5; }
+      #escurece { position: absolute; inset: 0; background: linear-gradient(180deg, #070a12a0 0%, #070a1240 30%, #070a1240 55%, #070a12e8 100%); }
+      #foco { position: absolute; inset: 0; background: #070a12; opacity: 0; backdrop-filter: blur(14px); }
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 90; }
+
+      .t { position: absolute; left: 60px; right: 60px; text-align: center; opacity: 0; text-shadow: 0 6px 30px #000c; }
+      .golpe { font: 400 150px/0.95 "Anton"; text-transform: uppercase; }
+      .golpe .a { color: var(--amarelo); }
+      .mono { font: 500 28px "JetBrains Mono"; letter-spacing: 0.18em; color: #f7f9ffcc; }
+      #gancho { top: 620px; } #gancho .mono { margin-bottom: 18px; }
+
+      /* cartão de vidro com a semana */
+      #semana { position: absolute; left: 70px; right: 70px; top: 470px; padding: 34px 32px 38px; border-radius: 32px; background: var(--vidro); border: 2px solid #ffffff2e; backdrop-filter: blur(18px); opacity: 0; box-shadow: 0 30px 80px #0008; }
+      #semana .tit { font: 500 28px "JetBrains Mono"; letter-spacing: 0.16em; color: #f7f9ffb0; }
+      #semana .dias { margin-top: 26px; display: grid; grid-template-columns: repeat(7, 1fr); gap: 12px; }
+      .dia { height: 200px; border-radius: 18px; background: #ffffff14; border: 2px solid #ffffff22; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 18px 0 16px; }
+      .dia b { font: 800 30px "Inter"; }
+      .dia span { font: 500 19px "JetBrains Mono"; letter-spacing: 0.06em; opacity: 0; }
+      .dia.trab { background: var(--azul); border-color: #9db8ff; }
+      .dia.folga { background: var(--folga); border-color: #b5ffe9; color: #06231b; }
+      #semana .linha { margin-top: 30px; display: flex; align-items: baseline; justify-content: space-between; }
+      #horas { font: 400 150px/1 "Anton"; }
+      #horas small { font: 400 70px "Anton"; }
+      #quando { font: 500 30px "JetBrains Mono"; letter-spacing: 0.12em; color: var(--amarelo); text-align: right; }
+      #salario { margin-top: 18px; font: 700 40px "Inter"; color: var(--folga); opacity: 0; }
+      #vinculos { position: absolute; left: 70px; right: 70px; top: 1190px; text-align: center; opacity: 0; }
+      #vinculos .n { font: 400 120px/1 "Anton"; }
+      #vinculos .s { margin-top: 10px; font: 500 26px "JetBrains Mono"; letter-spacing: 0.14em; color: #f7f9ffc0; }
+      #pergunta { top: 560px; }
+      #pergunta .q { font: 800 104px/1.02 "Inter"; letter-spacing: -0.035em; }
+      #pergunta .q em { font-style: normal; color: var(--amarelo); }
+      #aberto { position: absolute; left: 90px; right: 90px; top: 1080px; display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; opacity: 0; }
+      #aberto p { padding: 16px 0; border-radius: 14px; background: #ffffff1c; border: 2px solid #ffffff33; text-align: center; font: 800 26px "Inter"; }
+      #aberto p i { display: block; margin-top: 6px; font: 500 16px "JetBrains Mono"; font-style: normal; color: var(--folga); }
+      #virada { top: 640px; }
+      #virada .s2 { margin-top: 26px; font: 800 64px "Inter"; letter-spacing: -0.02em; opacity: 0; }
+      #virada .s2 b { color: var(--amarelo); }
+
+      /* celular com a IA */
+      #passos { position: absolute; left: 0; right: 0; top: 190px; display: flex; justify-content: center; gap: 14px; opacity: 0; z-index: 20; }
+      #passos p { padding: 12px 22px; border-radius: 40px; background: #ffffff1a; border: 2px solid #ffffff30; font: 500 22px "JetBrains Mono"; letter-spacing: 0.1em; color: #f7f9ff99; }
+      #passos p.on { background: var(--amarelo); color: #1a1500; border-color: var(--amarelo); }
+      #cel { position: absolute; left: 190px; top: 290px; width: 700px; height: 1230px; border-radius: 74px; background: #0c0f18; border: 14px solid #1d2230; box-shadow: 0 50px 120px #000c, inset 0 0 0 2px #333a4d; opacity: 0; overflow: hidden; z-index: 20; }
+      #cel .ilha { position: absolute; left: 50%; top: 18px; width: 170px; height: 40px; margin-left: -85px; border-radius: 30px; background: #000; z-index: 3; }
+      #cel .topo { position: absolute; left: 0; right: 0; top: 0; height: 130px; padding: 72px 32px 0; display: flex; align-items: center; gap: 16px; background: #121726; border-bottom: 2px solid #ffffff12; }
+      #cel .topo .av { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--azul), var(--folga)); }
+      #cel .topo p { font: 700 30px "Inter"; } #cel .topo small { display: block; font: 500 20px "Inter"; color: #f7f9ff80; }
+      .tela { position: absolute; left: 0; right: 0; top: 130px; bottom: 0; padding: 26px 24px; display: flex; flex-direction: column; gap: 18px; opacity: 0; }
+      .eu { align-self: flex-end; max-width: 88%; padding: 18px 22px; border-radius: 26px 26px 6px 26px; background: var(--azul); font: 500 27px/1.35 "Inter"; min-height: 60px; }
+      .anexo { align-self: flex-end; padding: 12px 18px; border-radius: 16px; background: #ffffff14; border: 2px solid #ffffff22; font: 500 22px "JetBrains Mono"; opacity: 0; }
+      .ia { align-self: flex-start; width: 100%; padding: 20px 20px 22px; border-radius: 26px 26px 26px 6px; background: #1a2033; border: 2px solid #ffffff14; font: 500 25px/1.35 "Inter"; opacity: 0; }
+      .ia > b { display: block; margin-bottom: 12px; font: 500 20px "JetBrains Mono"; letter-spacing: 0.12em; color: var(--folga); }
+      /* mapa de calor */
+      .mapa { display: grid; grid-template-columns: 70px repeat(7, 1fr); gap: 6px; font: 500 18px "JetBrains Mono"; position: relative; }
+      .mapa .h { color: #f7f9ff90; text-align: center; padding: 4px 0; }
+      .mapa .c { height: 54px; border-radius: 8px; background: #ffffff10; transform-origin: 50% 100%; }
+      .rot { margin-top: 14px; display: flex; gap: 12px; flex-wrap: wrap; }
+      .rot span { padding: 8px 14px; border-radius: 12px; font: 700 21px "Inter"; opacity: 0; }
+      .rot .frio { background: #3b74ff33; color: #a9c2ff; } .rot .quente { background: #ff5a4f33; color: #ffb3ad; }
+      .circ { position: absolute; border: 5px solid var(--amarelo); border-radius: 50%; opacity: 0; pointer-events: none; }
+      /* escala */
+      .escala { display: grid; grid-template-columns: 92px repeat(7, 1fr) 84px; gap: 6px; font: 700 20px "Inter"; }
+      .escala .h { text-align: center; color: #f7f9ff90; font: 500 17px "JetBrains Mono"; }
+      .escala .nm { font: 700 22px "Inter"; align-self: center; }
+      .escala .x { height: 46px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font: 800 19px "Inter"; }
+      .escala .x.w { background: var(--azul); } .escala .x.f { background: var(--folga); color: #06231b; }
+      .escala .tot { align-self: center; text-align: right; font: 500 21px "JetBrains Mono"; color: var(--folga); }
+      .escala .lin { display: contents; }
+      /* custos */
+      .cards { display: grid; gap: 12px; }
+      .card { padding: 18px 20px; border-radius: 18px; background: #ffffff10; border: 2px solid #ffffff1c; display: flex; justify-content: space-between; align-items: center; opacity: 0; }
+      .card p { font: 700 25px/1.25 "Inter"; } .card p small { display: block; font: 500 19px "Inter"; color: #f7f9ff90; }
+      .card strong { font: 400 46px "Anton"; color: var(--amarelo); white-space: nowrap; }
+      .ex { margin-top: 12px; font: 500 18px "JetBrains Mono"; letter-spacing: 0.12em; color: #f7f9ff70; }
+      #decide { position: absolute; left: 0; right: 0; top: 1540px; text-align: center; font: 800 56px "Inter"; color: var(--amarelo); opacity: 0; z-index: 25; text-shadow: 0 4px 20px #000; }
+
+      #legenda { position: absolute; left: 60px; right: 60px; top: 1600px; z-index: 30; }
+      #legenda p { position: absolute; left: 0; right: 0; top: 0; text-align: center; font: 700 44px/1.25 "Inter"; text-shadow: 0 3px 16px #000, 0 0 2px #000; opacity: 0; }
+
+      #cta { position: absolute; inset: 0; z-index: 40; opacity: 0; }
+      #cta .fundo { position: absolute; inset: 0; background: linear-gradient(180deg, #070a1260 0%, #070a12e8 45%, #070a12f5 100%); }
+      #cta .pede { position: absolute; left: 0; right: 0; top: 760px; text-align: center; font: 800 92px "Inter"; letter-spacing: -0.03em; }
+      #cta .campo { position: absolute; left: 110px; right: 110px; top: 900px; height: 170px; border-radius: 24px; border: 4px solid var(--amarelo); display: flex; align-items: center; justify-content: center; font: 400 116px "Anton"; color: var(--amarelo); }
+      #cta .assina { position: absolute; left: 70px; right: 70px; top: 1120px; text-align: center; font: 700 40px/1.3 "Inter"; color: #f7f9ffd8; }
+      #cta .aviso { position: absolute; left: 70px; right: 70px; top: 1290px; text-align: center; font: 500 24px "JetBrains Mono"; letter-spacing: 0.08em; color: #f7f9ff90; }
+      #cta img { position: absolute; left: 50%; top: 1420px; width: 160px; margin-left: -80px; }
+      #marca { position: absolute; right: 54px; top: 64px; width: 100px; opacity: 0.75; z-index: 50; }
+      #fonte { position: absolute; left: 60px; top: 1530px; z-index: 30; font: 500 20px "JetBrains Mono"; letter-spacing: 0.12em; color: #f7f9ff80; opacity: 0; }
+      #grao { position: absolute; inset: -40px; z-index: 60; background: url("assets/img/grao.png"); background-size: 540px 960px; opacity: 0.08; mix-blend-mode: overlay; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="68.6" data-width="1080" data-height="1920">
+      <video id="v-v0" class="vid" src="assets/video/v0.mp4" muted playsinline data-start="0.0" data-duration="3.747"></video>
+      <video id="v-v1" class="vid" src="assets/video/v1.mp4" muted playsinline data-start="3.747" data-duration="4.6"></video>
+      <video id="v-v2" class="vid" src="assets/video/v2.mp4" muted playsinline data-start="8.347" data-duration="4.537"></video>
+      <video id="v-v3" class="vid" src="assets/video/v3.mp4" muted playsinline data-start="12.884" data-duration="9.355"></video>
+      <video id="v-v4" class="vid" src="assets/video/v4.mp4" muted playsinline data-start="22.239" data-duration="7.735"></video>
+      <video id="v-v5" class="vid" src="assets/video/v5.mp4" muted playsinline data-start="29.974" data-duration="14.811"></video>
+      <video id="v-v6" class="vid" src="assets/video/v6.mp4" muted playsinline data-start="44.785" data-duration="8.479"></video>
+      <video id="v-v7" class="vid" src="assets/video/v7.mp4" muted playsinline data-start="53.264" data-duration="8.873"></video>
+      <video id="v-v8" class="vid" src="assets/video/v8.mp4" muted playsinline data-start="62.137" data-duration="6.463"></video>
+
+      <section id="palco" class="clip" data-start="0" data-duration="68.6" data-track-index="1">
+        <div id="escurece"></div>
+        <div id="foco"></div>
+
+        <div class="t" id="gancho"><p class="mono">FIM DA ESCALA 6x1</p><p class="golpe">Sua escala muda em <span class="a">dezembro</span></p></div>
+
+        <div id="semana">
+          <p class="tit" id="sem-tit">A SEMANA HOJE · ESCALA 6x1</p>
+          <div class="dias">
+            <div class="dia"><b>SEG</b><span>trab.</span></div><div class="dia"><b>TER</b><span>trab.</span></div><div class="dia"><b>QUA</b><span>trab.</span></div>
+            <div class="dia"><b>QUI</b><span>trab.</span></div><div class="dia"><b>SEX</b><span>trab.</span></div><div class="dia"><b>SÁB</b><span>trab.</span></div><div class="dia"><b>DOM</b><span>folga</span></div>
+          </div>
+          <div class="linha"><p id="horas">44<small>h</small></p><p id="quando">POR SEMANA<br />HOJE</p></div>
+          <p id="salario">✓ salário igual</p>
+        </div>
+        <div id="vinculos"><p class="n">14,8 milhões</p><p class="s">DE VÍNCULOS NA 6x1 · MTE / eSocial</p></div>
+
+        <div class="t" id="pergunta"><p class="q">Como cobrir a semana com a <em>mesma equipe?</em></p></div>
+        <div id="aberto"><p>SEG<i>aberto</i></p><p>TER<i>aberto</i></p><p>QUA<i>aberto</i></p><p>QUI<i>aberto</i></p><p>SEX<i>aberto</i></p><p>SÁB<i>aberto</i></p><p>DOM<i>aberto</i></p></div>
+
+        <div class="t" id="virada"><p class="golpe">A IA faz <span class="a">a conta</span></p><p class="s2">Não é mágica. <b>É número.</b></p></div>
+
+        <div id="passos"><p id="p1">1 · MOVIMENTO</p><p id="p2">2 · ESCALA</p><p id="p3">3 · CUSTO</p></div>
+        <div id="cel">
+          <div class="ilha"></div>
+          <div class="topo"><div class="av"></div><p>Assistente de IA<small>sua loja · exemplo</small></p></div>
+
+          <div class="tela" id="tela1">
+            <p class="anexo">📎 vendas-por-hora.csv</p>
+            <p class="eu" id="eu1"></p>
+            <div class="ia" id="ia1"><b>ONDE ESTÁ O MOVIMENTO</b>
+              <div class="mapa" id="mapa"></div>
+              <div class="rot"><span class="frio" id="r-frio">7h: quase parado</span><span class="quente" id="r-quente">sáb 15h–18h: lota</span></div>
+            </div>
+          </div>
+
+          <div class="tela" id="tela2">
+            <p class="eu" id="eu2"></p>
+            <div class="ia" id="ia2"><b>ESCALA COM FOLGAS ALTERNADAS</b>
+              <div class="escala" id="escala"></div>
+            </div>
+          </div>
+
+          <div class="tela" id="tela3">
+            <p class="eu" id="eu3"></p>
+            <div class="ia" id="ia3"><b>QUANTO CUSTA CADA SAÍDA</b>
+              <div class="cards">
+                <div class="card" id="k1"><p>Abrir 1 h mais tarde<small>a primeira hora é parada</small></p><strong>R$ 0</strong></div>
+                <div class="card" id="k2"><p>Meio período no sábado<small>cobre o pico da tarde</small></p><strong>~R$ 1.100</strong></div>
+                <div class="card" id="k3"><p>Hora extra só no pico<small>sábado, 15h às 18h</small></p><strong>~R$ 900</strong></div>
+              </div>
+              <p class="ex">EXEMPLO · LOJA COM 5 PESSOAS · POR MÊS</p>
+            </div>
+          </div>
+        </div>
+        <p id="decide">Você decide com número na mão.</p>
+
+        <p id="fonte">FONTE: EC 141/2026 · AGÊNCIA SENADO</p>
+        <div id="legenda"></div>
+        <div id="cta"><div class="fundo"></div><p class="pede">Comenta</p><div class="campo"><span id="digitado"></span></div><p class="assina">que eu te ajudo a montar a escala da sua empresa.</p><p class="aviso">CONFIRA A CONVENÇÃO COLETIVA COM SEU CONTADOR</p><img src="assets/marca/logo-branca.png" alt="" /></div>
+        <div id="flash"></div>
+        <div id="grao"></div>
+        <img id="marca" src="assets/marca/logo-branca.png" alt="" />
+      </section>
+
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="66.14" data-volume="1"></audio>
+      <audio id="trilha" src="assets/audio/trilha.mp3" data-start="0" data-duration="68.6" data-volume="0.16"></audio>
+      <audio id="sfx-hit0" src="assets/audio/s_hit.mp3" data-start="0.05" data-duration="2" data-volume="0.5"></audio>
+      <audio id="sfx-folga" src="assets/audio/s_ponto.mp3" data-sinc="palavra:folga:1:0" data-start="8.14" data-duration="1" data-volume="0.5"></audio>
+      <audio id="sfx-42" src="assets/audio/s_hit2.mp3" data-sinc="palavra:quarenta:2:0" data-start="16.57" data-duration="2" data-volume="0.4"></audio>
+      <audio id="sfx-40" src="assets/audio/s_hit2.mp3" data-sinc="palavra:quarenta:3:0" data-start="19.97" data-duration="2" data-volume="0.4"></audio>
+      <audio id="sfx-whoosh" src="assets/audio/whoosh.mp3" data-sinc="palavra:aqui:1:-0.4" data-start="29.78" data-duration="1.5" data-volume="0.55"></audio>
+      <audio id="sfx-ia1" src="assets/audio/s_notif.mp3" data-sinc="palavra:movimento:1:0.3" data-start="39.89" data-duration="1" data-volume="0.45"></audio>
+      <audio id="sfx-ia2" src="assets/audio/s_notif.mp3" data-sinc="palavra:alternadas:1:0.2" data-start="46.97" data-duration="1" data-volume="0.45"></audio>
+      <audio id="sfx-ia3" src="assets/audio/s_notif.mp3" data-sinc="palavra:custa:1:0.3" data-start="55.01" data-duration="1" data-volume="0.45"></audio>
+    </div>
+
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const DURACAO = 68.6;
+      const C = window.CENAS;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;"]/g, "");
+      function em(p, n = 1, f = 0) { let v = 0; for (const w of PALAVRAS) if (limpar(w.w) === p && ++v === n) return w.s; return f; }
+      const tl = gsap.timeline({ paused: true });
+      const aparece = (id, t, y = 30) => tl.fromTo(id, { opacity: 0, y }, { opacity: 1, y: 0, duration: 0.4, ease: "power3.out" }, t);
+      const some = (id, t) => tl.to(id, { opacity: 0, duration: 0.25 }, t - 0.25);
+      const golpe = (id, t) => tl.fromTo(id, { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.2, ease: "power4.in" }, t);
+
+      // gancho
+      golpe("#gancho", 0.05); some("#gancho", C[1]);
+      // a semana hoje: 6 de trabalho, 1 de folga
+      const dias = [...document.querySelectorAll("#semana .dia")];
+      aparece("#semana", C[1] + 0.05, 60);
+      dias.forEach((d, i) => { const cls = i < 6 ? "trab" : "folga"; const t = i < 6 ? em("seis", 1, 5.8) + i * 0.12 : em("folga", 1, 8.1);
+        tl.call(() => d.classList.add(cls), null, t); tl.call(() => d.classList.remove(cls), null, t - 0.001);
+        tl.fromTo(d, { scale: 1 }, { scale: 1.08, duration: 0.12, yoyo: true, repeat: 1 }, t); tl.to(d.querySelector("span"), { opacity: 1, duration: 0.2 }, t); });
+      // números com fonte
+      aparece("#vinculos", em("quinze", 1, 11) - 0.2);
+      some("#vinculos", C[2]);
+      // a nova lei: sábado vira folga, 44 → 42 → 40, salário igual
+      tl.set("#sem-tit", { textContent: "COM A NOVA LEI" }, C[2] + 0.1);
+      const sab = dias[5];
+      tl.call(() => { sab.classList.add("trab"); sab.classList.remove("folga"); sab.querySelector("span").textContent = "trab."; }, null, em("folgas", 1, 18) - 0.01);
+      tl.call(() => { sab.classList.remove("trab"); sab.classList.add("folga"); sab.querySelector("span").textContent = "folga"; }, null, em("folgas", 1, 18));
+      tl.fromTo(sab, { scale: 1 }, { scale: 1.12, duration: 0.14, yoyo: true, repeat: 1 }, em("folgas", 1, 18));
+      const H = document.getElementById("horas"), Q = document.getElementById("quando");
+      const poeHoras = (v, q) => { H.innerHTML = v + "<small>h</small>"; Q.innerHTML = q; };
+      tl.call(() => poeHoras(44, "POR SEMANA<br />HOJE"), null, em("quarenta", 2, 16.5) - 0.01);
+      tl.call(() => poeHoras(42, "A PARTIR DE<br />DEZ/2026"), null, em("quarenta", 2, 16.5));
+      tl.call(() => poeHoras(42, "A PARTIR DE<br />DEZ/2026"), null, em("quarenta", 3, 19.9) - 0.01);
+      tl.call(() => poeHoras(40, "A PARTIR DE<br />DEZ/2027"), null, em("quarenta", 3, 19.9));
+      tl.fromTo("#horas", { scale: 1.25 }, { scale: 1, duration: 0.25, ease: "power3.out" }, em("quarenta", 2, 16.5));
+      tl.fromTo("#horas", { scale: 1.25 }, { scale: 1, duration: 0.25, ease: "power3.out" }, em("quarenta", 3, 19.9));
+      aparece("#salario", em("salário", 1, 21.4) - 0.1, 14);
+      aparece("#fonte", C[2] + 0.3, 0); some("#fonte", C[3]);
+      some("#semana", C[3] + 0.6);
+      // a pergunta do dono
+      tl.fromTo("#aberto p", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.25, stagger: 0.08 }, C[3] + 0.6);
+      tl.set("#aberto", { opacity: 1 }, C[3] + 0.6);
+      aparece("#pergunta", em("pergunta", 1, 26.5) - 0.1);
+      some("#pergunta", C[4]); some("#aberto", C[4]);
+      // a virada: zoom-through para a IA
+      const tv = em("aqui", 1, 29.9) - 0.05;
+      tl.fromTo("#flash", { opacity: 0.8 }, { opacity: 0, duration: 0.35, immediateRender: false }, tv);
+      tl.fromTo("#v-v5", { scale: 1.6 }, { scale: 1, duration: 0.8, ease: "power3.out", immediateRender: false }, tv);
+      golpe("#virada", tv + 0.1);
+      tl.to("#virada .s2", { opacity: 1, duration: 0.3 }, em("mágica", 1, 32.6) - 0.2);
+      some("#virada", C[5]);
+      tl.to("#foco", { opacity: 0.55, duration: 0.4 }, C[5] - 0.3);
+
+      // celular
+      tl.fromTo("#cel", { opacity: 0, y: 120, scale: 0.92 }, { opacity: 1, y: 0, scale: 1, duration: 0.55, ease: "power3.out" }, C[5] - 0.25);
+      tl.to("#passos", { opacity: 1, duration: 0.3 }, C[5]);
+      const passo = (n, t) => [1, 2, 3].forEach((k) => tl.call(() => document.getElementById("p" + k).classList.toggle("on", k === n), null, t));
+      const digita = (id, txt, t, cps = 34) => { const el = document.getElementById(id); for (let i = 0; i <= txt.length; i += 2) tl.set(el, { textContent: txt.slice(0, i) }, t + i / cps); tl.set(el, { textContent: txt }, t + txt.length / cps); };
+      const tela = (id, a, b) => { tl.fromTo(id, { opacity: 0 }, { opacity: 1, duration: 0.25 }, a); if (b) tl.to(id, { opacity: 0, duration: 0.2 }, b - 0.2); };
+
+      // passo 1: onde está o movimento
+      passo(1, C[5]); tela("#tela1", C[5], C[6]);
+      tl.to("#tela1 .anexo", { opacity: 1, duration: 0.25 }, em("caixa", 1, 36.1) - 0.2);
+      digita("eu1", "Aqui estão as vendas por hora do mês. Me mostra onde está o movimento.", em("vendas", 1, 36.6) - 0.1);
+      aparece("#ia1", em("movimento", 1, 39.5) + 0.25, 20);
+      { const mapa = document.getElementById("mapa"); const D = ["S", "T", "Q", "Q", "S", "S", "D"], HS = ["7h", "9h", "11h", "13h", "15h", "17h"];
+        // intensidade de exemplo: 7h parado, sábado à tarde lotado
+        const V = [[1, 1, 1, 1, 1, 2, 1], [3, 3, 3, 3, 3, 4, 2], [4, 4, 4, 4, 5, 5, 3], [5, 5, 5, 5, 5, 6, 3], [3, 3, 3, 3, 4, 9, 2], [4, 4, 4, 4, 6, 9, 1]];
+        const cor = (v) => `rgba(${Math.round(59 + v * 22)}, ${Math.round(116 - v * 6)}, ${Math.round(255 - v * 22)}, ${0.25 + v * 0.08})`;
+        mapa.insertAdjacentHTML("beforeend", "<p class='h'></p>" + D.map((d) => `<p class='h'>${d}</p>`).join(""));
+        HS.forEach((h, r) => { mapa.insertAdjacentHTML("beforeend", `<p class='h'>${h}</p>` + V[r].map((v) => `<p class='c' style='background:${cor(v)}'></p>`).join("")); });
+        tl.fromTo("#mapa .c", { scaleY: 0 }, { scaleY: 1, duration: 0.25, stagger: 0.02, ease: "power2.out" }, em("movimento", 1, 39.5) + 0.5);
+        // círculos rabiscados: a primeira hora e o sábado à tarde
+        const c1 = document.createElement("div"); c1.className = "circ"; c1.style.cssText = "left:58px;top:24px;width:560px;height:74px;border-radius:40px"; mapa.appendChild(c1);
+        const c2 = document.createElement("div"); c2.className = "circ"; c2.style.cssText = "left:430px;top:250px;width:100px;height:140px"; mapa.appendChild(c2);
+        tl.fromTo(c1, { opacity: 0, scale: 1.3, rotation: -3 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.25 }, em("parada", 1, 42.1) - 0.2);
+        tl.fromTo(c2, { opacity: 0, scale: 1.3, rotation: 4 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.25 }, em("sábado", 1, 42.8) - 0.1);
+        for (let i = 0; i < 20; i++) tl.set([c1, c2], { rotation: (i % 2 ? 0.8 : -0.8) }, em("sábado", 1, 42.8) + 0.3 + i * 0.12);
+        tl.to("#r-frio", { opacity: 1, duration: 0.2 }, em("parada", 1, 42.1) - 0.1);
+        tl.to("#r-quente", { opacity: 1, duration: 0.2 }, em("sábado", 1, 42.8)); }
+
+      // passo 2: a escala
+      passo(2, C[6]); tela("#tela2", C[6], C[7]);
+      digita("eu2", "Monta uma escala com folgas alternadas que cubra esses picos. Máximo 42 h e 2 folgas por pessoa.", C[6] + 0.2, 40);
+      aparece("#ia2", em("alternadas", 1, 46.7) + 0.2, 20);
+      { const E = document.getElementById("escala"); const D = ["S", "T", "Q", "Q", "S", "S", "D"];
+        const F = { Ana: [6, 0], Bruno: [0, 1], Carla: [1, 2], Diego: [2, 3], Eva: [3, 4] };
+        E.insertAdjacentHTML("beforeend", "<p class='h'></p>" + D.map((d) => `<p class='h'>${d}</p>`).join("") + "<p class='h'>total</p>");
+        Object.entries(F).forEach(([nome, fol]) => { E.insertAdjacentHTML("beforeend", `<div class='lin'><p class='nm'>${nome}</p>` + D.map((_, i) => fol.includes(i) ? "<p class='x f'>F</p>" : "<p class='x w'>8h</p>").join("") + "<p class='tot'>40h ✓</p></div>"); });
+        tl.fromTo("#escala .x", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.18, stagger: 0.025 }, em("alternadas", 1, 46.7) + 0.5);
+        tl.fromTo("#escala .tot", { opacity: 0 }, { opacity: 1, duration: 0.2, stagger: 0.15 }, em("quarenta", 4, 50) - 0.1); }
+
+      // passo 3: quanto custa
+      passo(3, C[7]); tela("#tela3", C[7], C[8]);
+      digita("eu3", "Quanto custa cada saída para cobrir o sábado?", C[7] + 0.3);
+      aparece("#ia3", em("custa", 1, 54.7) + 0.2, 20);
+      tl.fromTo("#k1", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3 }, em("tarde", 2, 56.4) - 0.3);
+      tl.fromTo("#k2", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3 }, em("meio", 1, 57.5) - 0.2);
+      tl.fromTo("#k3", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.3 }, em("extra", 1, 59.1) - 0.3);
+      aparece("#decide", em("número", 1, 60.8) - 0.3, 14);
+      some("#decide", C[8]);
+      tl.to(["#cel", "#passos"], { opacity: 0, duration: 0.3 }, C[8] - 0.1);
+
+      // legenda da voz (fora o gancho, que já está escrito)
+      const caixa = document.getElementById("legenda"); let fr = [];
+      const fecha = () => { if (!fr.length) return; const txt = fr.map((w) => w.w).join(" "); const ini = fr[0].s;
+        if (ini > C[1] - 0.2 && ini < C[8] - 0.1 && !/^você decide/i.test(txt)) {
+          const p = document.createElement("p"); p.textContent = txt; caixa.appendChild(p);
+          const prox = PALAVRAS[PALAVRAS.indexOf(fr[fr.length - 1]) + 1]; const fim = prox ? Math.min(fr[fr.length - 1].e + 0.35, prox.s - 0.05) : fr[fr.length - 1].e + 0.5;
+          tl.fromTo(p, { opacity: 0 }, { opacity: 1, duration: 0.12 }, ini - 0.05); tl.set(p, { opacity: 0 }, fim); }
+        fr = []; };
+      PALAVRAS.forEach((w, i) => { fr.push(w); if (/[.?!:]$/.test(w.w) || (/,$/.test(w.w) && fr.length >= 5) || fr.length >= 9 || !PALAVRAS[i + 1]) fecha(); });
+
+      // CTA
+      tl.fromTo("#cta", { opacity: 0 }, { opacity: 1, duration: 0.45 }, C[8]);
+      { const ch = "DIAGNÓSTICO", d = document.getElementById("digitado"); const t0 = em("diagnóstico", 1, 62.5) - 0.05;
+        for (let i = 0; i <= ch.length; i++) tl.set(d, { textContent: ch.slice(0, i) }, t0 + i * 0.05); }
+      tl.fromTo(["#cta .assina", "#cta .aviso", "#cta img"], { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.25 }, em("diagnóstico", 1, 62.5) + 0.7);
+      tl.to("#marca", { opacity: 0, duration: 0.3 }, C[8]);
+
+      for (let t = 0, j = 0; t < DURACAO; t += 1 / 24, j++) tl.set("#grao", { backgroundPosition: `${(j * 137) % 540}px ${(j * 311) % 960}px` }, t);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

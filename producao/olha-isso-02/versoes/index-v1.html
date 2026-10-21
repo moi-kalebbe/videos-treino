@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Olha Isso 02 · Comercial com IA (modelo Yuri Kimoro) · PéDireito</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #000; }
+      .cheia { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      /* tela do ChatGPT: gravação real, centralizada como a tela de um celular */
+      .tela { position: absolute; left: 0; top: 141px; width: 1080px; height: 1638px; object-fit: cover; }
+      #hook { filter: saturate(0.92) contrast(1.05) brightness(0.92); }
+      #hook-tit { position: absolute; left: 60px; right: 60px; top: 300px; text-align: center; font-family: "Anton"; font-size: 104px; line-height: 1.02;
+        color: #fff; text-transform: uppercase; letter-spacing: 0.01em; text-shadow: 0 6px 0 rgba(0,0,0,0.55), 0 0 40px rgba(0,0,0,0.5); }
+      /* digitação: mesmo texto, mesma fonte do ChatGPT, por cima do quadro real */
+      .tampa { position: absolute; background: #1e1e1e; }
+      .digita { position: absolute; font-family: -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif; color: #ececec; white-space: pre; }
+      .digita span { display: none; }
+      .caret { display: inline-block; width: 3px; height: 1.05em; background: #ececec; vertical-align: -0.15em; margin-left: 1px; }
+      #story-img { position: absolute; left: 0; top: 600px; width: 1080px; height: 720px; object-fit: contain; }
+      #fim { position: absolute; left: 0; right: 0; bottom: 330px; text-align: center; color: #fff; opacity: 0; }
+      #fim .a { font-family: "Anton"; font-size: 86px; line-height: 1; text-transform: uppercase; text-shadow: 0 5px 0 rgba(0,0,0,0.5), 0 0 30px rgba(0,0,0,0.6); }
+      #fim .b { font-family: -apple-system, "Helvetica Neue", sans-serif; font-weight: 600; font-size: 40px; margin-top: 18px; text-shadow: 0 2px 14px rgba(0,0,0,0.7); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="45.6" data-width="1080" data-height="1920">
+      <!-- 1. gancho: o dono, sem fala (como o original) -->
+      <video id="hook" class="cheia" src="assets/clips/hook.mp4" muted playsinline data-start="0" data-duration="2.55"></video>
+      <div id="hook-tit">Vídeo comercial<br>feito com IA</div>
+
+      <!-- 2. digitando o 1º prompt -->
+      <div id="s-p1" style="position:absolute;inset:0;opacity:0">
+        <img class="tela" src="assets/clips/p1.png" alt="" />
+        <div class="tampa" style="left:70px;top:1420px;width:940px;height:272px"></div>
+        <div class="digita" id="d1" style="left:98px;top:1422px;font-size:45px;line-height:74px"></div>
+      </div>
+      <video id="r1a" class="tela" src="assets/clips/r1a.mp4" muted playsinline data-start="7.05" data-duration="4.13"></video>
+      <video id="r1b" class="tela" src="assets/clips/r1b.mp4" muted playsinline data-start="11.18" data-duration="5.0"></video>
+      <img id="story-img" src="assets/clips/storyboard.png" alt="" style="opacity:0" />
+
+      <!-- 3. digitando o pedido das cenas separadas -->
+      <div id="s-p3" style="position:absolute;inset:0;opacity:0">
+        <img class="tela" src="assets/clips/p3.png" alt="" />
+        <div class="tampa" style="left:58px;top:1560px;width:950px;height:216px"></div>
+        <div class="digita" id="d3" style="left:84px;top:1568px;font-size:45px;line-height:76px"></div>
+      </div>
+      <video id="r2a" class="tela" src="assets/clips/r2a.mp4" muted playsinline data-start="22.18" data-duration="3.5"></video>
+      <video id="r2b" class="tela" src="assets/clips/r2b.mp4" muted playsinline data-start="25.68" data-duration="3.5"></video>
+
+      <!-- 4. o comercial animado -->
+      <video id="c1" class="cheia" src="assets/clips/c1.mp4" muted playsinline data-start="29.18" data-duration="2.6"></video>
+      <video id="c2" class="cheia" src="assets/clips/c2.mp4" muted playsinline data-start="31.78" data-duration="2.6"></video>
+      <video id="c3" class="cheia" src="assets/clips/c3.mp4" muted playsinline data-start="34.38" data-duration="2.6"></video>
+      <video id="c4" class="cheia" src="assets/clips/c4.mp4" muted playsinline data-start="36.98" data-duration="2.6"></video>
+      <video id="c5" class="cheia" src="assets/clips/c5.mp4" muted playsinline data-start="39.58" data-duration="2.6"></video>
+      <video id="c6" class="cheia" src="assets/clips/c6.mp4" muted playsinline data-start="42.18" data-duration="3.42"></video>
+      <div id="fim"><div class="a">Feito com IA</div><div class="b">me segue pra ver como → @moiseskalebbe</div></div>
+
+      <!-- sons -->
+      <audio src="assets/sons/whoosh.mp3" data-start="2.5" data-duration="0.8" data-volume="0.35"></audio>
+      <audio src="assets/sons/teclado1.mp3" data-start="2.8" data-duration="3.9" data-volume="0.8"></audio>
+      <audio src="assets/sons/s_clique.mp3" data-start="7.0" data-duration="0.4" data-volume="0.7"></audio>
+      <audio src="assets/sons/s_papel.mp3" data-start="11.5" data-duration="1.0" data-volume="0.5"></audio>
+      <audio src="assets/sons/whoosh.mp3" data-start="16.1" data-duration="0.8" data-volume="0.3"></audio>
+      <audio src="assets/sons/teclado3.mp3" data-start="18.9" data-duration="3.0" data-volume="0.8"></audio>
+      <audio src="assets/sons/s_clique.mp3" data-start="22.1" data-duration="0.4" data-volume="0.7"></audio>
+      <audio src="assets/sons/whoosh.mp3" data-start="29.1" data-duration="0.8" data-volume="0.4"></audio>
+      <audio src="assets/sons/s_ponto.mp3" data-start="43.6" data-duration="1.0" data-volume="0.5"></audio>
+    </div>
+    <script>
+      const DURACAO = 45.6;
+      const tl = gsap.timeline({ paused: true });
+
+      // monta o texto digitado (quebra de linha igual à do ChatGPT)
+      function monta(id, linhas) {
+        const el = document.getElementById(id); const spans = [];
+        linhas.forEach((l, i) => {
+          for (const ch of l) { const s = document.createElement("span"); s.textContent = ch; el.appendChild(s); spans.push(s); }
+          if (i < linhas.length - 1) { const b = document.createElement("br"); b.style.display = "none"; el.appendChild(b); spans.push(b); }
+        });
+        const c = document.createElement("i"); c.className = "caret"; el.appendChild(c);
+        return { spans, caret: c };
+      }
+      const t1 = monta("d1", ["Crie um storyboard premium desse", "produto em seis cenas. A marca se", "escreve exatamente assim: PéDireito"]);
+      const t3 = monta("d3", ["agora cria cada cena separada, na vertical", "9:16, sem texto, todas numa imagem cada"]);
+      function digita(t, ini, dur) {
+        const passo = dur / t.spans.length;
+        t.spans.forEach((s, i) => tl.set(s, { display: "inline" }, ini + i * passo));
+        // o cursor anda junto com o texto (fica logo depois do último caractere visível)
+        t.spans.forEach((s, i) => tl.call(() => {}, null, ini + i * passo));
+      }
+
+      // 1. gancho
+      tl.fromTo("#hook-tit", { opacity: 0, scale: 1.15 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, 0.05);
+      tl.set(["#hook", "#hook-tit"], { opacity: 0 }, 2.55);
+
+      // 2. 1º prompt
+      tl.set("#s-p1", { opacity: 1 }, 2.55);
+      digita(t1, 2.8, 3.6);
+      tl.to(t1.caret, { opacity: 0, duration: 0.01, repeat: 7, yoyo: true, repeatDelay: 0.25 }, 6.45);
+      tl.set("#s-p1", { opacity: 0 }, 7.05);
+
+      // storyboard aberto em tela cheia
+      tl.set("#story-img", { opacity: 1 }, 16.18);
+      tl.fromTo("#story-img", { scale: 1.0 }, { scale: 1.18, duration: 2.5, ease: "none" }, 16.18);
+      tl.set("#story-img", { opacity: 0 }, 18.68);
+
+      // 3. pedido das cenas separadas
+      tl.set("#s-p3", { opacity: 1 }, 18.68);
+      digita(t3, 18.9, 2.7);
+      tl.to(t3.caret, { opacity: 0, duration: 0.01, repeat: 3, yoyo: true, repeatDelay: 0.25 }, 21.65);
+      tl.set("#s-p3", { opacity: 0 }, 22.18);
+
+      // 4. fechamento
+      tl.to("#fim", { opacity: 1, y: -10, duration: 0.35, ease: "power2.out" }, 43.6);
+
+      tl.set({}, {}, DURACAO);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

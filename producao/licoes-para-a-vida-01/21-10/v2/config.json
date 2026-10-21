@@ -1,0 +1,767 @@
+{
+ "numero": 1,
+ "total": 1,
+ "data": "2026-10-21",
+ "selo": "LIÇÃO DO DIA",
+ "titulo": "A frase que vira",
+ "titulo_destaque": "briga",
+ "audios": [
+  {
+   "arquivo": "n1.mp3",
+   "json": "n1.json",
+   "inicio": 0.0
+  },
+  {
+   "arquivo": "f1.mp3",
+   "json": "f1.json",
+   "inicio": 5.75
+  },
+  {
+   "arquivo": "m1.mp3",
+   "json": "m1.json",
+   "inicio": 7.5
+  },
+  {
+   "arquivo": "n2.mp3",
+   "json": "n2.json",
+   "inicio": 10.15
+  },
+  {
+   "arquivo": "n3.mp3",
+   "json": "n3.json",
+   "inicio": 13.6
+  },
+  {
+   "arquivo": "f2.mp3",
+   "json": "f2.json",
+   "inicio": 25.75
+  },
+  {
+   "arquivo": "m2.mp3",
+   "json": "m2.json",
+   "inicio": 32.1
+  },
+  {
+   "arquivo": "n4.mp3",
+   "json": "n4.json",
+   "inicio": 33.55
+  },
+  {
+   "arquivo": "n5.mp3",
+   "json": "n5.json",
+   "inicio": 48.3
+  }
+ ],
+ "livro": {
+  "titulo": "Comunicação Não-Violenta",
+  "autor": "Marshall B. Rosenberg",
+  "capitulo": "Capítulo 3 · Observar sem avaliar"
+ },
+ "momentos": {
+  "livro": [
+   "livro",
+   1
+  ],
+  "capitulo": [
+   "capítulo",
+   1
+  ],
+  "livro_sai": [
+   "imagina",
+   1
+  ]
+ },
+ "cenas": [
+  {
+   "img": "a-cafe.png"
+  },
+  {
+   "img": "c-espera.png",
+   "entra": [
+    "café",
+    1
+   ]
+  },
+  {
+   "img": "c-chega.png",
+   "entra": [
+    "chega",
+    1
+   ]
+  },
+  {
+   "img": "c-briga.png",
+   "entra": 7.5
+  },
+  {
+   "img": "c-chega.png",
+   "entra": 12.55
+  },
+  {
+   "img": "c-espera.png",
+   "entra": 13.05
+  },
+  {
+   "img": "b-livro.png",
+   "entra": [
+    "livro",
+    1,
+    -0.4
+   ]
+  },
+  {
+   "img": "c-chega.png",
+   "entra": [
+    "imagina",
+    1
+   ]
+  },
+  {
+   "img": "f-calma.png",
+   "entra": 25.75
+  },
+  {
+   "img": "e-louca.png",
+   "entra": [
+    "louça",
+    1,
+    -0.5
+   ]
+  },
+  {
+   "img": "f-jantar.png",
+   "entra": [
+    "jantar",
+    1,
+    -0.3
+   ]
+  },
+  {
+   "img": "g-relatorio.png",
+   "entra": [
+    "relatório",
+    1,
+    -0.3
+   ]
+  },
+  {
+   "img": "h-quarto.png",
+   "entra": [
+    "roupa",
+    1,
+    -0.4
+   ]
+  },
+  {
+   "img": "g-encomenda.png",
+   "entra": [
+    "pedi",
+    1,
+    -0.2
+   ]
+  },
+  {
+   "img": "d-camera.png",
+   "entra": [
+    "então",
+    1,
+    -0.1
+   ]
+  },
+  {
+   "img": "h-fim.png",
+   "entra": [
+    "amanhã",
+    1,
+    -0.2
+   ]
+  }
+ ],
+ "overlays": [
+  {
+   "texto": "🕒 15:00",
+   "estilo": "left:110px;top:520px",
+   "entra": [
+    "três",
+    1
+   ],
+   "sai": [
+    "chega",
+    1
+   ]
+  },
+  {
+   "texto": "🕒 15:15",
+   "estilo": "left:470px;top:640px;background:#e2402fe6;color:#fff",
+   "entra": [
+    "quinze",
+    1
+   ],
+   "sai": [
+    "chega",
+    1
+   ],
+   "pisca": true
+  },
+  {
+   "texto": "“Você é irresponsável!”",
+   "estilo": "left:90px;top:520px;background:#e2402f;color:#fff;font-size:54px",
+   "entra": 5.7,
+   "sai": 10.05
+  },
+  {
+   "texto": "“Eu? Você que é exagerada!”",
+   "estilo": "left:300px;top:660px;background:#fff;font-size:48px",
+   "entra": 7.45,
+   "sai": 10.05
+  },
+  {
+   "texto": "❌ RÓTULO",
+   "estilo": "left:250px;top:820px;background:#e2402f;color:#fff;font-size:110px;padding:24px 50px;transform:rotate(-8deg)",
+   "entra": [
+    "virou",
+    1
+   ],
+   "sai": 12.45
+  },
+  {
+   "texto": "◀◀ VOLTANDO A FITA",
+   "estilo": "left:170px;top:380px;background:#111;color:#fff;font-size:60px;letter-spacing:0.06em",
+   "entra": 12.45,
+   "sai": 13.55,
+   "pisca": true
+  },
+  {
+   "texto": "✓ relógio: 15h15",
+   "estilo": "left:110px;top:330px;background:#ddf7e9",
+   "entra": [
+    "relógio",
+    1
+   ],
+   "sai": [
+    "rótulo",
+    1,
+    0.7
+   ]
+  },
+  {
+   "texto": "✓ ele chegando",
+   "estilo": "left:470px;top:450px;background:#ddf7e9",
+   "entra": [
+    "chegando",
+    1
+   ],
+   "sai": [
+    "rótulo",
+    1,
+    0.7
+   ]
+  },
+  {
+   "texto": "irresponsável",
+   "estilo": "left:240px;top:640px",
+   "entra": [
+    "irresponsável",
+    3,
+    -0.2
+   ],
+   "sai": [
+    "isso",
+    1,
+    0.3
+   ],
+   "flutua": true
+  },
+  {
+   "texto": "❌ a câmera não grava isso",
+   "estilo": "left:150px;top:840px;background:#e2402f;color:#fff;font-size:46px",
+   "entra": [
+    "isso",
+    1
+   ],
+   "sai": 25.7
+  },
+  {
+   "texto": "1 · FATO",
+   "estilo": "left:70px;top:330px;background:#ddf7e9",
+   "entra": 25.75,
+   "sai": 33.45
+  },
+  {
+   "texto": "2 · IMPACTO",
+   "estilo": "left:70px;top:440px;background:#ddf7e9",
+   "entra": [
+    "preciso",
+    1
+   ],
+   "sai": 33.45
+  },
+  {
+   "texto": "3 · PEDIDO",
+   "estilo": "left:70px;top:550px;background:#ddf7e9",
+   "entra": [
+    "próxima",
+    1
+   ],
+   "sai": 33.45
+  },
+  {
+   "texto": "✅ CONVERSA RESOLVIDA",
+   "estilo": "left:140px;top:820px;background:#1a9a5e;color:#fff;font-size:62px",
+   "entra": [
+    "vou",
+    1
+   ],
+   "sai": 33.45
+  },
+  {
+   "texto": "5 situações do dia a dia",
+   "estilo": "left:110px;top:820px;background:#ffd84a;font-size:56px",
+   "entra": [
+    "cinco",
+    1
+   ],
+   "sai": [
+    "louça",
+    1,
+    -0.5
+   ]
+  },
+  {
+   "texto": "1/5 · CASA",
+   "estilo": "left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px",
+   "entra": [
+    "louça",
+    1,
+    -0.5
+   ],
+   "sai": [
+    "jantar",
+    1,
+    -0.3
+   ]
+  },
+  {
+   "texto": "❌ <s>“Você nunca lava a louça”</s>",
+   "estilo": "left:70px;top:390px;background:#fde3de",
+   "entra": [
+    "louça",
+    1,
+    -0.5
+   ],
+   "sai": [
+    "jantar",
+    1,
+    -0.3
+   ]
+  },
+  {
+   "texto": "✅ “A louça de ontem ainda tá na pia”",
+   "estilo": "left:70px;top:500px;background:#ddf7e9;font-size:36px",
+   "entra": [
+    "louça",
+    1,
+    0.0
+   ],
+   "sai": [
+    "jantar",
+    1,
+    -0.3
+   ]
+  },
+  {
+   "texto": "2/5 · FAMÍLIA",
+   "estilo": "left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px",
+   "entra": [
+    "jantar",
+    1,
+    -0.3
+   ],
+   "sai": [
+    "relatório",
+    1,
+    -0.3
+   ]
+  },
+  {
+   "texto": "❌ <s>“Você vive no celular”</s>",
+   "estilo": "left:70px;top:390px;background:#fde3de",
+   "entra": [
+    "jantar",
+    1,
+    -0.3
+   ],
+   "sai": [
+    "relatório",
+    1,
+    -0.3
+   ]
+  },
+  {
+   "texto": "✅ “No jantar, pegou o celular 5 vezes”",
+   "estilo": "left:70px;top:500px;background:#ddf7e9;font-size:36px",
+   "entra": [
+    "jantar",
+    1,
+    0.2
+   ],
+   "sai": [
+    "relatório",
+    1,
+    -0.3
+   ]
+  },
+  {
+   "texto": "3/5 · TRABALHO",
+   "estilo": "left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px",
+   "entra": [
+    "relatório",
+    1,
+    -0.3
+   ],
+   "sai": [
+    "roupa",
+    1,
+    -0.4
+   ]
+  },
+  {
+   "texto": "❌ <s>“Você é desorganizado”</s>",
+   "estilo": "left:70px;top:390px;background:#fde3de",
+   "entra": [
+    "relatório",
+    1,
+    -0.3
+   ],
+   "sai": [
+    "roupa",
+    1,
+    -0.4
+   ]
+  },
+  {
+   "texto": "✅ “O relatório veio sem março”",
+   "estilo": "left:70px;top:500px;background:#ddf7e9;font-size:36px",
+   "entra": [
+    "relatório",
+    1,
+    0.2
+   ],
+   "sai": [
+    "roupa",
+    1,
+    -0.4
+   ]
+  },
+  {
+   "texto": "4/5 · FILHOS",
+   "estilo": "left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px",
+   "entra": [
+    "roupa",
+    1,
+    -0.4
+   ],
+   "sai": [
+    "pedi",
+    1,
+    -0.2
+   ]
+  },
+  {
+   "texto": "❌ <s>“Você é preguiçoso”</s>",
+   "estilo": "left:70px;top:390px;background:#fde3de",
+   "entra": [
+    "roupa",
+    1,
+    -0.4
+   ],
+   "sai": [
+    "pedi",
+    1,
+    -0.2
+   ]
+  },
+  {
+   "texto": "✅ “Roupa no chão desde segunda”",
+   "estilo": "left:70px;top:500px;background:#ddf7e9;font-size:36px",
+   "entra": [
+    "roupa",
+    1,
+    0.09999999999999998
+   ],
+   "sai": [
+    "pedi",
+    1,
+    -0.2
+   ]
+  },
+  {
+   "texto": "5/5 · COMPRAS",
+   "estilo": "left:70px;top:300px;background:#1f2d55;color:#fff;font-size:34px",
+   "entra": [
+    "pedi",
+    1,
+    -0.2
+   ],
+   "sai": [
+    "então",
+    1,
+    -0.1
+   ]
+  },
+  {
+   "texto": "❌ <s>“Vocês são uma bagunça”</s>",
+   "estilo": "left:70px;top:390px;background:#fde3de",
+   "entra": [
+    "pedi",
+    1,
+    -0.2
+   ],
+   "sai": [
+    "então",
+    1,
+    -0.1
+   ]
+  },
+  {
+   "texto": "✅ “Pedi 3 cadernos e recebi 2”",
+   "estilo": "left:70px;top:500px;background:#ddf7e9;font-size:36px",
+   "entra": [
+    "pedi",
+    1,
+    0.3
+   ],
+   "sai": [
+    "então",
+    1,
+    -0.1
+   ]
+  },
+  {
+   "texto": "↗ Envie pra quem precisa ver",
+   "estilo": "left:110px;top:1240px;background:#fff;font-size:48px",
+   "entra": [
+    "manda",
+    1
+   ],
+   "sai": [
+    "amanhã",
+    1,
+    -0.1
+   ]
+  }
+ ],
+ "frase": {
+  "texto": "Câmera grava? É <em>fato</em>.<br />Não grava? É rótulo.",
+  "entra": [
+   "isso",
+   1,
+   0.4
+  ],
+  "sai": 25.75
+ },
+ "fim": {
+  "tipo": "amanha",
+  "entra": [
+   "amanhã",
+   1
+  ],
+  "seguir": [
+   "lição",
+   1
+  ],
+  "titulo": "Mais uma lição",
+  "subtitulo": "Uma ideia de livro + como aplicar no dia a dia"
+ },
+ "chaves": [
+  "briga",
+  "irresponsável",
+  "exagerada",
+  "fita",
+  "livro",
+  "câmera",
+  "rótulo",
+  "louça",
+  "celular",
+  "relatório",
+  "roupa",
+  "cadernos",
+  "isso",
+  "fato",
+  "impacto",
+  "pedido",
+  "manda"
+ ],
+ "sons": [
+  {
+   "arquivo": "relogio.mp3",
+   "palavra": [
+    "três",
+    1
+   ],
+   "d": 2.5,
+   "vol": 0.3
+  },
+  {
+   "arquivo": "s_hit2.mp3",
+   "palavra": [
+    "irresponsável",
+    1
+   ],
+   "desloc": -0.3,
+   "d": 2,
+   "vol": 0.5
+  },
+  {
+   "arquivo": "trombone.mp3",
+   "palavra": [
+    "virou",
+    1
+   ],
+   "d": 2,
+   "vol": 0.25
+  },
+  {
+   "arquivo": "rebobinar.mp3",
+   "palavra": [
+    "fita",
+    1
+   ],
+   "desloc": 0.3,
+   "d": 1.3,
+   "vol": 0.5
+  },
+  {
+   "arquivo": "k_obturador.mp3",
+   "palavra": [
+    "imagina",
+    1
+   ],
+   "vol": 0.45
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "relógio",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "chegando",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "glitch.mp3",
+   "palavra": [
+    "irresponsável",
+    3
+   ],
+   "d": 1.2,
+   "vol": 0.4
+  },
+  {
+   "arquivo": "s_hit2.mp3",
+   "palavra": [
+    "isso",
+    1
+   ],
+   "d": 2,
+   "vol": 0.35
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "preciso",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "próxima",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "ding.mp3",
+   "palavra": [
+    "vou",
+    1
+   ],
+   "vol": 0.45
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "louça",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "jantar",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "relatório",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "roupa",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "pedi",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "s_clique.mp3",
+   "palavra": [
+    "manda",
+    1
+   ],
+   "d": 0.65,
+   "vol": 0.6
+  }
+ ],
+ "folga_final": 0.6,
+ "visor": {
+  "entra": [
+   "imagina",
+   1
+  ],
+  "sai": [
+   "rótulo",
+   1,
+   0.7
+  ]
+ },
+ "resumo": [
+  "🎥 A câmera filmaria isso?",
+  "Fato → Impacto → Pedido"
+ ],
+ "css_extra": "#resumo { top: 300px; }"
+}

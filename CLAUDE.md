@@ -44,3 +44,8 @@ O dono sobe vídeos de referência nas **Notas Rápidas** do Mac. Quando pedir p
 - Número ou notícia na tela só com fonte listada no roteiro, ou marcado como exemplo.
 - Para estudar um vídeo novo: `scripts/extrair-referencia.sh <nome> <url>` e analisar as `folha_*.jpg` (1 quadro/s, 12 s por folha) + `transcricao.srt`.
 - Nunca commitar vídeo, áudio ou frames de terceiros (ficam em `referencias/_brutos/`, que está no `.gitignore`). O repo é público.
+
+## Métricas do Instagram
+- MCP somente leitura na rede: `ferramentas/instagram-mcp/README.md`; análise em `analises/instagram/`, skill `skills/analise-semanal/`.
+- Coleta manual: `python3 scripts/analise-instagram.py --desde AAAA-MM-DD`. LaunchAgent diário às 7h preparado, **ainda não ativado**; ativação requer confirmação conforme o briefing. Relatório automático é base descritiva; análise editorial semanal é feita pela skill.
+- Token e banco ficam locais. O plugin `instagram-skills` usa credenciais próprias para Apify/Publora; nunca fornecer o token do Instagram. Publicação continua exigindo o fluxo de aprovação já documentado.

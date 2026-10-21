@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Conta na tela 01 · Sua hora vale quanto? (modelo Leila Hormozi)</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Serifa"; src: url("assets/fonts/instrument-serif-400-normal.woff2") format("woff2"); font-style: normal; }
+      @font-face { font-family: "Serifa"; src: url("assets/fonts/instrument-serif-400-italic.woff2") format("woff2"); font-style: italic; }
+      @font-face { font-family: "Sans"; src: url("assets/fonts/inter-300-normal.woff2") format("woff2"); font-weight: 300; }
+      @font-face { font-family: "Sans"; src: url("assets/fonts/inter-400-normal.woff2") format("woff2"); font-weight: 400; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #2b2723; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+
+      /* câmera: o avatar com a cor do original (quente, lavada, pretos levantados) */
+      #cam { position: absolute; inset: 0; transform-origin: 50% 40%; }
+      #avatar { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover;
+        filter: saturate(0.7) contrast(0.86) brightness(1.03) sepia(0.14); }
+      #lavado { position: absolute; inset: 0; background: rgba(92, 80, 68, 0.16); mix-blend-mode: lighten; pointer-events: none; }
+      #vinheta { position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(ellipse 80% 70% at 50% 42%, rgba(0,0,0,0) 55%, rgba(20,15,10,0.38) 100%); }
+
+      /* tipografia do original: serifa fina e condensada nos números, sans fina no contexto */
+      .t { position: absolute; left: 0; width: 1080px; text-align: center; color: #efe9e2; opacity: 0;
+        text-shadow: 0 2px 18px rgba(30, 22, 15, 0.35); white-space: nowrap; }
+      .pq { font-family: "Sans"; font-weight: 300; font-size: 34px; letter-spacing: 0.01em; }
+      .gr { font-family: "Serifa"; font-size: 118px; line-height: 1; letter-spacing: -0.01em; }
+      .gr i, .it { font-style: italic; }
+      .gr small { font-size: 46px; }
+      .gr sup { font-size: 52px; vertical-align: 46px; margin-right: 6px; }
+      .rot { font-family: "Sans"; font-weight: 300; font-size: 25px; letter-spacing: 0.38em; color: #e6dfd6; }
+      .leg { font-family: "Sans"; font-weight: 400; font-size: 38px; line-height: 1.25; white-space: normal; padding: 0 260px; }
+      .apagado { color: rgba(239, 233, 226, 0.4); }
+      .vermelho { color: #b8645a; }
+
+      /* colunas Dono A / Dono B */
+      #colunas { position: absolute; left: 110px; top: 260px; width: 860px; height: 330px; opacity: 0; }
+      #colunas .linha { position: absolute; left: 0; top: 52px; width: 860px; height: 1px; background: rgba(239,233,226,0.55); transform-origin: 0 50%; }
+      #colunas .div { position: absolute; left: 430px; top: 52px; width: 1px; height: 250px; background: rgba(239,233,226,0.55); transform-origin: 50% 0; }
+      #colunas .col { position: absolute; top: 0; width: 430px; text-align: center; color: #efe9e2; }
+      #colunas .col.a { left: 0; } #colunas .col.b { left: 430px; }
+      #colunas .rot, #colunas .valor, #colunas .h168 { opacity: 0; }
+      #colunas .valor { font-family: "Serifa"; font-style: italic; font-size: 92px; margin-top: 44px; line-height: 1; }
+      #colunas .valor small { font-size: 40px; }
+      #colunas .h168 { font-family: "Serifa"; font-size: 100px; margin-top: 22px; padding-left: 60px; line-height: 1; }
+      #dias { position: absolute; left: 4px; top: 214px; width: 120px; text-align: right; line-height: 1.25; font-family: "Sans"; font-weight: 300; font-size: 24px; color: #e6dfd6; opacity: 0; }
+
+      /* agenda num painel de vidro (7–18 s do original) */
+      #agenda { position: absolute; left: 100px; top: 430px; width: 880px; height: 660px; opacity: 0; }
+      #agenda .grade { position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.18);
+        background-image: linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.07) 1px, transparent 1px);
+        background-size: 100% 41px, 140px 100%; background-position: 0 50px, 60px 0; }
+      #agenda .dias { position: absolute; left: 60px; top: 14px; width: 820px; display: flex; font-family: "Sans"; font-weight: 300; font-size: 18px; color: rgba(255,255,255,0.75); }
+      #agenda .dias span { width: 140px; text-align: center; }
+      #agenda .horas { position: absolute; left: 6px; top: 50px; font-family: "Sans"; font-weight: 300; font-size: 13px; line-height: 41px; color: rgba(255,255,255,0.5); }
+      .bloco { position: absolute; left: 72px; width: 796px; border-radius: 10px; border: 1.5px solid rgba(255,255,255,0.4);
+        background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        font-family: "Sans"; font-weight: 400; font-size: 22px; color: #f4efe9; padding: 8px 14px; }
+      #b-trab1 { top: 70px; height: 150px; }
+      #b-almoco { top: 230px; height: 30px; padding-top: 2px; font-size: 18px; }
+      #b-trab2 { top: 270px; height: 130px; }
+      #b-tarefa { top: 410px; height: 120px; background: rgba(140, 135, 80, 0.42); border-color: rgba(220,215,160,0.45); }
+      #b-sono { top: 540px; height: 90px; background: rgba(60, 70, 95, 0.35); }
+      #a-texto { position: absolute; left: 0; width: 1080px; top: 470px; }
+      #rotulo-b { position: absolute; left: 130px; top: 330px; font-family: "Serifa"; font-size: 70px; color: #efe9e2; opacity: 0; }
+
+      #assinatura { position: absolute; left: 0; width: 1080px; top: 1560px; text-align: center; font-family: "Sans"; font-weight: 300; font-size: 26px; letter-spacing: 0.4em; color: #efe9e2; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="60" data-width="1080" data-height="1920">
+      <div id="cam">
+        <video id="avatar" src="assets/avatar/avatar.mp4" muted playsinline data-start="0" data-duration="60"></video>
+      </div>
+      <div id="lavado"></div>
+      <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(48,38,30,0.55) 0%, rgba(48,38,30,0.42) 26%, rgba(48,38,30,0.12) 40%, rgba(48,38,30,0.05) 60%, rgba(48,38,30,0.18) 100%)"></div>
+      <div id="vinheta"></div>
+      <audio id="narracao" src="assets/audio/narracao.mp3" data-start="0" data-duration="59.21" data-volume="1"></audio>
+
+      <!-- 1–2: dono A × dono B -->
+      <div id="colunas">
+        <div class="linha"></div><div class="div"></div>
+        <div class="col a"><div class="rot">DONO A</div><div class="valor">R$ 100 <small>/ hora</small></div><div class="h168">168</div></div>
+        <div class="col b"><div class="rot">DONO B</div><div class="valor">R$ 100 <small>/ hora</small></div><div class="h168">168</div></div>
+        <div id="dias">7 dias ×<br>24 horas =</div>
+      </div>
+
+      <!-- 3–5: a agenda -->
+      <div id="agenda">
+        <div class="grade"></div>
+        <div class="dias"><span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span></div>
+        <div class="horas">8h<br>9h<br>10h<br>11h<br>12h<br>13h<br>14h<br>15h<br>16h<br>17h<br>18h<br>19h<br>20h<br>21h</div>
+        <div class="bloco" id="b-trab1">Trabalho</div>
+        <div class="bloco" id="b-almoco">Almoço</div>
+        <div class="bloco" id="b-trab2">Trabalho</div>
+        <div class="bloco" id="b-tarefa">Planilha e WhatsApp</div>
+        <div class="bloco" id="b-sono">Sono</div>
+      </div>
+      <div id="rotulo-b">Dono B</div>
+      <div class="t gr" id="b1" style="top:560px">trabalha <span id="pct">22%</span></div>
+      <div class="t gr" id="b2" style="top:690px">mais horas</div>
+      <div class="t gr" id="b3" style="top:690px">sem sacrificar o <i>sono.</i></div>
+
+      <!-- 6–14: a conta, no alto -->
+      <div class="t pq" id="porque" style="top:1250px">Por quê?</div>
+      <div class="t pq" id="p1" style="top:330px">quem enriquece entende</div>
+      <div class="t pq" id="p2" style="top:330px">Se a sua hora vale</div>
+      <div class="t pq" id="p3" style="top:330px">fazer qualquer coisa que vale menos</div>
+      <div class="t gr" id="v100" style="top:384px"><sup>R$</sup>100<small> / h</small></div>
+      <div class="t gr" id="v98" style="top:384px"><sup>R$</sup>98<small> / h</small></div>
+      <div class="t gr" id="v95" style="top:384px"><sup>R$</sup>95<small> / h</small></div>
+      <div class="t gr" id="custo" style="top:384px; font-size:92px"><i>tá te custando dinheiro</i></div>
+      <div class="t pq" id="p4" style="top:330px">por exemplo:</div>
+      <div class="t pq" id="p5" style="top:330px">mas uma IA faria por R$ 50</div>
+      <div class="t gr" id="orc" style="top:384px; font-size:100px"><i>Orçamentos</i> &nbsp;=&nbsp; 2 horas</div>
+      <div class="t pq" id="p6" style="top:330px">você pode achar que</div>
+      <div class="t gr" id="eco" style="top:384px; font-size:92px"><i>“tô economizando”</i></div>
+      <div class="t gr" id="naverdade" style="top:300px; font-size:72px"><i>mas na verdade</i></div>
+      <div class="t gr" id="perdendo" style="top:384px; font-size:100px"><i>perdendo dinheiro</i></div>
+      <div class="t gr" id="conta1" style="top:384px; font-size:100px">2 horas &nbsp;=&nbsp; <span id="x2">R$ 100 <small>× 2</small></span></div>
+      <div class="t gr" id="conta2" style="top:384px; font-size:100px">2 horas &nbsp;=&nbsp; R$ 200</div>
+      <div class="t gr vermelho" id="menos50" style="top:500px; font-size:70px; padding-left:330px">− R$ 50</div>
+      <div class="t gr" id="perdeu" style="top:384px; font-size:92px"><i>ou seja, você perdeu</i> &nbsp;R$ 150</div>
+
+      <!-- 15–17: legenda no peito -->
+      <div class="t leg" id="l1" style="top:1250px">quem enriquece usa IA assim</div>
+      <div class="t leg" id="l2" style="top:1250px">pra comprar o tempo de volta</div>
+      <div class="t leg" id="l3" style="top:1250px">porque entende</div>
+      <div class="t leg" id="l4" style="top:1250px">que tempo é dinheiro</div>
+      <div class="t leg" id="l5" style="top:1250px">me segue</div>
+      <div class="t leg" id="l6" style="top:1250px">que eu te mostro quais tarefas passar pra IA primeiro</div>
+      <div id="assinatura">@MOISESKALEBBE</div>
+    </div>
+    <script>
+      const DURACAO = 60;
+      const tl = gsap.timeline({ paused: true });
+      const E = 0.35; // entrada e saída com desfoque, como no original
+
+      function entra(sel, t, d = E) { tl.fromTo(sel, { opacity: 0, filter: "blur(14px)" }, { opacity: 1, filter: "blur(0px)", duration: d, ease: "power2.out" }, t); }
+      function sai(sel, t, d = E) { tl.to(sel, { opacity: 0, filter: "blur(14px)", duration: d, ease: "power2.in" }, t); }
+      function mostra(sel, t0, t1) { entra(sel, t0); sai(sel, t1); }
+
+      // ---- câmera: zoom lento e cortes de enquadramento (escondem as trocas de trecho da base) ----
+      tl.set("#cam", { scale: 1.0 }, 0);
+      tl.to("#cam", { scale: 1.035, duration: 2.9, ease: "none" }, 0);
+      tl.set("#cam", { scale: 1.1, y: 30 }, 2.9);           // corte: dedo para a esquerda (dono A)
+      tl.set("#cam", { scale: 1.02, y: 0 }, 4.3);           // corte: dedo para a direita (dono B)
+      tl.set("#cam", { scale: 1.08 }, 6.6);                 // corte: volta a fala natural
+      // 9–18,4 s: a câmera vai para o lado e desfoca, a agenda fica por cima
+      tl.to("#cam", { scale: 1.3, x: -330, filter: "blur(10px)", duration: 0.7, ease: "power2.inOut" }, 8.9);
+      tl.to("#cam", { x: -360, duration: 8.7, ease: "none" }, 9.6);
+      tl.set("#cam", { scale: 1.0, x: 0, filter: "blur(0px)" }, 18.35);   // corte seco para o plano frontal
+      tl.to("#cam", { scale: 1.05, duration: 9, ease: "none" }, 18.35);
+      tl.set("#cam", { scale: 1.12 }, 27.5);                // corte no "por exemplo"
+      tl.to("#cam", { scale: 1.16, duration: 7, ease: "none" }, 27.5);
+      tl.set("#cam", { scale: 1.04 }, 34.7);
+      tl.to("#cam", { scale: 1.08, duration: 9.9, ease: "none" }, 34.7);
+      tl.set("#cam", { scale: 1.14 }, 44.6);                // corte no "ou seja"
+      tl.set("#cam", { scale: 1.0 }, 47.7);
+      tl.to("#cam", { scale: 1.06, duration: 12.3, ease: "none" }, 47.7);
+
+      // ---- 1–2: colunas ----
+      tl.set("#colunas", { opacity: 1 }, 0.5);
+      tl.fromTo("#colunas .linha", { scaleX: 0 }, { scaleX: 1, duration: 0.6, ease: "power2.out" }, 0.5);
+      tl.fromTo("#colunas .div", { scaleY: 0 }, { scaleY: 1, duration: 0.6, ease: "power2.out" }, 0.7);
+      entra("#colunas .a .rot", 0.6); entra("#colunas .b .rot", 0.8);
+      entra("#colunas .a .valor", 2.1); entra("#colunas .b .valor", 2.45);
+      entra("#dias", 5.0);
+      entra("#colunas .a .h168", 6.2); entra("#colunas .b .h168", 6.35);
+      sai("#colunas", 8.75);
+
+      // ---- 3–5: agenda ----
+      entra("#agenda", 9.1, 0.5);
+      tl.from("#agenda .bloco", { opacity: 0, y: 18, duration: 0.35, stagger: 0.12, ease: "power2.out" }, 9.3);
+      // dono B: a tarefa some e o trabalho cresce
+      tl.to("#b-tarefa", { opacity: 0, scaleY: 0.2, transformOrigin: "50% 0", duration: 0.45, ease: "power2.in" }, 11.5);
+      tl.to("#b-trab2", { height: 260, duration: 0.6, ease: "power2.inOut" }, 11.8);
+      entra("#rotulo-b", 12.9); sai("#rotulo-b", 13.45);
+      entra("#b1", 13.45);
+      tl.to("#pct", { opacity: 0, filter: "blur(8px)", duration: 0.18 }, 14.35);
+      tl.call(() => {}, null, 14.53);
+      tl.set("#pct", { textContent: "25%" }, 14.53);
+      tl.to("#pct", { opacity: 1, filter: "blur(0px)", duration: 0.25 }, 14.53);
+      entra("#b2", 15.3); sai("#b2", 16.8);
+      sai("#b1", 16.8);
+      entra("#b3", 16.95);
+      sai("#b3", 18.2); sai("#agenda", 18.2);
+
+      // ---- 6–14: a conta ----
+      mostra("#porque", 18.4, 18.95);
+      mostra("#p1", 18.95, 21.3);
+      entra("#p2", 21.45);
+      entra("#v100", 22.5);
+      sai("#p2", 23.25); entra("#p3", 23.35);
+      tl.to("#v100", { opacity: 0, filter: "blur(10px)", y: -30, duration: 0.25 }, 24.05);
+      tl.fromTo("#v98", { opacity: 0, y: 30, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.25 }, 24.05);
+      tl.to("#v98", { opacity: 0, filter: "blur(10px)", y: -30, duration: 0.25 }, 24.95);
+      tl.fromTo("#v95", { opacity: 0, y: 30, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.25 }, 24.95);
+      sai("#v95", 25.45);
+      entra("#custo", 25.6, 0.5);
+      sai("#p3", 27.35); sai("#custo", 27.35);
+      entra("#p4", 27.5);
+      entra("#orc", 29.75);
+      sai("#p4", 31.35); entra("#p5", 31.45);
+      tl.to("#orc", { opacity: 0.35, duration: 0.5 }, 33.4);
+      sai("#p5", 34.6); sai("#orc", 34.6);
+      entra("#p6", 34.75);
+      entra("#eco", 35.75);
+      sai("#p6", 36.9);
+      entra("#naverdade", 36.95);
+      tl.to("#eco", { opacity: 0.35, y: 80, scale: 0.7, duration: 0.4, ease: "power2.inOut" }, 37.15);
+      tl.set("#eco", { textDecoration: "line-through" }, 37.15);
+      entra("#perdendo", 37.3);
+      sai("#naverdade", 38.75); sai("#eco", 38.75); sai("#perdendo", 38.75);
+      entra("#conta1", 38.9);
+      tl.to("#x2", { opacity: 0, filter: "blur(10px)", duration: 0.3 }, 41.2);
+      tl.set("#conta1", { opacity: 0 }, 41.5);
+      tl.set("#conta2", { opacity: 1, filter: "blur(0px)" }, 41.5);
+      tl.from("#conta2", { filter: "blur(6px)", duration: 0.3 }, 41.5);
+      entra("#menos50", 43.2);
+      sai("#conta2", 44.55); sai("#menos50", 44.55);
+      entra("#perdeu", 44.7, 0.5);
+      sai("#perdeu", 47.55);
+
+      // ---- 15–17: legenda no peito ----
+      mostra("#l1", 47.7, 50.7);
+      mostra("#l2", 50.75, 52.9);
+      mostra("#l3", 52.95, 53.7);
+      mostra("#l4", 53.75, 55.2);
+      mostra("#l5", 55.3, 55.95);
+      entra("#l6", 56.0);
+      entra("#assinatura", 57.2, 0.6);
+      sai("#l6", 59.6); sai("#assinatura", 59.6);
+
+      tl.set({}, {}, DURACAO);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Capa · Olha Isso 02 (modelo da capa do Yuri Kimoro)</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Capa"; src: url("assets/fonts/baloo-2.woff2") format("woff2"); font-weight: 700; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; }
+      .foto { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; filter: brightness(0.82) contrast(1.05); }
+      .sombra { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.25) 38%, rgba(0,0,0,0) 55%); }
+      /* mesma posição e tamanho do texto da capa original (terço de cima, 2 linhas, branco, sem caixa) */
+      .tit { position: absolute; left: 0; width: 1080px; top: 300px; text-align: center; font: 700 96px/1.02 "Capa", sans-serif; color: #fff;
+        text-transform: uppercase; letter-spacing: 0.01em; transform: scaleX(0.9); text-shadow: 0 4px 18px rgba(0,0,0,0.55), 0 2px 3px rgba(0,0,0,0.5); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="1" data-width="1080" data-height="1920">
+      <section data-start="0" data-duration="1" style="position:absolute;inset:0">
+        <img class="foto" src="assets/img/moises.jpg" alt="" />
+        <div class="sombra"></div>
+        <div class="tit">Vídeo comercial<br>em 5 minutos</div>
+      </section>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true }); tl.set({}, {}, 1);
+      window.__timelines = window.__timelines || {}; window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

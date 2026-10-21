@@ -132,12 +132,18 @@ def main() -> None:
     p.add_argument("--capa-ms", type=int, default=0, help="só com --sem-capa-consciente: instante do vídeo usado como capa, em ms")
     p.add_argument("--sem-capa-consciente", action="store_true", help="aceita publicar sem capa própria (não recomendado)")
     p.add_argument("--publicar", action="store_true", help="publica de verdade (precisa do ok do dono)")
+    p.add_argument("--story", action="store_true", help="publica como Story (sem legenda e sem capa)")
     args = p.parse_args()
 
     env = carregar_env()
     token, usuario = env["INSTAGRAM_ACCESS_TOKEN"], env["INSTAGRAM_USER_ID"]
     if args.conteiner:
         publicar(args.conteiner, usuario, token)
+        return
+    if args.story:
+        if not args.video:
+            sys.exit("Informe o <video.mp4> do Story")
+        publicar_story(args.video, usuario, token, args.publicar)
         return
     if not (args.video and args.legenda):
         sys.exit("Informe <video.mp4> <legenda.txt> ou --conteiner <ID>")
@@ -175,6 +181,30 @@ def main() -> None:
         return
 
     publicar(conteiner, usuario, token)
+
+
+def publicar_story(video: str, usuario: str, token: str, de_verdade: bool) -> None:
+    """Story em vídeo: sobe pelo túnel, espera processar e publica (só com --publicar)."""
+    with tempfile.TemporaryDirectory() as tmp:
+        nome = f"{secrets.token_urlsafe(16)}.mp4"
+        shutil.copy(video, pathlib.Path(tmp) / nome)
+        servidor, porta = servir_arquivo(pathlib.Path(tmp))
+        tunel, base = abrir_tunel(porta)
+        try:
+            url = f"{base}/{nome}"
+            esperar_link(url)
+            conteiner = chamar("POST", f"{usuario}/media", token, media_type="STORIES", video_url=url)["id"]
+            print("Story preparado (não publicado):", conteiner)
+            esperar_processamento(conteiner, token)
+        finally:
+            tunel.terminate()
+            servidor.shutdown()
+            print("túnel fechado e arquivo temporário apagado")
+    if not de_verdade:
+        print(f"Parado antes de publicar. Contêiner {conteiner} expira em 24 h.")
+        return
+    publicado = chamar("POST", f"{usuario}/media_publish", token, creation_id=conteiner)
+    print("STORY PUBLICADO:", publicado.get("id"))
 
 
 def publicar(conteiner: str, usuario: str, token: str) -> None:

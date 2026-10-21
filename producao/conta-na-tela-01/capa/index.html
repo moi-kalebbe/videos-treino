@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Capa · Conta na tela 01</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Serifa"; src: url("assets/fonts/instrument-serif-400-normal.woff2") format("woff2"); font-style: normal; }
+      @font-face { font-family: "Serifa"; src: url("assets/fonts/instrument-serif-400-italic.woff2") format("woff2"); font-style: italic; }
+      @font-face { font-family: "Sans"; src: url("assets/fonts/inter-300-normal.woff2") format("woff2"); font-weight: 300; }
+      /* Zona segura: y=285 a 1635 (recorte 4:5 do feed); grade do perfil 3:4 de y=240 a 1680 */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #2b2723; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: #efe9e2; }
+      .foto { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; transform: scale(1.04); transform-origin: 50% 42%;
+        filter: saturate(0.7) contrast(0.86) brightness(1.03) sepia(0.14); }
+      .lavado { position: absolute; inset: 0; background: rgba(92, 80, 68, 0.16); mix-blend-mode: lighten; }
+      .vinheta { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 50% 42%, rgba(0,0,0,0) 55%, rgba(20,15,10,0.4) 100%), linear-gradient(180deg, rgba(30,24,18,0.25) 0%, rgba(30,24,18,0) 32%, rgba(20,16,12,0) 58%, rgba(20,16,12,0.55) 86%); }
+      #colunas { position: absolute; left: 110px; top: 330px; width: 860px; height: 300px; }
+      .linha { position: absolute; left: 0; top: 52px; width: 860px; height: 1px; background: rgba(239,233,226,0.6); }
+      .div { position: absolute; left: 430px; top: 52px; width: 1px; height: 200px; background: rgba(239,233,226,0.6); }
+      .col { position: absolute; top: 0; width: 430px; text-align: center; text-shadow: 0 2px 18px rgba(30,22,15,0.4); }
+      .a { left: 0; } .b { left: 430px; }
+      .rot { font-family: "Sans"; font-weight: 300; font-size: 26px; letter-spacing: 0.38em; }
+      .valor { font-family: "Serifa"; font-style: italic; font-size: 96px; margin-top: 46px; line-height: 1; }
+      .valor small { font-size: 42px; }
+      #titulo { position: absolute; left: 0; width: 1080px; top: 1250px; text-align: center; text-shadow: 0 3px 24px rgba(20,15,10,0.55); }
+      #titulo .pq { font-family: "Sans"; font-weight: 300; font-size: 40px; letter-spacing: 0.01em; display: block; margin-bottom: 14px; }
+      #titulo .gr { font-family: "Serifa"; font-size: 132px; line-height: 1; display: block; }
+      #titulo .gr i { font-style: italic; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="1" data-width="1080" data-height="1920">
+      <section data-start="0" data-duration="1" style="position:absolute;inset:0">
+        <img class="foto" src="assets/img/moises.jpg" alt="" />
+        <div class="lavado"></div>
+      <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(48,38,30,0.55) 0%, rgba(48,38,30,0.42) 26%, rgba(48,38,30,0.12) 40%, rgba(48,38,30,0.05) 60%, rgba(48,38,30,0.18) 100%)"></div>
+        <div class="vinheta"></div>
+        <div id="colunas">
+          <div class="linha"></div><div class="div"></div>
+          <div class="col a"><div class="rot">DONO A</div><div class="valor">R$ 100 <small>/ hora</small></div></div>
+          <div class="col b"><div class="rot">DONO B</div><div class="valor">R$ 100 <small>/ hora</small></div></div>
+        </div>
+        <div id="titulo"><span class="pq">por que o dono B</span><span class="gr">rende <i>25% a mais?</i></span></div>
+      </section>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.set({}, {}, 1);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+Oi! Aqui estão os pedidos prontos do vídeo da escala nova. É só copiar e colar no claude.ai (o chat mesmo, não precisa de mais nada).
+
+1) Anexe a planilha de vendas por hora (pelo clipe ou pelo +) e cole:
+"Essa planilha tem minhas vendas por hora. Mostra os horários de pico e os horários parados. Depois monta uma escala para [número] funcionários com 2 folgas por semana cada, no máximo 42 horas, sem deixar o pico descoberto. Me devolve em planilha."
+
+2) Coloque numa aba chamada Equipe o nome e o salário de cada um, e cole:
+"Agora me diz quanto custa por mês cada saída pra cobrir o sábado: abrir 1 hora mais tarde, contratar alguém meio período ou pagar hora extra só no pico. Os salários estão na aba Equipe."
+
+3) Bônus, se você usa o Cowork: em Agendados › Nova tarefa, frequência semanal, segunda-feira, com a instrução:
+"Toda segunda: compare as vendas por hora da semana passada com a escala e me avise se algum horário de pico ficou sem gente suficiente."
+
+Antes de mudar a escala, confere a convenção coletiva da sua categoria com o seu contador.
+
+Me conta: quantos funcionários você tem e qual dia da semana mais aperta? Te ajudo a montar a da sua empresa.

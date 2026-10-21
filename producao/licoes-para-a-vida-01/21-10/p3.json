@@ -1,0 +1,161 @@
+{
+ "numero": 1,
+ "total": 1,
+ "data": "2026-10-21",
+ "audios": [
+  {
+   "arquivo": "voz.mp3",
+   "json": "voz.json",
+   "inicio": 0
+  }
+ ],
+ "selo": "LIÇÃO DO DIA · PARTE 3 DE 3",
+ "titulo": "Como usar",
+ "titulo_destaque": "hoje",
+ "cenas": [
+  {
+   "img": "d-apreciar.png"
+  },
+  {
+   "img": "f-calma.png",
+   "entra": [
+    "primeiro",
+    1
+   ]
+  },
+  {
+   "img": "g-encomenda.png",
+   "entra": [
+    "vale",
+    1
+   ]
+  },
+  {
+   "img": "h-fim.png",
+   "entra": [
+    "amanhã",
+    1,
+    -0.2
+   ]
+  }
+ ],
+ "passos_titulo": "Fato → impacto → pedido",
+ "momentos": {
+  "passos": [
+   "primeiro",
+   1
+  ]
+ },
+ "passos": [
+  {
+   "texto": "<b>Fato:</b> “Combinamos às 15h e são 15h15.”",
+   "entra": [
+    "primeiro",
+    1
+   ],
+   "check": [
+    "depois",
+    1,
+    -0.2
+   ]
+  },
+  {
+   "texto": "<b>Impacto:</b> “Preciso sair às 16h.”",
+   "entra": [
+    "depois",
+    1
+   ],
+   "check": [
+    "fim",
+    1,
+    -0.2
+   ]
+  },
+  {
+   "texto": "<b>Pedido:</b> “Que horas você chega?”",
+   "entra": [
+    "fim",
+    1
+   ],
+   "check": [
+    "ouve",
+    1
+   ]
+  }
+ ],
+ "passos_sai": [
+  "vale",
+  1
+ ],
+ "overlays": [
+  {
+   "texto": "❌ “Vocês nunca conferem nada”",
+   "estilo": "left:70px;top:330px;background:#fde3de",
+   "entra": [
+    "vez",
+    1
+   ],
+   "sai": [
+    "descrever",
+    1
+   ]
+  },
+  {
+   "texto": "✅ “Pedi 3 cadernos e recebi 2”",
+   "estilo": "left:70px;top:450px;background:#ddf7e9",
+   "entra": [
+    "pedi",
+    1
+   ],
+   "sai": [
+    "descrever",
+    1
+   ]
+  }
+ ],
+ "frase": {
+  "texto": "Fato não é aceitar desrespeito.<br />Você pode pôr <em>limites.</em>",
+  "entra": [
+   "descrever",
+   1
+  ],
+  "sai": [
+   "amanhã",
+   1
+  ]
+ },
+ "fim": {
+  "tipo": "amanha",
+  "entra": [
+   "amanhã",
+   1
+  ],
+  "seguir": [
+   "perca",
+   1
+  ],
+  "titulo": "Mais uma lição",
+  "subtitulo": "Uma ideia de livro + como aplicar no dia a dia"
+ },
+ "chaves": [
+  "hoje",
+  "fato",
+  "impacto",
+  "pedido",
+  "ouve",
+  "resposta",
+  "pedi",
+  "limites",
+  "amanhã"
+ ],
+ "sons": [
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "pedi",
+    1
+   ],
+   "vol": 0.4
+  }
+ ]
+}

@@ -1,0 +1,446 @@
+{
+ "numero": 1,
+ "total": 1,
+ "data": "2026-10-21",
+ "selo": "LIÇÃO DO DIA",
+ "titulo": "A frase que vira",
+ "titulo_destaque": "briga",
+ "audios": [
+  {
+   "arquivo": "n1.mp3",
+   "json": "n1.json",
+   "inicio": 0.0
+  },
+  {
+   "arquivo": "f1.mp3",
+   "json": "f1.json",
+   "inicio": 5.9
+  },
+  {
+   "arquivo": "m1.mp3",
+   "json": "m1.json",
+   "inicio": 7.75
+  },
+  {
+   "arquivo": "n2.mp3",
+   "json": "n2.json",
+   "inicio": 10.5
+  },
+  {
+   "arquivo": "n3.mp3",
+   "json": "n3.json",
+   "inicio": 14.1
+  },
+  {
+   "arquivo": "f2.mp3",
+   "json": "f2.json",
+   "inicio": 28.2
+  },
+  {
+   "arquivo": "m2.mp3",
+   "json": "m2.json",
+   "inicio": 35.15
+  },
+  {
+   "arquivo": "n4.mp3",
+   "json": "n4.json",
+   "inicio": 37.9
+  }
+ ],
+ "livro": {
+  "titulo": "Comunicação Não-Violenta",
+  "autor": "Marshall B. Rosenberg",
+  "capitulo": "Capítulo 3 · Observar sem avaliar"
+ },
+ "momentos": {
+  "livro": [
+   "livro",
+   1
+  ],
+  "capitulo": [
+   "capítulo",
+   1
+  ],
+  "livro_sai": [
+   "simples",
+   1
+  ]
+ },
+ "cenas": [
+  {
+   "img": "a-cafe.png"
+  },
+  {
+   "img": "c-espera.png",
+   "entra": [
+    "café",
+    1
+   ]
+  },
+  {
+   "img": "c-chega.png",
+   "entra": [
+    "chega",
+    1
+   ]
+  },
+  {
+   "img": "c-briga.png",
+   "entra": 7.75
+  },
+  {
+   "img": "c-chega.png",
+   "entra": 12.9
+  },
+  {
+   "img": "c-espera.png",
+   "entra": 13.45
+  },
+  {
+   "img": "b-livro.png",
+   "entra": [
+    "livro",
+    1,
+    -0.4
+   ]
+  },
+  {
+   "img": "d-camera.png",
+   "entra": [
+    "câmera",
+    1
+   ]
+  },
+  {
+   "img": "c-espera.png",
+   "entra": [
+    "agora",
+    1
+   ]
+  },
+  {
+   "img": "f-calma.png",
+   "entra": 28.2
+  },
+  {
+   "img": "e-louca.png",
+   "entra": [
+    "nunca",
+    1
+   ]
+  },
+  {
+   "img": "f-jantar.png",
+   "entra": [
+    "vive",
+    1
+   ]
+  },
+  {
+   "img": "d-camera.png",
+   "entra": [
+    "hoje",
+    1
+   ]
+  },
+  {
+   "img": "h-fim.png",
+   "entra": [
+    "amanhã",
+    1,
+    -0.2
+   ]
+  }
+ ],
+ "overlays": [
+  {
+   "texto": "🕒 15:00",
+   "estilo": "left:110px;top:520px",
+   "entra": [
+    "três",
+    1
+   ],
+   "sai": [
+    "chega",
+    1
+   ]
+  },
+  {
+   "texto": "🕒 15:15",
+   "estilo": "left:470px;top:640px;background:#e2402fe6;color:#fff",
+   "entra": [
+    "quinze",
+    1
+   ],
+   "sai": [
+    "chega",
+    1
+   ],
+   "pisca": true
+  },
+  {
+   "texto": "“Você é irresponsável!”",
+   "estilo": "left:90px;top:520px;background:#e2402f;color:#fff;font-size:54px",
+   "entra": 5.85,
+   "sai": 10.4
+  },
+  {
+   "texto": "“Eu? Você que é exagerada!”",
+   "estilo": "left:300px;top:660px;background:#fff;font-size:48px",
+   "entra": 7.7,
+   "sai": 10.4
+  },
+  {
+   "texto": "❌ RÓTULO",
+   "estilo": "left:250px;top:820px;background:#e2402f;color:#fff;font-size:110px;padding:24px 50px;transform:rotate(-8deg)",
+   "entra": [
+    "virou",
+    1
+   ],
+   "sai": 12.75
+  },
+  {
+   "texto": "◀◀ VOLTANDO A FITA",
+   "estilo": "left:170px;top:380px;background:#111;color:#fff;font-size:60px;letter-spacing:0.06em",
+   "entra": 12.75,
+   "sai": 14.0,
+   "pisca": true
+  },
+  {
+   "texto": "1 · FATO",
+   "estilo": "left:70px;top:330px;background:#ddf7e9",
+   "entra": 28.2,
+   "sai": 37.8
+  },
+  {
+   "texto": "2 · IMPACTO",
+   "estilo": "left:70px;top:440px;background:#ddf7e9",
+   "entra": [
+    "preciso",
+    1
+   ],
+   "sai": 37.8
+  },
+  {
+   "texto": "3 · PEDIDO",
+   "estilo": "left:70px;top:550px;background:#ddf7e9",
+   "entra": [
+    "próxima",
+    1
+   ],
+   "sai": 37.8
+  },
+  {
+   "texto": "✅ CONVERSA RESOLVIDA",
+   "estilo": "left:140px;top:820px;background:#1a9a5e;color:#fff;font-size:62px",
+   "entra": [
+    "vou",
+    1
+   ],
+   "sai": 37.8
+  },
+  {
+   "texto": "❌ “Você nunca lava a louça”",
+   "estilo": "left:70px;top:330px;background:#fde3de",
+   "entra": [
+    "nunca",
+    1
+   ],
+   "sai": [
+    "vive",
+    1
+   ]
+  },
+  {
+   "texto": "✅ “A louça de ontem tá na pia”",
+   "estilo": "left:70px;top:450px;background:#ddf7e9",
+   "entra": [
+    "vira",
+    1
+   ],
+   "sai": [
+    "vive",
+    1
+   ]
+  },
+  {
+   "texto": "❌ “Você vive no celular”",
+   "estilo": "left:70px;top:330px;background:#fde3de",
+   "entra": [
+    "vive",
+    1
+   ],
+   "sai": [
+    "hoje",
+    1
+   ]
+  },
+  {
+   "texto": "✅ “No jantar, pegou o celular 5 vezes”",
+   "estilo": "left:50px;top:450px;background:#ddf7e9;font-size:34px",
+   "entra": [
+    "vira",
+    2
+   ],
+   "sai": [
+    "hoje",
+    1
+   ]
+  },
+  {
+   "texto": "🎥 Uma câmera filmaria isso?",
+   "estilo": "left:110px;top:900px;background:#ffd84a;font-size:56px",
+   "entra": [
+    "pergunta",
+    1
+   ],
+   "sai": [
+    "amanhã",
+    1
+   ]
+  }
+ ],
+ "frase": {
+  "texto": "Câmera filma? É <em>fato</em>.<br />Não filma? É rótulo.",
+  "entra": [
+   "câmera",
+   1
+  ],
+  "sai": [
+   "agora",
+   1
+  ]
+ },
+ "fim": {
+  "tipo": "amanha",
+  "entra": [
+   "amanhã",
+   1
+  ],
+  "seguir": [
+   "perca",
+   1
+  ],
+  "titulo": "Mais uma lição",
+  "subtitulo": "Uma ideia de livro + como aplicar no dia a dia"
+ },
+ "chaves": [
+  "briga",
+  "irresponsável",
+  "exagerada",
+  "fita",
+  "livro",
+  "câmera",
+  "fato",
+  "rótulo",
+  "impacto",
+  "pedido",
+  "louça",
+  "celular",
+  "isso"
+ ],
+ "sons": [
+  {
+   "arquivo": "relogio.mp3",
+   "palavra": [
+    "três",
+    1
+   ],
+   "d": 2.5,
+   "vol": 0.3
+  },
+  {
+   "arquivo": "s_hit2.mp3",
+   "palavra": [
+    "irresponsável",
+    1
+   ],
+   "desloc": -0.3,
+   "d": 2,
+   "vol": 0.5
+  },
+  {
+   "arquivo": "trombone.mp3",
+   "palavra": [
+    "virou",
+    1
+   ],
+   "d": 2,
+   "vol": 0.25
+  },
+  {
+   "arquivo": "rebobinar.mp3",
+   "palavra": [
+    "fita",
+    1
+   ],
+   "desloc": 0.4,
+   "d": 1.4,
+   "vol": 0.5
+  },
+  {
+   "arquivo": "k_obturador.mp3",
+   "palavra": [
+    "câmera",
+    1
+   ],
+   "vol": 0.45
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "combinamos",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "preciso",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "próxima",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "ding.mp3",
+   "palavra": [
+    "vou",
+    1
+   ],
+   "vol": 0.45
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "vira",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "vira",
+    2
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "k_obturador.mp3",
+   "palavra": [
+    "pergunta",
+    1
+   ],
+   "vol": 0.35
+  }
+ ]
+}

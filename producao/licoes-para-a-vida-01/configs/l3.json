@@ -1,0 +1,253 @@
+{
+ "numero": 3,
+ "total": 3,
+ "titulo": "Nem tudo precisa ficar mais",
+ "titulo_destaque": "rápido",
+ "livro": {
+  "titulo": "A Meta",
+  "autor": "Eliyahu M. Goldratt e Jeff Cox",
+  "capitulo": "A partir do cap. 13 · A caminhada dos escoteiros"
+ },
+ "audios": [
+  {
+   "arquivo": "voz.mp3",
+   "json": "voz.json",
+   "inicio": 0
+  },
+  {
+   "arquivo": "fecho.mp3",
+   "json": "fecho.json",
+   "inicio": 43.65
+  }
+ ],
+ "cenas": [
+  {
+   "img": "a-titulo.png"
+  },
+  {
+   "img": "b-livro.png",
+   "entra": [
+    "essa",
+    1
+   ]
+  },
+  {
+   "img": "d-trilha.png",
+   "entra": [
+    "caminhada",
+    1
+   ]
+  },
+  {
+   "img": "c-loja.png",
+   "entra": [
+    "imagina",
+    1
+   ],
+   "zoom": {
+    "palavra": [
+     "acumulam",
+     1
+    ],
+    "escala": 1.3,
+    "origem": "70% 60%",
+    "duracao": 0.6
+   }
+  },
+  {
+   "img": "e-gargalo.png",
+   "entra": [
+    "esse",
+    1
+   ]
+  },
+  {
+   "img": "f-etapas.png",
+   "entra": [
+    "hoje",
+    1
+   ]
+  },
+  {
+   "img": "g-fluxo.png",
+   "entra": [
+    "melhoria",
+    1,
+    -0.4
+   ]
+  },
+  {
+   "img": "h-fim.png",
+   "entra": [
+    "então",
+    1,
+    -0.2
+   ]
+  }
+ ],
+ "momentos": {
+  "livro": [
+   "livro",
+   1
+  ],
+  "capitulo": [
+   "capítulo",
+   1
+  ],
+  "livro_sai": [
+   "imagina",
+   1
+  ],
+  "passos": [
+   "hoje",
+   1
+  ]
+ },
+ "overlays": [
+  {
+   "texto": "⚡ prepara 8/h",
+   "estilo": "left:90px;top:520px",
+   "entra": [
+    "preparar",
+    1
+   ],
+   "sai": [
+    "esse",
+    1
+   ]
+  },
+  {
+   "texto": "🐢 confere 2/h",
+   "estilo": "left:560px;top:660px",
+   "entra": [
+    "confere",
+    1
+   ],
+   "sai": [
+    "esse",
+    1
+   ]
+  },
+  {
+   "texto": "📦📦📦 fila",
+   "estilo": "left:520px;top:820px;background:#e2402fe6;color:#fff",
+   "entra": [
+    "acumulam",
+    1
+   ],
+   "sai": [
+    "esse",
+    1
+   ],
+   "pisca": true
+  }
+ ],
+ "frase": {
+  "texto": "Melhore o <em>gargalo</em>,<br />não o resto.",
+  "entra": [
+   "melhorar",
+   1
+  ],
+  "sai": [
+   "hoje",
+   1
+  ]
+ },
+ "passos": [
+  {
+   "texto": "Desenhe 3 etapas de uma entrega",
+   "entra": [
+    "desenha",
+    1
+   ],
+   "check": [
+    "vê",
+    1,
+    -0.2
+   ]
+  },
+  {
+   "texto": "Veja onde o trabalho fica esperando (sem culpar ninguém)",
+   "entra": [
+    "vê",
+    1
+   ],
+   "check": [
+    "testa",
+    2,
+    -0.2
+   ]
+  },
+  {
+   "texto": "Teste uma melhoria só nesse ponto",
+   "entra": [
+    "testa",
+    2
+   ],
+   "check": [
+    "então",
+    1,
+    -0.4
+   ]
+  }
+ ],
+ "resumo": [
+  "Ache o ponto onde tudo espera",
+  "Melhore ele antes de acelerar o resto"
+ ],
+ "fim": {
+  "tipo": "amanha",
+  "entra": [
+   "amanhã",
+   1
+  ],
+  "seguir": [
+   "perca",
+   1
+  ],
+  "titulo": "Mais uma lição",
+  "subtitulo": "Uma ideia de livro + como aplicar no dia a dia"
+ },
+ "chaves": [
+  "rápido",
+  "livro",
+  "meta",
+  "goldratt",
+  "loja",
+  "acumulam",
+  "gargalo",
+  "estreita",
+  "melhorar",
+  "hoje",
+  "esperando",
+  "ponto"
+ ],
+ "sons": [
+  {
+   "arquivo": "g_vento.mp3",
+   "palavra": [
+    "caminhada",
+    1
+   ],
+   "d": 2.5,
+   "vol": 0.18
+  },
+  {
+   "arquivo": "k_gaveta_fecha.mp3",
+   "palavra": [
+    "acumulam",
+    1
+   ],
+   "vol": 0.35
+  },
+  {
+   "arquivo": "alerta.mp3",
+   "palavra": [
+    "resolve",
+    1
+   ],
+   "d": 1.48,
+   "vol": 0.3
+  }
+ ]
+}

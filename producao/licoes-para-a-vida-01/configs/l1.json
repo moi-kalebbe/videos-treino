@@ -1,0 +1,308 @@
+{
+ "numero": 1,
+ "total": 3,
+ "titulo": "Descanso não é",
+ "titulo_destaque": "prêmio",
+ "livro": {
+  "titulo": "Os 7 Hábitos das Pessoas Altamente Eficazes",
+  "autor": "Stephen R. Covey",
+  "capitulo": "Hábito 7 · Afine o instrumento"
+ },
+ "audios": [
+  {
+   "arquivo": "voz.mp3",
+   "json": "voz.json",
+   "inicio": 0
+  },
+  {
+   "arquivo": "fecho2.mp3",
+   "json": "fecho2.json",
+   "inicio": 34.3
+  }
+ ],
+ "cenas": [
+  {
+   "img": "a-titulo.png"
+  },
+  {
+   "img": "b-livro.png",
+   "entra": [
+    "essa",
+    1
+   ]
+  },
+  {
+   "img": "c-celular.png",
+   "entra": [
+    "sabe",
+    1
+   ],
+   "zoom": {
+    "palavra": [
+     "celular",
+     1
+    ],
+    "escala": 1.32,
+    "origem": "62% 52%"
+   }
+  },
+  {
+   "img": "d-cuidar.png",
+   "entra": [
+    "ideia",
+    1
+   ],
+   "zoom": {
+    "palavra": [
+     "renovar",
+     1
+    ],
+    "escala": 1.25,
+    "origem": "75% 30%",
+    "duracao": 2.2
+   }
+  },
+  {
+   "img": "e-louca.png",
+   "entra": [
+    "hoje",
+    1
+   ]
+  },
+  {
+   "img": "f-musica.png",
+   "entra": [
+    "uma",
+    3,
+    -0.05
+   ]
+  },
+  {
+   "img": "g-passeio.png",
+   "entra": [
+    "passeio",
+    1,
+    -0.1
+   ]
+  },
+  {
+   "img": "h-fim.png",
+   "entra": [
+    "então",
+    1,
+    -0.2
+   ]
+  }
+ ],
+ "momentos": {
+  "livro": [
+   "livro",
+   1
+  ],
+  "capitulo": [
+   "capítulo",
+   1
+  ],
+  "livro_sai": [
+   "sabe",
+   1
+  ],
+  "passos": [
+   "hoje",
+   1
+  ]
+ },
+ "overlays": [
+  {
+   "texto": "💬 12 mensagens",
+   "estilo": "left:420px;top:560px",
+   "entra": [
+    "celular",
+    1,
+    -0.1
+   ],
+   "sai": [
+    "ideia",
+    1
+   ]
+  },
+  {
+   "texto": "▶️ Próximo vídeo…",
+   "estilo": "left:110px;top:700px",
+   "entra": [
+    "depois",
+    1
+   ],
+   "sai": [
+    "ideia",
+    1
+   ]
+  },
+  {
+   "texto": "🔔 Mais uma tela",
+   "estilo": "left:470px;top:840px",
+   "entra": [
+    "tela",
+    1,
+    -0.1
+   ],
+   "sai": [
+    "ideia",
+    1
+   ]
+  },
+  {
+   "texto": "🪫 3%",
+   "estilo": "right:90px;top:300px;background:#e2402fe6;color:#fff",
+   "entra": [
+    "pausa",
+    1,
+    -0.1
+   ],
+   "sai": [
+    "ideia",
+    1
+   ],
+   "pisca": true
+  }
+ ],
+ "frase": {
+  "texto": "Não é só fazer mais.<br />É <em>cuidar de quem faz.</em>",
+  "entra": [
+   "não",
+   2
+  ],
+  "sai": [
+   "hoje",
+   1
+  ]
+ },
+ "passos": [
+  {
+   "texto": "Depois de algo que você já faz (tipo guardar a louça)",
+   "entra": [
+    "depois",
+    2
+   ],
+   "check": [
+    "reserva",
+    1,
+    -0.3
+   ]
+  },
+  {
+   "texto": "10 minutos só pra algo que te renove 🎵 🚶",
+   "entra": [
+    "reserva",
+    1
+   ],
+   "check": [
+    "uma",
+    3,
+    -0.25
+   ]
+  }
+ ],
+ "circula_passo": {
+  "passo": 2,
+  "texto": "10 minutos",
+  "palavra": [
+   "dez",
+   1
+  ]
+ },
+ "resumo": [
+  "Descanso não é prêmio",
+  "10 min depois de algo que você já faz"
+ ],
+ "fim": {
+  "tipo": "proximo",
+  "entra": [
+   "passa",
+   1
+  ],
+  "titulo": "Um obrigado que mostra o motivo",
+  "livro": "Como Fazer Amigos e Influenciar Pessoas",
+  "autor": "Dale Carnegie"
+ },
+ "chaves": [
+  "prêmio",
+  "livro",
+  "covey",
+  "celular",
+  "pausa",
+  "renovar",
+  "cuidar",
+  "louça",
+  "dez",
+  "minutos",
+  "música",
+  "passeio",
+  "hoje"
+ ],
+ "sons": [
+  {
+   "arquivo": "notificacao.mp3",
+   "palavra": [
+    "celular",
+    1
+   ],
+   "desloc": -0.1,
+   "vol": 0.5
+  },
+  {
+   "arquivo": "s_notif.mp3",
+   "palavra": [
+    "depois",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "notificacao.mp3",
+   "palavra": [
+    "tela",
+    1
+   ],
+   "desloc": -0.1,
+   "vol": 0.45
+  },
+  {
+   "arquivo": "alerta.mp3",
+   "palavra": [
+    "pausa",
+    1
+   ],
+   "vol": 0.35,
+   "d": 1.48
+  },
+  {
+   "arquivo": "riser.mp3",
+   "palavra": [
+    "renovar",
+    1
+   ],
+   "desloc": -1.2,
+   "d": 2.6,
+   "vol": 0.3
+  },
+  {
+   "arquivo": "k_gaveta_fecha.mp3",
+   "palavra": [
+    "louça",
+    1
+   ],
+   "vol": 0.4
+  },
+  {
+   "arquivo": "g_vento.mp3",
+   "palavra": [
+    "passeio",
+    1
+   ],
+   "desloc": -0.2,
+   "d": 2.2,
+   "vol": 0.18
+  }
+ ]
+}

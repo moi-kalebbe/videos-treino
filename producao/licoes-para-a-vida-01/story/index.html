@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Lições para a Vida · 1/3 · Descanso não é prêmio</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 500; src: url("assets/fonts/inter-500.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      /* mesma cor de fundo da folha do personagem, para a cabeça se fundir sem recorte */
+      :root { --creme: #fcedcc; --azul: #23335f; --coral: #d9452a; --verde: #1a8a55; --tinta: #2a2420; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--creme); }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; color: var(--tinta); font-family: "Inter", sans-serif; background: var(--creme); }
+
+      #selo { position: absolute; left: 80px; top: 230px; padding: 12px 24px; border-radius: 40px; background: var(--azul); color: #fff; font: 800 30px "Inter"; letter-spacing: 0.06em; }
+      #titulo { position: absolute; left: 80px; right: 80px; top: 300px; font: 400 132px/1.06 "Anton"; text-transform: uppercase; color: var(--azul); }
+      #titulo em { font-style: normal; color: var(--coral); }
+      #livro { position: absolute; left: 80px; top: 590px; display: flex; gap: 16px; align-items: center; padding: 14px 26px 14px 18px; border-radius: 18px; background: #fff8e8; border: 3px solid #e9d6a8; font: 700 32px "Inter"; }
+      #livro b { font-weight: 800; }
+
+      .cena { position: absolute; left: 70px; right: 70px; top: 700px; height: 420px; opacity: 0; }
+      /* cena 1: telas e bateria descarregando */
+      #telas { display: flex; justify-content: center; align-items: center; gap: 50px; font-size: 170px; padding-top: 60px; }
+      .bat { width: 300px; height: 150px; border: 10px solid var(--tinta); border-radius: 26px; position: relative; padding: 10px; }
+      .bat::after { content: ""; position: absolute; right: -34px; top: 34px; width: 22px; height: 42px; border-radius: 0 10px 10px 0; background: var(--tinta); }
+      .nivel { height: 100%; border-radius: 12px; background: var(--verde); transform-origin: 0 50%; }
+      #c1 .nivel { background: var(--coral); }
+      /* cena 2: renovar */
+      #c2 { text-align: center; }
+      #c2 .bat { margin: 10px auto 40px; }
+      #c2 p { font: 800 66px/1.15 "Inter"; color: var(--azul); }
+      #c2 p em { font-style: normal; color: var(--verde); }
+      /* cena 3: faz hoje */
+      #c3 h3 { font: 400 88px/1 "Anton"; text-transform: uppercase; color: var(--coral); margin-bottom: 26px; }
+      .passo { display: flex; gap: 22px; align-items: flex-start; margin-bottom: 24px; opacity: 0; }
+      .passo i { flex: none; width: 66px; height: 66px; border-radius: 50%; background: var(--azul); color: #fff; font: 800 38px/66px "Inter"; font-style: normal; text-align: center; }
+      .passo p { font: 700 52px/1.18 "Inter"; padding-top: 6px; }
+      .passo p b { color: var(--azul); font-weight: 800; }
+      #icones { position: absolute; right: 0; top: -6px; display: flex; gap: 22px; font-size: 80px; opacity: 0; }
+
+      /* personagem falando */
+      #cabeca-moldura { position: absolute; left: 50%; top: 1150px; width: 460px; height: 460px; margin-left: -230px; border-radius: 50%; overflow: hidden; border: 10px solid var(--azul); background: var(--creme); }
+      #cabeca { position: absolute; left: -15px; top: -95px; width: 470px; height: 779px; }
+      #legenda { position: absolute; left: 70px; right: 70px; top: 1650px; height: 80px; }
+      #legenda p { position: absolute; left: 0; right: 0; text-align: center; font: 800 44px/1.2 "Inter"; color: var(--azul); opacity: 0; }
+
+      #fim { position: absolute; inset: 0; background: var(--creme); opacity: 0; z-index: 40; }
+      #fim img { position: absolute; left: 50%; top: 820px; width: 760px; margin-left: -380px; }
+      #fim p { position: absolute; left: 80px; right: 80px; top: 420px; text-align: center; font: 400 104px/1 "Anton"; text-transform: uppercase; color: var(--azul); }
+      #fim p small { display: block; margin-top: 24px; font: 700 40px "Inter"; text-transform: none; color: var(--tinta); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="26" data-width="1080" data-height="1920">
+      <p id="selo">LIÇÕES PARA A VIDA · 1/3</p>
+      <h1 id="titulo">Descanso não é <em>prêmio</em></h1>
+      <p id="livro"><span>📖</span><span><b>Os 7 Hábitos</b> · Stephen R. Covey</span></p>
+
+      <div class="cena" id="c1"><div id="telas"><span id="cel">📱</span><span id="pc">💻</span><div class="bat"><div class="nivel"></div></div></div></div>
+      <div class="cena" id="c2"><div class="bat"><div class="nivel"></div></div><p>Não é só fazer mais.<br />É <em>cuidar de quem faz.</em></p></div>
+      <div class="cena" id="c3">
+        <h3>Testa hoje</h3>
+        <div class="passo"><i>1</i><p>Depois de algo que você <b>já faz</b> (tipo guardar a louça)</p></div>
+        <div class="passo"><i>2</i><p><b>10 minutos</b> só pra algo que te renove</p></div>
+        <div id="icones"><span>🎵</span><span>🚶</span><span>📖</span></div>
+      </div>
+
+      <div id="cabeca-moldura"><video id="cabeca" src="assets/cabeca.mp4" muted playsinline data-start="0" data-duration="24.5"></video></div>
+      <div id="legenda"></div>
+      <div id="fim"><p>Amanhã tem a lição 2<small>Escolhe só uma ação e testa hoje.</small></p><img src="assets/img/joia.png" alt="" /></div>
+
+      <audio id="voz" src="assets/audio/voz.mp3" data-start="0" data-duration="23.5" data-volume="1"></audio>
+    </div>
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const DURACAO = 26;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;"…]/g, "");
+      function em(p, n = 1, f = 0) { let v = 0; for (const w of PALAVRAS) if (limpar(w.w) === p && ++v === n) return w.s; return f; }
+      const tl = gsap.timeline({ paused: true });
+      const entra = (id, t, y = 40) => tl.fromTo(id, { opacity: 0, y }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.6)", immediateRender: false }, t);
+      const sai = (id, t) => tl.to(id, { opacity: 0, y: -30, duration: 0.25 }, t - 0.25);
+
+      // abertura
+      entra("#selo", 0, 20); entra("#titulo", 0.1, 60); entra("#livro", 0.5, 20);
+      tl.fromTo("#titulo em", { scale: 1 }, { scale: 1.12, duration: 0.15, yoyo: true, repeat: 1, immediateRender: false }, em("prêmio", 1, 1.2));
+      tl.fromTo("#cabeca-moldura", { scale: 0.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.45, ease: "back.out(1.8)", immediateRender: false }, 0.15);
+      // balanço leve da cabeça
+      for (let t = 0, i = 0; t < 24.5; t += 1.2, i++) tl.to("#cabeca", { y: (i % 2 ? -6 : 4), rotation: (i % 3 - 1) * 1.2, duration: 1.2, ease: "sine.inOut" }, t);
+
+      // cena 1: telas sem parar, bateria caindo
+      const t1 = em("você", 1, 1.6);
+      entra("#c1", t1, 30);
+      tl.fromTo("#cel", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, em("celular", 1, 2.8));
+      tl.fromTo("#pc", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2)", immediateRender: false }, em("tela", 1, 4.1));
+      tl.fromTo("#c1 .nivel", { scaleX: 0.9 }, { scaleX: 0.08, duration: 4.5, ease: "none", immediateRender: false }, t1 + 0.6);
+      tl.to("#c1 .bat", { x: 6, duration: 0.06, repeat: 7, yoyo: true }, em("pausa", 1, 6.4));
+      sai("#c1", em("ideia", 1, 7.56));
+
+      // cena 2: renovar, a bateria enche
+      const t2 = em("ideia", 1, 7.56);
+      entra("#c2", t2, 30);
+      tl.fromTo("#livro", { scale: 1 }, { scale: 1.08, duration: 0.18, yoyo: true, repeat: 1, immediateRender: false }, em("covey", 1, 8.2));
+      tl.fromTo("#c2 .nivel", { scaleX: 0.08 }, { scaleX: 1, duration: 2.2, ease: "power1.inOut", immediateRender: false }, em("renovar", 1, 9.6));
+      tl.fromTo("#c2 p", { opacity: 0 }, { opacity: 1, duration: 0.3, immediateRender: false }, em("não", 2, 11.1) - 0.1);
+      sai("#c2", em("hoje", 1, 13.7));
+
+      // cena 3: faz hoje
+      const t3 = em("hoje", 1, 13.7);
+      entra("#c3", t3, 30);
+      const passos = document.querySelectorAll(".passo");
+      entra(passos[0], em("depois", 2, 14.99) - 0.1, 30);
+      entra(passos[1], em("reserva", 1, 18.5) - 0.1, 30);
+      entra("#icones", em("uma", 3, 21.5) - 0.1, 30);
+
+      // fim: joia
+      tl.to(["#selo", "#titulo", "#livro", "#c3", "#cabeca-moldura", "#legenda"], { opacity: 0, duration: 0.3 }, 23.4);
+      tl.to("#fim", { opacity: 1, duration: 0.35 }, 23.5);
+      tl.fromTo("#fim img", { y: 120, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "back.out(1.6)", immediateRender: false }, 23.6);
+      tl.fromTo("#fim p", { scale: 0.9, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.6)", immediateRender: false }, 23.7);
+
+      // legenda curta (até 5 palavras)
+      const caixa = document.getElementById("legenda"); let fr = [];
+      const fecha = () => { if (!fr.length) return; const p = document.createElement("p"); p.textContent = fr.map((w) => w.w).join(" "); caixa.appendChild(p);
+        const prox = PALAVRAS[PALAVRAS.indexOf(fr[fr.length - 1]) + 1]; const fim = prox ? Math.min(fr[fr.length - 1].e + 0.3, prox.s - 0.03) : fr[fr.length - 1].e + 0.5;
+        tl.fromTo(p, { opacity: 0 }, { opacity: 1, duration: 0.08, immediateRender: false }, fr[0].s - 0.03); tl.set(p, { opacity: 0 }, fim); fr = []; };
+      PALAVRAS.forEach((w, i) => { fr.push(w); if (/[.?!:…,]$/.test(w.w) && fr.length >= 2 || fr.length >= 5 || !PALAVRAS[i + 1]) fecha(); });
+
+      tl.set({}, {}, DURACAO);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

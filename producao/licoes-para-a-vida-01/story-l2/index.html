@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Lições para a Vida · 2/3 · Um obrigado que mostra o motivo</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      :root { --azul: #1f2d55; --creme: #fdf1d6; --coral: #ff7a59; --verde: #2bd38a; --amarelo: #ffd84a; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #111; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; color: #fff; }
+      .cena { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; }
+      #topo { position: absolute; inset: 0 0 auto 0; height: 560px; background: linear-gradient(180deg, #0d1430cc 0%, #0d143000 100%); z-index: 5; }
+      #base { position: absolute; inset: auto 0 0 0; height: 1000px; background: linear-gradient(0deg, #0d1430f0 0%, #0d143099 50%, #0d143000 100%); z-index: 5; }
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 60; }
+      #selo { position: absolute; left: 70px; top: 170px; z-index: 30; padding: 12px 24px; border-radius: 40px; background: var(--coral); color: #1b1208; font: 800 30px "Inter"; letter-spacing: 0.06em; }
+      /* capa de revista: título atrás do personagem recortado */
+      #capa-titulo { position: absolute; left: 40px; right: 40px; top: 290px; z-index: 6; font: 400 158px/0.95 "Anton"; text-transform: uppercase; text-align: center; color: #fff; text-shadow: 0 10px 40px #0007; opacity: 0; }
+      #capa-titulo em { position: relative; font-style: normal; color: var(--amarelo); }
+      #capa-rec { position: absolute; inset: 0; background: url(assets/img/capa-recorte.png) center / cover; z-index: 7; opacity: 0; }
+      .doodle { position: absolute; z-index: 25; overflow: visible; pointer-events: none; }
+      .doodle path { fill: none; stroke: var(--amarelo); stroke-width: 12; stroke-linecap: round; stroke-linejoin: round; }
+      #livro { position: absolute; left: 60px; right: 60px; top: 960px; z-index: 12; padding: 40px 44px 44px; border-radius: 34px; background: var(--creme); color: var(--azul); box-shadow: 0 30px 80px #0009; opacity: 0; }
+      #livro .r { font: 800 28px "Inter"; letter-spacing: 0.14em; color: #b4532f; }
+      #livro h2 { margin-top: 14px; font: 800 60px/1.08 "Inter"; }
+      #livro .autor { margin-top: 16px; font: 700 42px "Inter"; color: #3d4a70; }
+      #livro .cap { position: relative; display: inline-block; margin-top: 26px; padding: 14px 26px; border-radius: 18px; background: var(--azul); color: #fff; font: 800 36px/1.25 "Inter"; opacity: 0; }
+      #livro .cap .doodle path { stroke: #e2502f; }
+      .bolha { position: absolute; z-index: 14; padding: 18px 28px; border-radius: 26px; background: #ffffffe8; color: var(--azul); font: 800 38px "Inter"; box-shadow: 0 16px 40px #0007; opacity: 0; white-space: nowrap; }
+      #frase { position: absolute; left: 70px; right: 70px; top: 1060px; z-index: 12; font: 400 96px/1.04 "Anton"; text-transform: uppercase; text-shadow: 0 8px 30px #000a; opacity: 0; }
+      #frase em { font-style: normal; color: var(--verde); }
+      .cartao { position: absolute; left: 60px; right: 60px; top: 920px; z-index: 12; padding: 34px 40px; border-radius: 30px; background: #fffaf0f2; color: var(--azul); box-shadow: 0 24px 70px #0008; opacity: 0; }
+      .cartao h3 { font: 400 70px/1 "Anton"; text-transform: uppercase; color: #c9502b; margin-bottom: 10px; }
+      .passo { position: relative; display: flex; gap: 20px; margin-top: 18px; opacity: 0; }
+      .passo i { flex: none; position: relative; width: 64px; height: 64px; border-radius: 50%; background: var(--azul); color: #fff; font: 800 36px/64px "Inter"; font-style: normal; text-align: center; }
+      .passo i b { position: absolute; inset: 0; border-radius: 50%; background: #1a9a5e; font: 800 40px/64px "Inter"; transform: scale(0); }
+      .passo p { font: 800 44px/1.18 "Inter"; padding-top: 4px; }
+      .passo .marca { position: relative; display: inline-block; }
+      #legenda { position: absolute; left: 60px; right: 60px; top: 1450px; z-index: 40; }
+      #legenda p { position: absolute; left: 0; right: 0; text-align: center; font: 800 64px/1.15 "Inter"; text-shadow: 0 4px 18px #000, 0 0 3px #000; opacity: 0; }
+      #legenda p b { color: var(--amarelo); }
+      #resumo { position: absolute; left: 60px; right: 60px; top: 880px; z-index: 12; padding: 34px 40px; border-radius: 30px; background: #ffffff26; border: 3px solid #ffffff55; backdrop-filter: blur(18px); opacity: 0; }
+      #resumo p { font: 800 44px/1.25 "Inter"; margin: 6px 0; opacity: 0; }
+      #resumo p span { color: var(--verde); }
+      #amanha { position: absolute; left: 60px; right: 60px; top: 880px; z-index: 13; padding: 34px 40px 40px; border-radius: 30px; background: var(--creme); color: var(--azul); box-shadow: 0 30px 80px #0009; opacity: 0; }
+      #amanha .r { font: 800 28px "Inter"; letter-spacing: 0.14em; color: #b4532f; }
+      #amanha h4 { margin-top: 10px; font: 400 88px/1 "Anton"; text-transform: uppercase; }
+      #amanha .t { margin-top: 14px; font: 800 42px/1.2 "Inter"; }
+      #amanha .a { margin-top: 8px; font: 700 34px "Inter"; color: #3d4a70; }
+      #seguir, #proximo { position: absolute; left: 50%; top: 1500px; z-index: 13; width: 680px; margin-left: -340px; height: 120px; border-radius: 28px; background: #0095f6; font: 800 48px/120px "Inter"; text-align: center; opacity: 0; }
+      #proximo { background: #ffffff; color: var(--azul); }
+      #seguir.ok { background: #2a2a31; }
+      #toque { position: absolute; left: 680px; top: 1540px; z-index: 14; width: 96px; height: 96px; border-radius: 50%; border: 6px solid #fff; background: #ffffff40; opacity: 0; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="50.11" data-width="1080" data-height="1920">
+      <div class="cena" id="cena0" style="background-image:url(assets/img/a-titulo.png)"></div>
+      <p id="capa-titulo" style="font-size:124px">Um obrigado que mostra o <em>motivo</em></p>
+      <div id="capa-rec"></div>
+      <div class="cena" id="cena1" style="background-image:url(assets/img/b-livro.png)"></div>
+      <div class="cena" id="cena2" style="background-image:url(assets/img/c-caixas.png)"></div>
+      <div class="cena" id="cena3" style="background-image:url(assets/img/d-apreciar.png)"></div>
+      <div class="cena" id="cena4" style="background-image:url(assets/img/e-obrigado.png)"></div>
+      <div class="cena" id="cena5" style="background-image:url(assets/img/f-mensagem.png)"></div>
+      <div class="cena" id="cena6" style="background-image:url(assets/img/h-fim.png)"></div>
+      <div id="topo"></div><div id="base"></div>
+      <p id="selo">LIÇÕES PARA A VIDA · 2/3</p>
+      <div id="livro"><p class="r">📖 DE QUAL LIVRO É</p><h2>Como Fazer Amigos e Influenciar Pessoas</h2><p class="autor">Dale Carnegie</p>
+        <p class="cap">Parte 1 · Cap. 2 · O grande segredo de lidar com as pessoas<svg class="doodle" style="left:-26px;top:-20px;width:calc(100% + 52px);height:calc(100% + 40px)" viewBox="0 0 100 100" preserveAspectRatio="none"><path id="circ-cap" vector-effect="non-scaling-stroke" d="M50 4 C 82 2, 98 30, 97 52 C 96 80, 70 97, 46 96 C 18 95, 2 74, 4 48 C 6 24, 28 3, 58 6" /></svg></p></div>
+      <p class="bolha" id="ov0" style="left:520px;top:420px">💬 “valeu”</p>
+      <p class="bolha" id="ov1" style="left:130px;top:620px">🤔 ajudou em quê?</p>
+      <p id="frase">Diga o que a pessoa fez<br />e <em>como isso te ajudou.</em></p>
+      <div class="cartao" id="hoje"><h3>Testa hoje</h3>
+        <div class="passo"><i>1<b>✓</b></i><p>Lembra de uma ajuda real que você recebeu</p></div>
+        <div class="passo"><i>2<b>✓</b></i><p>“Obrigado por ___. Isso me ajudou a ___.”</p></div>
+      </div>
+      <div id="resumo"><p><span>✓</span> Agradeça citando o que a pessoa fez</p><p><span>✓</span> E o que aquilo mudou pra você</p></div>
+      <div id="amanha"><p class="r">PRÓXIMO STORY · LIÇÃO 3 DE 3</p><h4>Nem tudo precisa ficar mais rápido</h4><p class="t">📖 A Meta</p><p class="a">Eliyahu M. Goldratt e Jeff Cox</p></div><p id="proximo">Toque para a próxima ▶</p>
+      <div id="legenda"></div>
+      <div id="flash"></div>
+      <audio id="voz0" src="assets/audio/voz.mp3" data-start="0" data-duration="47.51" data-volume="1"></audio>
+      <audio id="som0" src="assets/sons/m_sunset.mp3" data-start="0.00" data-duration="50.11" data-volume="0.11"></audio>
+      <audio id="som1" src="assets/sons/s_hit2.mp3" data-start="0.05" data-duration="2" data-volume="0.45"></audio>
+      <audio id="som2" src="assets/sons/whoosh.mp3" data-start="1.98" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som3" src="assets/sons/whoosh.mp3" data-start="12.35" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som4" src="assets/sons/whoosh.mp3" data-start="22.41" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som5" src="assets/sons/whoosh.mp3" data-start="33.09" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som6" src="assets/sons/whoosh.mp3" data-start="37.21" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som7" src="assets/sons/whoosh.mp3" data-start="41.36" data-duration="0.68" data-volume="0.33"></audio>
+      <audio id="som8" src="assets/sons/s_papel.mp3" data-start="3.03" data-duration="1" data-volume="0.5"></audio>
+      <audio id="som9" src="assets/sons/s_papel.mp3" data-start="7.52" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som10" src="assets/sons/ding.mp3" data-start="26.56" data-duration="1" data-volume="0.4"></audio>
+      <audio id="som11" src="assets/sons/s_ponto.mp3" data-start="37.36" data-duration="1" data-volume="0.45"></audio>
+      <audio id="som12" src="assets/sons/s_ponto.mp3" data-start="41.51" data-duration="1" data-volume="0.45"></audio>
+      <audio id="som13" src="assets/sons/whoosh.mp3" data-start="41.21" data-duration="0.68" data-volume="0.35"></audio>
+      <audio id="som14" src="assets/sons/s_hit2.mp3" data-start="44.36" data-duration="2" data-volume="0.35"></audio>
+      <audio id="som15" src="assets/sons/s_clique.mp3" data-start="45.51" data-duration="0.65" data-volume="0.7"></audio>
+      <audio id="som16" src="assets/sons/vinheta.mp3" data-start="45.81" data-duration="2.6" data-volume="0.35"></audio>
+      <audio id="som17" src="assets/sons/s_notif.mp3" data-start="16.21" data-duration="1" data-volume="0.35"></audio>
+      <audio id="som18" src="assets/sons/riser.mp3" data-start="24.37" data-duration="2" data-volume="0.25"></audio>
+    </div>
+    <script>
+      const PALAVRAS = [{"w": "Um", "s": 0.0, "e": 0.128}, {"w": "obrigado", "s": 0.163, "e": 0.72}, {"w": "que", "s": 0.836, "e": 0.94}, {"w": "mostra", "s": 0.998, "e": 1.393}, {"w": "o", "s": 1.486, "e": 1.533}, {"w": "motivo.", "s": 1.579, "e": 2.078}, {"w": "Essa", "s": 2.125, "e": 2.345}, {"w": "lição", "s": 2.392, "e": 2.786}, {"w": "vem", "s": 2.902, "e": 3.077}, {"w": "do", "s": 3.123, "e": 3.181}, {"w": "livro", "s": 3.228, "e": 3.483}, {"w": "Como", "s": 3.634, "e": 3.878}, {"w": "Fazer", "s": 3.936, "e": 4.214}, {"w": "Amigos", "s": 4.261, "e": 4.714}, {"w": "e", "s": 4.83, "e": 4.899}, {"w": "Influenciar", "s": 4.923, "e": 5.503}, {"w": "Pessoas,", "s": 5.55, "e": 6.165}, {"w": "do", "s": 6.211, "e": 6.316}, {"w": "Dale", "s": 6.397, "e": 6.664}, {"w": "Carnegie,", "s": 6.711, "e": 7.291}, {"w": "na", "s": 7.326, "e": 7.465}, {"w": "Parte", "s": 7.523, "e": 7.93}, {"w": "Um,", "s": 8.046, "e": 8.301}, {"w": "capítulo", "s": 8.382, "e": 8.94}, {"w": "dois:", "s": 8.998, "e": 9.543}, {"w": "O", "s": 9.578, "e": 9.648}, {"w": "Grande", "s": 9.729, "e": 9.973}, {"w": "Segredo", "s": 9.996, "e": 10.565}, {"w": "de", "s": 10.681, "e": 10.797}, {"w": "Lidar", "s": 10.855, "e": 11.262}, {"w": "com", "s": 11.413, "e": 11.587}, {"w": "as", "s": 11.656, "e": 11.726}, {"w": "Pessoas.", "s": 11.796, "e": 12.458}, {"w": "Sabe", "s": 12.504, "e": 12.783}, {"w": "quando", "s": 12.841, "e": 13.026}, {"w": "um", "s": 13.05, "e": 13.096}, {"w": "amigo", "s": 13.142, "e": 13.433}, {"w": "te", "s": 13.479, "e": 13.56}, {"w": "ajuda", "s": 13.595, "e": 14.013}, {"w": "a", "s": 14.095, "e": 14.176}, {"w": "levar", "s": 14.211, "e": 14.478}, {"w": "umas", "s": 14.512, "e": 14.698}, {"w": "caixas,", "s": 14.767, "e": 15.406}, {"w": "você", "s": 15.476, "e": 15.685}, {"w": "diz", "s": 15.801, "e": 16.091}, {"w": "\"valeu\"", "s": 16.207, "e": 16.846}, {"w": "e", "s": 16.881, "e": 16.973}, {"w": "muda", "s": 17.02, "e": 17.24}, {"w": "de", "s": 17.287, "e": 17.333}, {"w": "assunto?", "s": 17.368, "e": 17.751}, {"w": "Ele", "s": 17.902, "e": 18.065}, {"w": "sabe", "s": 18.134, "e": 18.39}, {"w": "que", "s": 18.448, "e": 18.518}, {"w": "ajudou,", "s": 18.552, "e": 18.982}, {"w": "mas", "s": 19.04, "e": 19.237}, {"w": "talvez", "s": 19.319, "e": 19.783}, {"w": "não", "s": 19.934, "e": 20.131}, {"w": "saiba", "s": 20.201, "e": 20.607}, {"w": "o", "s": 20.689, "e": 20.747}, {"w": "que", "s": 20.816, "e": 20.886}, {"w": "aquilo", "s": 20.921, "e": 21.199}, {"w": "significou", "s": 21.246, "e": 21.792}, {"w": "pra", "s": 21.838, "e": 21.942}, {"w": "você.", "s": 21.989, "e": 22.36}, {"w": "A", "s": 22.418, "e": 22.488}, {"w": "ideia", "s": 22.558, "e": 22.999}, {"w": "é", "s": 23.08, "e": 23.138}, {"w": "demonstrar", "s": 23.22, "e": 23.881}, {"w": "apreciação", "s": 23.997, "e": 24.926}, {"w": "honesta", "s": 24.984, "e": 25.623}, {"w": "e", "s": 25.692, "e": 25.809}, {"w": "sincera:", "s": 25.867, "e": 26.517}, {"w": "dizer", "s": 26.563, "e": 27.004}, {"w": "o", "s": 27.121, "e": 27.19}, {"w": "que", "s": 27.26, "e": 27.329}, {"w": "a", "s": 27.353, "e": 27.376}, {"w": "pessoa", "s": 27.422, "e": 27.759}, {"w": "fez", "s": 27.817, "e": 28.119}, {"w": "e", "s": 28.212, "e": 28.293}, {"w": "como", "s": 28.386, "e": 28.618}, {"w": "aquilo", "s": 28.653, "e": 28.908}, {"w": "te", "s": 28.943, "e": 29.013}, {"w": "ajudou,", "s": 29.048, "e": 29.489}, {"w": "sem", "s": 29.605, "e": 29.837}, {"w": "exagerar", "s": 29.895, "e": 30.429}, {"w": "e", "s": 30.522, "e": 30.638}, {"w": "sem", "s": 30.731, "e": 30.963}, {"w": "usar", "s": 31.033, "e": 31.381}, {"w": "o", "s": 31.497, "e": 31.578}, {"w": "elogio", "s": 31.625, "e": 32.124}, {"w": "pra", "s": 32.24, "e": 32.391}, {"w": "pedir", "s": 32.449, "e": 32.693}, {"w": "favor.", "s": 32.739, "e": 33.181}, {"w": "Hoje,", "s": 33.239, "e": 33.691}, {"w": "testa", "s": 33.738, "e": 34.04}, {"w": "assim:", "s": 34.074, "e": 34.458}, {"w": "lembra", "s": 34.55, "e": 34.945}, {"w": "de", "s": 35.061, "e": 35.154}, {"w": "uma", "s": 35.201, "e": 35.34}, {"w": "ajuda", "s": 35.363, "e": 35.723}, {"w": "real", "s": 35.77, "e": 36.06}, {"w": "que", "s": 36.129, "e": 36.211}, {"w": "você", "s": 36.257, "e": 36.478}, {"w": "recebeu", "s": 36.536, "e": 37.105}, {"w": "e", "s": 37.221, "e": 37.29}, {"w": "completa", "s": 37.36, "e": 37.824}, {"w": "a", "s": 37.894, "e": 37.929}, {"w": "frase:", "s": 38.022, "e": 38.556}, {"w": "obrigado", "s": 38.614, "e": 39.125}, {"w": "por", "s": 39.171, "e": 39.345}, {"w": "isso,", "s": 39.403, "e": 39.775}, {"w": "isso", "s": 39.821, "e": 40.019}, {"w": "me", "s": 40.065, "e": 40.123}, {"w": "ajudou", "s": 40.158, "e": 40.576}, {"w": "a", "s": 40.75, "e": 40.866}, {"w": "aquilo.", "s": 40.913, "e": 41.47}, {"w": "Então", "s": 41.505, "e": 41.865}, {"w": "escolhe", "s": 41.911, "e": 42.364}, {"w": "só", "s": 42.48, "e": 42.712}, {"w": "uma", "s": 42.77, "e": 42.921}, {"w": "ação", "s": 42.944, "e": 43.362}, {"w": "e", "s": 43.444, "e": 43.537}, {"w": "testa", "s": 43.606, "e": 43.955}, {"w": "hoje.", "s": 44.001, "e": 44.373}, {"w": "Passa", "s": 44.407, "e": 44.709}, {"w": "pro", "s": 44.779, "e": 44.883}, {"w": "próximo", "s": 44.941, "e": 45.348}, {"w": "Story,", "s": 45.383, "e": 45.859}, {"w": "que", "s": 45.928, "e": 46.033}, {"w": "tem", "s": 46.102, "e": 46.346}, {"w": "a", "s": 46.474, "e": 46.532}, {"w": "lição", "s": 46.578, "e": 46.915}, {"w": "três.", "s": 46.962, "e": 47.507}];
+      const CFG = {"cenas": [{"img": "a-titulo.png"}, {"img": "b-livro.png", "entra": ["essa", 1]}, {"img": "c-caixas.png", "entra": ["sabe", 1], "zoom": {"palavra": ["valeu", 1], "escala": 1.25, "origem": "45% 35%"}}, {"img": "d-apreciar.png", "entra": ["ideia", 1]}, {"img": "e-obrigado.png", "entra": ["hoje", 1]}, {"img": "f-mensagem.png", "entra": ["completa", 1]}, {"img": "h-fim.png", "entra": ["então", 1, -0.2]}], "momentos": {"livro": ["livro", 1], "capitulo": ["parte", 1], "livro_sai": ["sabe", 1], "passos": ["hoje", 1]}, "frase": {"texto": "Diga o que a pessoa fez<br />e <em>como isso te ajudou.</em>", "entra": ["dizer", 1], "sai": ["hoje", 1]}, "passos": [{"texto": "Lembra de uma ajuda real que você recebeu", "entra": ["lembra", 1], "check": ["completa", 1, -0.3]}, {"texto": "“Obrigado por ___. Isso me ajudou a ___.”", "entra": ["completa", 1], "check": ["então", 1, -0.4]}], "fim": {"tipo": "proximo", "entra": ["passa", 1], "titulo": "Nem tudo precisa ficar mais rápido", "livro": "A Meta", "autor": "Eliyahu M. Goldratt e Jeff Cox"}, "chaves": ["motivo", "livro", "carnegie", "caixas", "valeu", "sincera", "ajudou", "favor", "obrigado", "hoje", "real"], "overlays": [{"texto": "💬 “valeu”", "estilo": "left:520px;top:420px", "entra": ["valeu", 1, -0.1], "sai": ["ideia", 1]}, {"texto": "🤔 ajudou em quê?", "estilo": "left:130px;top:620px", "entra": ["talvez", 1], "sai": ["ideia", 1]}]};
+      const DURACAO = 50.11;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;"…]/g, "");
+      function em(p, n = 1) { let v = 0; for (const w of PALAVRAS) if (limpar(w.w) === p && ++v === n) return w.s; return 0; }
+      function ultimo(p) { let s = 0; for (const w of PALAVRAS) if (limpar(w.w) === p) s = w.s; return s; }
+      const T = (x) => (Array.isArray(x) ? em(x[0], x[1] || 1) + (x[2] || 0) : x);
+      const tl = gsap.timeline({ paused: true });
+      const entra = (el, t, y = 40) => tl.fromTo(el, { opacity: 0, y }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)", immediateRender: false }, t);
+      const sai = (el, t) => tl.to(el, { opacity: 0, y: -30, duration: 0.25 }, t - 0.25);
+      const rabisca = (el, t, d = 0.45) => { const L = el.getTotalLength ? el.getTotalLength() : 1200;
+        tl.set(el, { strokeDasharray: L, strokeDashoffset: L }, 0);
+        tl.to(el, { strokeDashoffset: 0, duration: d, ease: "power2.out" }, t);
+        for (let k = 0; k < 24; k++) tl.set(el, { x: (k % 3) - 1, y: ((k + 1) % 3) - 1, rotation: k % 2 ? 0.6 : -0.6 }, t + d + k * 0.1); };
+
+      // cenas em tela cheia: Ken Burns alternado e corte com cortina
+      const tFim = ultimo("então");
+      const inicio = CFG.cenas.map((c, i) => (i === 0 ? 0 : T(c.entra) - 0.1));
+      CFG.cenas.forEach((c, i) => { const el = document.getElementById("cena" + i); const t = inicio[i]; const fim = i + 1 < inicio.length ? inicio[i + 1] : DURACAO;
+        tl.set(el, { opacity: 1 }, t);
+        tl.fromTo(el, { scale: i % 2 ? 1.16 : 1.04, xPercent: i % 2 ? -2 : 2 }, { scale: i % 2 ? 1.04 : 1.16, xPercent: i % 2 ? 2 : -2, duration: fim - t + 0.3, ease: "none", immediateRender: false }, t);
+        if (i) tl.fromTo(el, { clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)", duration: 0.35, ease: "power3.out", immediateRender: false }, t);
+        if (c.zoom) tl.to(el, { scale: c.zoom.escala, transformOrigin: c.zoom.origem, duration: c.zoom.duracao || 0.25, ease: "power3.out" }, T(c.zoom.palavra) - 0.15);
+        if (i + 1 < inicio.length) tl.set(el, { opacity: 0 }, fim + 0.36); });
+
+      // abertura: título atrás do personagem
+      tl.set("#capa-rec", { opacity: 1 }, 0);
+      tl.fromTo("#capa-rec", { scale: 1.04, xPercent: 2 }, { scale: 1.16, xPercent: -2, duration: inicio[1] + 0.3, ease: "none", immediateRender: false }, 0);
+      tl.fromTo("#capa-titulo", { opacity: 0, scale: 1.35 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.in", immediateRender: false }, 0.05);
+      tl.fromTo("#flash", { opacity: 0.6 }, { opacity: 0, duration: 0.3, immediateRender: false }, 0.35);
+      tl.set(["#capa-rec", "#capa-titulo"], { opacity: 0 }, inicio[1] + 0.36);
+
+      // livro com título, autor e capítulo
+      const M = CFG.momentos;
+      entra("#livro", T(M.livro) - 0.2, 60);
+      entra("#livro .cap", T(M.capitulo) - 0.1, 20);
+      rabisca(document.getElementById("circ-cap"), T(M.capitulo) + 0.5, 0.5);
+      sai("#livro", T(M.livro_sai));
+
+      // balões e selos da cena
+      (CFG.overlays || []).forEach((o, i) => { const el = document.getElementById("ov" + i);
+        tl.fromTo(el, { opacity: 0, scale: 0.4 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2.2)", immediateRender: false }, T(o.entra));
+        if (o.pisca) tl.to(el, { opacity: 0.35, duration: 0.18, yoyo: true, repeat: 5 }, T(o.entra) + 0.3);
+        tl.to(el, { opacity: 0, duration: 0.2 }, T(o.sai) - 0.2); });
+
+      // a ideia em uma frase
+      entra("#frase", T(CFG.frase.entra) - 0.15, 40);
+      tl.fromTo("#flash", { opacity: 0.3 }, { opacity: 0, duration: 0.3, immediateRender: false }, T(CFG.frase.entra));
+      sai("#frase", T(CFG.frase.sai));
+
+      // testa hoje: checklist
+      entra("#hoje", T(M.passos), 40);
+      const passos = document.querySelectorAll(".passo");
+      CFG.passos.forEach((p, i) => { entra(passos[i], T(p.entra) - 0.1, 24); tl.to(passos[i].querySelector("b"), { scale: 1, duration: 0.25, ease: "back.out(2.5)" }, T(p.check)); });
+      if (CFG.circula_passo) rabisca(document.getElementById("circ-passo"), T(CFG.circula_passo.palavra) - 0.05, 0.4);
+      sai("#hoje", tFim - 0.1);
+
+      // final: resumo, próxima lição (ou amanhã) e botão
+      tl.to("#selo", { opacity: 0, duration: 0.2 }, tFim - 0.2);
+      entra("#resumo", tFim, 40);
+      const linhas = document.querySelectorAll("#resumo p");
+      linhas.forEach((l, i) => entra(l, tFim + 0.35 + i * 0.9, 16));
+      const tCard = T(CFG.fim.entra);
+      tl.to("#resumo", { opacity: 0, y: -40, duration: 0.25 }, tCard - 0.2);
+      tl.fromTo("#amanha", { opacity: 0, scale: 0.85, rotation: -3 }, { opacity: 1, scale: 1, rotation: 0, duration: 0.4, ease: "back.out(1.8)", immediateRender: false }, tCard - 0.05);
+      if (CFG.fim.tipo === "proximo") {
+        tl.fromTo("#proximo", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.8)", immediateRender: false }, tCard + 0.6);
+        tl.to("#proximo", { x: 18, duration: 0.25, yoyo: true, repeat: 7, ease: "sine.inOut" }, tCard + 1.1);
+      } else {
+        const tS = T(CFG.fim.seguir);
+        tl.fromTo("#seguir", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.35, ease: "back.out(1.8)", immediateRender: false }, tS - 0.15);
+        tl.fromTo("#toque", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.25, immediateRender: false }, tCard + 0.85);
+        tl.call(() => { const b = document.getElementById("seguir"); b.classList.remove("ok"); b.textContent = "Seguir @moiseskalebbe"; }, null, tCard + 1.099);
+        tl.call(() => { const b = document.getElementById("seguir"); b.classList.add("ok"); b.textContent = "Seguindo ✓"; }, null, tCard + 1.1);
+        tl.to("#toque", { opacity: 0, duration: 0.25 }, tCard + 1.5);
+      }
+
+      // legenda grande (fora da abertura e do cartão final)
+      const caixa = document.getElementById("legenda"); let fr = [];
+      const fecha = () => { if (!fr.length) return; const ini = fr[0].s;
+        if (ini > 0.9 && ini < tCard - 0.3) { const p = document.createElement("p");
+          p.innerHTML = fr.map((w) => (CFG.chaves.includes(limpar(w.w)) ? "<b>" + w.w + "</b>" : w.w)).join(" "); caixa.appendChild(p);
+          const prox = PALAVRAS[PALAVRAS.indexOf(fr[fr.length - 1]) + 1]; const fim = prox ? Math.min(fr[fr.length - 1].e + 0.3, prox.s - 0.03) : fr[fr.length - 1].e + 0.5;
+          tl.fromTo(p, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.1, immediateRender: false }, ini - 0.03); tl.set(p, { opacity: 0 }, Math.min(fim, tCard - 0.2)); }
+        fr = []; };
+      PALAVRAS.forEach((w, i) => { fr.push(w); if ((/[.?!:…,]$/.test(w.w) && fr.length >= 2) || fr.length >= 4 || !PALAVRAS[i + 1]) fecha(); });
+
+      tl.set({}, {}, DURACAO);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

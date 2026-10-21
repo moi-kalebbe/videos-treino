@@ -1,0 +1,172 @@
+{
+ "numero": 1,
+ "total": 1,
+ "data": "2026-10-21",
+ "audios": [
+  {
+   "arquivo": "voz.mp3",
+   "json": "voz.json",
+   "inicio": 0
+  }
+ ],
+ "selo": "LIÇÃO DO DIA · PARTE 2 DE 3",
+ "titulo": "O que o livro",
+ "titulo_destaque": "ensina",
+ "livro": {
+  "titulo": "Comunicação Não-Violenta",
+  "autor": "Marshall B. Rosenberg",
+  "capitulo": "Capítulo 3 · Observar sem avaliar"
+ },
+ "momentos": {
+  "livro": [
+   "livro",
+   1
+  ],
+  "capitulo": [
+   "capítulo",
+   1
+  ],
+  "livro_sai": [
+   "ideia",
+   1
+  ]
+ },
+ "cenas": [
+  {
+   "img": "d-camera.png"
+  },
+  {
+   "img": "b-livro.png",
+   "entra": [
+    "livro",
+    1
+   ]
+  },
+  {
+   "img": "c-espera.png",
+   "entra": [
+    "imagina",
+    1
+   ],
+   "zoom": {
+    "palavra": [
+     "horário",
+     1
+    ],
+    "escala": 1.2,
+    "origem": "55% 30%",
+    "duracao": 1.2
+   }
+  },
+  {
+   "img": "f-calma.png",
+   "entra": [
+    "então",
+    1
+   ]
+  }
+ ],
+ "overlays": [
+  {
+   "texto": "⏺ REC · 15:00 → 15:15",
+   "estilo": "left:80px;top:300px;background:#e2402fe6;color:#fff",
+   "entra": [
+    "grava",
+    1
+   ],
+   "sai": [
+    "então",
+    1
+   ]
+  },
+  {
+   "texto": "🎥 não filma: <s>falta de consideração</s>",
+   "estilo": "left:80px;top:420px",
+   "entra": [
+    "consideração",
+    1,
+    -0.6
+   ],
+   "sai": [
+    "então",
+    1
+   ]
+  },
+  {
+   "texto": "❌ “Você nunca chega na hora”",
+   "estilo": "left:70px;top:330px;background:#fde3de",
+   "entra": [
+    "nunca",
+    1
+   ],
+   "sai": [
+    "toca",
+    1
+   ]
+  },
+  {
+   "texto": "✅ “Combinamos às 15h e são 15h15”",
+   "estilo": "left:70px;top:450px;background:#ddf7e9",
+   "entra": [
+    "combinamos",
+    1
+   ],
+   "sai": [
+    "toca",
+    1
+   ]
+  }
+ ],
+ "frase": {
+  "texto": "Separe o <em>fato</em><br />do rótulo.",
+  "entra": [
+   "separar",
+   1
+  ],
+  "sai": [
+   "imagina",
+   1
+  ]
+ },
+ "fim": {
+  "tipo": "proximo",
+  "entra": [
+   "toca",
+   1
+  ],
+  "rotulo": "PARTE 3 DE 3",
+  "titulo": "Como usar hoje",
+  "botao": "Toque para continuar ▶"
+ },
+ "chaves": [
+  "livro",
+  "rosenberg",
+  "observar",
+  "avaliar",
+  "separar",
+  "câmera",
+  "grava",
+  "consideração",
+  "nunca",
+  "combinamos"
+ ],
+ "sons": [
+  {
+   "arquivo": "k_obturador.mp3",
+   "palavra": [
+    "grava",
+    1
+   ],
+   "desloc": -0.1,
+   "vol": 0.5
+  },
+  {
+   "arquivo": "s_ponto.mp3",
+   "palavra": [
+    "combinamos",
+    1
+   ],
+   "vol": 0.45
+  }
+ ]
+}

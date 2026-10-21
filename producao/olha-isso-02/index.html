@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Olha Isso 02 v2 · Comercial PéDireito (modelo Yuri Kimoro)</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      @font-face { font-family: "Marca"; src: url("assets/fonts/nunito-900.woff2") format("woff2"); font-weight: 900; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0d0d0d; }
+      .cena { position: absolute; inset: 0; overflow: hidden; opacity: 0; }
+      .cheia { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; }
+
+      /* gancho: foto parada do dono apontando para cima, sem boca mexendo */
+      #hook-tit { position: absolute; left: 40px; right: 40px; top: 250px; text-align: center; font-family: "Anton"; font-size: 112px; line-height: 1.0;
+        color: #fff; text-transform: uppercase; text-shadow: 0 7px 0 rgba(0,0,0,0.55), 0 0 50px rgba(0,0,0,0.55); }
+
+      /* celular: status bar por cima da gravação real do ChatGPT */
+      .status { position: absolute; left: 0; top: 0; width: 1080px; height: 223px; background: #0d0d0d; z-index: 5; }
+      .status .hora { position: absolute; left: 92px; top: 74px; font: 600 50px -apple-system, "SF Pro Text", sans-serif; color: #fff; letter-spacing: -0.5px; }
+      .status .ilha { position: absolute; left: 400px; top: 52px; width: 280px; height: 84px; border-radius: 42px; background: #000; }
+      .status svg { position: absolute; top: 80px; }
+
+      .tampa { position: absolute; background: #1b1b1b; box-shadow: 0 0 10px 6px #1b1b1b; }
+      .digita { position: absolute; font-family: -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif; color: #ececec; white-space: pre; }
+      .digita span { display: none; }
+      .caret { display: inline-block; width: 4px; height: 1.05em; background: #ececec; vertical-align: -0.15em; margin-left: 1px; }
+
+      #story-img { position: absolute; left: 0; top: 600px; width: 1080px; height: 720px; object-fit: contain; }
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 50; pointer-events: none; }
+      #leak { position: absolute; inset: -200px; z-index: 40; pointer-events: none; opacity: 0; mix-blend-mode: screen;
+        background: radial-gradient(circle at 20% 30%, rgba(255,170,60,0.75), rgba(255,120,40,0) 45%), radial-gradient(circle at 85% 70%, rgba(255,210,120,0.55), rgba(255,160,60,0) 40%); }
+      #vinheta { position: absolute; inset: 0; z-index: 41; pointer-events: none; opacity: 0; background: radial-gradient(ellipse 75% 65% at 50% 50%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.45) 100%); }
+
+      /* correção do nome no chinelo da última cena (a imagem veio com o nome torto) */
+      #logo6 { position: absolute; left: 541px; top: 927px; width: 0; height: 0; transform: rotate(47deg); }
+      #logo6 .patch { position: absolute; left: -118px; top: -27px; width: 236px; height: 54px; border-radius: 22px; background: #14291d;
+        box-shadow: 0 0 6px 3px rgba(20,41,29,0.9); }
+      #logo6 .txt { position: absolute; left: -110px; top: -24px; width: 220px; text-align: center; font: 900 39px "Marca", sans-serif; color: #f2c200; letter-spacing: 0.5px;
+        text-shadow: 0 1px 0 #8a6d00, 0 -1px 0 #ffe36b; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="23.82" data-width="1080" data-height="1920">
+      <!-- 1. gancho -->
+      <div class="cena" id="s-hook"><video id="hook-img" class="cheia" src="assets/clips/hook-mov.mp4" muted playsinline data-start="0" data-duration="2.8"></video><div id="hook-tit">Vídeo comercial<br>em 5 minutos</div></div>
+
+      <!-- telas do celular (gravação real do ChatGPT) -->
+      <div class="cena" id="s-p1"><img class="cheia" src="assets/clips/f-p1.png" alt="" />
+        <div class="tampa" style="left:34px;top:1568px;width:1027px;height:252px"></div>
+        <div class="digita" id="d1" style="left:61px;top:1576px;font-size:49px;line-height:74px"></div></div>
+      <div class="cena" id="s-proc1"><video id="m1" class="cheia" src="assets/clips/f-proc1.mp4" muted playsinline data-start="7.2" data-duration="1.11"></video></div>
+      <div class="cena" id="s-story"><video id="m2" class="cheia" src="assets/clips/f-story.mp4" muted playsinline data-start="8.31" data-duration="1.54"></video></div>
+      <div class="cena" id="s-full"><img id="story-img" src="assets/clips/storyboard.png" alt="" /></div>
+      <div class="cena" id="s-p2"><img class="cheia" src="assets/clips/f-p2.png" alt="" />
+        <div class="tampa" style="left:34px;top:1690px;width:1027px;height:230px"></div>
+        <div class="digita" id="d2" style="left:61px;top:1699px;font-size:49px;line-height:80px"></div></div>
+      <div class="cena" id="s-proc2"><video id="m3" class="cheia" src="assets/clips/f-proc2.mp4" muted playsinline data-start="14.98" data-duration="1.09"></video></div>
+      <div class="status" id="status" style="opacity:0">
+        <div class="hora">9:41</div><div class="ilha"></div>
+        <svg style="left:770px" width="60" height="40" viewBox="0 0 60 40"><rect x="0" y="26" width="10" height="14" rx="2" fill="#fff"/><rect x="16" y="18" width="10" height="22" rx="2" fill="#fff"/><rect x="32" y="9" width="10" height="31" rx="2" fill="#fff"/><rect x="48" y="0" width="10" height="40" rx="2" fill="#fff"/></svg>
+        <svg style="left:850px" width="56" height="40" viewBox="0 0 56 40"><path d="M28 38 L19 28 A13 13 0 0 1 37 28 Z" fill="#fff"/><path d="M8 17 A28 28 0 0 1 48 17 L42 23 A20 20 0 0 0 14 23 Z" fill="#fff"/><path d="M0 9 A40 40 0 0 1 56 9 L50 15 A32 32 0 0 0 6 15 Z" fill="#fff"/></svg>
+        <svg style="left:925px" width="80" height="40" viewBox="0 0 80 40"><rect x="1.5" y="3.5" width="66" height="33" rx="9" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="3"/><rect x="6" y="8" width="57" height="24" rx="5" fill="#fff"/><rect x="71" y="14" width="5" height="12" rx="2" fill="#fff" fill-opacity="0.5"/></svg>
+      </div>
+
+      <!-- 2. o comercial, cortando no tempo da música -->
+      <div class="cena" id="k1w"><video id="m4" class="cheia" src="assets/clips/k2.mp4" muted playsinline data-start="16.07" data-duration="1.11"></video></div>
+      <div class="cena" id="k2w"><video id="m5" class="cheia" src="assets/clips/k3.mp4" muted playsinline data-start="17.18" data-duration="1.12"></video></div>
+      <div class="cena" id="k3w"><video id="m6" class="cheia" src="assets/clips/k4.mp4" muted playsinline data-start="18.30" data-duration="1.11"></video></div>
+      <div class="cena" id="k4w"><video id="m7" class="cheia" src="assets/clips/k5.mp4" muted playsinline data-start="19.41" data-duration="1.09"></video></div>
+      <div class="cena" id="k5w"><video id="m90" class="cheia" src="assets/clips/k-fim.mp4" muted playsinline data-start="20.50" data-duration="3.32"></video></div>
+
+      <div id="leak"></div>
+      <div id="vinheta"></div>
+      <div id="flash"></div>
+
+      <!-- música do original do começo ao fim + efeitos sonoros -->
+      <audio id="m10" src="assets/audio/musica.m4a" data-start="0" data-duration="23.82" data-volume="0.9"></audio>
+      <audio id="m11" src="assets/sons/whoosh.mp3" data-start="2.62" data-duration="0.8" data-volume="0.45"></audio>
+      <audio id="m12" src="assets/sons/teclado1.mp3" data-start="3.0" data-duration="3.9" data-volume="0.75"></audio>
+      <audio id="m13" src="assets/sons/s_clique.mp3" data-start="7.12" data-duration="0.4" data-volume="0.8"></audio>
+      <audio id="m14" src="assets/sons/s_hit2.mp3" data-start="8.31" data-duration="0.8" data-volume="0.45"></audio>
+      <audio id="m15" src="assets/sons/k_obturador.mp3" data-start="9.85" data-duration="0.6" data-volume="0.5"></audio>
+      <audio id="m16" src="assets/sons/whoosh.mp3" data-start="10.9" data-duration="0.8" data-volume="0.4"></audio>
+      <audio id="m17" src="assets/sons/teclado3.mp3" data-start="11.3" data-duration="3.0" data-volume="0.75"></audio>
+      <audio id="m18" src="assets/sons/s_clique.mp3" data-start="14.9" data-duration="0.4" data-volume="0.8"></audio>
+      <audio id="m19" src="assets/sons/riser.mp3" data-start="14.98" data-duration="1.1" data-volume="0.45"></audio>
+      <audio id="m20" src="assets/sons/s_hit2.mp3" data-start="16.07" data-duration="0.8" data-volume="0.6"></audio>
+      <audio id="m21" src="assets/sons/whoosh.mp3" data-start="17.12" data-duration="0.6" data-volume="0.3"></audio>
+      <audio id="m22" src="assets/sons/whoosh.mp3" data-start="19.36" data-duration="0.6" data-volume="0.3"></audio>
+      <audio id="m23" src="assets/sons/whoosh.mp3" data-start="20.45" data-duration="0.6" data-volume="0.35"></audio>
+    </div>
+    <script>
+      const DURACAO = 23.82;
+      const tl = gsap.timeline({ paused: true });
+      const mostra = (id, ini, fim) => { tl.set(id, { opacity: 1 }, ini); tl.set(id, { opacity: 0 }, fim); };
+      const flash = (t, a = 0.85, d = 0.25) => tl.fromTo("#flash", { opacity: a }, { opacity: 0, duration: d, ease: "power2.out", immediateRender: false }, t);
+
+      // digitação no mesmo lugar do texto real do ChatGPT
+      function monta(id, linhas) {
+        const el = document.getElementById(id); const itens = [];
+        linhas.forEach((l, i) => {
+          for (const ch of l) { const s = document.createElement("span"); s.textContent = ch; el.appendChild(s); itens.push(s); }
+          if (i < linhas.length - 1) { const b = document.createElement("br"); b.style.display = "none"; el.appendChild(b); itens.push(b); }
+        });
+        const c = document.createElement("i"); c.className = "caret"; el.appendChild(c);
+        return { itens, caret: c };
+      }
+      const digita = (t, ini, dur) => t.itens.forEach((s, i) => tl.set(s, { display: "inline" }, ini + i * dur / t.itens.length));
+      const t1 = monta("d1", ["Crie um storyboard premium desse", "produto em seis cenas. A marca se", "escreve exatamente assim: PéDireito"]);
+      const t2 = monta("d2", ["crie um vídeo premium desse produto", "com base nas cenas desse storyboard"]);
+
+      // 1. gancho (0–2,76): foto com zoom lento, texto pulando, saída com zoom-through
+      mostra("#s-hook", 0, 2.76);
+      tl.fromTo("#hook-img", { scale: 1.0 }, { scale: 1.04, duration: 2.6, ease: "none" }, 0);
+      tl.fromTo("#hook-tit", { scale: 1.4, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(2.2)" }, 0.08);
+      tl.to("#hook-tit", { scale: 1.06, duration: 0.14, yoyo: true, repeat: 1, ease: "power1.inOut" }, 0.6);
+      tl.to("#s-hook", { scale: 1.6, filter: "blur(18px)", duration: 0.22, ease: "power3.in" }, 2.54);
+
+      // celular entra
+      tl.set("#status", { opacity: 1 }, 2.76); tl.set("#status", { opacity: 0 }, 9.85);
+      tl.set("#status", { opacity: 1 }, 11.0); tl.set("#status", { opacity: 0 }, 16.07);
+      mostra("#s-p1", 2.76, 7.2);
+      tl.fromTo("#s-p1", { scale: 0.86, filter: "blur(10px)" }, { scale: 1, filter: "blur(0px)", duration: 0.3, ease: "power3.out" }, 2.76);
+      digita(t1, 3.05, 3.55);
+      tl.to(t1.caret, { opacity: 0, duration: 0.01, repeat: 5, yoyo: true, repeatDelay: 0.22 }, 6.65);
+      tl.to("#s-p1", { scale: 1.03, duration: 0.08, yoyo: true, repeat: 1 }, 7.1);      // toque no enviar
+
+      mostra("#s-proc1", 7.2, 8.31);
+      mostra("#s-story", 8.31, 9.85);
+      flash(8.31, 0.35, 0.3);
+      tl.fromTo("#s-story", { scale: 1.06 }, { scale: 1.0, duration: 0.4, ease: "power2.out" }, 8.31);
+
+      // storyboard aberto em tela cheia, com punch-in
+      mostra("#s-full", 9.85, 11.0);
+      flash(9.85, 0.9, 0.3);
+      tl.fromTo("#story-img", { scale: 0.92 }, { scale: 1.0, duration: 1.15, ease: "power1.out", immediateRender: false }, 9.85);
+      tl.to("#s-full", { x: -1080, duration: 0.22, ease: "power3.in" }, 10.78);   // whip para o lado
+
+      mostra("#s-p2", 11.0, 14.98);
+      tl.fromTo("#s-p2", { x: 1080 }, { x: 0, duration: 0.25, ease: "power3.out" }, 11.0);
+      digita(t2, 11.35, 2.9);
+      tl.to(t2.caret, { opacity: 0, duration: 0.01, repeat: 3, yoyo: true, repeatDelay: 0.22 }, 14.3);
+      tl.to("#s-p2", { scale: 1.03, duration: 0.08, yoyo: true, repeat: 1 }, 14.88);
+
+      mostra("#s-proc2", 14.98, 16.07);
+      tl.fromTo("#s-proc2", { scale: 1.0 }, { scale: 1.12, duration: 1.09, ease: "power2.in" }, 14.98);   // aproxima no "gerando"
+
+      // 2. o comercial: cada corte num tempo forte, com punch-in, luz e vinheta
+      const cortes = [["#k1w", 16.07, 17.18], ["#k2w", 17.18, 18.30], ["#k3w", 18.30, 19.41], ["#k4w", 19.41, 20.50], ["#k5w", 20.50, 23.82]];
+      flash(16.07, 1, 0.4);
+      tl.set("#vinheta", { opacity: 1 }, 16.07);
+      cortes.forEach(([id, a, b], i) => {
+        mostra(id, a, b);
+        tl.fromTo(id, { scale: 1.14 }, { scale: 1.0, duration: 0.35, ease: "power3.out" }, a);
+        tl.fromTo("#leak", { opacity: 0.0, x: i % 2 ? 160 : -160 }, { opacity: 0.55, x: 0, duration: 0.18, immediateRender: false }, a);
+        tl.to("#leak", { opacity: 0, duration: 0.45 }, a + 0.18);
+      });
+      tl.to("#k5w", { scale: 1.07, duration: 2.97, ease: "none" }, 20.85);
+
+      tl.set({}, {}, DURACAO);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

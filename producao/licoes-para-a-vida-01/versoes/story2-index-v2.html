@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Lições para a Vida · 1/3 · Descanso não é prêmio (v2 ilustrada)</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      @font-face { font-family: "Inter"; font-weight: 700; src: url("assets/fonts/inter-700.woff2") format("woff2"); }
+      @font-face { font-family: "Inter"; font-weight: 800; src: url("assets/fonts/inter-800.woff2") format("woff2"); }
+      @font-face { font-family: "Anton"; src: url("assets/fonts/anton.woff2") format("woff2"); }
+      :root { --azul: #1f2d55; --creme: #fdf1d6; --coral: #ff7a59; --verde: #2bd38a; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #111; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Inter", sans-serif; color: #fff; }
+      .cena { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; }
+      #topo { position: absolute; inset: 0 0 auto 0; height: 760px; background: linear-gradient(180deg, #0d1430e6 0%, #0d143099 45%, #0d143000 100%); z-index: 5; }
+      #base { position: absolute; inset: auto 0 0 0; height: 1000px; background: linear-gradient(0deg, #0d1430f0 0%, #0d143099 50%, #0d143000 100%); z-index: 5; }
+      #selo { position: absolute; left: 70px; top: 170px; z-index: 10; padding: 12px 24px; border-radius: 40px; background: var(--coral); color: #1b1208; font: 800 30px "Inter"; letter-spacing: 0.06em; }
+      #titulo { position: absolute; left: 70px; right: 70px; top: 240px; z-index: 10; font: 400 112px/1.02 "Anton"; text-transform: uppercase; text-shadow: 0 8px 30px #0008; opacity: 0; }
+      #titulo em { font-style: normal; color: var(--coral); }
+
+      #livro { position: absolute; left: 60px; right: 60px; top: 960px; z-index: 12; padding: 40px 44px 44px; border-radius: 34px; background: var(--creme); color: var(--azul); box-shadow: 0 30px 80px #0009; opacity: 0; }
+      #livro .r { font: 800 28px "Inter"; letter-spacing: 0.14em; color: #b4532f; }
+      #livro h2 { margin-top: 14px; font: 800 64px/1.08 "Inter"; }
+      #livro .autor { margin-top: 16px; font: 700 42px "Inter"; color: #3d4a70; }
+      #livro .cap { display: inline-block; margin-top: 26px; padding: 14px 26px; border-radius: 18px; background: var(--azul); color: #fff; font: 800 38px "Inter"; opacity: 0; }
+
+      .cartao { position: absolute; left: 60px; right: 60px; top: 960px; z-index: 12; padding: 34px 40px; border-radius: 30px; background: #fffaf0f2; color: var(--azul); box-shadow: 0 24px 70px #0008; opacity: 0; }
+      .cartao h3 { font: 400 70px/1 "Anton"; text-transform: uppercase; color: #c9502b; margin-bottom: 22px; }
+      .passo { display: flex; gap: 20px; margin-top: 18px; opacity: 0; }
+      .passo i { flex: none; width: 64px; height: 64px; border-radius: 50%; background: var(--azul); color: #fff; font: 800 36px/64px "Inter"; font-style: normal; text-align: center; }
+      .passo p { font: 800 46px/1.18 "Inter"; padding-top: 4px; }
+      #frase { position: absolute; left: 70px; right: 70px; top: 1060px; z-index: 12; font: 400 100px/1.04 "Anton"; text-transform: uppercase; text-shadow: 0 8px 30px #000a; opacity: 0; }
+      #frase em { font-style: normal; color: var(--verde); }
+
+      #legenda { position: absolute; left: 60px; right: 60px; top: 1450px; z-index: 20; }
+      #legenda p { position: absolute; left: 0; right: 0; text-align: center; font: 800 64px/1.15 "Inter"; text-shadow: 0 4px 18px #000, 0 0 3px #000; opacity: 0; }
+      #legenda p b { color: #ffd84a; }
+      #fim { position: absolute; left: 70px; right: 70px; top: 1180px; z-index: 12; opacity: 0; }
+      #fim p { font: 400 120px/1 "Anton"; text-transform: uppercase; text-shadow: 0 8px 30px #000a; }
+      #fim small { display: block; margin-top: 24px; font: 800 40px/1.3 "Inter"; color: var(--creme); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="37.6" data-width="1080" data-height="1920">
+      <div class="cena" id="a" style="background-image:url(assets/img/a-titulo.png)"></div>
+      <div class="cena" id="b" style="background-image:url(assets/img/b-livro.png)"></div>
+      <div class="cena" id="c" style="background-image:url(assets/img/c-celular.png)"></div>
+      <div class="cena" id="d" style="background-image:url(assets/img/d-cuidar.png)"></div>
+      <div class="cena" id="e" style="background-image:url(assets/img/e-louca.png)"></div>
+      <div class="cena" id="f" style="background-image:url(assets/img/f-musica.png)"></div>
+      <div class="cena" id="g" style="background-image:url(assets/img/g-passeio.png)"></div>
+      <div class="cena" id="h" style="background-image:url(assets/img/h-fim.png)"></div>
+      <div id="topo"></div><div id="base"></div>
+
+      <p id="selo">LIÇÕES PARA A VIDA · 1/3</p>
+      <h1 id="titulo">Descanso não é <em>prêmio</em></h1>
+      <div id="livro"><p class="r">📖 DE QUAL LIVRO É</p><h2>Os 7 Hábitos das Pessoas Altamente Eficazes</h2><p class="autor">Stephen R. Covey</p><p class="cap">Hábito 7 · Afine o instrumento</p></div>
+      <p id="frase">Não é só fazer mais.<br />É <em>cuidar de quem faz.</em></p>
+      <div class="cartao" id="hoje"><h3>Testa hoje</h3>
+        <div class="passo"><i>1</i><p>Depois de algo que você já faz (tipo guardar a louça)</p></div>
+        <div class="passo"><i>2</i><p>10 minutos só pra algo que te renove 🎵 🚶</p></div>
+      </div>
+      <div id="fim"><p>Amanhã:<br />lição 2</p><small>📖 Os 7 Hábitos das Pessoas Altamente Eficazes · Stephen R. Covey · Hábito 7</small></div>
+      <div id="legenda"></div>
+
+      <audio id="voz" src="assets/audio/voz.mp3" data-start="0" data-duration="33.8" data-volume="1"></audio>
+    </div>
+    <script>
+      const PALAVRAS = window.LEGENDA || [];
+      const DURACAO = 37.6;
+      const limpar = (s) => s.toLowerCase().replace(/[.,?!:;"…]/g, "");
+      function em(p, n = 1, f = 0) { let v = 0; for (const w of PALAVRAS) if (limpar(w.w) === p && ++v === n) return w.s; return f; }
+      const tl = gsap.timeline({ paused: true });
+      // cenas: entra com corte rápido e anda devagar (Ken Burns), alternando a direção
+      const CENAS = [["#a", 0], ["#b", em("essa", 1, 2.08) - 0.1], ["#c", em("sabe", 1, 10.7) - 0.1], ["#d", em("ideia", 1, 17.93) - 0.15],
+                     ["#e", em("hoje", 1, 23.04) - 0.1], ["#f", em("uma", 3, 31.66) - 0.15], ["#g", em("passeio", 1, 32.62) - 0.2], ["#h", 34.1]];
+      CENAS.forEach(([id, t], i) => { const fim = i + 1 < CENAS.length ? CENAS[i + 1][1] : DURACAO; const d = fim - t;
+        tl.set(id, { opacity: 1 }, t);
+        tl.fromTo(id, { scale: i % 2 ? 1.16 : 1.04, xPercent: i % 2 ? -2 : 2 }, { scale: i % 2 ? 1.04 : 1.16, xPercent: i % 2 ? 2 : -2, duration: d + 0.3, ease: "none", immediateRender: false }, t);
+        if (i) tl.fromTo(id, { clipPath: "inset(0 0 100% 0)" }, { clipPath: "inset(0 0 0% 0)", duration: 0.35, ease: "power3.out", immediateRender: false }, t);
+        if (i + 1 < CENAS.length) tl.set(id, { opacity: 0 }, fim + 0.36); });
+      const entra = (id, t, y = 40) => tl.fromTo(id, { opacity: 0, y }, { opacity: 1, y: 0, duration: 0.4, ease: "back.out(1.5)", immediateRender: false }, t);
+      const sai = (id, t) => tl.to(id, { opacity: 0, y: -30, duration: 0.25 }, t - 0.25);
+
+      tl.set("#selo", { opacity: 1 }, 0);
+      tl.fromTo("#titulo", { opacity: 0, scale: 1.25 }, { opacity: 1, scale: 1, duration: 0.3, ease: "power4.in", immediateRender: false }, 0.05);
+      tl.fromTo("#titulo em", { scale: 1 }, { scale: 1.12, duration: 0.15, yoyo: true, repeat: 1, immediateRender: false }, em("prêmio", 1, 1.3));
+      sai("#titulo", em("essa", 1, 2.08));
+      entra("#livro", em("livro", 1, 3.0) - 0.2, 60);
+      entra("#livro .cap", em("capítulo", 1, 7.6) - 0.1, 20);
+      sai("#livro", em("sabe", 1, 10.7));
+      entra("#frase", em("não", 2, 20.2) - 0.15, 40);
+      sai("#frase", em("hoje", 1, 23.04));
+      entra("#hoje", em("hoje", 1, 23.04), 40);
+      const passos = document.querySelectorAll(".passo");
+      entra(passos[0], em("depois", 2, 24.5) - 0.1, 24);
+      entra(passos[1], em("reserva", 1, 27.68) - 0.1, 24);
+      sai("#hoje", em("uma", 3, 31.66));
+      tl.to(["#selo", "#legenda"], { opacity: 0, duration: 0.2 }, 34.0);
+      entra("#fim", 34.3, 50);
+
+      // legenda grande, até 4 palavras, a palavra-chave em amarelo
+      const CHAVE = ["prêmio", "livro", "covey", "celular", "pausa", "renovar", "cuidar", "louça", "dez", "minutos", "música", "passeio"];
+      const caixa = document.getElementById("legenda"); let fr = [];
+      const fecha = () => { if (!fr.length) return; const p = document.createElement("p");
+        p.innerHTML = fr.map((w) => (CHAVE.includes(limpar(w.w)) ? `<b>${w.w}</b>` : w.w)).join(" "); caixa.appendChild(p);
+        const prox = PALAVRAS[PALAVRAS.indexOf(fr[fr.length - 1]) + 1]; const fim = prox ? Math.min(fr[fr.length - 1].e + 0.3, prox.s - 0.03) : fr[fr.length - 1].e + 0.5;
+        tl.fromTo(p, { opacity: 0, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.1, immediateRender: false }, fr[0].s - 0.03); tl.set(p, { opacity: 0 }, fim); fr = []; };
+      PALAVRAS.forEach((w, i) => { fr.push(w); if ((/[.?!:…,]$/.test(w.w) && fr.length >= 2) || fr.length >= 4 || !PALAVRAS[i + 1]) fecha(); });
+
+      tl.set({}, {}, DURACAO);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

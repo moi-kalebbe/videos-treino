@@ -56,3 +56,15 @@ producao/dossie-*/capa/assets/img/
 
 # dados locais do MCP do Instagram (métricas, nunca no git)
 ferramentas/instagram-mcp/dados/
+
+# Ambiente e saídas privadas da análise Instagram
+ferramentas/instagram-mcp/.venv/
+ferramentas/instagram-mcp/painel.html
+analises/instagram/dados/
+
+# fotos de marcas/terceiros e gravações de tela (olha-isso)
+producao/olha-isso-*/assets/img/
+producao/olha-isso-*/tela/
+
+producao/olha-isso-*/assets/audio/
+producao/olha-isso-*/assets/clips/
