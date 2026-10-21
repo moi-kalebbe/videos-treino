@@ -1,5 +1,7 @@
 # Estilo "Plantão IA"
 
+> **Desde 21/10/2026, o CTA `DIAGNÓSTICO` deste guia não vale mais para vídeos novos.** O fechamento segue `guias/fechamento-e-cta.md` (manda pro <pessoa específica> + salva quando ensina, 25–40 s).
+
 Telejornal semanal de ~85 s com **as 6 notícias de IA da semana**, publicado **todo domingo às 18h**. Aprovado pelo dono em 18/10/2026 (edição 01: `saida/plantao-ia-01.mp4`, projeto `producao/plantao-ia-01/`, roteiro `roteiros/plantao-ia-01.md`).
 
 **Para quem:** público amplo interessado em IA (alcance), com a última notícia puxando para empresa.

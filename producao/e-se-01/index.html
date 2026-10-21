@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>E se… 01 v4 · A formiga (TESTE interno, não publicar sem licença)</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <script src="assets/legenda.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #1d2126; }
+      #formiga { position: absolute; inset: 0; width: 1080px; height: 1920px; object-fit: cover; }
+      #capa-leg { position: absolute; left: 60px; width: 960px; top: 1290px; height: 340px; background: #0b0b0b; border-radius: 10px; }
+      #leg { position: absolute; left: 90px; width: 900px; top: 1290px; height: 340px; font: 600 54px/1.15 -apple-system, "Helvetica Neue", sans-serif; color: #fff; text-align: center; }
+      #kmh { position: absolute; left: 0; width: 1080px; top: 170px; text-align: center; font: 800 92px -apple-system, sans-serif; color: #7dff6b;
+        text-shadow: 0 0 24px rgba(80,255,80,0.7), 0 4px 0 rgba(0,0,0,0.6); opacity: 0; }
+      #site { position: absolute; inset: 0; opacity: 0; background: #1d2126; overflow: hidden; }
+      #site-img { position: absolute; left: 0; top: 150px; width: 1080px; }
+      .status { position: absolute; left: 0; top: 0; width: 1080px; height: 150px; background: #1d2126; z-index: 2; }
+      .status .hora { position: absolute; left: 92px; top: 52px; font: 600 50px -apple-system, sans-serif; color: #fff; }
+      .status .ilha { position: absolute; left: 400px; top: 34px; width: 280px; height: 84px; border-radius: 42px; background: #000; }
+      .status svg { position: absolute; top: 62px; }
+      #toque { position: absolute; width: 130px; height: 130px; border-radius: 65px; background: rgba(255,255,255,0.35); border: 5px solid rgba(255,255,255,0.95); opacity: 0; z-index: 3; }
+      #flash { position: absolute; inset: 0; background: #fff; opacity: 0; z-index: 20; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="35.74" data-width="1080" data-height="1920">
+      <video id="formiga" src="assets/img/formiga-v4.mp4" muted playsinline data-start="0" data-duration="27.9"></video>
+      <div id="site">
+        <img id="site-img" src="assets/img/site-fone.png" alt="" />
+        <div class="status"><div class="hora">9:41</div><div class="ilha"></div>
+          <svg style="left:770px" width="60" height="40" viewBox="0 0 60 40"><rect x="0" y="26" width="10" height="14" rx="2" fill="#fff"/><rect x="16" y="18" width="10" height="22" rx="2" fill="#fff"/><rect x="32" y="9" width="10" height="31" rx="2" fill="#fff"/><rect x="48" y="0" width="10" height="40" rx="2" fill="#fff"/></svg>
+          <svg style="left:925px" width="80" height="40" viewBox="0 0 80 40"><rect x="1.5" y="3.5" width="66" height="33" rx="9" fill="none" stroke="#fff" stroke-opacity="0.5" stroke-width="3"/><rect x="6" y="8" width="57" height="24" rx="5" fill="#fff"/></svg>
+        </div>
+        <div id="toque"></div>
+      </div>
+      <div id="kmh">≈ 6 km/h</div>
+      <div id="capa-leg"></div>
+      <div id="leg"></div>
+      <div id="flash"></div>
+      <audio id="a1" src="assets/audio/narracao-l1.mp3" data-start="0.45" data-duration="6.38" data-volume="1.25"></audio>
+      <audio id="a2" src="assets/audio/narracao-l2.mp3" data-start="6.7" data-duration="4.84" data-volume="1.25"></audio>
+      <audio id="a3" src="assets/audio/narracao-l3.mp3" data-start="11.4" data-duration="5.12" data-volume="1.25"></audio>
+      <audio id="a4" src="assets/audio/narracao-l4.mp3" data-start="16.4" data-duration="4.80" data-volume="1.25"></audio>
+      <audio id="a5" src="assets/audio/narracao-l5.mp3" data-start="21.1" data-duration="5.49" data-volume="1.25"></audio>
+      <audio id="a6" src="assets/audio/narracao-l6.mp3" data-start="26.5" data-duration="8.84" data-volume="1.25"></audio>
+      <audio id="mus" src="assets/sons/m_strings1.mp3" data-start="0" data-duration="35.74" data-volume="0.04"></audio>
+      <audio id="dr1" src="assets/sons/sfx-drone.mp3" data-start="0" data-duration="22" data-volume="0.14"></audio>
+      <audio id="dr2" src="assets/sons/sfx-drone.mp3" data-start="20" data-duration="7.9" data-volume="0.12"></audio>
+      <audio id="cid" src="assets/sons/sfx-cidade.mp3" data-start="0" data-duration="5" data-volume="0.18"></audio>
+      <audio id="ven" src="assets/sons/sfx-vento.mp3" data-start="6.6" data-duration="9" data-volume="0.2"></audio>
+      <audio id="vel" src="assets/sons/sfx-velocimetro.mp3" data-start="17.4" data-duration="3.4" data-volume="0.22"></audio>
+      <audio id="pou" src="assets/sons/sfx-pouso.mp3" data-start="24.9" data-duration="3" data-volume="0.4"></audio>
+      <audio id="s1" src="assets/sons/whoosh.mp3" data-start="27.75" data-duration="0.8" data-volume="0.35"></audio>
+      <audio id="s2" src="assets/sons/s_clique.mp3" data-start="31.6" data-duration="0.4" data-volume="0.6"></audio>
+      <audio id="s3" src="assets/sons/ding.mp3" data-start="31.75" data-duration="1.0" data-volume="0.25"></audio>
+    </div>
+    <script>
+      const DURACAO = 35.74;
+      const tl = gsap.timeline({ paused: true });
+      const leg = document.getElementById("leg");
+      (window.LEG || []).forEach(([a, b, txt], i, arr) => {
+        const d = document.createElement("div"); d.textContent = txt;
+        d.style.cssText = "position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0";
+        leg.appendChild(d);
+        const ate = i + 1 < arr.length ? Math.min(arr[i + 1][0], b + 0.6) : b + 0.8;
+        tl.set(d, { opacity: 1 }, a); tl.set(d, { opacity: 0 }, ate);
+      });
+      tl.set(["#capa-leg", "#leg"], { top: 1705, height: 190 }, 27.9);
+      tl.fromTo("#kmh", { opacity: 0, scale: 1.4 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)", immediateRender: false }, 19.15);
+      tl.to("#kmh", { opacity: 0, duration: 0.3 }, 20.75);
+      // a formiga segue andando… zoom-through para a tela do site
+      tl.to("#formiga", { scale: 1.6, filter: "blur(16px)", duration: 0.3, ease: "power3.in" }, 27.6);
+      tl.fromTo("#flash", { opacity: 0.8 }, { opacity: 0, duration: 0.3, immediateRender: false }, 27.9);
+      tl.set("#site", { opacity: 1 }, 27.9);
+      tl.fromTo("#site", { scale: 1.25 }, { scale: 1, duration: 0.45, ease: "power3.out", immediateRender: false }, 27.9);
+      tl.to("#site-img", { y: -560, duration: 2.0, ease: "power2.inOut" }, 28.6);          // rolando a página
+      tl.set("#toque", { left: 180, top: 1077 }, 31.3);                                        // botão "Começar leitura"
+      tl.fromTo("#toque", { opacity: 0, scale: 1.5 }, { opacity: 1, scale: 1, duration: 0.25, immediateRender: false }, 31.3);
+      tl.to("#toque", { opacity: 0, scale: 0.7, duration: 0.3 }, 31.8);
+      tl.to("#site", { scale: 1.05, duration: 35.74-31.8, ease: "none" }, 31.8);
+      tl.set({}, {}, DURACAO);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>

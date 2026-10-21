@@ -29,7 +29,7 @@ Nota final = **menor** valor entre a soma ponderada e o teto das travas que falh
 | **Acabamento visual** | 1,0 | Nada sobreposto sem querer, nada cortado, hierarquia clara, marca consistente | Selo em cima de outro elemento |
 | **Verdade e fontes** | 1,0 | Fonte primária na tela; nenhum exagero | Número sem fonte |
 | **Legenda e áudio** | 0,5 | Legenda sincronizada e sem erro; pronúncia correta de nomes; ~ -14 LUFS | "PwC" falado como "Pedwac" |
-| **Público e CTA** | 0,5 | Um CEO mandaria pro sócio; CTA leva ao diagnóstico | Tutorial de ferramenta |
+| **Público e CTA** | 0,5 | Um CEO mandaria pro sócio; fecho "manda pro <pessoa específica>" (+ "salva" se ensina), conforme `guias/fechamento-e-cta.md` | Tutorial de ferramenta |
 
 **Soma ponderada = Σ (nota 0–10 × peso) ÷ 10.**
 

@@ -18,6 +18,7 @@ Catálogo para escolher o formato de cada vídeo, sobretudo os que mostram o **r
 | **React silencioso** | A notícia na tela, ele só olhando (gesto, expressão) e um comentário curto no fim | Pesquisa (comum em finanças e negócios) | Lipsync só da frase final (5–8 s) | Notícia forte; o mais barato com rosto |
 | **Rosto no gancho → tela** | Ele aparece 2–3 s e depois entra a gravação da tela, passo a passo | Yuri Kimoro, 245 mil (9,7×); André Nuneu, 1 mi (lote 07) | Lipsync de 3–5 s + gravação de tela | Tutorial de ferramenta |
 | **Carona no assunto do momento** | Selfie no canto sobre a filmagem do evento, depois a lição de negócio | Joel Jota, 3,4 mi (lote 07) | Lipsync de 20–30 s | Evento que todo mundo está vendo |
+| **E se…? → desvio** | Pergunta de física/negócio explicada com animação 3D e números na tela; no meio da frase o objeto "cai" no negócio (corte seco para filmagem real) | Pizzaria Chocolate com Banana, 98,9 mil curtidas (lote 09) | Animação própria (Veo ~5 mil créditos/cena) ou B-roll + motion; voz curta | Curiosidade de empresa que desvia para a IA; anúncio para clientes PME |
 | **Opinião forte** | Frase polêmica em 2 s, 2 ou 3 argumentos, fecho sem pedir nada | Hormozi, Codie e Gary Vee (pesquisa) | Lipsync de 20–40 s | Mitos sobre IA nas empresas |
 | **Motivacional curto** | Câmera fixa, uma frase por vez em serifa | Joel Jota, 844 mil (lote 07) | Lipsync de 10 s | Compartilhamento e seguidor novo |
 

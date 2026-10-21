@@ -3,7 +3,11 @@
 Este repo treina agentes para criar e editar vídeos curtos verticais sobre **implementação de IA em empresas** e a série de Stories de desenvolvimento pessoal **Lições para a Vida**. Para essa série, seguir `guias/serie-licoes-para-a-vida.md` antes de produzir.
 
 ## Quando o dono pedir um vídeo novo
-1. **Perguntar primeiro: "Que estilo de vídeo você quer?"** e listar os estilos de `estilos/README.md` (ou "um formato novo"). Se o pedido for da série **Lições para a Vida**, o estilo já está definido em `guias/serie-licoes-para-a-vida.md` e não é necessário perguntar de novo.
+0. **Primeiro o que já viralizou na semana** (decisão de 21/10/2026). Antes de propor um estilo da casa, trazer 2 ou 3 virais **da semana** do nicho (Notas Rápidas, `referencias/` e pesquisa), com views e vezes a mediana do perfil, e sugerir modelar um deles, como no comercial do PéDireito (Yuri Kimoro). Os estilos salvos ficam como segunda opção.
+   - **Fechamento:** seguir `guias/fechamento-e-cta.md`. Sem "comenta DIAGNÓSTICO"; o fecho é "manda pro <pessoa específica>" e "salva" quando o vídeo ensina. Duração de 25 a 40 s.
+   - **Três redes:** o vídeo sai pensado para Instagram, TikTok e Shorts (área segura e música livre), conforme `guias/multiplataforma.md`.
+   - **Vídeo falando:** o dono tem suporte de celular na frente do PC desde 21/10. Para vídeo com rosto falando, **pedir gravação real** (roteiro curto + orientação de enquadramento) em vez de avatar com lipsync.
+1. **Perguntar: "Que estilo de vídeo você quer?"** e listar os estilos de `estilos/README.md` (ou "um formato novo"). Se o pedido for da série **Lições para a Vida**, o estilo já está definido em `guias/serie-licoes-para-a-vida.md` e não é necessário perguntar de novo.
 2. Se ele escolher um estilo salvo: ler `estilos/<estilo>/README.md`, mandar a ele o **briefing** daquele estilo (o que preciso dele + custo típico) e rodar `scripts/novo-video.sh <estilo> <slug>`.
 3. **Antes de produzir, fazer a análise do vídeo** (o estilo é ponto de partida, não molde):
    - o que o tema pede;

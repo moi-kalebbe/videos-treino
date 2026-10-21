@@ -68,3 +68,18 @@ producao/olha-isso-*/tela/
 
 producao/olha-isso-*/assets/audio/
 producao/olha-isso-*/assets/clips/
+
+producao/e-se-*/assets/
+producao/minha-empresa-claude/assets/fundo*.mp4
+producao/minha-empresa-claude/assets/sons/
+producao/minha-empresa-claude/bruto/
+producao/minha-empresa-claude/saida/
+producao/minha-empresa-claude/assets/
+producao/minha-empresa-claude/capa/assets/
+producao/minha-empresa-claude/capa/*.png
+producao/minha-empresa-claude/capa/*.jpg
+producao/minha-empresa-claude/.hyperframes/
+producao/e-se-01/teste-*.mp4
+producao/e-se-01/saida-*.mp4
+producao/e-se-01/.hyperframes/
+producao/e-se-01/t/

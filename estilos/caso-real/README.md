@@ -1,5 +1,7 @@
 # Estilo "Caso Real"
 
+> **Desde 21/10/2026, o CTA `DIAGNÓSTICO` deste guia não vale mais para vídeos novos.** O fechamento segue `guias/fechamento-e-cta.md` (manda pro <pessoa específica> + salva quando ensina, 25–40 s).
+
 Reel de 45–55 s que conta **um caso real de empresa que usou IA**, com **dado comprovado**, e termina numa lição de método. Aprovado pelo dono em 18/10/2026 (case Chewy v7: `saida/case-chewy-v7.mp4`, projeto `producao/case-chewy/`).
 
 **Para quem:** dono, CEO, financeiro ou gestor que implanta tecnologia (quem **contrata**, não quem constrói).

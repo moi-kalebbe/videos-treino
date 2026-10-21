@@ -1,5 +1,7 @@
 # Estilo "IA por Setor" (sexta, 12h)
 
+> **Desde 21/10/2026, o CTA `DIAGNÓSTICO` deste guia não vale mais para vídeos novos.** O fechamento segue `guias/fechamento-e-cta.md` (manda pro <pessoa específica> + salva quando ensina, 25–40 s).
+
 Toda sexta, **uma dica que o executivo aplica no mesmo dia** num setor da empresa (financeiro, comercial, RH, contabilidade, diretoria, jurídico, compras, marketing). Aprovado pelo dono em 19/10/2026 (episódio 01: `producao/sexta-01-conciliacao/`, agendado para 23/10).
 
 **Para quem:** CFO, CEO, controller, diretor. Use a língua do cargo (fechamento, razão, DRE, DSO, aging, turnover, SLA, CAC, LGPD) e mostre ganho em tempo, dinheiro ou risco.

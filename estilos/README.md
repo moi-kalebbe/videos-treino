@@ -1,5 +1,7 @@
 # Estilos salvos
 
+> **Desde 21/10/2026, o CTA `DIAGNÓSTICO` deste guia não vale mais para vídeos novos.** O fechamento segue `guias/fechamento-e-cta.md` (manda pro <pessoa específica> + salva quando ensina, 25–40 s).
+
 Cada estilo aprovado pelo dono vira uma pasta com o **guia** (`README.md`: estrutura, visual, regras, custos, checklist e o que eu preciso dele) e o **modelo** (`modelo/`: composição HyperFrames, fontes, logo e biblioteca de som).
 
 | Estilo | Em uma frase | Exemplo aprovado |

@@ -1,5 +1,7 @@
 # Estilo "Dossiê"
 
+> **Desde 21/10/2026, o CTA `DIAGNÓSTICO` deste guia não vale mais para vídeos novos.** O fechamento segue `guias/fechamento-e-cta.md` (manda pro <pessoa específica> + salva quando ensina, 25–40 s).
+
 Documentário de investigação curto, no jeito de *Mayday! Desastres Aéreos* (Nat Geo) e Investigação Discovery: **casos reais contados pelos relatórios oficiais**, um padrão entre eles, e a virada para a empresa ("a sua empresa está voando sem checklist"). Aprovado pelo dono em 19/10/2026 (edição 01: `producao/dossie-01/`, roteiro `roteiros/dossie-01-o-detalhe.md`, no ar sex 23/10/2026). Ideia original: Fernanda Jurgensen.
 
 **Para quem:** dono, CEO, gestor. **Objetivo:** alcance pela carona num assunto em alta + autoridade (documento oficial na tela) → CTA `DIAGNÓSTICO`.

@@ -1,5 +1,7 @@
 # Estilo "Cena Impossível"
 
+> **Desde 21/10/2026, o CTA `DIAGNÓSTICO` deste guia não vale mais para vídeos novos.** O fechamento segue `guias/fechamento-e-cta.md` (manda pro <pessoa específica> + salva quando ensina, 25–40 s).
+
 Vídeo curto que para o dedo no **primeiro quadro** com uma cena impossível, mas que todo empresário entende, e leva para a aplicação de IA dentro da empresa. Base: o método do [@abrahubstudio](../../referencias/abrahub.md) (§6–7), adaptado para quem vende **IA aplicada**, não curso de vídeo. Criado com o dono em 19/10/2026; ainda sem vídeo aprovado (o primeiro é o teste).
 
 **Para quem:** dono, CEO, diretor rolando o feed. **Objetivo:** alcance + compartilhamento ("manda pro sócio"), levando ao CTA `DIAGNÓSTICO`.

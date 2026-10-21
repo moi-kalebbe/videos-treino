@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR" data-resolution="portrait">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Minha empresa roda no Claude</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+      * { margin:0; padding:0; box-sizing:border-box; }
+      html, body { width:1080px; height:1920px; overflow:hidden; background:#000; }
+      #root { position:relative; width:100%; height:100%; overflow:hidden; background:#0b0612; }
+      #fundo { position:absolute; inset:0; width:1080px; height:1920px; object-fit:cover; filter:saturate(1.1) brightness(0.9); }
+      #tinta { position:absolute; inset:0; background:linear-gradient(180deg, rgba(40,10,70,0.55) 0%, rgba(10,4,20,0.15) 40%, rgba(5,2,10,0.6) 100%); }
+      #titulo { position:absolute; left:0; width:1080px; top:200px; text-align:center; font-family:Inter, sans-serif; }
+      #titulo .l { display:inline-block; background:rgba(8,8,12,0.88); color:#fff; font-weight:900; font-size:64px; line-height:1; padding:12px 26px; border-radius:14px; margin:6px 0; border:2px solid rgba(255,255,255,0.12); }
+      #titulo .claude { color:#E8835F; }
+      #titulo .sub { display:inline-block; margin-top:10px; font:800 40px "JetBrains Mono", monospace; color:#39FF88; background:rgba(8,8,12,0.88); padding:8px 20px; border-radius:10px; border:2px solid rgba(57,255,136,0.35); }
+      .card { position:absolute; left:70px; top:600px; width:940px; background:rgba(14,14,20,0.94); border:2px solid rgba(255,255,255,0.14); border-radius:26px; overflow:hidden; opacity:0; box-shadow:0 30px 80px rgba(0,0,0,0.6), 0 0 60px rgba(150,80,255,0.25); }
+      .barra { height:62px; display:flex; align-items:center; padding:0 22px; gap:10px; background:rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.08); font:600 24px "JetBrains Mono", monospace; color:#9aa0b0; }
+      .d { width:16px; height:16px; border-radius:8px; } .r { background:#ff5f57; } .y { background:#febc2e; } .g { background:#28c840; }
+      .cmd { margin-left:14px; flex:1; white-space:nowrap; overflow:hidden; }
+      .cont { color:#39FF88; }
+      .topo { display:flex; align-items:center; padding:30px 34px 6px; gap:24px; }
+      .logo { width:100px; height:100px; border-radius:24px; background:#fff; display:flex; align-items:center; justify-content:center; }
+      .nome { flex:1; font:800 58px Inter, sans-serif; color:#fff; }
+      .num { font:800 104px "JetBrains Mono", monospace; color:#39FF88; text-shadow:0 0 30px rgba(57,255,136,0.55); }
+      .linha { padding:4px 36px 26px; font:600 38px/1.25 "JetBrains Mono", monospace; color:#e9e9f2; }
+      .print { margin:0 30px 30px; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,0.12); height:500px; }
+      .print img { width:100%; display:block; }
+      #final { position:absolute; left:70px; top:640px; width:940px; padding:56px 50px 60px; background:rgba(14,14,20,0.95); border:2px solid rgba(57,255,136,0.45); border-radius:26px; text-align:center; opacity:0; box-shadow:0 0 70px rgba(57,255,136,0.25); }
+      #final .cmd2 { font:600 26px "JetBrains Mono", monospace; color:#9aa0b0; margin-bottom:30px; }
+      #final .t1 { font:800 68px/1.15 Inter, sans-serif; color:#fff; }
+      #final .socio { display:inline-block; color:#0b0612; background:#39FF88; padding:0 18px; border-radius:12px; }
+      #final .t2 { margin-top:34px; font:700 44px Inter, sans-serif; color:#cfd2dc; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="19.8" data-width="1080" data-height="1920">
+      <video id="fundo" src="assets/fundo.mp4" muted playsinline data-start="0" data-duration="19.8"></video>
+      <div id="tinta"></div>
+      <div id="titulo">
+        <div class="l">Minha empresa inteira</div><br/>
+        <div class="l">roda no <span class="claude">Claude</span></div><br/>
+        <div class="sub">(10 ferramentas)</div>
+      </div>
+      
+      <div class="card" id="c0">
+        <div class="barra"><span class="d r"></span><span class="d y"></span><span class="d g"></span>
+          <span class="cmd">~/minha-empresa $ claude --mcp gmail</span><span class="cont">[01/10]</span></div>
+        <div class="topo"><div class="logo"><svg viewBox="0 0 24 24" width="64" height="64"><path fill="#EA4335" d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z"/></svg></div><div class="nome">Gmail</div><div class="num">01</div></div>
+        <div class="linha">&gt; o Claude lê a caixa e separa o que é cliente</div>
+        <div class="print"><img src="assets/sites/gmail.png" alt=""/></div>
+      </div>
+      <div class="card" id="c1">
+        <div class="barra"><span class="d r"></span><span class="d y"></span><span class="d g"></span>
+          <span class="cmd">~/minha-empresa $ claude --mcp googlecalendar</span><span class="cont">[02/10]</span></div>
+        <div class="topo"><div class="logo"><svg viewBox="0 0 24 24" width="64" height="64"><path fill="#4285F4" d="M18.316 5.684H24v12.632h-5.684V5.684zM5.684 24h12.632v-5.684H5.684V24zM18.316 5.684V0H1.895A1.894 1.894 0 0 0 0 1.895v16.421h5.684V5.684h12.632zm-7.207 6.25v-.065c.272-.144.5-.349.687-.617s.279-.595.279-.982c0-.379-.099-.72-.3-1.025a2.05 2.05 0 0 0-.832-.714 2.703 2.703 0 0 0-1.197-.257c-.6 0-1.094.156-1.481.467-.386.311-.65.671-.793 1.078l1.085.452c.086-.249.224-.461.413-.633.189-.172.445-.257.767-.257.33 0 .602.088.816.264a.86.86 0 0 1 .322.703c0 .33-.12.589-.36.778-.24.19-.535.284-.886.284h-.567v1.085h.633c.407 0 .748.109 1.02.327.272.218.407.499.407.843 0 .336-.129.614-.387.832s-.565.327-.924.327c-.351 0-.651-.103-.897-.311-.248-.208-.422-.502-.521-.881l-1.096.452c.178.616.505 1.082.977 1.401.472.319.984.478 1.538.477a2.84 2.84 0 0 0 1.293-.291c.382-.193.684-.458.902-.794.218-.336.327-.72.327-1.149 0-.429-.115-.797-.344-1.105a2.067 2.067 0 0 0-.881-.689zm2.093-1.931l.602.913L15 10.045v5.744h1.187V8.446h-.827l-2.158 1.557zM22.105 0h-3.289v5.184H24V1.895A1.894 1.894 0 0 0 22.105 0zm-3.289 23.5l4.684-4.684h-4.684V23.5zM0 22.105C0 23.152.848 24 1.895 24h3.289v-5.184H0v3.289z"/></svg></div><div class="nome">Google Agenda</div><div class="num">02</div></div>
+        <div class="linha">&gt; o Claude marca a reunião sem troca de mensagem</div>
+        <div class="print"><img src="assets/sites/googlecalendar.png" alt=""/></div>
+      </div>
+      <div class="card" id="c2">
+        <div class="barra"><span class="d r"></span><span class="d y"></span><span class="d g"></span>
+          <span class="cmd">~/minha-empresa $ claude --mcp googledrive</span><span class="cont">[03/10]</span></div>
+        <div class="topo"><div class="logo"><svg viewBox="0 0 24 24" width="64" height="64"><path fill="#1FA463" d="M12.01 1.485c-2.082 0-3.754.02-3.743.047.01.02 1.708 3.001 3.774 6.62l3.76 6.574h3.76c2.081 0 3.753-.02 3.742-.047-.005-.02-1.708-3.001-3.775-6.62l-3.76-6.574zm-4.76 1.73a789.828 789.861 0 0 0-3.63 6.319L0 15.868l1.89 3.298 1.885 3.297 3.62-6.335 3.618-6.33-1.88-3.287C8.1 4.704 7.255 3.22 7.25 3.214zm2.259 12.653-.203.348c-.114.198-.96 1.672-1.88 3.287a423.93 423.948 0 0 1-1.698 2.97c-.01.026 3.24.042 7.222.042h7.244l1.796-3.157c.992-1.734 1.85-3.23 1.906-3.323l.104-.167h-7.249z"/></svg></div><div class="nome">Google Drive</div><div class="num">03</div></div>
+        <div class="linha">&gt; o Claude acha qualquer contrato em segundos</div>
+        <div class="print"><img src="assets/sites/googledrive.png" alt=""/></div>
+      </div>
+      <div class="card" id="c3">
+        <div class="barra"><span class="d r"></span><span class="d y"></span><span class="d g"></span>
+          <span class="cmd">~/minha-empresa $ claude --mcp googlesheets</span><span class="cont">[04/10]</span></div>
+        <div class="topo"><div class="logo"><svg viewBox="0 0 24 24" width="64" height="64"><path fill="#34A853" d="M11.318 12.545H7.91v-1.909h3.41v1.91zM14.728 0v6h6l-6-6zm1.363 10.636h-3.41v1.91h3.41v-1.91zm0 3.273h-3.41v1.91h3.41v-1.91zM20.727 6.5v15.864c0 .904-.732 1.636-1.636 1.636H4.909a1.636 1.636 0 0 1-1.636-1.636V1.636C3.273.732 4.005 0 4.909 0h9.318v6.5h6.5zm-3.273 2.773H6.545v7.909h10.91v-7.91zm-6.136 4.636H7.91v1.91h3.41v-1.91z"/></svg></div><div class="nome">Google Sheets</div><div class="num">04</div></div>
+        <div class="linha">&gt; o Claude fecha a planilha do financeiro</div>
+        <div class="print"><img src="assets/sites/googlesheets.png" alt=""/></div>
+      </div>
+      <div class="card" id="c4">
+        <div class="barra"><span class="d r"></span><span class="d y"></span><span class="d g"></span>
+          <span class="cmd">~/minha-empresa $ claude --mcp clickup</span><span class="cont">[05/10]</span></div>
+        <div class="topo"><div class="logo"><svg viewBox="0 0 24 24" width="64" height="64"><path fill="#7B68EE" d="M2 18.439l3.69-2.828c1.961 2.56 4.044 3.739 6.363 3.739 2.307 0 4.33-1.166 6.203-3.704L22 18.405C19.298 22.065 15.941 24 12.053 24 8.178 24 4.788 22.078 2 18.439zM12.04 6.15l-6.568 5.66-3.036-3.52L12.055 0l9.543 8.296-3.05 3.509z"/></svg></div><div class="nome">ClickUp</div><div class="num">05</div></div>
+        <div class="linha">&gt; o Claude distribui as tarefas da equipe</div>
+        <div class="print"><img src="assets/sites/clickup.png" alt=""/></div>
+      </div>
+      <div class="card" id="c5">
+        <div class="barra"><span class="d r"></span><span class="d y"></span><span class="d g"></span>
+          <span class="cmd">~/minha-empresa $ claude --mcp meta</span><span class="cont">[06/10]</span></div>
+        <div class="topo"><div class="logo"><svg viewBox="0 0 24 24" width="64" height="64"><path fill="#0081FB" d="M6.915 4.03c-1.968 0-3.683 1.28-4.871 3.113C.704 9.208 0 11.883 0 14.449c0 .706.07 1.369.21 1.973a6.624 6.624 0 0 0 .265.86 5.297 5.297 0 0 0 .371.761c.696 1.159 1.818 1.927 3.593 1.927 1.497 0 2.633-.671 3.965-2.444.76-1.012 1.144-1.626 2.663-4.32l.756-1.339.186-.325c.061.1.121.196.183.3l2.152 3.595c.724 1.21 1.665 2.556 2.47 3.314 1.046.987 1.992 1.22 3.06 1.22 1.075 0 1.876-.355 2.455-.843a3.743 3.743 0 0 0 .81-.973c.542-.939.861-2.127.861-3.745 0-2.72-.681-5.357-2.084-7.45-1.282-1.912-2.957-2.93-4.716-2.93-1.047 0-2.088.467-3.053 1.308-.652.57-1.257 1.29-1.82 2.05-.69-.875-1.335-1.547-1.958-2.056-1.182-.966-2.315-1.303-3.454-1.303zm10.16 2.053c1.147 0 2.188.758 2.992 1.999 1.132 1.748 1.647 4.195 1.647 6.4 0 1.548-.368 2.9-1.839 2.9-.58 0-1.027-.23-1.664-1.004-.496-.601-1.343-1.878-2.832-4.358l-.617-1.028a44.908 44.908 0 0 0-1.255-1.98c.07-.109.141-.224.211-.327 1.12-1.667 2.118-2.602 3.358-2.602zm-10.201.553c1.265 0 2.058.791 2.675 1.446.307.327.737.871 1.234 1.579l-1.02 1.566c-.757 1.163-1.882 3.017-2.837 4.338-1.191 1.649-1.81 1.817-2.486 1.817-.524 0-1.038-.237-1.383-.794-.263-.426-.464-1.13-.464-2.046 0-2.221.63-4.535 1.66-6.088.454-.687.964-1.226 1.533-1.533a2.264 2.264 0 0 1 1.088-.285z"/></svg></div><div class="nome">Meta Ads</div><div class="num">06</div></div>
+        <div class="linha">&gt; o Claude mostra qual anúncio dá venda</div>
+        <div class="print"><img src="assets/sites/meta.png" alt=""/></div>
+      </div>
+      <div class="card" id="c6">
+        <div class="barra"><span class="d r"></span><span class="d y"></span><span class="d g"></span>
+          <span class="cmd">~/minha-empresa $ claude --mcp instagram</span><span class="cont">[07/10]</span></div>
+        <div class="topo"><div class="logo"><svg viewBox="0 0 24 24" width="64" height="64"><path fill="#E4405F" d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></div><div class="nome">Instagram</div><div class="num">07</div></div>
+        <div class="linha">&gt; o Claude manda o relatório das redes toda segunda</div>
+        <div class="print"><img src="assets/sites/instagram.png" alt=""/></div>
+      </div>
+      <div class="card" id="c7">
+        <div class="barra"><span class="d r"></span><span class="d y"></span><span class="d g"></span>
+          <span class="cmd">~/minha-empresa $ claude --mcp supabase</span><span class="cont">[08/10]</span></div>
+        <div class="topo"><div class="logo"><svg viewBox="0 0 24 24" width="64" height="64"><path fill="#3FCF8E" d="M11.9 1.036c-.015-.986-1.26-1.41-1.874-.637L.764 12.05C-.33 13.427.65 15.455 2.409 15.455h9.579l.113 7.51c.014.985 1.259 1.408 1.873.636l9.262-11.653c1.093-1.375.113-3.403-1.645-3.403h-9.642z"/></svg></div><div class="nome">Supabase</div><div class="num">08</div></div>
+        <div class="linha">&gt; o Claude puxa os números do sistema</div>
+        <div class="print"><img src="assets/sites/supabase.png" alt=""/></div>
+      </div>
+      <div class="card" id="c8">
+        <div class="barra"><span class="d r"></span><span class="d y"></span><span class="d g"></span>
+          <span class="cmd">~/minha-empresa $ claude --mcp canva</span><span class="cont">[09/10]</span></div>
+        <div class="topo"><div class="logo"><svg viewBox="0 0 24 24" width="64" height="64"><path fill="#00C4CC" d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zM6.962 7.68c.754 0 1.337.549 1.405 1.2.069.583-.171 1.097-.822 1.406-.343.171-.48.172-.549.069-.034-.069 0-.137.069-.206.617-.514.617-.926.548-1.508-.034-.378-.308-.618-.583-.618-1.2 0-2.914 2.674-2.674 4.629.103.754.549 1.646 1.509 1.646.308 0 .65-.103.96-.24.5-.264.799-.47 1.097-.8-.073-.885.704-2.046 1.851-2.046.515 0 .926.205.96.583.068.514-.377.582-.514.582s-.378-.034-.378-.17c-.034-.138.309-.07.275-.378-.035-.206-.24-.274-.446-.274-.72 0-1.131.994-1.029 1.611.035.275.172.549.447.549.205 0 .514-.31.617-.755.068-.308.343-.514.583-.514.102 0 .17.034.205.171v.138c-.034.137-.137.548-.102.651 0 .069.034.171.17.171.092 0 .436-.18.777-.459.117-.59.253-1.298.253-1.357.034-.24.137-.48.617-.48.103 0 .171.034.205.171v.138l-.136.617c.445-.583 1.097-.994 1.508-.994.172 0 .309.102.309.274 0 .103 0 .274-.069.446-.137.377-.309.96-.412 1.474 0 .137.035.274.207.274.171 0 .685-.206 1.096-.754l.007-.004c-.002-.068-.007-.134-.007-.202 0-.411.035-.754.104-.994.068-.274.411-.514.617-.514.103 0 .205.069.205.171 0 .035 0 .103-.034.137-.137.446-.24.857-.24 1.269 0 .24.034.582.102.788 0 .034.035.069.07.069.068 0 .548-.445.89-1.028-.308-.206-.48-.549-.48-.96 0-.72.446-1.097.858-1.097.343 0 .617.24.617.72 0 .308-.103.65-.274.96h.102a.77.77 0 0 0 .584-.24.293.293 0 0 1 .134-.117c.335-.425.83-.74 1.41-.74.48 0 .924.205.959.582.068.515-.378.618-.515.618l-.002-.002c-.138 0-.377-.035-.377-.172 0-.137.309-.068.274-.376-.034-.206-.24-.275-.446-.275-.686 0-1.13.891-1.028 1.611.034.275.171.583.445.583.206 0 .515-.308.652-.754.068-.274.343-.514.583-.514.103 0 .17.034.205.171 0 .069 0 .206-.137.652-.17.308-.171.48-.137.617.034.274.171.48.309.583.034.034.068.102.068.102 0 .069-.034.138-.137.138-.034 0-.068 0-.103-.035-.514-.205-.72-.548-.789-.891-.205.24-.445.377-.72.377-.445 0-.89-.411-.96-.926a1.609 1.609 0 0 1 .075-.649c-.203.13-.422.203-.623.203h-.17c-.447.652-.927 1.098-1.27 1.303a.896.896 0 0 1-.377.104c-.068 0-.171-.035-.205-.104-.095-.152-.156-.392-.193-.667-.481.527-1.145.805-1.453.805-.343 0-.548-.206-.582-.55v-.376c.102-.754.377-1.2.377-1.337a.074.074 0 0 0-.069-.07c-.24 0-1.028.824-1.166 1.373l-.103.445c-.068.309-.377.515-.582.515-.103 0-.172-.035-.206-.172v-.137l.046-.233c-.435.31-.87.508-1.075.508-.308 0-.48-.172-.514-.412-.206.274-.445.412-.754.412-.352 0-.696-.24-.862-.593-.244.275-.523.553-.852.764-.48.309-1.028.549-1.68.549-.582 0-1.097-.309-1.371-.583-.412-.377-.651-.96-.686-1.509-.205-1.68.823-3.84 2.4-4.8.378-.205.755-.343 1.132-.343zm9.77 3.291c-.104 0-.172.172-.172.343 0 .274.137.583.309.755a1.74 1.74 0 0 0 .102-.583c0-.343-.137-.515-.24-.515z"/></svg></div><div class="nome">Canva</div><div class="num">09</div></div>
+        <div class="linha">&gt; o Claude faz a arte do post</div>
+        <div class="print"><img src="assets/sites/canva.png" alt=""/></div>
+      </div>
+      <div class="card" id="c9">
+        <div class="barra"><span class="d r"></span><span class="d y"></span><span class="d g"></span>
+          <span class="cmd">~/minha-empresa $ claude --mcp elevenlabs</span><span class="cont">[10/10]</span></div>
+        <div class="topo"><div class="logo"><svg viewBox="0 0 24 24" width="64" height="64"><path fill="#111111" d="M4.6035 0v24h4.9317V0zm9.8613 0v24h4.9317V0z"/></svg></div><div class="nome">ElevenLabs</div><div class="num">10</div></div>
+        <div class="linha">&gt; o Claude grava a narração dos vídeos</div>
+        <div class="print"><img src="assets/sites/elevenlabs.png" alt=""/></div>
+      </div>
+      <div id="final">
+        <div class="cmd2">~/minha-empresa $ compartilhar</div>
+        <div class="t1">Manda pro <span class="socio">sócio</span><br/>que ainda faz<br/>isso na mão 👇</div>
+        <div class="t2">📌 Salva pra montar a sua</div>
+      </div>
+      <audio id="tri" src="assets/sons/trilha.mp3" data-start="0" data-duration="19.8" data-volume="0.55"></audio>
+      <audio id="wh" src="assets/sons/whoosh.mp3" data-start="1.25" data-duration="0.8" data-volume="0.45"></audio>
+      <audio id="k0" src="assets/sons/s_clique.mp3" data-start="1.4" data-duration="0.4" data-volume="0.55"></audio>
+      <audio id="k1" src="assets/sons/s_clique.mp3" data-start="2.9" data-duration="0.4" data-volume="0.55"></audio>
+      <audio id="k2" src="assets/sons/s_clique.mp3" data-start="4.4" data-duration="0.4" data-volume="0.55"></audio>
+      <audio id="k3" src="assets/sons/s_clique.mp3" data-start="5.9" data-duration="0.4" data-volume="0.55"></audio>
+      <audio id="k4" src="assets/sons/s_clique.mp3" data-start="7.4" data-duration="0.4" data-volume="0.55"></audio>
+      <audio id="k5" src="assets/sons/s_clique.mp3" data-start="8.9" data-duration="0.4" data-volume="0.55"></audio>
+      <audio id="k6" src="assets/sons/s_clique.mp3" data-start="10.4" data-duration="0.4" data-volume="0.55"></audio>
+      <audio id="k7" src="assets/sons/s_clique.mp3" data-start="11.9" data-duration="0.4" data-volume="0.55"></audio>
+      <audio id="k8" src="assets/sons/s_clique.mp3" data-start="13.4" data-duration="0.4" data-volume="0.55"></audio>
+      <audio id="k9" src="assets/sons/s_clique.mp3" data-start="14.9" data-duration="0.4" data-volume="0.55"></audio>
+      <audio id="dg" src="assets/sons/ding.mp3" data-start="16.65" data-duration="1.0" data-volume="0.35"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      tl.fromTo("#titulo", {opacity:0, y:-40}, {opacity:1, y:0, duration:0.4, ease:"power3.out", immediateRender:false}, 0.05);
+      tl.fromTo("#c0", {opacity:0, y:60, scale:0.96}, {opacity:1, y:0, scale:1, duration:0.28, ease:"power3.out", immediateRender:false}, 1.4);
+      tl.fromTo("#c0 .num", {scale:1.6}, {scale:1, duration:0.35, ease:"back.out(2)", immediateRender:false}, 1.45);
+      tl.fromTo("#c1", {opacity:0, y:60, scale:0.96}, {opacity:1, y:0, scale:1, duration:0.28, ease:"power3.out", immediateRender:false}, 2.9);
+      tl.fromTo("#c1 .num", {scale:1.6}, {scale:1, duration:0.35, ease:"back.out(2)", immediateRender:false}, 2.9499999999999997);
+      tl.to("#c0", {opacity:0, y:-30, duration:0.22}, 2.9);
+      tl.fromTo("#c2", {opacity:0, y:60, scale:0.96}, {opacity:1, y:0, scale:1, duration:0.28, ease:"power3.out", immediateRender:false}, 4.4);
+      tl.fromTo("#c2 .num", {scale:1.6}, {scale:1, duration:0.35, ease:"back.out(2)", immediateRender:false}, 4.45);
+      tl.to("#c1", {opacity:0, y:-30, duration:0.22}, 4.4);
+      tl.fromTo("#c3", {opacity:0, y:60, scale:0.96}, {opacity:1, y:0, scale:1, duration:0.28, ease:"power3.out", immediateRender:false}, 5.9);
+      tl.fromTo("#c3 .num", {scale:1.6}, {scale:1, duration:0.35, ease:"back.out(2)", immediateRender:false}, 5.95);
+      tl.to("#c2", {opacity:0, y:-30, duration:0.22}, 5.9);
+      tl.fromTo("#c4", {opacity:0, y:60, scale:0.96}, {opacity:1, y:0, scale:1, duration:0.28, ease:"power3.out", immediateRender:false}, 7.4);
+      tl.fromTo("#c4 .num", {scale:1.6}, {scale:1, duration:0.35, ease:"back.out(2)", immediateRender:false}, 7.45);
+      tl.to("#c3", {opacity:0, y:-30, duration:0.22}, 7.4);
+      tl.fromTo("#c5", {opacity:0, y:60, scale:0.96}, {opacity:1, y:0, scale:1, duration:0.28, ease:"power3.out", immediateRender:false}, 8.9);
+      tl.fromTo("#c5 .num", {scale:1.6}, {scale:1, duration:0.35, ease:"back.out(2)", immediateRender:false}, 8.950000000000001);
+      tl.to("#c4", {opacity:0, y:-30, duration:0.22}, 8.9);
+      tl.fromTo("#c6", {opacity:0, y:60, scale:0.96}, {opacity:1, y:0, scale:1, duration:0.28, ease:"power3.out", immediateRender:false}, 10.4);
+      tl.fromTo("#c6 .num", {scale:1.6}, {scale:1, duration:0.35, ease:"back.out(2)", immediateRender:false}, 10.450000000000001);
+      tl.to("#c5", {opacity:0, y:-30, duration:0.22}, 10.4);
+      tl.fromTo("#c7", {opacity:0, y:60, scale:0.96}, {opacity:1, y:0, scale:1, duration:0.28, ease:"power3.out", immediateRender:false}, 11.9);
+      tl.fromTo("#c7 .num", {scale:1.6}, {scale:1, duration:0.35, ease:"back.out(2)", immediateRender:false}, 11.950000000000001);
+      tl.to("#c6", {opacity:0, y:-30, duration:0.22}, 11.9);
+      tl.fromTo("#c8", {opacity:0, y:60, scale:0.96}, {opacity:1, y:0, scale:1, duration:0.28, ease:"power3.out", immediateRender:false}, 13.4);
+      tl.fromTo("#c8 .num", {scale:1.6}, {scale:1, duration:0.35, ease:"back.out(2)", immediateRender:false}, 13.450000000000001);
+      tl.to("#c7", {opacity:0, y:-30, duration:0.22}, 13.4);
+      tl.fromTo("#c9", {opacity:0, y:60, scale:0.96}, {opacity:1, y:0, scale:1, duration:0.28, ease:"power3.out", immediateRender:false}, 14.9);
+      tl.fromTo("#c9 .num", {scale:1.6}, {scale:1, duration:0.35, ease:"back.out(2)", immediateRender:false}, 14.950000000000001);
+      tl.to("#c8", {opacity:0, y:-30, duration:0.22}, 14.9);
+      tl.to("#c9", {opacity:0, y:-30, duration:0.22}, 16.4);
+      tl.fromTo("#final", {opacity:0, y:60}, {opacity:1, y:0, duration:0.35, ease:"power3.out", immediateRender:false}, 16.4);
+      tl.fromTo("#final .socio", {scale:0.6}, {scale:1, duration:0.4, ease:"back.out(2.5)", immediateRender:false}, 16.65);
+      tl.set({}, {}, 19.8);
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
